@@ -8,11 +8,10 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/v1/detail/myInfo',
     method: 'get',
-    params: { token }
   })
 }
 
@@ -22,3 +21,27 @@ export function logout() {
     method: 'post'
   })
 }
+
+
+
+// export function getInfo() {
+//   return request({
+//     url: '/v1/detail/myInfo',
+//     method: 'get',
+//   })
+// }
+
+export function getMenu(){
+  return request({
+    url: '/v1/list/menu',
+    method: 'get'
+  })
+}
+export function genKey(username){
+  return axios(
+    {
+      url: 'http://10.10.10.25:40000/sms?username='+username,
+      method:'get',
+    })
+}
+
