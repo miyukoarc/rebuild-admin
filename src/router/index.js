@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import stateSettingRoutes from '@/views/stateSetting/routes'
 
 Vue.use(Router)
 
 /* Layout */
 import Layout from '@/views/index'
+import store from '@/store'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -48,11 +50,12 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: { title: 'Dashboard', icon: 'dashboard' },
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      
     }]
   },
 
@@ -81,6 +84,7 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
+    meta: { title: 'Form', icon: 'form' },
     children: [
       {
         path: 'index',
@@ -152,10 +156,11 @@ export const constantRoutes = [
   {
     path: 'external-link',
     component: Layout,
+    meta: { title: 'External Link', icon: 'link' },
     children: [
       {
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        
       }
     ]
   },
@@ -164,10 +169,15 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+
+export const asyncRoutes = [
+  stateSettingRoutes,
+]
+
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes:  constantRoutes
 })
 
 const router = createRouter()

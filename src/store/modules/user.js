@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, getMenu } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    userInfo: {},
   }
 }
 
@@ -24,6 +25,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SAVE_USERINFO: (state, info) =>{
+    state.info = info
   }
 }
 
@@ -32,10 +36,10 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.access_token)
+      login({ username: username.trim(), password: password }).then(res => {
+        const { access_token } = res
+        commit('SET_TOKEN', access_token)
+        setToken(access_token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -45,19 +49,19 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
+    console.log(1)
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
+      getInfo(state.token).then(res => {
+        // const { data } = res
+        const { nickname, headimgurl } = res
 
-        if (!data) {
+        if (!res) {
           reject('Verification failed, please Login again.')
         }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
+        commit('SAVE_USERINFO',res)
+        commit('SET_NAME', nickname)
+        commit('SET_AVATAR', headimgurl)
+        resolve(res)
       }).catch(error => {
         reject(error)
       })
@@ -84,6 +88,23 @@ const actions = {
       removeToken() // must remove  token  first
       commit('RESET_STATE')
       resolve()
+    })
+  },
+
+  getMenu ({commit}){
+    return new Promise(resolve=>{
+      getMenu().then((res)=>{
+        
+        let temp = {}
+        res.items.forEach(item=>{
+          temp[item.url] = item
+        })
+        commit('secondMenu/SET_MENUMAP',temp,{root:true})
+        
+        resolve()
+      }).catch(err=>{
+
+      })
     })
   }
 }

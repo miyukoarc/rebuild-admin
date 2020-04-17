@@ -1,6 +1,8 @@
 <template>
   <div :class="{'has-logo':showLogo}">
-    <!-- <logo v-if="showLogo" :collapse="false" /> -->
+    <div class="user-btn">
+      <user-btn/>
+    </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
@@ -11,31 +13,29 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
-      >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
-      </el-menu>
+        >
+        <sidebar-item v-for="route in accessedRouter" :key="route.path" :item="route"/>
+     </el-menu>
     </el-scrollbar>
   </div>
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
-import SidebarItem from './SidebarItem'
+import SidebarItem from './components/SidebarItem'
+import UserBtn from './components/UserBtn'
 import variables from '@/styles/variables.scss'
 
 export default {
-  components: { SidebarItem, Logo },
+  components: { SidebarItem, Logo, UserBtn },
   computed: {
-    ...mapGetters([
-      'sidebar'
-    ]),
-    routes() {
-      return this.$router.options.routes
-    },
+    ...mapGetters(['accessedRouter']),
     activeMenu() {
       const route = this.$route
       const { meta, path } = route
+
       // if set path, the sidebar will highlight the path you set
       if (meta.activeMenu) {
         return meta.activeMenu
@@ -54,3 +54,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>

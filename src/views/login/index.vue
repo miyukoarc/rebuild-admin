@@ -46,6 +46,7 @@
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
+        <el-button size="mini" type="success" style="margin-left:147px">GenKey</el-button> 
       </div>
 
     </el-form>
@@ -74,12 +75,12 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '13700000001',
+        password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        // username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        // password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
       passwordType: 'password',
