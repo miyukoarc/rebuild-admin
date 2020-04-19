@@ -1,12 +1,12 @@
 import Layout from '@/views/index.vue'
 
 export default {
-    path: '/state_setting',
-    name: 'StateSetting',
+    path: '/im_friend',
+    name: 'Friend',
     component: Layout,
-    redirect: '/state_setting/index',
+    redirect: '/im_friend/index',
     meta: { 
-        title: '状态',
+        title: '联系人',
         icon: 'example'
     },
     children: [

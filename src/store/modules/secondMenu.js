@@ -1,6 +1,9 @@
 const state = {
     menu:[],
-    menuMap: {}
+    menuMap: {},
+    hasSecondMenu: false,
+    currSecondMenu: [],
+    menuType: ''
 }
 const mutations = { 
     SAVE_MENU(state,menu){
@@ -8,9 +11,15 @@ const mutations = {
     },
     SET_MENUMAP(state,menu){
         state.menuMap = menu
-        // menu.forEach(item=>{
-        //     state.menuMap[item.url]=item
-        // })
+    },
+    TOGGLE_STATE(state, current){
+        state.hasSecondMenu = current
+    },
+    TOGGLE_TYPE(state,type){
+        state.menuType = type
+    },
+    SAVE_SECONDMENU(state,menu){
+        state.currSecondMenu = menu
     }
 }
 

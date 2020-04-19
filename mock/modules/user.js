@@ -1,4 +1,4 @@
-import virturalData  from './virtural-data'
+import virturalData  from '../virtural-data'
 const tokens = {
   admin: {
     token: 'admin-token'

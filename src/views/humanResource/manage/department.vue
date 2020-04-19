@@ -1,6 +1,6 @@
 <template>
   <div>
-      状态设置
+      <span>部门管理</span>
   </div>
 </template>
 

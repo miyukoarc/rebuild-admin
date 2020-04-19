@@ -38,12 +38,14 @@ const actions = {
     generateRoutes:({commit})=>{
         return new Promise(resolve=>{
 
-            let accessedRoutes  = filterAsyncRoutes(asyncRoutes)
+            let filtedRoutes  = filterAsyncRoutes(asyncRoutes)
             console.log(asyncRoutes)
 
-            commit('SET_ROUTE',accessedRoutes)
+            commit('SET_ROUTE',filtedRoutes)
 
-            resolve(accessedRoutes)
+            // window.localStorage.setItem('filtedRoutes',JSON.stringify(filtedRoutes))
+
+            resolve(filtedRoutes)
         })
 
         

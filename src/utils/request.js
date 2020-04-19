@@ -1,7 +1,10 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { MessageBox, Message,Loading } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import _ from 'lodash'
+
+
 
 // create an axios instance
 const service = axios.create({
@@ -10,10 +13,51 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
+//loading对象
+let loading
+
+//当前正在请求的数量
+let needLoadingRequestCount = 0;
+
+
+function showLoading(target) {
+
+  if (needLoadingRequestCount === 0 && !loading) {
+    loading = Loading.service({
+      lock: true,
+      text: "Loading...",
+      background: 'rgba(255, 255, 255, 0.5)',
+      target: target || "body"
+    });
+  }
+  needLoadingRequestCount++;
+}
+  
+
+function hideLoading() {
+  needLoadingRequestCount--;
+  needLoadingRequestCount = Math.max(needLoadingRequestCount, 0); 
+  if (needLoadingRequestCount === 0) {
+
+    toHideLoading();
+  }
+}
+
+var toHideLoading = _.debounce(()=>{
+  loading.close();
+  loading = null;
+}, 300);
+
+
+
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
+
+    if(config.headers.showLoading !== false){
+          showLoading(config.headers.loadingTarget);
+    }
 
     if (store.getters.token) {
       // let each request carry token
@@ -21,11 +65,17 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['X-Token'] = getToken()
     }
+
+    
     return config
   },
   error => {
     // do something with request error
     console.log(error) // for debug
+
+    if(config.headers.showLoading !== false){
+          showLoading(config.headers.loadingTarget);
+    }
     return Promise.reject(error)
   }
 )
@@ -44,6 +94,10 @@ service.interceptors.response.use(
    */
   response => {
     const res = response
+
+    if(response.config.headers.showLoading !== false){
+        hideLoading();
+      }
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.status !== 200) {
@@ -72,6 +126,11 @@ service.interceptors.response.use(
     }
   },
   error => {
+
+    if(error.config.headers.showLoading !== false){
+      hideLoading();
+    }
+
     console.log('err' + error) // for debug
     Message({
       message: error.message,

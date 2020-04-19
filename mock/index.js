@@ -1,12 +1,14 @@
 import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
 
-import user from './user'
-import table from './table'
+import user from './modules/user'
+import table from './modules/table'
+import stateSetting from './modules/stateSetting'
 
 const mocks = [
   ...user,
-  ...table
+  ...table,
+  ...stateSetting
 ]
 
 // for front mock

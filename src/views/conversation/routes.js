@@ -1,12 +1,12 @@
 import Layout from '@/views/index.vue'
 
 export default {
-    path: '/state_setting',
-    name: 'StateSetting',
+    path: '/im_conversation',
+    name: 'Conversation',
     component: Layout,
-    redirect: '/state_setting/index',
+    redirect: '/im_conversation/index',
     meta: { 
-        title: '状态',
+        title: '会话',
         icon: 'example'
     },
     children: [

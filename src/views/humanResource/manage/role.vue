@@ -1,6 +1,6 @@
 <template>
   <div>
-      状态设置
+      <span>role</span>
   </div>
 </template>
 

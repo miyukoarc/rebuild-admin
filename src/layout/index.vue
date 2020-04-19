@@ -53,7 +53,9 @@ export default {
 <style lang="scss" scoped>
   @import "~@/styles/mixin.scss";
   @import "~@/styles/variables.scss";
-
+.main-container{
+  height:100%;
+}
   .app-wrapper {
     @include clearfix;
     position: relative;

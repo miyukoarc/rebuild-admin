@@ -58,6 +58,8 @@ router.beforeEach(async (to, from, next) => {
           
           console.log(accessed)
 
+          // router.options.routes = accessed
+
 
           router.addRoutes(accessed)
 

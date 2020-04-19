@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import stateSettingRoutes from '@/views/stateSetting/routes'
+import humanResourceRoutes from '@/views/humanResource/routes'
+import friendRoutes from '@/views/friends/routes'
+import conversationRoutes from '@/views/conversation/routes'
+
+// import {modules} from '@/views/routes'
+
+// console.log(modules)
 
 Vue.use(Router)
 
@@ -33,7 +40,7 @@ import store from '@/store'
  * all roles can be accessed
  */
 
-export const constantRoutes = [
+export let constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -55,7 +62,6 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      
     }]
   },
 
@@ -72,18 +78,13 @@ export const constantRoutes = [
         component: () => import('@/views/table/index'),
         meta: { title: 'Table', icon: 'table' }
       },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
     ]
   },
 
   {
     path: '/form',
     component: Layout,
+    redirect: "/form/index",
     meta: { title: 'Form', icon: 'form' },
     children: [
       {
@@ -94,7 +95,7 @@ export const constantRoutes = [
       }
     ]
   },
-
+  /*
   {
     path: '/nested',
     component: Layout,
@@ -151,19 +152,19 @@ export const constantRoutes = [
         meta: { title: 'menu2' }
       }
     ]
-  },
+  },*/
 
-  {
-    path: 'external-link',
-    component: Layout,
-    meta: { title: 'External Link', icon: 'link' },
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   meta: { title: 'External Link', icon: 'link' },
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
         
-      }
-    ]
-  },
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
@@ -172,13 +173,22 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   stateSettingRoutes,
+  humanResourceRoutes,
+  conversationRoutes,
+  friendRoutes,
+  
 ]
+
+
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes:  constantRoutes
 })
+
+
+
 
 const router = createRouter()
 
@@ -187,5 +197,13 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }
+
+// if(window.localStorage.getItem('filtedRoutes')){
+//   const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
+//   console.log(filtedRoutes)
+//   router.addRoutes(filtedRoutes)
+// }
+
+
 
 export default router

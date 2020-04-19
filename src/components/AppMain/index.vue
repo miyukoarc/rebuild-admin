@@ -1,15 +1,30 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key" />
+      <div class="second-part">
+
+        <div class="menu-container" v-if="hasSecondMenu">
+          <second-menu></second-menu>
+        </div>
+        <router-view style="flex:1;" :key="key" />
+      </div>
+      
     </transition>
   </section>
 </template>
 
 <script>
+import SecondMenu from '@/components/SecondMenu'
+import {mapState} from 'vuex'
 export default {
   name: 'AppMain',
+  components:{
+    SecondMenu
+  },
   computed: {
+    ...mapState({
+      hasSecondMenu: state => state.secondMenu.hasSecondMenu
+    }),
     key() {
       return this.$route.path
     }
@@ -17,10 +32,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.second-part{
+  display: flex;
+  height: 100%;
+
+}
+.menu-container{
+  width: 200px;
+  .el-menu{
+    height:100%;
+  }
+}
 .app-main {
   /*50 = navbar  */
-  min-height: calc(100vh - 50px);
+  height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
