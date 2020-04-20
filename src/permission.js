@@ -60,6 +60,7 @@ router.beforeEach(async (to, from, next) => {
             .then(() => {
 
               store.dispatch('permission/generateRoutes')
+              
               resolve()
             })
             .catch(err => {})

@@ -10,6 +10,9 @@ const mutations = {
     },
     SAVE_ENTITY(state,entity){
         state.currentEntity = entity
+    },
+    SET_CURRENT(state,current){
+        state.currentStateList = current
     }
 }
 

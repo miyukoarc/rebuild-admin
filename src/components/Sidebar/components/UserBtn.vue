@@ -28,6 +28,7 @@
  
 <script>
 import {mapGetters} from 'vuex'
+import {removeToken} from '@/utils/auth'
 export default {
     
     data (){
@@ -40,7 +41,8 @@ export default {
     },
     methods: {
         async logout() {
-            await this.$store.dispatch('user/logout')
+            // await this.$store.dispatch('user/logout')
+            await removeToken()
             this.$router.push(`/login?redirect=${this.$route.fullPath}`)
         }
     }
