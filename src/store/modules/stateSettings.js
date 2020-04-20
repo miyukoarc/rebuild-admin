@@ -1,3 +1,5 @@
+import {getStateMachineDetail}  from '@/api/stateSetting'
+
 const state ={
     stateMachine: {},
     currentEntity: 'order',
@@ -17,7 +19,11 @@ const mutations = {
 }
 
 const actions = {
-
+    GET_STATELIST({commit},role){
+        return new Promise((resolve,reject)=>{
+            getStateMachineDetail(role).then()
+        })
+    }
 }
 
 export default{

@@ -46,9 +46,7 @@ export default {
     transferQuery(str){
       switch(str){
         case '/state_setting':
-          getStateMachineDetail().then(res=>{
-            console.log(res)
-          })
+          this.$store.dispatch('stateSettings/GET_STATELIST',this.item)
           this.$store.commit('stateSettings/SAVE_ENTITY',this.item)
           break;
         case '/human_resource':

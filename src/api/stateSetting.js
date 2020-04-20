@@ -19,11 +19,12 @@ export function getStateMachine(){
 
 export function getStateMachineDetail(params){
     return request({
-        url: '/v1/stateMachine/list',
+        url: '/v1/stateMachine/list'+params,
         method: 'get',
-        params
     })
 }
+
+
 
 
  

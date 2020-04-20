@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import stateSettingRoutes from '@/views/stateSetting/routes'
-import humanResourceRoutes from '@/views/humanResource/routes'
-import friendRoutes from '@/views/friends/routes'
-import conversationRoutes from '@/views/conversation/routes'
+// import stateSettingRoutes from '@/views/management/stateSetting/routes'
+// import humanResourceRoutes from '@/views/humanResource/routes'
+// import friendRoutes from '@/views/friends/routes'
+// import conversationRoutes from '@/views/conversation/routes'
+
+// import 
 
 // import {modules} from '@/views/routes'
 
 // console.log(modules)
 
+import asyncRouter from '@/views/routes.js'
+console.log(asyncRouter)
 Vue.use(Router)
 
 /* Layout */
@@ -171,13 +175,16 @@ export let constantRoutes = [
 ]
 
 
-export const asyncRoutes = [
-  stateSettingRoutes,
-  humanResourceRoutes,
-  conversationRoutes,
-  friendRoutes,
+// export const asyncRoutes = [...asyncRouter]
+
+// console.log(asyncRoutes)
+// [
+//   stateSettingRoutes,
+//   humanResourceRoutes,
+//   conversationRoutes,
+//   friendRoutes,
   
-]
+// ]
 
 
 
