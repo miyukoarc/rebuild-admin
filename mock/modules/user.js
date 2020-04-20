@@ -47,7 +47,7 @@ export default [
 
   // get user info
   {
-    url: '/v1/detail/myInfo\.*',
+    url: '/v1/detail/myInfo',
     type: 'get',
     response: config => {
       // const { token } = config.query

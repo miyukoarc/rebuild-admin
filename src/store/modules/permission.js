@@ -43,7 +43,7 @@ const actions = {
 
             commit('SET_ROUTE',filtedRoutes)
 
-            // window.localStorage.setItem('filtedRoutes',JSON.stringify(filtedRoutes))
+            window.localStorage.setItem('filtedRoutes',JSON.stringify(filtedRoutes))
 
             resolve(filtedRoutes)
         })

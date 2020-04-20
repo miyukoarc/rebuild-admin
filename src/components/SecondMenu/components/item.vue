@@ -16,6 +16,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import {getStateMachineDetail} from '@/api/stateSetting'
 export default {
   name: 'SidebarItem',
   props: ['item','type'],
@@ -36,12 +37,30 @@ export default {
       }
     },
     handleClick(){
+      console.log(this.menuType)
+      this.transferQuery(this.menuType)
     },
     pushRoute(){
-      this.$route.push(this.item.url)
+      this.$router.push(this.item.url)
     },
-    transferQuery(){
-        
+    transferQuery(str){
+      switch(str){
+        case '/state_setting':
+          getStateMachineDetail().then(res=>{
+            console.log(res)
+          })
+          this.$store.commit('stateSettings/SAVE_ENTITY',this.item)
+          break;
+        case '/human_resource':
+          this.pushRoute()
+          break;
+        case '/im_conversation':
+          break;
+        case '/im_friend':
+          break;
+        default: 
+          return false;
+      }
     }
   }
 

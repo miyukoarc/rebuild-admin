@@ -1,11 +1,28 @@
 import request from '@/utils/request'
+import axios from 'axios'
 
-export function login(data) {
-  return request({
-    url: '/vue-admin-template/user/login',
-    method: 'post',
-    data
-  })
+// export function login(data) {
+//   return request({
+//     url: '/vue-admin-template/user/login',
+//     method: 'post',
+//     data
+//   })
+// }
+
+export function login(data){
+  return axios(
+    {
+      url: 'http://10.10.10.226:40000/oauth/token',
+      method:'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data,
+      auth:{
+        username: 'org',
+        password: 'org@tianyoukeji'
+      }
+    })
 }
 
 export function getInfo() {
@@ -40,7 +57,7 @@ export function getMenu(){
 export function genKey(username){
   return axios(
     {
-      url: 'http://10.10.10.25:40000/sms?username='+username,
+      url: 'http://10.10.10.226:40000/sms?username='+username,
       method:'get',
     })
 }

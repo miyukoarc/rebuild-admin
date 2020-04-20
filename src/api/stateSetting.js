@@ -11,8 +11,17 @@ export function getRoles(){
 
 export function getStateMachine(){
     return request({
-        url: '/v1/list/stateMachine',
+        url: '/v1/stateMachine/list',
         method: 'get'
+    })
+}
+
+
+export function getStateMachineDetail(params){
+    return request({
+        url: '/v1/stateMachine/list',
+        method: 'get',
+        params
     })
 }
 

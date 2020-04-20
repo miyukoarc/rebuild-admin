@@ -46,7 +46,7 @@
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
-        <el-button size="mini" type="success" style="margin-left:147px">GenKey</el-button> 
+        <el-button size="mini" type="success" style="margin-left:147px" @click="handleGenKey">GenKey</el-button> 
       </div>
 
     </el-form>
@@ -55,7 +55,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-
+import {genKey} from '@/api/user'
 export default {
   name: 'Login',
   data() {
@@ -104,6 +104,11 @@ export default {
       }
       this.$nextTick(() => {
         this.$refs.password.focus()
+      })
+    },
+    handleGenKey(){
+      genKey(13700000001).then((res)=>{
+        this.loginForm.password = res.data
       })
     },
     handleLogin() {

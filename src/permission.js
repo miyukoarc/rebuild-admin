@@ -29,9 +29,11 @@ router.beforeEach(async (to, from, next) => {
   // determine whether the user has logged in
   const hasToken = getToken()
 
+
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
+      
       next({
         path: '/'
       })
@@ -39,6 +41,14 @@ router.beforeEach(async (to, from, next) => {
     } else {
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
+
+        console.log(hasGetUserInfo,'hasGetUserInfo')
+
+        // const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
+
+        // router.addRoutes(filtedRoutes)
+
+        console.log(router)
         next()
       } else {
         try {
@@ -55,8 +65,6 @@ router.beforeEach(async (to, from, next) => {
             .catch(err => {})
 
           const accessed = store.state.permission.filtedRouter
-          
-          console.log(accessed)
 
           // router.options.routes = accessed
 
@@ -64,7 +72,7 @@ router.beforeEach(async (to, from, next) => {
           router.addRoutes(accessed)
 
 
-          console.log(router)
+          
 
 
 

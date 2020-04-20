@@ -42,7 +42,6 @@ export default {
       $route:{
         handler(newVal,oldVal){
           if(newVal!=oldVal){
-            console.log(newVal.path)
             this.checkOutSecond(newVal.path)
           }
           
@@ -61,7 +60,7 @@ export default {
       },
     },
     mounted(){
-
+      console.log(this.type)
     },
     methods:{
       checkOutSecond(path){
@@ -101,8 +100,9 @@ export default {
       },
       getStateMachine(){
         return getStateMachine().then(async res=>{
-          console.log(res.items)
           this.menuList = await Object.keys(res.items)
+
+          await this.$store.commit('stateSettings/SAVE_STATEMACHINE',res.items)
           console.log(this.menuList)
         })
       },
