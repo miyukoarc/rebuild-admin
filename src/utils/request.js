@@ -8,7 +8,8 @@ import _ from 'lodash'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: 'http://10.10.10.226:40001/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -66,7 +67,6 @@ service.interceptors.request.use(
       config.headers['Authorization'] = "Bearer "+ getToken()
     }
 
-    
     return config
   },
   error => {
@@ -93,6 +93,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    // const res = response.data
     const res = response
 
     if(response.config.headers.showLoading !== false){

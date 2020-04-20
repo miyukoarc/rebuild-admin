@@ -2,7 +2,6 @@ import { login, logout, getInfo, getMenu } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import qs from 'qs'
-
 const getDefaultState = () => {
   return {
     token: getToken(),
@@ -37,14 +36,19 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login(qs.stringify({ username: username.trim(), 
-        password: password,
-        grant_type: 'password',
-        type: 'sms'
-      })).then(res => {
-        const { access_token } = res
-        commit('SET_TOKEN', access_token)
-        setToken(access_token)
+      login(
+        // { username: username.trim(), password: password }
+        qs.stringify({ username: username.trim(), 
+          password: password,
+          grant_type: 'password',
+          type: 'sms'
+        })
+        
+        ).then(async res => {
+        const { access_token } = res.data
+        console.log(res)
+        await commit('SET_TOKEN', access_token)
+        await setToken(access_token)
         resolve()
       }).catch(error => {
         reject(error)
