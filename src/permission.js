@@ -31,6 +31,11 @@ router.beforeEach(async (to, from, next) => {
 
 
   if (hasToken) {
+
+    await store.dispatch('user/getMenu').then(()=>{
+      store.dispatch('permission/generateRoutes')
+    })
+
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       
@@ -42,35 +47,27 @@ router.beforeEach(async (to, from, next) => {
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
 
-        console.log(hasGetUserInfo,'hasGetUserInfo')
+       
 
-        // const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
+        const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
 
-        // router.addRoutes(filtedRoutes)
+        // console.log(hasGetUserInfo,filtedRoutes,'hasGetUserInfo')
 
-        console.log(router)
+
+        
         next()
       } else {
         try {
           // get user info
-          const userInfo = store.dispatch('user/getInfo')
-          const userMenu = store.dispatch('user/getMenu')
-
-          await Promise.all([userInfo, userMenu])
-            .then(() => {
-
-              store.dispatch('permission/generateRoutes')
-              
-              resolve()
-            })
-            .catch(err => {})
+          // const userInfo = 
+          store.dispatch('user/getInfo')
 
           const accessed = store.state.permission.filtedRouter
 
           // router.options.routes = accessed
+          console.log(accessed,'过滤后的权限路由')
 
-
-          router.addRoutes(accessed)
+          router.addRoutes([...accessed,{ path: '*', redirect: '/404', hidden: true }])
 
 
           

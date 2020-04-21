@@ -12,7 +12,7 @@ import axios from 'axios'
 export function login(data){
   return axios(
     {
-      url: 'http://10.10.10.226:40000/oauth/token',
+      url: 'http://10.10.10.105:40000/oauth/token',
       method:'post',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -57,7 +57,7 @@ export function getMenu(){
 export function genKey(username){
   return axios(
     {
-      url: 'http://10.10.10.226:40000/sms?username='+username,
+      url: 'http://10.10.10.105:40000/sms?username='+username,
       method:'get',
     })
 }

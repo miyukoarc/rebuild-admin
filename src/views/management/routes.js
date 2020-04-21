@@ -1,20 +1,23 @@
 import Layout from '@/views/index.vue'
+import departmentList from './department/list.vue'
+import roleList from './role/list.vue'
+import stateSettingList from './stateSetting/list'
 
 export default [
     {
-        path: '/department/list',
+        path: 'department/list',
         name: 'Department',
-        component: ()=>import('./department/list.vue'),
+        component: departmentList,
     },
     {
-        path: '/role/list',
+        path: 'role/list',
         name: 'Role',
-        component: ()=>import('./role/list.vue'),
+        component: roleList,
     },
     {
-        path: '/stateSetting/list',
+        path: 'stateSetting/list',
         name: 'stateSetting',
-        component: ()=>import('./stateSetting/list')
+        component: stateSettingList
     }
 
 ]

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!item.hidden" @click="genSecondMenu(item)">
+  <div v-if="!item.hidden">
       <app-link :to="item.path">
         <el-menu-item :index="item.name">
           <icon-item :icon="item.meta&&item.meta.icon" :title="item.meta&&item.meta.title" />
@@ -42,9 +42,6 @@ export default {
                 this.$store.commit('secondMenu/SAVE_SECONDMENU',currSecondMenu)
                 this.$store.commit('secondMenu/TOGGLE_STATE',true)
             }else this.$store.commit('secondMenu/TOGGLE_STATE', false)
-            
-            
-
         }
     }
 

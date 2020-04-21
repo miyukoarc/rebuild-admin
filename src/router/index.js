@@ -12,7 +12,7 @@ import Router from 'vue-router'
 // console.log(modules)
 
 import asyncRouter from '@/views/routes.js'
-console.log(asyncRouter)
+
 Vue.use(Router)
 
 /* Layout */
@@ -169,22 +169,15 @@ export let constantRoutes = [
   //     }
   //   ]
   // },
+  // ...asyncRouter,
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  
 ]
 
 
-// export const asyncRoutes = [...asyncRouter]
+export const asyncRoutes = [...asyncRouter]
 
-// console.log(asyncRoutes)
-// [
-//   stateSettingRoutes,
-//   humanResourceRoutes,
-//   conversationRoutes,
-//   friendRoutes,
-  
-// ]
 
 
 

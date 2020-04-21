@@ -7,12 +7,15 @@ function filterAsyncRoutes(routes){
     const res = []
 
     const menu = store.state.secondMenu.menuMap
-    routes.forEach(route=>{
+    routes.children.forEach(route=>{
         Object.keys(menu).forEach(url=>{
-            if(!url.includes('http')){
-                if(url==route.path){
-                    res.push(route)
-                }
+            // if(!url.includes('http')){
+            //     if(route.path){
+            //         res.push(route)
+            //     }
+            // }
+            if(url.includes(route.path)){
+                res.push(route)
             }
         })
     })
@@ -30,7 +33,6 @@ const mutations = {
         state.filtedRouter = routes
         state.unlimitedRouter = constantRoutes
         state.accessedRouter = constantRoutes.concat(routes)
-
     }
 }
 
@@ -38,14 +40,15 @@ const actions = {
     generateRoutes:({commit})=>{
         return new Promise(resolve=>{
 
-            let filtedRoutes  = filterAsyncRoutes(asyncRoutes)
+            // let filtedRoutes  = filterAsyncRoutes(asyncRoutes)
+
             console.log(asyncRoutes)
 
-            commit('SET_ROUTE',filtedRoutes)
+            commit('SET_ROUTE',asyncRoutes)
 
-            window.localStorage.setItem('filtedRoutes',JSON.stringify(filtedRoutes))
+            window.localStorage.setItem('filtedRoutes',JSON.stringify(asyncRoutes))
 
-            resolve(filtedRoutes)
+            resolve()
         })
 
         
