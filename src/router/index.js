@@ -11,12 +11,12 @@ import Router from 'vue-router'
 
 // console.log(modules)
 
-import asyncRouter from '@/views/routes.js'
+import dynamicRouter from '@/views/routes.js'
 
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/views/index'
+import Layout from '@/views/layout'
 import store from '@/store'
 
 /**
@@ -44,16 +44,16 @@ import store from '@/store'
  * all roles can be accessed
  */
 
-export let constantRoutes = [
+export let staticRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
+    path: '/s/login',
+    component: () => import('@/views/login'),
     hidden: true
   },
 
   {
-    path: '/404',
-    component: () => import('@/views/404/index'),
+    path: '/s/404',
+    component: () => import('@/views/404'),
     hidden: true
   },
 
@@ -67,38 +67,7 @@ export let constantRoutes = [
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
     }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    redirect: "/form/index",
-    meta: { title: 'Form', icon: 'form' },
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
+  }
   /*
   {
     path: '/nested',
@@ -176,7 +145,7 @@ export let constantRoutes = [
 ]
 
 
-export const asyncRoutes = [...asyncRouter]
+export const dynamicRoutes = [...dynamicRouter]
 
 
 
@@ -184,7 +153,7 @@ export const asyncRoutes = [...asyncRouter]
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes:  constantRoutes
+  routes:  staticRoutes
 })
 
 

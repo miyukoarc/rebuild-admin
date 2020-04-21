@@ -1,4 +1,4 @@
-import Layout from '@/views/index.vue'
+
 import departmentList from './department/list.vue'
 import roleList from './role/list.vue'
 import stateSettingList from './stateSetting/list'

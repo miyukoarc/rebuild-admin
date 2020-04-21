@@ -1,14 +1,16 @@
-import Layout from './index.vue'
+import Layout from './layout.vue'
 
 const files = require.context('../views', true ,/\.js$/)
 
 // console.log(files.keys())
-let accessedRoutes = []
+
+let dynamicRoutes = []
+
 files.keys().forEach(key=>{
 
 
     if(key!=='./routes.js'){
-      accessedRoutes = accessedRoutes.concat(files(key).default)
+      dynamicRoutes = dynamicRoutes.concat(files(key).default)
     }
     
 
@@ -18,9 +20,9 @@ files.keys().forEach(key=>{
 
 export default [
   {
-    path: '/accessed/:modules',
+    path: '/d/:modules',
     component:Layout,
     name: 'AccessedRouter',
-    children: accessedRoutes
+    children: dynamicRoutes
   }
 ]
