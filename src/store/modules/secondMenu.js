@@ -14,10 +14,10 @@ const mutations = {
     },
     TOGGLE_STATE(state, current){
         state.hasSecondMenu = current
-    },
+    },//二级菜单是否展示
     TOGGLE_TYPE(state,type){
         state.menuType = type
-    },
+    },//菜单类型
     SAVE_SECONDMENU(state,menu){
         state.currSecondMenu = menu
     }

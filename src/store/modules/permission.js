@@ -3,25 +3,7 @@ import {constantRoutes,asyncRoutes} from '@/router'
 /**
  * 过滤权限路由表,将之与后台获取的menu作比较,menu中存在什么就将权限路由表中对应的加入到新生成的表中
  */
-function filterAsyncRoutes(routes){
-    const res = []
 
-    const menu = store.state.secondMenu.menuMap
-    routes.children.forEach(route=>{
-        Object.keys(menu).forEach(url=>{
-            // if(!url.includes('http')){
-            //     if(route.path){
-            //         res.push(route)
-            //     }
-            // }
-            if(url.includes(route.path)){
-                res.push(route)
-            }
-        })
-    })
-    console.log(res,'filter函数中过滤后的路由')
-    return res
-}
 
 const state = {
     unlimitedRouter: [],//无限制路由

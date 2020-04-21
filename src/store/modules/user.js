@@ -46,7 +46,6 @@ const actions = {
         
         ).then(async res => {
         const { access_token } = res.data
-        console.log(res)
         await commit('SET_TOKEN', access_token)
         await setToken(access_token)
         resolve()
@@ -58,7 +57,6 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
-    console.log(1)
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(res => {
         // const { data } = res

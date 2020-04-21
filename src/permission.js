@@ -13,6 +13,8 @@ import {
   resolvePlugin
 } from '@babel/core'
 
+import {isEmpty} from '@/utils/normal'
+
 NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
@@ -27,15 +29,16 @@ router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
+
+  if(!isEmpty(router.history.current.params)){
+    console.log(router)
+  }
+  
   const hasToken = getToken()
 
 
+
   if (hasToken) {
-
-    await store.dispatch('user/getMenu').then(()=>{
-      store.dispatch('permission/generateRoutes')
-    })
-
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       
@@ -47,32 +50,45 @@ router.beforeEach(async (to, from, next) => {
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
 
-       
+        console.log(hasGetUserInfo,'hasGetUserInfo')
 
-        const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
+        console.log(router)
 
-        // console.log(hasGetUserInfo,filtedRoutes,'hasGetUserInfo')
-
+        const secondMenuState = window.localStorage.getItem('hasSecondMenu')
 
         
+        if(isEmpty(router.history.current.params)){
+          
+          store.commit('secondMenu/TOGGLE_STATE', secondMenuState)
+        }
+        
+
+        
+
+        // const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
+
+        // router.addRoutes(filtedRoutes)
         next()
       } else {
         try {
           // get user info
-          // const userInfo = 
-          store.dispatch('user/getInfo')
+          const userInfo = store.dispatch('user/getInfo')
+          const userMenu = store.dispatch('user/getMenu')
+
+          await Promise.all([userInfo, userMenu])
+            .then(() => {
+
+              store.dispatch('permission/generateRoutes')
+              
+              resolve()
+            })
+            .catch(err => {})
 
           const accessed = store.state.permission.filtedRouter
 
           // router.options.routes = accessed
-          console.log(accessed,'过滤后的权限路由')
 
-          router.addRoutes([...accessed,{ path: '*', redirect: '/404', hidden: true }])
-
-
-          
-
-
+          router.addRoutes(accessed)
 
           next({
             ...to,

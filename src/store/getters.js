@@ -6,6 +6,6 @@ const getters = {
   name: state => state.user.name,
   accessedRouter: state=> state.permission.accessedRouter,
   department: state => state.humanResource.department,
-  filtedRouter: state=>state.permission.filtedRouter&&state.permission.filtedRouter.children
+  hasSecondMenu: state => state.secondMenu.hasSecondMenu
 }
 export default getters

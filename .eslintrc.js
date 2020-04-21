@@ -38,7 +38,7 @@ module.exports = {
       'properties': 'always'
     }],
     'comma-dangle': [2, 'never'],
-    'comma-spacing': [2, {
+    'comma-spacing': [1, {
       'before': false,
       'after': true
     }],
@@ -46,7 +46,7 @@ module.exports = {
     'constructor-super': 2,
     'curly': [2, 'multi-line'],
     'dot-location': [2, 'property'],
-    'eol-last': 2,
+    'eol-last': 1,
     'eqeqeq': ["error", "always", {"null": "ignore"}],
     'generator-star-spacing': [2, {
       'before': true,
@@ -142,7 +142,7 @@ module.exports = {
     }],
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
-    'no-unused-vars': [2, {
+    'no-unused-vars': [1, {
       'vars': 'all',
       'args': 'none'
     }],
@@ -166,7 +166,7 @@ module.exports = {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [2, 'never'],
+    'semi': [1, 'never'],
     'semi-spacing': [2, {
       'before': false,
       'after': true
