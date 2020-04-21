@@ -105,7 +105,7 @@ const actions = {
         let temp = {}
         res.items.forEach(item=>{
           if(!item.url.includes('http')){
-            temp[item.url.split('/')[1]] = item
+            temp[item.url.split('/')[2]] = item
           }else{
             temp['store'] = item
           }

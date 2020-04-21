@@ -3,6 +3,7 @@ const state = {
     menuMap: {},
     hasSecondMenu: false,
     currSecondMenu: [],
+    menuModule: '',
     menuType: ''
 }
 const mutations = { 
@@ -20,6 +21,9 @@ const mutations = {
     },//菜单类型
     SAVE_SECONDMENU(state,menu){
         state.currSecondMenu = menu
+    },
+    SAVE_MODULE(state,module){
+        state.menuModule = module
     }
 }
 

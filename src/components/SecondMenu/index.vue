@@ -9,7 +9,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="(item,index) in currSecondMenu" :key="index||item.name" :item="item" :type="menuType"/>
+        <sidebar-item v-for="(item,index) in currSecondMenu" :key="index||item.name" :item="item"/>
      </el-menu>
     <!-- </el-scrollbar> -->
 </template>

@@ -19,7 +19,7 @@ NProgress.configure({
   showSpinner: false
 }) // NProgress Configuration
 
-const whiteList = ['/s/login'] // no redirect whitelist
+const whiteList = ['/d/login'] // no redirect whitelist
 
  router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -39,7 +39,7 @@ const whiteList = ['/s/login'] // no redirect whitelist
 
 
   if (hasToken) {
-    if (to.path === '/s/login') {
+    if (to.path === '/d/login') {
       // if is logged in, redirect to the home page
       
       next({
@@ -54,13 +54,13 @@ const whiteList = ['/s/login'] // no redirect whitelist
 
         console.log(router)
 
-        const secondMenuState = window.localStorage.getItem('hasSecondMenu')
+        // const secondMenuState = window.localStorage.getItem('hasSecondMenu')
 
         
-        if(isEmpty(router.history.current.params)){
+        // if(isEmpty(router.history.current.params)){
           
-          store.commit('secondMenu/TOGGLE_STATE', secondMenuState)
-        }
+        //   store.commit('secondMenu/TOGGLE_STATE', secondMenuState)
+        // }
         
 
         
@@ -88,7 +88,10 @@ const whiteList = ['/s/login'] // no redirect whitelist
 
           // router.options.routes = accessed
 
-          router.addRoutes(accessed)
+          router.addRoutes([...accessed,{path:'*',redirect:'/d/404'}])
+
+
+          console.log(router)
 
           next({
             ...to,
@@ -98,7 +101,7 @@ const whiteList = ['/s/login'] // no redirect whitelist
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
-          next(`/s/login?redirect=${to.path}`)
+          next(`/d/login?redirect=${to.path}`)
           NProgress.done()
         }
       }
@@ -111,7 +114,7 @@ const whiteList = ['/s/login'] // no redirect whitelist
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/s/login?redirect=${to.path}`)
+      next(`/d/login?redirect=${to.path}`)
       NProgress.done()
     }
   }

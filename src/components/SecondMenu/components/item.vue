@@ -19,10 +19,11 @@ import {mapState} from 'vuex'
 import {getStateMachineDetail} from '@/api/stateSetting'
 export default {
   name: 'SidebarItem',
-  props: ['item','type'],
+  props: ['item'],
   computed:{
     ...mapState({
-      menuType: state => state.secondMenu.menuType
+      menuType: state => state.secondMenu.menuType,
+      menuModule: state => state.secondMenu.menuModule
     })
   },
   mounted(){
@@ -37,28 +38,25 @@ export default {
       }
     },
     handleClick(){
-      console.log(this.menuType)
-      this.transferQuery(this.menuType)
+      console.log(this.menuType,this.item,this.menuModule)
+
+      switch(this.menuType){
+        case 'transfer':
+          // this.$store.dispatch('stateSettings/GET_STATELIST',this.item)
+          // this.$store.commit('stateSettings/SAVE_ENTITY',this.item)
+          break;
+        case 'router':
+          this.pushRoute()
+          break;
+      
+      }
+      // this.transferQuery(this.menuType)
     },
     pushRoute(){
       this.$router.push(this.item.url)
     },
     transferQuery(str){
-      switch(str){
-        case '/state_setting':
-          this.$store.dispatch('stateSettings/GET_STATELIST',this.item)
-          this.$store.commit('stateSettings/SAVE_ENTITY',this.item)
-          break;
-        case '/human_resource':
-          this.pushRoute()
-          break;
-        case '/im_conversation':
-          break;
-        case '/im_friend':
-          break;
-        default: 
-          return false;
-      }
+      console.log(str)
     }
   }
 

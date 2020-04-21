@@ -28,7 +28,7 @@ const actions = {
 
             commit('SET_ROUTE',dynamicRoutes)
 
-            window.localStorage.setItem('filtedRoutes',JSON.stringify(dynamicRoutes))
+            // window.localStorage.setItem('filtedRoutes',JSON.stringify(dynamicRoutes))
 
             resolve()
         })

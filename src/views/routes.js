@@ -13,12 +13,12 @@ files.keys().forEach(key=>{
       dynamicRoutes = dynamicRoutes.concat(files(key).default)
     }
     
-
 })
 
 
 
 export default [
+
   {
     path: '/d/:modules',
     component:Layout,

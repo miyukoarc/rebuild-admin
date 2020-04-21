@@ -4,8 +4,7 @@
       <user-btn/>
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-
+      <!-- <el-menu
         :collapse="true"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
@@ -15,7 +14,7 @@
         mode="vertical"
         >
         <sidebar-item v-for="route in accessedRouter.slice(0,accessedRouter.length-1)" :key="route.path" :item="route"/>
-     </el-menu>
+     </el-menu> -->
 
      <el-menu
       :collapse="true"
@@ -27,7 +26,6 @@
         mode="vertical"
      >
      <accessed-item v-for="item in menu" :key="item.code" :item="item"></accessed-item>
-
     </el-menu>
     </el-scrollbar>
   </div>

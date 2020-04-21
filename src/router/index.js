@@ -46,13 +46,13 @@ import store from '@/store'
 
 export let staticRoutes = [
   {
-    path: '/s/login',
+    path: '/d/login',
     component: () => import('@/views/login'),
     hidden: true
   },
 
   {
-    path: '/s/404',
+    path: '/d/404',
     component: () => import('@/views/404'),
     hidden: true
   },
@@ -60,10 +60,10 @@ export let staticRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/s/dashboard',
+    redirect: '/d/dashboard',
     meta: { title: 'Dashboard', icon: 'dashboard' },
     children: [{
-      path: 's/dashboard',
+      path: 'd/dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
     }]
