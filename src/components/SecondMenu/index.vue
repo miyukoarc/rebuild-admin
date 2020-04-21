@@ -9,7 +9,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="(item,index) in menuList" :key="index||item.name" :item="item" :type="$route.path"/>
+        <sidebar-item v-for="(item,index) in currSecondMenu" :key="index||item.name" :item="item" :type="menuType"/>
      </el-menu>
     <!-- </el-scrollbar> -->
 </template>
@@ -32,17 +32,19 @@ export default {
         }
     },
     watch: {
-      menuList:{
-        handler(newVal,oldVal){
-          console.log(newVal)
-        },  
-        deep:true,
-        immediate:true
-      }
+      // menuList:{
+      //   handler(newVal,oldVal){
+      //     console.log(newVal)
+      //   },  
+      //   deep:true,
+      //   immediate:true
+      // }
     },
     computed:{
       ...mapState({
+        menuType: state=>state.secondMenu.menuType,
         menuMap:state=>state.secondMenu.menuMap,
+        currSecondMenu:state => state.secondMenu.currSecondMenu
       }),
       variables() {
         return variables
@@ -51,31 +53,6 @@ export default {
     mounted(){
     },
     methods:{
-      getStateMachine(){
-        return getStateMachine().then(async res=>{
-          this.menuList = await Object.keys(res.items)
-          await this.$store.commit('stateSettings/SAVE_STATEMACHINE',res.items)
-          console.log(this.menuList)
-        })
-      },
-      getFriend(){
-        this.menuList = [
-          {
-            name:'朋友1'
-          }
-        ]
-      },
-      getConversation(){
-        this.menuList = [
-          {
-            name: '会话1'
-          }
-        ]
-      },
-      getHumanResource(){
-        this.menuList = this.menuMap['/human_resource'].children
-        console.log(this.menuMap['/human_resource'].children)
-      }
 
 
     }

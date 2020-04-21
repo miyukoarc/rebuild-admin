@@ -104,7 +104,12 @@ const actions = {
         
         let temp = {}
         res.items.forEach(item=>{
-          temp[item.url] = item
+          if(!item.url.includes('http')){
+            temp[item.url.split('/')[1]] = item
+          }else{
+            temp['store'] = item
+          }
+          
         })
         commit('secondMenu/SET_MENUMAP',temp,{root:true})
         commit('secondMenu/SAVE_MENU',res.items,{root:true})

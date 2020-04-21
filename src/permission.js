@@ -43,7 +43,7 @@ const whiteList = ['/s/login'] // no redirect whitelist
       // if is logged in, redirect to the home page
       
       next({
-        path: '/'
+        path: '/s'
       })
       NProgress.done()
     } else {

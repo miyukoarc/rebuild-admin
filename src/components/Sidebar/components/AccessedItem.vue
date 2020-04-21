@@ -24,43 +24,51 @@ export default {
     required: true
   },
   computed: {
+    ...mapState({
+    //   hasSecondMenu: state => state.secondMenu.hasSecondMenu,
+      menuType: state => state.secondMenu.menuType,
+      menuMap:state => state.secondMenu.menuMap
+    }),
       ...mapGetters(['hasSecondMenu'])
   },
   methods: {
-    ...mapState({
-    //   hasSecondMenu: state => state.secondMenu.hasSecondMenu,
-      menuType: state => state.secondMenu.menuType
-    }),
+    
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
     handleSecondMenu(item) {
       this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
+      console.log(this.menuMap,type)
       switch (type) {
-        // case 'store':
-        //  this.$store.commit('secondMenu/TOGGLE_STATE',false)
-        //   break;
         case 'friend':
           if(this.menuType!='transfer'){
             this.TOGGLE_TYPE('transfer')
           }
           this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'小明'}])
           break;
+
         case 'conversation':
-            if(this.menuType!='transfer'){
-                this.TOGGLE_TYPE('transfer')
-            }
+          if(this.menuType!='transfer'){
+              this.TOGGLE_TYPE('transfer')
+          }
           this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'消息1'}])
+
           break;
         case 'management':
-            if(this.menuType!='router'){
-                this.TOGGLE_TYPE('router')
-            }
+          if(this.menuType!='router'){
+              this.TOGGLE_TYPE('router')
+          }
           this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type].children)
+
           break;
         default:
           this.TOGGLE_TYPE('transfer')
           this.$store.commit('secondMenu/TOGGLE_STATE',false)
+          // this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type])
           break;
       }
       window.localStorage.setItem('hasSecondMenu',this.hasSecondMenu)
@@ -68,7 +76,7 @@ export default {
     filterPath(url) {
       if (url.includes('http')) {
         return '#'
-      } else return '/accessed' + url
+      } else return '/d' + url
     },
     classifyUrl(url) {
       let key

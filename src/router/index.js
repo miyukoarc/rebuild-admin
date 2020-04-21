@@ -60,10 +60,10 @@ export let staticRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/s/dashboard',
     meta: { title: 'Dashboard', icon: 'dashboard' },
     children: [{
-      path: 'dashboard',
+      path: 's/dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
     }]
