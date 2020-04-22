@@ -4,12 +4,14 @@
         :collapse="false"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
-        :unique-opened="true"
+        :unique-opened="false"
+        :default-openeds="openArr"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
+        :default-active="$route.path"
         mode="vertical"
       >
-        <sidebar-item v-for="(item,index) in currSecondMenu" :key="index||item.name" :item="item"/>
+        <sidebar-item v-for="(item,index) in currSecondMenu" :key="item.url||index" :item="item"/>
      </el-menu>
     <!-- </el-scrollbar> -->
 </template>
@@ -44,7 +46,8 @@ export default {
       ...mapState({
         menuType: state=>state.secondMenu.menuType,
         menuMap:state=>state.secondMenu.menuMap,
-        currSecondMenu:state => state.secondMenu.currSecondMenu
+        currSecondMenu:state => state.secondMenu.currSecondMenu,
+        openArr: state=>state.secondMenu.openArr
       }),
       variables() {
         return variables
@@ -53,7 +56,9 @@ export default {
     mounted(){
     },
     methods:{
+      openArray(){
 
+      }
 
     }
 }

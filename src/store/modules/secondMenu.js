@@ -1,8 +1,10 @@
+import {treeNode} from '@/utils/normal'
 const state = {
     menu:[],
     menuMap: {},
     hasSecondMenu: false,
     currSecondMenu: [],
+    openArr: [],
     menuModule: '',
     menuType: ''
 }
@@ -24,6 +26,9 @@ const mutations = {
     },
     SAVE_MODULE(state,module){
         state.menuModule = module
+    },
+    SET_OPENARR(state,menu){
+        state.openArr = treeNode(menu,'name')
     }
 }
 

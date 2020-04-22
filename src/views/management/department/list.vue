@@ -16,7 +16,7 @@
       </el-button>
 
       <el-button type="info" size="mini" @click.native="handleRefresh" plain>
-        <i class="el-icon-refresh" ></i>
+        <i class="el-icon-refresh"></i>
         刷新数据
       </el-button>
     </div>
@@ -36,10 +36,10 @@
       :expand-on-click-node="false"
     >
       <span class="custom-tree-node" slot-scope="{node, data}">
-           <span>{{data.name}}</span>
-           <span>
-             <el-button type="text" size="mini" @click="()=>handleDetail(node,data)">查看详情</el-button>
-           </span>
+        <span>{{data.name}}</span>
+        <span>
+          <el-button type="text" size="mini" @click="()=>handleDetail(node,data)">查看详情</el-button>
+        </span>
       </span>
     </el-tree>
 
@@ -67,42 +67,46 @@
       </template>
     </el-dialog>
 
-    <el-drawer
-      :visable.sync="showDetail"
-      size="50%"
-      :append-to-body="true"
-    >
+    <right-panel>
+      <div>
+        <change-form></change-form>
+        <!-- <relation-card></relation-card> -->
+      </div>
       
-    </el-drawer>
-
-
+    </right-panel>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Tips from '@/components/Tips'
+import RightPanel from '@/components/RightPanel'
+// import RelationCard from  './card'
+import ChangeForm from './form.vue'
 export default {
   components: {
-    Tips
+    Tips,
+    RightPanel,
+    ChangeForm,
+    // RelationCard
   },
   data() {
     return {
       tipsMsg: '请注意请注意',
       showDialog: false,
-      showDetail: false,
+      // showDetail: false,
       formData: {
         name: '',
         code: '',
         org: ''
-      },//create
-      changeFormData:{
+      }, //create
+      changeFormData: {
         name: '',
         code: '',
         uuid: '',
         parent: '',
         org: ''
-      },//
+      }, //updata
       departmentUser: [],
       allNode: 0,
       rules: {
@@ -121,7 +125,7 @@ export default {
     ...mapState({
       org: state => state.user.info.org
     }),
-    ...mapGetters(['department']),
+    ...mapGetters(['department'])
   },
   async mounted() {
     // await this.getDepartment()
@@ -131,43 +135,49 @@ export default {
     console.log(this.department)
   },
   methods: {
-    getOrgUuid(){
+    getOrgUuid() {
       this.formData.org = this.org.uuid
       this.changeFormData.org = this.org.uuid
     },
     handleDragLeave(draggingNode, dropNode, ev) {
-        console.log('tree drag leave: ', dropNode);
+      // console.log('tree drag leave: ', dropNode);
     },
     handleDragOver(draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode);
+      // console.log('tree drag over: ', dropNode);
     },
-    handleRefresh(){
+    handleRefresh() {
       this.$store.dispatch('department/getDepartment')
       // this.getDepartment()
     },
-     handleDragEnd(draggingNode, dropNode, dropType, ev) {
-        // console.log('tree drag end: ', dropNode, dropType);
-        if(dropType=='before'){
-          this.changeFormData.parent = null
-        }else this.changeFormData.parent = dropNode.data.uuid
-        this.$store.dispatch('department/updateDepartment',this.changeFormData).then(()=>{
+    handleDragEnd(draggingNode, dropNode, dropType, ev) {
+      console.log('tree drag end: ', dropNode, dropType)
+      if (dropType == 'before') {
+        this.changeFormData.parent = null
+      }
+      if (dropType == 'inner') {
+        this.changeFormData.parent = dropNode.data.uuid
+      }
+      // else
+      this.$store
+        .dispatch('department/updateDepartment', this.changeFormData)
+        .then(() => {
           this.$store.dispatch('department/getDepartment')
         })
-
-        // this.updateDepartment(this.changeFormData).then(()=>{
-        //   this.getDepartment()
-        // })
     },
-    handleDragStart(node,ev){
+    handleDragStart(node, ev) {
       // console.log('drag start',node,ev)
       this.changeFormData.name = node.data.name
       this.changeFormData.code = node.data.code
       this.changeFormData.uuid = node.data.uuid
     },
-    async handleDetail(node,data){
-      console.log(node,data)
-      // this.getDepartmentUser()
-      await this.$store.dispatch('department/getDepartmentUser',node.data.uuid)
+    handleDetail(node, data) {
+      console.log(node, data)
+
+      this.$store
+        .dispatch('department/getDepartmentDetail', data.uuid)
+        .then(_ => {
+          this.$store.commit('component/TOGGLE_PANEL', true)
+        })
     },
     treeNode(arr) {
       arr.forEach(item => {
@@ -178,18 +188,20 @@ export default {
       })
     },
     handleForm() {
-      this.$store.dispatch('department/createDepartment',this.formData).then(async()=>{
-        this.$store.dispatch('department/getDepartment')
-        this.showDialog = false
-      })
+      this.$store
+        .dispatch('department/createDepartment', this.formData)
+        .then(async () => {
+          this.$store.dispatch('department/getDepartment')
+          this.showDialog = false
+        })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.custom-tree-node{
-   flex: 1;
+.custom-tree-node {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -50,7 +50,7 @@ export function logout() {
 
 export function getMenu(){
   return request({
-    url: '/v1/list/menu',
+    url: '/v1/list/menuTree',
     method: 'get'
   })
 }

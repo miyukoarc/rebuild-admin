@@ -3,3 +3,15 @@ export function isEmpty(obj){
         return false
     }return true
 }
+
+let temp = []
+
+export function treeNode(tree=[],key='name'){
+    tree.forEach(item=>{
+        temp.push(item[key])
+        if(item[key]!=undefined){
+            treeNode(item.children,key)
+        }
+    })
+    return temp
+}

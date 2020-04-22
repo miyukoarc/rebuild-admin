@@ -1,8 +1,12 @@
-import {getDepartment,createDepartment,updateDepartment,getDepartmentUser} from '@/api/department'
+import {getDepartment,createDepartment,updateDepartment,getDepartmentUser,getDepartmentDetail} from '@/api/department'
 import {Message} from 'element-ui'
 const state ={
     department: [],
-    currentUsers: []
+    currentUsers: [],
+    currentDetail: {},
+    currentParent: {},
+    currentChildren: [],
+    // relationNest: {}
 }
 
 const mutations = {
@@ -11,6 +15,16 @@ const mutations = {
     },
     SAVE_USERS(state,users){
         state.currentUsers = users
+    },
+    SAVE_DETAIL(state,detail){
+        state.currentDetail = detail
+        if(detail.parent){
+            state.currentParent = detail.parent
+        }
+        if(detail.children.length){
+            state.currentChildren = detail.children
+        }
+        
     }
 }
 
@@ -75,6 +89,17 @@ const actions = {
         return new Promise((resolve,reject)=>{
             getDepartmentUser(id).then(res=>{
                 commit('SAVE_USERS',id)
+                resolve()
+            }).catch(err=>{
+                console.log(err)
+                reject()
+            })
+        })
+    },
+    getDepartmentDetail({commit},id){
+        return new Promise((resolve,reject)=>{
+            getDepartmentDetail(id).then(res=>{
+                commit('SAVE_DETAIL',res)
                 resolve()
             }).catch(err=>{
                 console.log(err)

@@ -78,7 +78,7 @@ export default [
     }
   },
   {
-    url: '/v1/list/menu',
+    url: '/v1/list/menuTree',
     type: 'get',
     response: _=>{
       return  virturalData.userMenu

@@ -17,7 +17,7 @@
      </el-menu> -->
 
      <el-menu
-      :collapse="true"
+        :collapse="true"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
         :unique-opened="false"

@@ -1,7 +1,7 @@
 <template>
   <div @click="handleSecondMenu(item)">
     <app-link :to="filterPath(item.url)">
-      <el-menu-item :index="item.code">
+      <el-menu-item :index="item.url">
         <icon-item :icon="item.iconUrl" :title="item.name"></icon-item>
       </el-menu-item>
     </app-link>
@@ -45,11 +45,7 @@ export default {
           type = 'menu'
         }
       }
-      console.log(this.menuMap,type)
 
-      // if(this.$route.params.modules){
-      //   console.log(this.$route.params.modules)
-      // }
       switch (type) {
         case 'menu':
           console.log(this.$route.params.modules,this.menuMap[this.$route.params.modules].children)
@@ -58,9 +54,10 @@ export default {
           }//定义二级菜单'路由'功能
           this.$store.commit('secondMenu/TOGGLE_STATE',true)
           this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SET_OPENARR',this.menuMap[this.$route.params.modules].children)
           this.$store.commit('secondMenu/SAVE_MODULE',type)
           break;
-          
+
         case 'friend':
           if(this.menuType!='transfer'){
             this.TOGGLE_TYPE('transfer')

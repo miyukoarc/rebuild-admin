@@ -2,7 +2,7 @@ import virturalData from '../virtural-data'
 
 export default [
     {
-        url: '/v1/list/department',
+        url: '/v1/list/departmentTree',
         type: 'get',
         response: _=>{
             return virturalData.department

@@ -62,6 +62,79 @@ export default {
         {
             "parent": {},
             "createdAt": null,
+            "code": "first",
+            "children": [
+                {
+                    "parent": {
+                        "code": "first",
+                        "name": "一级",
+                        "iconUrl": "example",
+                        "sort": 8,
+                        "uuid": 8,
+                        "url": "/d/frist"
+                    },
+                    "createdAt": null,
+                    "code": "second",
+                    "children": [
+                        {
+                            "parent": {
+                                "code": "second",
+                                "name": "二级",
+                                "iconUrl": "example",
+                                "sort": 9,
+                                "uuid": 9,
+                                "url": ""
+                            },
+                            "createdAt": null,
+                            "code": "third2",
+                            "name": "三级二",
+                            "iconUrl": null,
+                            "sort": 11,
+                            "uuid": 11,
+                            "version": null,
+                            "url": "/d/frist/second/2",
+                            "updatedAt": null
+                        },
+                        {
+                            "parent": {
+                                "code": "second",
+                                "name": "二级",
+                                "iconUrl": "example",
+                                "sort": 9,
+                                "uuid": 9,
+                                "url": ""
+                            },
+                            "createdAt": null,
+                            "code": "third1",
+                            "name": "三级一",
+                            "iconUrl": null,
+                            "sort": 10,
+                            "uuid": 10,
+                            "version": null,
+                            "url": "/d/frist/second/1",
+                            "updatedAt": null
+                        }
+                    ],
+                    "name": "二级",
+                    "iconUrl": "example",
+                    "sort": 9,
+                    "uuid": 9,
+                    "version": null,
+                    "url": "",
+                    "updatedAt": null
+                }
+            ],
+            "name": "一级",
+            "iconUrl": "example",
+            "sort": 8,
+            "uuid": 8,
+            "version": null,
+            "url": "/d/frist",
+            "updatedAt": null
+        },
+        {
+            "parent": {},
+            "createdAt": null,
             "code": "mall",
             "name": "商城",
             "iconUrl": "example",
@@ -176,10 +249,10 @@ export default {
             "updatedAt": "2020-03-21 09:19:57"
         }
     ],
-    "total": 8,
+    "total": 12,
     "pageNumber": 0,
     "pageSize": 20
-  },
+},
   stateMachine: {
     "items": {
       "order": [{

@@ -2,7 +2,7 @@ import request from "@/utils/request";
 
 export function getDepartment() {
   return request({
-    url: "/v1/list/department",
+    url: "/v1/list/departmentTree",
     method: "get"
   });
 }
@@ -28,4 +28,11 @@ export function getDepartmentUser(id) {
     url: "/v1/list/user/" + id,
     method: "get"
   });
+}
+
+export function getDepartmentDetail(id) {
+  return request({
+    url: '/v1/detail/department/'+id,
+    method: 'get'
+  })
 }

@@ -14,6 +14,7 @@
 import Sidebar from '@/components/Sidebar'
 import Navbar from '@/components/Navbar'
 import AppMain from '@/components/AppMain'
+import { mapState,mapMutations } from 'vuex'
 // import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -23,8 +24,21 @@ export default {
     Sidebar,
     AppMain
   },
-//   mixins: [ResizeMixin],
+  watch: {
+    $route:{
+      handler(newVal,oldVal){
+        console.log(newVal.params.modules)
+        this.initSecondMenu(newVal.params.modules)
+      },
+      immediate: true
+
+    }
+  },
   computed: {
+    ...mapState({
+      menuType: state => state.secondMenu.menuType,
+      menuMap:state => state.secondMenu.menuMap
+    }),
     sidebar() {
       return this.$store.state.app.sidebar
     },
@@ -41,9 +55,65 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$route)
+    // console.log(this.$route)
   },
   methods: {
+    ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
+    initSecondMenu(type){
+
+      if(type){
+        if(type!='friend'&&type!='conversation'&&type!='management'){
+          type = 'menu'
+        }
+      }
+
+      switch (type) {
+        case 'menu':
+          console.log(this.$route.params.modules,this.menuMap[this.$route.params.modules].children)
+          if(this.menuType!='router'){
+              this.TOGGLE_TYPE('router')
+          }//定义二级菜单'路由'功能
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SET_OPENARR',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          break;
+
+        case 'friend':
+          if(this.menuType!='transfer'){
+            this.TOGGLE_TYPE('transfer')
+          }//定义耳机菜单'传值功能'
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'小明'}])//储存当前二级菜单
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          break;
+
+        case 'conversation':
+          if(this.menuType!='transfer'){
+              this.TOGGLE_TYPE('transfer')
+          }
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)//渲染二级菜单
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'消息1'}])
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          break;
+        case 'management':
+          if(this.menuType!='router'){
+              this.TOGGLE_TYPE('router')
+          }//定义二级菜单'路由'功能
+
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+
+          break;
+        default:
+          this.TOGGLE_TYPE('transfer')
+          this.$store.commit('secondMenu/TOGGLE_STATE',false)
+          // this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type])
+          break;
+      }
+      // commit('secondMenu/SAVE_SECONDMENU',this.menuMap[])
+    },
   }
 }
 </script>

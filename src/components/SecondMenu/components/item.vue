@@ -1,16 +1,16 @@
 <template>
   <div>
-      <el-submenu v-if="item.children!=undefined" :index="item.name" popper-append-to-body :unique-opened="true">
+      <el-submenu v-if="item.children!=undefined" :index="item.name" popper-append-to-body>
         <template slot="title">
           <span>{{item.name}}</span>
         </template>
         <sidebar-item
           v-for="child in item.children"
-          :key="child.url"
+          :key="child.name"
           :item='child'
           ></sidebar-item>
       </el-submenu>
-      <el-menu-item v-else @click="handleClick">{{valString(item)}}</el-menu-item>
+      <el-menu-item :index="item.url" v-else @click="handleClick">{{valString(item)}}</el-menu-item>
   </div>
 </template>
 

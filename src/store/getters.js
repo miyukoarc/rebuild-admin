@@ -6,6 +6,7 @@ const getters = {
   name: state => state.user.name,
   accessedRouter: state=> state.permission.accessedRouter,
   department: state => state.department.department,
-  hasSecondMenu: state => state.secondMenu.hasSecondMenu
+  hasSecondMenu: state => state.secondMenu.hasSecondMenu,
+  showRightPanel: state => state.component.showRightPanel
 }
 export default getters

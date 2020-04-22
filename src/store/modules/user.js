@@ -109,8 +109,8 @@ const actions = {
           }else{
             temp['store'] = item
           }
-          
         })
+        
         commit('secondMenu/SET_MENUMAP',temp,{root:true})
         commit('secondMenu/SAVE_MENU',res.items,{root:true})
         
