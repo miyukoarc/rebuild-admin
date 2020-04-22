@@ -1,6 +1,6 @@
 
 import departmentList from './department/list.vue'
-import roleList from './role/list.vue'
+import roleList from './role/index.vue'
 import stateSettingList from './stateSetting/list'
 
 export default [

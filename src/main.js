@@ -37,6 +37,12 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+/**
+ * 自定义指令安装
+ */
+import waves from '@/directive/waves';
+Vue.use(waves)
+
 new Vue({
   el: '#app',
   router,

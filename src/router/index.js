@@ -38,16 +38,14 @@ import store from '@/store'
 export let staticRoutes = [
   {
     path: '/d/login',
-    component: () => import('@/views/login'),
+    component:() => import('@/views/login'),
     hidden: true
   },
-
   {
     path: '/d/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
