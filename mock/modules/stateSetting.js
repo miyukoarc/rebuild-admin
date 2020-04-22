@@ -12,7 +12,8 @@ export default [
         url: '/v1/stateMachine/list',
         type: 'get',
         response: _=>{
-            return virturalData.stateMachine
+            // return virturalData.stateMachine
+            return _
         }
     },
     {

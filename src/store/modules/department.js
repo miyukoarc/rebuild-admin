@@ -1,4 +1,4 @@
-import {getDepartment,createDepartment,updateDepartment,getDepartmentUser} from '@/api/humanResource'
+import {getDepartment,createDepartment,updateDepartment,getDepartmentUser} from '@/api/department'
 import {Message} from 'element-ui'
 const state ={
     department: [],

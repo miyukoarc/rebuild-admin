@@ -119,15 +119,13 @@ export default {
   },
   computed: {
     ...mapState({
-      // department: state => state.humanResource.department
       org: state => state.user.info.org
     }),
     ...mapGetters(['department']),
-    // ...mapActions('humanResource',['getDepartment','updateDepartment','getDepartmentUser','createDepartment'])
   },
   async mounted() {
     // await this.getDepartment()
-    await this.$store.dispatch('humanResource/getDepartment')
+    await this.$store.dispatch('department/getDepartment')
     this.getOrgUuid()
     this.treeNode(this.department)
     console.log(this.department)
@@ -144,7 +142,7 @@ export default {
       console.log('tree drag over: ', dropNode);
     },
     handleRefresh(){
-      this.$store.dispatch('humanResource/getDepartment')
+      this.$store.dispatch('department/getDepartment')
       // this.getDepartment()
     },
      handleDragEnd(draggingNode, dropNode, dropType, ev) {
@@ -152,8 +150,8 @@ export default {
         if(dropType=='before'){
           this.changeFormData.parent = null
         }else this.changeFormData.parent = dropNode.data.uuid
-        this.$store.dispatch('humanResource/updateDepartment',this.changeFormData).then(()=>{
-          this.$store.dispatch('humanResource/getDepartment')
+        this.$store.dispatch('department/updateDepartment',this.changeFormData).then(()=>{
+          this.$store.dispatch('department/getDepartment')
         })
 
         // this.updateDepartment(this.changeFormData).then(()=>{
@@ -169,7 +167,7 @@ export default {
     async handleDetail(node,data){
       console.log(node,data)
       // this.getDepartmentUser()
-      await this.$store.dispatch('humanResource/getDepartmentUser',node.data.uuid)
+      await this.$store.dispatch('department/getDepartmentUser',node.data.uuid)
     },
     treeNode(arr) {
       arr.forEach(item => {
@@ -180,8 +178,8 @@ export default {
       })
     },
     handleForm() {
-      this.$store.dispatch('humanResource/createDepartment',this.formData).then(async()=>{
-        this.$store.dispatch('humanResource/getDepartment')
+      this.$store.dispatch('department/createDepartment',this.formData).then(async()=>{
+        this.$store.dispatch('department/getDepartment')
         this.showDialog = false
       })
     }

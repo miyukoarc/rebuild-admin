@@ -37,7 +37,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login(
-        // { username: username.trim(), password: password }
+        // { username: username.trim(), password: password },
         qs.stringify({ username: username.trim(), 
           password: password,
           grant_type: 'password',

@@ -46,104 +46,137 @@ export default {
     "updatedAt": "2020-03-21 14:23:59"
   },
   userMenu: {
-    "items": [{
-      "parent": {},
-      "createdAt": "2020-04-20 15:54:18",
-      "code": "bandai",
-      "manager": {},
-      "children": [{
-        "parent": {
-          "createdAt": "2020-04-20 15:54:18",
-          "code": "bandai",
-          "name": "万代南梦宫",
-          "uuid": 9,
-          "version": 0,
-          "updatedAt": "2020-04-20 15:54:18"
+    "items": [
+        {
+            "parent": {},
+            "createdAt": null,
+            "code": "dashboard",
+            "name": "主页",
+            "iconUrl": "example",
+            "sort": 7,
+            "uuid": 13,
+            "version": 0,
+            "url": "/d/dashboard",
+            "updatedAt": null
         },
-        "createdAt": "2020-04-20 15:51:00",
-        "code": "nintindo",
-        "manager": {},
-        "groupId": null,
-        "name": "任天堂",
-        "uuid": 7,
-        "version": 9,
-        "updatedAt": "2020-04-21 17:09:19"
-      }],
-      "groupId": null,
-      "name": "万代南梦宫",
-      "uuid": 9,
-      "version": 0,
-      "updatedAt": "2020-04-20 15:54:18"
-    }, {
-      "parent": {},
-      "createdAt": "2020-04-20 15:53:15",
-      "code": "legal",
-      "manager": {},
-      "groupId": null,
-      "name": "法务部",
-      "uuid": 8,
-      "version": 7,
-      "updatedAt": "2020-04-20 16:15:29"
-    }, {
-      "parent": {},
-      "createdAt": "2020-03-21 09:19:55",
-      "code": "department2",
-      "manager": {},
-      "children": [{
-        "parent": {
-          "createdAt": "2020-03-21 09:19:55",
-          "code": "department2",
-          "groupId": "@TGS#1N7KJLJGV",
-          "name": "技术部",
-          "uuid": 2,
-          "version": 1,
-          "updatedAt": "2020-03-21 09:19:55"
+        {
+            "parent": {},
+            "createdAt": null,
+            "code": "mall",
+            "name": "商城",
+            "iconUrl": "example",
+            "sort": 6,
+            "uuid": 7,
+            "version": null,
+            "url": "http://m.tmall.com",
+            "updatedAt": null
         },
-        "createdAt": "2020-03-21 09:19:56",
-        "code": "department2_2",
-        "manager": {},
-        "groupId": "@TGS#1QALJLJGE",
-        "name": "平台部",
-        "uuid": 3,
-        "version": 3,
-        "updatedAt": "2020-04-20 16:15:45"
-      }],
-      "groupId": "@TGS#1N7KJLJGV",
-      "name": "技术部",
-      "uuid": 2,
-      "version": 1,
-      "updatedAt": "2020-03-21 09:19:55"
-    }, {
-      "parent": {},
-      "createdAt": "2020-03-21 09:19:54",
-      "code": "department1",
-      "manager": {},
-      "children": [{
-        "parent": {
-          "createdAt": "2020-03-21 09:19:54",
-          "code": "department1",
-          "groupId": "@TGS#1B6KJLJGI",
-          "name": "市场部",
-          "uuid": 1,
-          "version": 1,
-          "updatedAt": "2020-03-21 09:19:55"
+        {
+            "parent": {},
+            "createdAt": "2020-03-21 09:19:57",
+            "code": "friend",
+            "name": "联系人",
+            "iconUrl": "example",
+            "sort": 2,
+            "uuid": 3,
+            "version": 0,
+            "url": "/d/friend/friend/list",
+            "updatedAt": "2020-03-21 09:19:57"
         },
-        "createdAt": "2020-03-21 09:19:57",
-        "code": "department3",
-        "manager": {},
-        "groupId": "@TGS#1LBLJLJGA",
-        "name": "财务部",
-        "uuid": 4,
-        "version": 7,
-        "updatedAt": "2020-04-20 16:15:47"
-      }],
-      "groupId": "@TGS#1B6KJLJGI",
-      "name": "市场部",
-      "uuid": 1,
-      "version": 1,
-      "updatedAt": "2020-03-21 09:19:55"
-    }],
-    "total": 7,
+        {
+            "parent": {},
+            "createdAt": "2020-03-21 09:19:57",
+            "code": "conversation",
+            "name": "会话",
+            "iconUrl": "example",
+            "sort": 1,
+            "uuid": 2,
+            "version": 0,
+            "url": "/d/conversation/conversation/list",
+            "updatedAt": "2020-03-21 09:19:57"
+        },
+        {
+            "parent": {},
+            "createdAt": "2020-03-21 09:19:57",
+            "code": "management",
+            "children": [
+                {
+                    "parent": {
+                        "createdAt": "2020-03-21 09:19:57",
+                        "code": "management",
+                        "name": "管理",
+                        "iconUrl": "example",
+                        "sort": 0,
+                        "uuid": 1,
+                        "version": 0,
+                        "url": "/d/management",
+                        "updatedAt": "2020-03-21 09:19:57"
+                    },
+                    "createdAt": null,
+                    "code": "roles",
+                    "name": "角色管理",
+                    "iconUrl": null,
+                    "sort": 5,
+                    "uuid": 6,
+                    "version": null,
+                    "url": "/d/management/role/list",
+                    "updatedAt": null
+                },
+                {
+                    "parent": {
+                        "createdAt": "2020-03-21 09:19:57",
+                        "code": "management",
+                        "name": "管理",
+                        "iconUrl": "example",
+                        "sort": 0,
+                        "uuid": 1,
+                        "version": 0,
+                        "url": "/d/management",
+                        "updatedAt": "2020-03-21 09:19:57"
+                    },
+                    "createdAt": null,
+                    "code": "deparment",
+                    "name": "部门管理",
+                    "iconUrl": null,
+                    "sort": 4,
+                    "uuid": 5,
+                    "version": null,
+                    "url": "/d/management/department/list",
+                    "updatedAt": null
+                },
+                {
+                    "parent": {
+                        "createdAt": "2020-03-21 09:19:57",
+                        "code": "management",
+                        "name": "管理",
+                        "iconUrl": "example",
+                        "sort": 0,
+                        "uuid": 1,
+                        "version": 0,
+                        "url": "/d/management",
+                        "updatedAt": "2020-03-21 09:19:57"
+                    },
+                    "createdAt": "2020-03-21 09:19:57",
+                    "code": "state_setting",
+                    "name": "状态管理",
+                    "iconUrl": null,
+                    "sort": 3,
+                    "uuid": 4,
+                    "version": 0,
+                    "url": "/d/management/state_setting/list",
+                    "updatedAt": "2020-03-21 09:19:57"
+                }
+            ],
+            "name": "管理",
+            "iconUrl": "example",
+            "sort": 0,
+            "uuid": 1,
+            "version": 0,
+            "url": "/d/management",
+            "updatedAt": "2020-03-21 09:19:57"
+        }
+    ],
+    "total": 8,
     "pageNumber": 0,
     "pageSize": 20
   },

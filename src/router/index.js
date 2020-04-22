@@ -1,15 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import stateSettingRoutes from '@/views/management/stateSetting/routes'
-// import humanResourceRoutes from '@/views/humanResource/routes'
-// import friendRoutes from '@/views/friends/routes'
-// import conversationRoutes from '@/views/conversation/routes'
 
-// import 
-
-// import {modules} from '@/views/routes'
-
-// console.log(modules)
 
 import dynamicRouter from '@/views/routes.js'
 

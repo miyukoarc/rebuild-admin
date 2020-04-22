@@ -15,7 +15,7 @@ export default [
         component: roleList,
     },
     {
-        path: 'stateSetting/list',
+        path: 'state_setting/list',
         name: 'stateSetting',
         component: stateSettingList
     }

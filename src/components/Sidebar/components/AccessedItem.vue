@@ -38,8 +38,29 @@ export default {
       this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
+      
+
+      if(type){
+        if(type!='friend'&&type!='conversation'&&type!='management'){
+          type = 'menu'
+        }
+      }
       console.log(this.menuMap,type)
+
+      // if(this.$route.params.modules){
+      //   console.log(this.$route.params.modules)
+      // }
       switch (type) {
+        case 'menu':
+          console.log(this.$route.params.modules,this.menuMap[this.$route.params.modules].children)
+          if(this.menuType!='router'){
+              this.TOGGLE_TYPE('router')
+          }//定义二级菜单'路由'功能
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          break;
+          
         case 'friend':
           if(this.menuType!='transfer'){
             this.TOGGLE_TYPE('transfer')
@@ -63,7 +84,7 @@ export default {
           }//定义二级菜单'路由'功能
 
           this.$store.commit('secondMenu/TOGGLE_STATE',true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type].children)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
           this.$store.commit('secondMenu/SAVE_MODULE',type)
 
           break;
@@ -77,16 +98,16 @@ export default {
     },
     filterPath(url) {
       if (url.includes('http')) {
-        return '#'
+        return '/store'
       } else return url
     },
     classifyUrl(url) {
-      let key
-      if (!url.includes('http')) {
-        key = url.split('/')[2]
-      } else {
-        key = 'store'
-      }
+      let key = this.$route.params.modules
+      // if (!url.includes('http')) {
+      //   key = url.split('/')[2]
+      // } else {
+      //   key = 'store'
+      // }
       this.checkSecondMenuType(key)
     }
   }
