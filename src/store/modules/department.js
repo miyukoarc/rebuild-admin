@@ -4,8 +4,10 @@ import {
   updateDepartment,
   getDepartmentUser,
   getDepartmentDetail,
-  getDepartmenList,
-  deleteDepartment
+  getDepartmentList,
+  deleteDepartment,
+  getAllDepartments,
+  setDepartmentManager
 } from "@/api/department";
 import {
   Message
@@ -39,7 +41,7 @@ const columns = [{
     prop: "caozuo",
     align: "center",
     sort: false,
-    showCaozuo: true,
+    type:'button',
     width: "240"
   }
 ];
@@ -51,6 +53,7 @@ const state = {
   currentChildren: [],
   departList: [],
   page: new Page(),
+  allDepartments: [],
   columns: columns
   // relationNest: {}
 };
@@ -73,6 +76,9 @@ const mutations = {
   },
   SET_DEPARTLIST(state, val) {
     state.departList = val;
+  },
+  SAVE_ALLDEPARTMENT(state,all){
+    state.allDepartments = all
   },
   CHANGE_PAGE(state, val) {
     state.page.total = val.total;
@@ -121,7 +127,7 @@ const actions = {
         .then(res => {
           console.log(res);
 
-          resolve();
+          resolve(res);
         })
         .catch(err => {
           // Message({
@@ -224,19 +230,47 @@ const actions = {
       })
     })
   },
+  /**
+   * get department list
+   */
   getDepartmenList({
     commit,
     state
   }) {
-    return getDepartmenList(state.page)
+    return new Promise((resolve,reject)=>{
+      getDepartmentList(state.page)
       .then(result => {
         commit("SET_DEPARTLIST", result.items);
         commit("CHANGE_PAGE", result);
+        resolve()
       }).catch(err => {
         console.log(err);
         reject();
       });
-  }
+    })
+    
+  },
+  getAllDepartments({commit}){
+    return new Promise((resolve,reject)=>{
+      getAllDepartments().then(res => {
+        commit('SAVE_ALLDEPARTMENT',res.items)
+        resolve()
+      }).catch(err=>{
+        console.log(err)
+        reject()
+      })
+    })
+  },
+  setDepartmentManager({commit},data){
+    return new Promise((resolve,reject)=>{
+      setDepartmentManager(data).then(res => {
+        resolve()
+      }).catch(err=>{
+        console.log(err)
+        reject()
+      })
+    })
+  },
 }
 
 export default {

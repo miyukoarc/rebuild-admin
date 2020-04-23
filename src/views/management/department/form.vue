@@ -7,31 +7,38 @@
         <el-form-item label="Code" prop="code">
             <el-input v-model="updateForm.code"></el-input>
         </el-form-item>
-        <el-form-item label="parent" prop="code">
-            <!-- <el-select v-model="value" placeholder="请选择">
+        <el-form-item label="上级" prop="code">
+            <el-select v-model="updateForm.parent" placeholder="请选择">
                 <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in allDepartments"
+                :key="item.code"
+                :label="item.name"
+                :value="item.uuid">
                 </el-option>
-            </el-select> -->
+            </el-select>
         </el-form-item>
         <el-form-item label="关系">
             <relation-card></relation-card>
         </el-form-item>
         <el-form-item label="管理员">
-            <div>manager</div>
+            <el-select v-model="updateForm.parnent">
+                <el-option
+                    v-for="item in employeeList"
+                    :key="item.uuid"
+                    :label="item.nickname"
+                    :value="item.uuid"
+                ></el-option>
+                </el-select>   
         </el-form-item>
         <el-form-item label="成员">
             <div>user</div>
         </el-form-item>
         <el-form-item label="删除">
-          <el-button type="danger" size="mini" @click="handleDel">删除</el-button>
+          <el-button type="danger" size="mini" @click.native="handleDel">删除</el-button>
         </el-form-item>
         <el-form-item>
             <el-button size="small" type="primary" @click.native="handleConfirm">确定</el-button>
-            <el-button size="small" type="success">返回</el-button>
+            <el-button size="small" type="success" @click.native="handleClose">返回</el-button>
         </el-form-item>
     </el-form>
   </div>
@@ -52,6 +59,10 @@ export default {
             org: '',
             parent: '',
             uuid: ''
+        },
+        setManagerForm: {
+            managerId: '',
+            departmentId: ''
         },
         rules: {
             name:[
@@ -77,7 +88,8 @@ export default {
     },
     computed:{
         ...mapState({
-
+            employeeList: state => state.employee.employeeList,
+            allDepartments: state=>state.department.allDepartments,
             currentDetail: state=>state.department.currentDetail
         })
     },
@@ -91,6 +103,9 @@ export default {
         console.log('数据更新了')
     },
     methods:{
+        handleClose(){
+
+        },
         handleConfirm(){
 
         },
@@ -115,6 +130,7 @@ export default {
         })
         },
         initData(){
+            this.setManagerForm.departmentId = this.currentDetail.uuid
             this.updateForm.uuid = this.currentDetail.uuid
             this.updateForm.name = this.currentDetail.name
             this.updateForm.code = this.currentDetail.code

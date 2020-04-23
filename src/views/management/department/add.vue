@@ -20,9 +20,20 @@
         <el-form-item label="上级">
           <el-select v-model="formData.parent" placeholder="请选择">
             <el-option
-              v-for="item in department"
+              v-for="item in departmentList"
               :key="item.code"
               :label="item.name"
+              :value="item.uuid"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="主管">
+          <el-select v-model="addManager.managerId">
+            <el-option
+              v-for="item in employeeList"
+              :key="item.uuid"
+              :label="item.nickname"
               :value="item.uuid"
             ></el-option>
           </el-select>
@@ -59,7 +70,12 @@ export default {
         code: '',
         org: '',
         parent: ''
-      } //create
+      }, //create
+      addManager:{
+        departmentId: '',
+        managerId: ''
+      }
+      
     }
   },
   watch: {
@@ -70,16 +86,19 @@ export default {
     //   immediate: true
     // }
   },
-  beforeUpdate() {},
   computed: {
     ...mapState({
-      org: state => state.user.info.org
+      org: state => state.user.info.org,
+      employeeList: state => state.employee.employeeList,
+      departmentList: state => state.department.allDepartments
     }),
     ...mapGetters(['department'])
   },
   mounted() {
+    console.log(this.$store)
     this.formData.org = this.org.uuid
   },
+  beforeUpdate() {},
   methods: {
     transferState() {
       this.$parent.getChild()
@@ -89,8 +108,13 @@ export default {
         if (valid) {
           this.$store
             .dispatch('department/createDepartment', this.formData)
-            .then(async () => {
-              this.$store.dispatch('department/getDepartment').then(_ => {
+            .then(async _ => {
+
+
+              this.$store.dispatch('department/setDepartmentManager', {...this.addManager,departmentId:_.uuid}).then(_ =>{
+
+                this.$store.dispatch('department/getDepartment').then(_ => {
+
                 this.$message({
                   type: 'success',
                   message: '添加成功'
@@ -98,6 +122,10 @@ export default {
                 Object.assign(this.$data, this.$options.data().formData)
               })
               this.showDialog = false
+
+              })
+
+              
             })
             .catch(err => {
               this.$message({

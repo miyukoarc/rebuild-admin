@@ -26,6 +26,13 @@ export function getORGList(){
     method:'get'
   })
 }
+
+export function getEmployeeList(){
+  return request({
+    url: '/v1/list/user',
+    method:'get'
+  })
+}
 export default {
     getRoleList,
     addRole,

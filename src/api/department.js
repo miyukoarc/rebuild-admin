@@ -37,7 +37,7 @@ export function getDepartmentDetail(id) {
   });
 }
 
-export function getDepartmenList(page) {
+export function getDepartmentList(page) {
   let nPage = {};
   nPage.sort = page.sort + "," + page.order;
   nPage.page = page.page - 1; //后台page从0开始的，前端初始为1，请求前需要-1，请求完成需+1
@@ -54,5 +54,20 @@ export function deleteDepartment(data){
     url: '/v1/department/delete',
     method: 'post',
     data
+  })
+}
+
+export function setDepartmentManager(data){
+  return request({
+    url: '/v1/org/locateDepartmentManager',
+    method: 'post',
+    data
+  })
+}
+
+export function getAllDepartments(){
+  return request({
+    url: '/v1/list/department',
+    method: 'get',
   })
 }

@@ -42,10 +42,16 @@
       :expand-on-click-node="false"
     >
       <span class="custom-tree-node" slot-scope="{node, data}">
-        <span>{{data.name}}</span>
+        <span>
+          <span>
+          <i class="el-icon-connection"></i> 
+          {{data.name}}
+        </span>
         <span>
           <el-button type="text" size="mini" @click="()=>handleDetail(node,data)">查看详情</el-button>
         </span>
+        </span>
+        
       </span>
     </el-tree>
 
@@ -98,7 +104,6 @@ export default {
     
     $route:{
       handler (newVal,oldVal){
-        console.log(newVal.query.detail)
         if(newVal.query.detail){
           this.showDetail(newVal.query.detail)
         }
@@ -114,7 +119,10 @@ export default {
   },
   async mounted() {
     // await this.getDepartment()
-    await this.$store.dispatch('department/getDepartment')
+    const getDepartmentTree = this.$store.dispatch('department/getDepartment')
+    const getgetEmployeeList = this.$store.dispatch('employee/getEmployeeList')
+    const getDepartmentList = this.$store.dispatch('department/getAllDepartments')
+    await Promise.all(['getDepartmentTree','getgetEmployeeList','getDepartmentList'])
     this.getOrgUuid()
     this.treeNode(this.department)
   },
