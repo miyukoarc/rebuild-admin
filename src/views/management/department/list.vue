@@ -6,69 +6,9 @@
 
     <tips :msg="tipsMsg" />
 
-    <div style="margin:20px 0 20px 0;">
-      <el-button type="success" @click.native="showDialog = !showDialog" plain size="mini">
-        <i class="el-icon-circle-plus-outline"></i>
-        创建部门
-      </el-button>
-
-      <el-button type="info" size="mini" @click.native="handleRefresh" plain>
-        <i class="el-icon-refresh"></i>
-        刷新数据
-      </el-button>
-    </div>
-
-    <el-tree
-      :data="department"
-      :props="{
-        label: 'name',
-      }"
-      @node-drag-start="handleDragStart"
-      @node-drag-end="handleDragEnd"
-      @node-drag-leave="handleDragLeave"
-      @node-drag-over="handleDragOver"
-      draggable 
-      node-key="uuid"
-      default-expand-all
-      :expand-on-click-node="false"
-    >
-      <span class="custom-tree-node" slot-scope="{node, data}">
-        <span>{{data.name}}</span>
-        <span>
-          <el-button type="text" size="mini" @click="()=>handleDetail(node,data)">查看详情</el-button>
-        </span>
-      </span>
-    </el-tree>
-
-    <el-dialog title="创建部门" width="30%" :visible.sync="showDialog">
-      <el-form
-        label-position="left"
-        size="mini"
-        ref="formData"
-        label-width="100px"
-        :model="formData"
-        :rules="rules"
-      >
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="formData.name"></el-input>
-        </el-form-item>
-
-        <el-form-item label="Code" prop="code">
-          <el-input v-model="formData.code"></el-input>
-        </el-form-item>
-
-        
-      </el-form>
-
-
-
-      <template slot="footer">
-        <el-button type="primary" size="small" @click="handleForm">确定</el-button>
-        <el-button type="info" size="small" @click="showDialog = !showDialog">取消</el-button>
-        
-      </template>
-    </el-dialog>
-
+    
+    <tableContent/>
+    
     <right-panel>
       <div>
         <change-form></change-form>
@@ -85,11 +25,13 @@ import Tips from '@/components/Tips'
 import RightPanel from '@/components/RightPanel'
 // import RelationCard from  './card'
 import ChangeForm from './form.vue'
+import tableContent from './table';
 export default {
   components: {
     Tips,
     RightPanel,
     ChangeForm,
+    tableContent,
     // RelationCard
   },
   data() {

@@ -12,7 +12,7 @@ export default [
     },
     {
         path: 'department/tree',
-        name: 'Department',
+        name: 'Department_tree',
         component: departmentTree,
     },
     {

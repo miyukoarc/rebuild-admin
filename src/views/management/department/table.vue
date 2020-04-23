@@ -7,9 +7,9 @@
     <el-container>
       <cTable
         :columns="columns"
-        :data="roleList"
+        :data="departList"
         :showPagin="true"
-        :page="rolePage"
+        :page="page"
         :showCheckBox="false"
         @sortChange="sortChange"
         @pageChange="pageChange"
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import mHeadedr from "./header";
+import mHeadedr from "./search-form";
 import cTable from "@/components/CommonTable";
 import { mapState, mapMutations, mapActions } from "vuex";
-const NAME = "management";
+const NAME = "department";
 import Page from "@/utils/PageDefault";
 export default {
   components: {
@@ -40,7 +40,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(NAME, ["roleList", "rolePage", "columns"]),
+    ...mapState(NAME, ["departList", "page", "columns"]),
     routesData() {
       return this.routes;
     }
@@ -49,7 +49,7 @@ export default {
     this.initDataList();
   },
   methods: {
-    ...mapActions(NAME, ["getRoleList"]),
+    ...mapActions(NAME, ["getDepartmenList"]),
     sortChange(val) {
       this.initDataList();
     },
@@ -57,9 +57,10 @@ export default {
       this.initDataList();
     },
     initDataList() {
-      this.getRoleList()
+      this.getDepartmenList()
         .then(() => {})
         .catch(err => {
+          console.log(err);
           this.$message({
             message: "出错了哦",
             type: "error"
