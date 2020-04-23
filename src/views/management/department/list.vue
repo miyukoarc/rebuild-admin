@@ -6,9 +6,6 @@
 
     <tips :msg="tipsMsg" />
 
-    <!-- <br> -->
-    <!-- <hr> -->
-
     <div style="margin:20px 0 20px 0;">
       <el-button type="success" @click.native="showDialog = !showDialog" plain size="mini">
         <i class="el-icon-circle-plus-outline"></i>
@@ -30,7 +27,7 @@
       @node-drag-end="handleDragEnd"
       @node-drag-leave="handleDragLeave"
       @node-drag-over="handleDragOver"
-      draggable
+      draggable 
       node-key="uuid"
       default-expand-all
       :expand-on-click-node="false"
@@ -59,11 +56,16 @@
         <el-form-item label="Code" prop="code">
           <el-input v-model="formData.code"></el-input>
         </el-form-item>
+
+        
       </el-form>
 
+
+
       <template slot="footer">
-        <el-button type="primary" size="mini" @click="handleForm">确定</el-button>
-        <el-button type="danger" size="mini" @click="showDialog = !showDialog">取消</el-button>
+        <el-button type="primary" size="small" @click="handleForm">确定</el-button>
+        <el-button type="info" size="small" @click="showDialog = !showDialog">取消</el-button>
+        
       </template>
     </el-dialog>
 
@@ -121,6 +123,14 @@ export default {
       }
     }
   },
+  watch:{
+    $route: {
+      handler(newVal,oldVal){
+        console.log(newVal)
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapState({
       org: state => state.user.info.org
@@ -135,6 +145,10 @@ export default {
     console.log(this.department)
   },
   methods: {
+    handleChange(){
+
+    },
+    
     getOrgUuid() {
       this.formData.org = this.org.uuid
       this.changeFormData.org = this.org.uuid

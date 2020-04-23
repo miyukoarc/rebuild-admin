@@ -50,9 +50,9 @@ const whiteList = ['/d/login'] // no redirect whitelist
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
 
-        console.log(hasGetUserInfo,'hasGetUserInfo')
+        // console.log(hasGetUserInfo,'hasGetUserInfo')
 
-        console.log(router)
+        // console.log(router)
 
         // const secondMenuState = window.localStorage.getItem('hasSecondMenu')
 
@@ -90,8 +90,7 @@ const whiteList = ['/d/login'] // no redirect whitelist
 
           router.addRoutes([...accessed,{path:'*',redirect:'/d/404'}])
 
-
-          // console.log(router.)
+          
 
           next({
             ...to,

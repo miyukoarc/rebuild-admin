@@ -1,4 +1,4 @@
-import {getDepartment,createDepartment,updateDepartment,getDepartmentUser,getDepartmentDetail} from '@/api/department'
+import {getDepartment,createDepartment,updateDepartment,getDepartmentUser,getDepartmentDetail,deleteDepartment} from '@/api/department'
 import {Message} from 'element-ui'
 const state ={
     department: [],
@@ -106,7 +106,18 @@ const actions = {
                 reject()
             })
         })
+    },
+    deleteDepartment({commit},id){
+        return new Promise((resolve, reject)=>{
+            deleteDepartment(id).then(res=>{
+                resolve()
+            }).catch(err=>{
+                console.log(err)
+                reject()
+            })
+        })
     }
+
 }
 
 

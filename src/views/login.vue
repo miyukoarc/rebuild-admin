@@ -46,6 +46,7 @@
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
+        <!-- <el-button size="mini" type="primary" style="margin-left:70px" @click="toggleMock">{{serverState?'本地':'远程'}}</el-button> -->
         <el-button size="mini" type="success" style="margin-left:147px" @click="handleGenKey">GenKey</el-button> 
       </div>
 
@@ -74,6 +75,7 @@ export default {
       }
     }
     return {
+      serverState: false,
       loginForm: {
         username: '13700000001',
         password: ''
@@ -96,6 +98,9 @@ export default {
     }
   },
   methods: {
+    toggleMock(){
+      this.serverState = !this.serverState
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''

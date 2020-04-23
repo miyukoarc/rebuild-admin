@@ -16,9 +16,12 @@
         <el-form-item label="成员">
             <div>user</div>
         </el-form-item>
+        <el-form-item label="删除">
+          <el-button type="danger" size="mini" @click="handleDel">删除</el-button>
+        </el-form-item>
         <el-form-item>
-            <el-button size="large" type="primary">确定</el-button>
-            <el-button size="large" type="danger">取消</el-button>
+            <el-button size="small" type="primary">确定</el-button>
+            <el-button size="small" type="danger">返回</el-button>
         </el-form-item>
     </el-form>
   </div>
@@ -61,6 +64,21 @@ export default {
         this.initData()
     },
     methods:{
+        handleDel(){
+        this.$confirm('是否删除当前部门', 'Warning',{
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(async ()=>{
+            await this.$store.dispatch('department/deleteDepartment',this.updateForm.uuid)
+            this.$message({
+                type:'success',
+                message:'删除成功'
+            })
+        }).catch(err=>{
+            console.log(err)
+        })
+        },
         initData(){
             this.updateForm.uuid = this.currentDetail.uuid
             this.updateForm.name = this.currentDetail.name

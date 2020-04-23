@@ -36,3 +36,11 @@ export function getDepartmentDetail(id) {
     method: 'get'
   })
 }
+
+export function deleteDepartment(data){
+  return request({
+    url: '/v1/department/update',
+    method: 'post',
+    data
+  })
+}

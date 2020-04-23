@@ -6,6 +6,8 @@ import _ from 'lodash'
 
 
 
+
+
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -66,6 +68,8 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['Authorization'] = "Bearer "+ getToken()
     }
+
+    console.log(config)
 
     return config
   },

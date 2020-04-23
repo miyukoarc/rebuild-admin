@@ -5,10 +5,14 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  mock: false,
 }
 
 const mutations = {
+  TOGGLE_STATE:(state,current)=>{
+    state.mock = current
+  },
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
