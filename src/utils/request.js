@@ -3,6 +3,7 @@ import { MessageBox, Message,Loading } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import _ from 'lodash'
+import qs from 'qs';
 
 
 
@@ -64,8 +65,12 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['Authorization'] = "Bearer "+ getToken()
+      config.headers['Authorization'] = "Bearer "+ getToken();
     }
+    // if (config.method=="post") {
+      // config.data = qs.stringify(config.data)
+      // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    // }
 
     return config
   },

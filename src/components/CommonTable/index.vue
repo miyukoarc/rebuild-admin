@@ -34,6 +34,7 @@
           label="序号"
           width="55"
           type="index"
+          align="center"
           :index="indexMethod"
         >
         </el-table-column>
@@ -66,9 +67,10 @@
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
             >
-              <template slot-scope="scope">
-                <el-button type="primary" size="mini" v-waves>编辑</el-button>
-                <el-button type="danger" size="mini" v-waves>删除</el-button>
+              <template>
+                <el-button type="primary" size="mini" v-waves icon="el-icon-edit" >编辑</el-button>
+                <!-- <dialog-button v-waves type="primary"  size="mini" icon="el-icon-edit">编辑</dialog-button> -->
+                <el-button type="danger" size="mini" v-waves icon="el-icon-delete">删除</el-button>
               </template>
             </el-table-column>
           </template>
@@ -128,7 +130,7 @@ export default {
     return {
       height: "100%",
       currentPage: 1,
-      pageSizes: [50, 100, 200, 500],
+      pageSizes: [10, 20, 30, 50],
       pageSize: 50,
       total: 0,
       data: [],
@@ -161,31 +163,34 @@ export default {
       // console.log('pagenation table sort change ', val)
       if (val.hasOwnProperty("column") && val.column !== null) {
         this.page.sort = val.column.sortBy;
-        this.page.order = val.order;
+        if(val.order){
+          this.page.order = val.order.includes('asc')?'asc':'desc';
+        }else{
+          this.page.order = 'asc';
+        }
         this.$emit("sortChange", val);
       }
     },
     indexMethod(index) {
       return this.page.rows * (this.page.page - 1) + index + 1;
     },
-    onResize: function(val) {
-      if (val) {
-        this.height = val.clientHeight - 32;
-      }
-    },
+    // onResize: function(val) {
+    //   if (val) {
+    //     this.height = val.clientHeight - 32;
+    //   }
+    // },
     userNumberClick(deviceId) {
-      if (deviceId) {
-        this.$router.push({
-          name: "clickAnalysis",
-          params: {
-            deviceId: deviceId
-          }
-        });
-      }
+      // if (deviceId) {
+      //   this.$router.push({
+      //     name: "clickAnalysis",
+      //     params: {
+      //       deviceId: deviceId
+      //     }
+      //   });
+      // }
     }
   },
   mounted() {
-    // this.height = this.$el.clientHeight - 32;
   },
   inheritAttrs: false
 };
