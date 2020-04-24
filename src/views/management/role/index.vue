@@ -61,7 +61,7 @@ export default {
         .then(() => {})
         .catch(err => {
           this.$message({
-            message: "出错了哦",
+            message: err,
             type: "error"
           });
         });
