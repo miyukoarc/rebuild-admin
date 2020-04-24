@@ -43,6 +43,11 @@ export default {
     elx.remove()
   },
   methods: {
+    handleClosePanel(){
+      // console.log('1')
+      alert('子组件')
+      // this.show = false
+    },
     toggle() {
       this.$store.commit('component/TOGGLE_PANEL', !stateSetting_editor_show)
     },

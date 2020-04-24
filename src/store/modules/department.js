@@ -270,7 +270,7 @@ const actions = {
         reject()
       })
     })
-  },
+  }
 }
 
 export default {
