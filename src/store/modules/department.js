@@ -14,13 +14,7 @@ import {
 } from "element-ui";
 import Page from "@/utils/PageDefault";
 
-const columns = [{
-    visible: true,
-    label: "Code",
-    prop: "code",
-    uuid: 1,
-    align: "center"
-  },
+const columns = [
   {
     visible: true,
     label: "名称",
@@ -30,9 +24,31 @@ const columns = [{
   },
   {
     visible: true,
+    label: "主管",
+    prop: "manager",
+    uuid: 3,
+    align: "center",
+    sort:false,
+    formatter:function(row, column, cellValue, index){
+      if(cellValue){
+        return cellValue.nickname;
+      }
+      return "";
+    }
+  },
+  {
+    visible: true,
     label: "创建时间",
     prop: "createdAt",
     uuid: 4,
+    align: "center"
+  },
+  {
+    visible: true,
+    label: "Code",
+    prop: "code",
+    uuid: 1,
+    sort:false,
     align: "center"
   },
   {
@@ -90,7 +106,7 @@ const mutations = {
 const actions = {
     /**
      * 
-     * @param {*} param0 get departmentlist
+     * @param {*} param0 get department tree
      */
   getDepartment({
     commit
@@ -218,15 +234,13 @@ const actions = {
   deleteDepartment({
     commit
   }, data) {
-
-    console.warn(data)
     return new Promise((resolve, reject) => {
       deleteDepartment(data).then(res => {
           commit('component/TOGGLE_PANEL',false,{root:true})
         resolve()
       }).catch(err => {
-        console.log(err)
-        reject()
+        // console.log()
+        reject('请先删除该部门所有员工和下属部门')
       })
     })
   },

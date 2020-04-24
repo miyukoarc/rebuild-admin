@@ -29,7 +29,6 @@
         ></el-table-column>
         <template v-for="col in columns">
           <template v-if="col.visible">
-
             <el-table-column
               v-if="col.type==='image'"
               :prop="col.prop"
@@ -52,7 +51,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              v-else-if="col.type==='switch'"
+              v-else-if="col.type==='status'"
               :prop="col.prop"
               :label="col.label"
               :sortable="col.sort === undefined ? 'custom' : col.sort"
@@ -65,11 +64,11 @@
               :align="col.align ? col.align : 'left'"
             >
               <template slot-scope="scope">
-                  <el-switch
-                    :value='scope.row.enabled'
-                    active-color="#13ce66"
-                    inactive-color="#ff4949">
-                  </el-switch>
+                  <el-tag
+                    :key="scope.row.enabled"
+                    :type="scope.row.enabled?'success':'error'">
+                    {{scope.row.enabled?'正常':''}}
+                  </el-tag>
               </template>
             </el-table-column>
             <el-table-column
@@ -85,10 +84,10 @@
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
             >
-              <template>
-                <el-button type="primary" size="mini" v-waves icon="el-icon-edit">编辑</el-button>
+              <template slot-scope="scope">
+                <el-button type="primary" size="mini" v-waves icon="el-icon-edit" @click.native.stop="handleFirst(scope.row)">编辑</el-button>
                 <!-- <dialog-button v-waves type="primary"  size="mini" icon="el-icon-edit">编辑</dialog-button> -->
-                <el-button type="danger" size="mini" v-waves icon="el-icon-delete">删除</el-button>
+                <el-button type="danger" size="mini" v-waves icon="el-icon-delete" @click.native.stop="handleSecond(scope.row)">删除</el-button>
               </template>
             </el-table-column>
 
@@ -171,7 +170,6 @@ export default {
     }
   },
   computed: {
-    // a computed getter
     emptyText: function() {
       return this.loading ? ' ' : '暂无数据'
     }
@@ -182,7 +180,15 @@ export default {
     }
   },
   methods: {
-    rowClick(row, column, cell, event) {},
+    handleFirst(data){
+      this.$emit('btnFirst',data)
+    },
+    handleSecond(data){
+      this.$emit('btnSecond',data)
+    },
+    rowClick(row, column, cell, event) {
+      this.$emit('rowClick',row)
+    },
     handleSizeChange(val) {
       this.page.rows = val
       this.$emit('pageChange')

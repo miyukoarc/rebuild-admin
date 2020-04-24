@@ -10,21 +10,21 @@
       </el-form-item>
       <el-form-item>
         <el-button v-waves type="primary" size="small" icon="el-icon-search"
-          >搜索</el-button
-        >
+          >搜索</el-button>
         <dialog-button
           v-waves
           type="primary"
           size="small"
           icon="el-icon-circle-plus-outline"
           class="ml-2"
-          width="400px"
+          width="30%"
           title="添加"
           ref="dialogbutton"
         >
-          添加
+        添加
           <span slot="dialog">
-            <mForm @onSubmit="onSubmit" @onCancle="onCancle" />
+            <addForm @close="onCancel"/>
+            <!-- <mForm @onSubmit="onSubmit" @onCancel="onCancel" /> -->
           </span>
         </dialog-button>
         <el-button
@@ -33,6 +33,7 @@
           icon="el-icon-refresh"
           size="small"
           class="filter-item ml-2"
+          @click="handleRefresh"
           >刷新</el-button
         >
       </el-form-item>
@@ -43,12 +44,15 @@
 <script>
 import DialogButton from "@/components/DialogButton";
 import mForm from "./form";
+import addForm from './add'
 import { mapState, mapMutations, mapActions } from "vuex";
+// import
 const NAME = "management";
 export default {
   components: {
     DialogButton,
-    mForm
+    mForm,
+    addForm
   },
   data() {
     return {
@@ -59,7 +63,10 @@ export default {
   },
   methods: {
     ...mapActions(NAME, ["addRole"]),
-    onCancle() {
+    handleRefresh(){
+      this.$store.dispatch('department/getDepartmenList').then().catch(err=>{})
+    },
+    onCancel() {
       this.$refs["dialogbutton"].centerDialogVisible = false;
     },
     onSubmit(form) {

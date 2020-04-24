@@ -1,5 +1,5 @@
 <template>
-  <div style="padding:30px;">
+  <div class="p-3 d-flex flex-column">
     <h3 style="margin: 0 0 20px 0">
       <span style="font-weight:normal">部门管理</span>
     </h3>
@@ -7,15 +7,14 @@
     <tips :msg="tipsMsg" />
 
     
-    <tableContent/>
+    <tableContent class="flex-1"/>
     
-    <right-panel>
+    <!-- <right-panel>
       <div>
         <change-form></change-form>
-        <!-- <relation-card></relation-card> -->
       </div>
-      
-    </right-panel>
+    </right-panel> -->
+
   </div>
 </template>
 
@@ -81,10 +80,19 @@ export default {
   },
   async mounted() {
     // await this.getDepartment()
-    await this.$store.dispatch('department/getDepartment')
+
+    const getDepartmentTree = this.$store.dispatch('department/getDepartment')
+    const getgetEmployeeList = this.$store.dispatch('employee/getEmployeeList')
+    const getDepartmentList = this.$store.dispatch(
+      'department/getDepartmenList'
+    )
+    await Promise.all([
+      'getDepartmentTree',
+      'getgetEmployeeList',
+      'getDepartmentList'
+    ])
     this.getOrgUuid()
     this.treeNode(this.department)
-    console.log(this.department)
   },
   methods: {
     handleChange(){
@@ -127,13 +135,8 @@ export default {
       this.changeFormData.uuid = node.data.uuid
     },
     handleDetail(node, data) {
-      console.log(node, data)
 
-      this.$store
-        .dispatch('department/getDepartmentDetail', data.uuid)
-        .then(_ => {
-          this.$store.commit('component/TOGGLE_PANEL', true)
-        })
+      
     },
     treeNode(arr) {
       arr.forEach(item => {

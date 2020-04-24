@@ -147,15 +147,15 @@ service.interceptors.response.use(
     // console.log(error.message);
     let nErr = {};
     if(error.response.data){
-      nErr.name = error.response.data.error;
+      // nErr.name = error.response.data.error;
       nErr.msg = error.response.data.message;
     }
-    let errMsg = nErr?nErr.name +':'+ nErr.msg:error.message
-    Message({
-      message:errMsg,
-      type: 'error',
-      duration: 2 * 1000
-    })
+    let errMsg = nErr?nErr.msg:error.message
+    // Message({
+    //   message:errMsg,
+    //   type: 'error',
+    //   duration: 2 * 1000
+    // })
     return Promise.reject(errMsg);
   }
 )

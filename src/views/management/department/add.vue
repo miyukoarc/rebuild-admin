@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :model="formData" title="创建部门" ref="formData" width="30%" :visible.sync="showDialog">
+    <!-- <el-dialog :model="formData" title="创建部门" ref="formData" width="30%" :visible.sync="showDialog"> -->
       <el-form
         label-position="left"
         size="mini"
@@ -38,13 +38,12 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="handleForm('formData')">确定</el-button>
+          <el-button type="danger" size="small" @click="closeDialog">取消</el-button>
+        </el-form-item>
       </el-form>
-
-      <template slot="footer">
-        <el-button type="primary" size="mini" @click="handleForm('formData')">确定</el-button>
-        <el-button type="danger" size="mini" @click="showDialog=!showDialog">取消</el-button>
-      </template>
-    </el-dialog>
+    <!-- </el-dialog> -->
   </div>
 </template>
 
@@ -52,9 +51,10 @@
 import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'AddDepartment',
+  props: ['onCancle'],
   data() {
     return {
-      showDialog: false,
+      // showDialog: false,
       rules: {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' },
@@ -71,20 +71,14 @@ export default {
         org: '',
         parent: ''
       }, //create
-      addManager:{
+      addManager: {
         departmentId: '',
         managerId: ''
       }
-      
     }
   },
   watch: {
-    // showDialog: {
-    //   handler(newVal, oldVal) {
-    //     this.transferState(newVal)
-    //   },
-    //   immediate: true
-    // }
+
   },
   computed: {
     ...mapState({
@@ -95,13 +89,13 @@ export default {
     ...mapGetters(['department'])
   },
   mounted() {
-    console.log(this.$store)
     this.formData.org = this.org.uuid
+    
   },
   beforeUpdate() {},
   methods: {
-    transferState() {
-      this.$parent.getChild()
+    closeDialog(){
+      this.$emit('close',false)
     },
     handleForm(ref) {
       this.$refs[ref].validate(valid => {
@@ -109,23 +103,25 @@ export default {
           this.$store
             .dispatch('department/createDepartment', this.formData)
             .then(async _ => {
-
-
-              this.$store.dispatch('department/setDepartmentManager', {...this.addManager,departmentId:_.uuid}).then(_ =>{
-
-                this.$store.dispatch('department/getDepartment').then(_ => {
-
-                this.$message({
-                  type: 'success',
-                  message: '添加成功'
+              this.$store
+                .dispatch('department/setDepartmentManager', {
+                  ...this.addManager,
+                  departmentId: _.uuid
                 })
-                Object.assign(this.$data, this.$options.data().formData)
-              })
-              this.showDialog = false
+                .then(async _ => {
+                  const tree = this.$store.dispatch('department/getDepartment')
+                  const list = this.$store.dispatch('department/getAllDepartments')
 
-              })
-
-              
+                  Promise.all(['tree','list']).then(_=>{
+                    this.$message({
+                      type: 'success',
+                      message: '添加成功'
+                    })
+                    this.$emit('close',false)
+                    Object.assign(this.$data, this.$options.data().formData)
+                  })
+                  // this.showDialog = false
+                })
             })
             .catch(err => {
               this.$message({

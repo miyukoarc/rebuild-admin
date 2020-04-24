@@ -1,10 +1,12 @@
 import {
-  getEmployeeList
-} from '@/api/roleManage'
-import Page from "@/utils/PageDefault";
+  getEmployeeList,
+  getEmpByDepartId,
+  addEmployee
+} from '@/api/employee'
+// import {getDepartment} from '@/api/department';
+// import Page from "@/utils/PageDefault";
 const state = {
   employeeList: [],
-  page:new Page()
 }
 const mutations = {
   SAVE_EMPLOYEELIST(state, list) {
@@ -16,10 +18,35 @@ const actions = {
   getEmployeeList({
     commit,state
   }) {
-    return getEmployeeList(state.page).then(res => {
+    return getEmployeeList().then(res => {
       commit('SAVE_EMPLOYEELIST', res.items)
     }).catch(err=>{
         console.log(err)
+    })
+  },
+  getEmpByDepartId({
+    commit,state
+  },id) {
+    return new Promise((resolve,reject)=>{
+      getEmpByDepartId(id).then(res => {
+        commit('SAVE_EMPLOYEELIST', res.items)
+        resolve(res)
+      }).catch(err=>{
+          console.log(err);
+          reject(err)
+      })
+    })
+  },
+  addEmployee({
+    commit,state
+  },id) {
+    return new Promise((resolve,reject)=>{
+      addEmployee(form).then(res => {
+        resolve(res)
+      }).catch(err=>{
+          console.log(err);
+          reject(err)
+      })
     })
   }
 }

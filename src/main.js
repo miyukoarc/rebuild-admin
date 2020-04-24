@@ -16,6 +16,14 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import tim from './tim'
+import TIM from 'tim-js-sdk'
+window.tim = tim
+window.TIM = TIM
+Vue.prototype.$bus = new Vue() // event Bus 用于无关系组件间的通信。
+
+Vue.prototype.tim = tim
+Vue.prototype.TIM = TIM
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

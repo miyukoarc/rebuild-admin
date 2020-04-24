@@ -1,25 +1,20 @@
 <template>
-  <div style="padding:30px;" class="px-3">
+  <div class="p-3">
     <h3 style="margin: 0 0 20px 0">
       <span style="font-weight:normal">部门管理</span>
     </h3>
 
     <tips :msg="tipsMsg" />
 
-    <!-- <component v-bind:is="AddDepartment" ref="addDialog"></component> -->
-
-    <add-department ref="addDialog" />
-
-    <!-- <br> -->
-    <!-- <hr> -->
-
     <div style="margin:20px 0 20px 0;">
-      <el-button type="success" @click.native="showAddDialog" plain size="mini">
+
+
+      <el-button type="primary" @click.native="handleCreate" size="small">
         <i class="el-icon-circle-plus-outline"></i>
         创建部门
       </el-button>
 
-      <el-button type="info" size="mini" @click.native="handleRefresh" plain>
+      <el-button type="primary" size="small" @click.native="handleRefresh">
         <i class="el-icon-refresh"></i>
         刷新数据
       </el-button>
@@ -38,7 +33,7 @@
       node-key="uuid"
       default-expand-all
       :expand-on-click-node="false"
-    >
+      >
       <span class="custom-tree-node" slot-scope="{node, data}">
         <span>
           <span>
@@ -55,11 +50,30 @@
 
     <right-panel>
       <div>
-        <!-- <change-form></change-form> -->
-        <component :is="panelModel" />
-        <!-- <relation-card></relation-card> -->
+        <component :is="'DepartmentDetail'" />
       </div>
     </right-panel>
+
+    <el-dialog
+      width="30%"
+      :visible.sync="showDialog"
+      :title="panelModel=='AddDepartment'?'添加':'编辑'"
+      >
+      <component :is="panelModel" @close="closeDialog" @closeDialog="closeDialog"></component>
+    </el-dialog>
+
+
+    <!-- <el-dialog
+      width="30%"
+      :visible.sync="showEdit"
+      title="编辑"
+    >
+      <EditForm @closeDialog="closeEdit"></EditForm>
+
+    </el-dialog> -->
+
+
+
   </div>
 </template>
 
@@ -69,24 +83,23 @@ import Tips from '@/components/Tips'
 import RightPanel from '@/components/RightPanel'
 import AddDepartment from './add.vue'
 // import RelationCard from  './card'
-import ChangeForm from './form.vue'
+import EditForm from './form.vue'
 import DepartmentDetail from './detail.vue'
 import { isEmpty } from '@/utils/normal'
 export default {
   components: {
     Tips,
     RightPanel,
-    ChangeForm,
+    EditForm,
     AddDepartment,
     DepartmentDetail
     // RelationCard
   },
   data() {
     return {
-      panelModel: 'ChangeForm', //detail/edit
+      panelModel: 'AddDepartment', //detail/edit
       tipsMsg: '请注意请注意',
       showDialog: false,
-      // showEdit: false,
 
       changeFormData: {
         name: '',
@@ -108,8 +121,8 @@ export default {
     },
     $route: {
       handler(newVal, oldVal) {
-        if (newVal.query.edit) {
-          this.showEdit(newVal.query.edit)
+        if(newVal.query.detail){
+          this.showDetail(newVal.query.detail)
         }
       },
       immediate: true
@@ -119,10 +132,9 @@ export default {
     ...mapState({
       org: state => state.user.info.org
     }),
-    ...mapGetters(['department'])
+    ...mapGetters(['department']),
   },
   async mounted() {
-    // await this.getDepartment()
     const getDepartmentTree = this.$store.dispatch('department/getDepartment')
     const getgetEmployeeList = this.$store.dispatch('employee/getEmployeeList')
     const getDepartmentList = this.$store.dispatch(
@@ -137,6 +149,13 @@ export default {
     this.treeNode(this.department)
   },
   methods: {
+    handleCreate(){
+      this.panelModel = 'AddDepartment'
+      this.showDialog = true
+    },
+    closeDialog(val){
+      this.showDialog = false
+    },
     showAddDialog() {
       // console.log(this.$refs.addDialog.showDialog)
       this.$refs.addDialog.showDialog = true
@@ -170,6 +189,16 @@ export default {
         .dispatch('department/updateDepartment', this.changeFormData)
         .then(() => {
           this.$store.dispatch('department/getDepartment')
+          this.$message({
+            type:'success',
+            message: '操作成功'
+          })
+        }).catch(err=>{
+          console.error(err)
+          this.$message({
+            type:'error',
+            message: '操作失败'
+          })
         })
     },
     handleDragStart(node, ev) {
@@ -179,6 +208,7 @@ export default {
       this.changeFormData.uuid = node.data.uuid
     },
     showEdit(id) {
+      // this.panelModel = 'ChangeForm'
       this.$store
         .dispatch('department/getDepartmentDetail', id)
         .then(_ => {
@@ -191,32 +221,45 @@ export default {
           })
         })
     },
-    handleDetail(node, data) {},
+    showDetail(id) {
+      this.panelModel = 'DepartmentDetail'
+      this.$store
+        .dispatch('department/getDepartmentDetail', id)
+        .then(_ => {
+          this.$store.commit('component/TOGGLE_PANEL', true)
+        })
+        .catch(err => {
+          this.$message({
+            type: 'error',
+            message: err
+          })
+        })
+    },
     handleEdit(node, data) {
       // console.log(node, data)
-      this.panelModel = 'DepartmentDetail'
+      this.panelModel = 'EditForm'
       const nextUrl = `${this.$route.path}?edit=${data.uuid}`
-
-      if (nextUrl == this.$route.fullPath) {
-        console.log(nextUrl)
+      console.log(nextUrl,this.$route.fullPath)
+      // if (nextUrl != this.$route.fullPath) {
 
         this.$store
           .dispatch('department/getDepartmentDetail', data.uuid)
           .then(_ => {
-            this.$store.commit('component/TOGGLE_PANEL', true)
-            this.$route.query.detail = data.uuid
+            // this.$store.commit('component/TOGGLE_PANEL', true)
+            this.showDialog = true
+            // this.$route.query.detail = data.uuid
           })
-      }
+      // }
 
       this.$router.push({ path: nextUrl })
     },
     handleDetail(node, data) {
       // console.log(node, data)
-      this.panelModel = 'ChangeForm'
+      this.panelModel = 'DepartmentDetail'
       const nextUrl = `${this.$route.path}?detail=${data.uuid}`
 
-      if (nextUrl == this.$route.fullPath) {
-        console.log(nextUrl)
+      console.log(nextUrl,this.$route.fullPath)
+        
 
         this.$store
           .dispatch('department/getDepartmentDetail', data.uuid)
@@ -224,7 +267,7 @@ export default {
             this.$store.commit('component/TOGGLE_PANEL', true)
             this.$route.query.detail = data.uuid
           })
-      }
+
 
       this.$router.push({ path: nextUrl })
     },
