@@ -94,7 +94,7 @@ export default {
         {
           visible: true,
           label: '部门',
-          prop: 'department',
+          prop: 'department.name',
           uuid: 5,
           align: 'center',
           sort: false
@@ -140,7 +140,7 @@ export default {
     initData() {
       this.getEmployeeList()
         .then(res => {
-          console.log(this.employeeList)
+          console.log(res)
         })
         .catch(err => {
           this.$message({

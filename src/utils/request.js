@@ -83,11 +83,12 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
+    // console.log(error) // for debug
 
     if(config.headers.showLoading !== false){
           showLoading(config.headers.loadingTarget);
     }
+   
     return Promise.reject(error)
   }
 )
@@ -143,14 +144,19 @@ service.interceptors.response.use(
     if(error.config.headers.showLoading !== false){
       hideLoading();
     }
-
-    console.log('err' + error) // for debug
+    // console.log(error.message);
+    let nErr = {};
+    if(error.response.data){
+      nErr.name = error.response.data.error;
+      nErr.msg = error.response.data.message;
+    }
+    let errMsg = nErr?nErr.name +':'+ nErr.msg:error.message
     Message({
-      message: error.message,
+      message:errMsg,
       type: 'error',
-      duration: 5 * 1000
+      duration: 2 * 1000
     })
-    return Promise.reject(error)
+    return Promise.reject(errMsg);
   }
 )
 

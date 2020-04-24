@@ -8,7 +8,7 @@ const state = {
 }
 const mutations = {
   SAVE_EMPLOYEELIST(state, list) {
-    state.employeeList = state.employeeList.concat(list)
+    state.employeeList = (list)
   }
 }
 const actions = {

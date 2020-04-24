@@ -261,4 +261,7 @@ export default {
   color: #c0c4cc;
   background-color: #f4f4f5;
 }
+.common-table .el-switch__core, .el-switch__label{
+  cursor: unset;
+}
 </style>
