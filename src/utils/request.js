@@ -7,6 +7,8 @@ import qs from 'qs';
 
 
 
+
+
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -45,9 +47,12 @@ function hideLoading() {
   }
 }
 
-var toHideLoading = _.debounce(()=>{
-  loading.close();
-  loading = null;
+const toHideLoading = _.debounce(()=>{
+  if(loading){
+    loading.close();
+    loading = null;
+  }
+  
 }, 300);
 
 
@@ -71,6 +76,8 @@ service.interceptors.request.use(
       // config.data = qs.stringify(config.data)
       // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     // }
+
+    // console.log(config)
 
     return config
   },

@@ -24,7 +24,7 @@ const actions = {
 
             // let filtedRoutes  = filterdynamicRoutes(dynamicRoutes)
 
-            console.log(dynamicRoutes)
+            // console.log(dynamicRoutes)
 
             commit('SET_ROUTE',dynamicRoutes)
 

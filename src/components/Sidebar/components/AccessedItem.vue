@@ -23,6 +23,13 @@ export default {
     item: Object,
     required: true
   },
+  watch:{
+    $route: {
+      handler(newVal,oldVal){
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapState({
     //   hasSecondMenu: state => state.secondMenu.hasSecondMenu,
@@ -35,7 +42,8 @@ export default {
     
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
     handleSecondMenu(item) {
-      this.classifyUrl(item.url)
+      // console.log(item)
+      // this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
       

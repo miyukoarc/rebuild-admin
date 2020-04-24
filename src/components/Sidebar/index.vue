@@ -23,6 +23,7 @@
         :unique-opened="false"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
+        
         mode="vertical"
      >
      <accessed-item v-for="item in menu" :key="item.code" :item="item"></accessed-item>
@@ -32,7 +33,6 @@
 </template>
 
 <script>
-
 import { mapGetters,mapState } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './components/SidebarItem'

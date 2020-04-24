@@ -38,7 +38,7 @@ const roleInit = {
       prop: "caozuo",
       align: "center",
       sort: false,
-      showCaozuo: true,
+      type:'button',
       width: "240"
     }
   ]

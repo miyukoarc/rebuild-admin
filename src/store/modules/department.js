@@ -4,13 +4,17 @@ import {
   updateDepartment,
   getDepartmentUser,
   getDepartmentDetail,
-  getDepartmenList
+  getDepartmentList,
+  deleteDepartment,
+  getAllDepartments,
+  setDepartmentManager
 } from "@/api/department";
-import { Message } from "element-ui";
+import {
+  Message
+} from "element-ui";
 import Page from "@/utils/PageDefault";
 
-const columns = [
-  {
+const columns = [{
     visible: true,
     label: "Code",
     prop: "code",
@@ -37,7 +41,7 @@ const columns = [
     prop: "caozuo",
     align: "center",
     sort: false,
-    showCaozuo: true,
+    type:'button',
     width: "240"
   }
 ];
@@ -49,7 +53,8 @@ const state = {
   currentChildren: [],
   departList: [],
   page: new Page(),
-  columns:columns
+  allDepartments: [],
+  columns: columns
   // relationNest: {}
 };
 
@@ -65,12 +70,15 @@ const mutations = {
     if (detail.parent) {
       state.currentParent = detail.parent;
     }
-    if (detail.children.length) {
+    if (detail.children&&detail.children.length) {
       state.currentChildren = detail.children;
     }
   },
   SET_DEPARTLIST(state, val) {
     state.departList = val;
+  },
+  SAVE_ALLDEPARTMENT(state,all){
+    state.allDepartments = all
   },
   CHANGE_PAGE(state, val) {
     state.page.total = val.total;
@@ -80,7 +88,13 @@ const mutations = {
 };
 
 const actions = {
-  getDepartment({ commit }) {
+    /**
+     * 
+     * @param {*} param0 get departmentlist
+     */
+  getDepartment({
+    commit
+  }) {
     return new Promise((resolve, reject) => {
       getDepartment()
         .then(res => {
@@ -99,13 +113,21 @@ const actions = {
         });
     });
   },
-  createDepartment({ commit }, formData) {
+  /**
+   * 
+   * @param {*} param0 
+   * @param {*} formData 
+   * add new department
+   */
+  createDepartment({
+    commit
+  }, formData) {
     return new Promise((resolve, reject) => {
       createDepartment(formData)
         .then(res => {
           console.log(res);
 
-          resolve();
+          resolve(res);
         })
         .catch(err => {
           // Message({
@@ -118,7 +140,16 @@ const actions = {
         });
     });
   },
-  updateDepartment({ commit }, formData) {
+  /**
+   * 
+   * @param {*} param0 
+   * @param {*} formData 
+   * 
+   * updata department info
+   */
+  updateDepartment({
+    commit
+  }, formData) {
     return new Promise((resolve, reject) => {
       updateDepartment(formData)
         .then(res => {
@@ -136,7 +167,16 @@ const actions = {
         });
     });
   },
-  getDepartmentUser({ commit }, id) {
+  /**
+   * 
+   * @param {*} param0 
+   * @param {*} id 
+   * 
+   * get users of the department
+   */
+  getDepartmentUser({
+    commit
+  }, id) {
     return new Promise((resolve, reject) => {
       getDepartmentUser(id)
         .then(res => {
@@ -149,27 +189,89 @@ const actions = {
         });
     });
   },
-  getDepartmentDetail({ commit }, id) {
+  /**
+   * 
+   * @param {*} param0 
+   * @param {*} id 
+   * get department detail
+   */
+  getDepartmentDetail({
+    commit
+  }, id) {
     return new Promise((resolve, reject) => {
       getDepartmentDetail(id)
         .then(res => {
           commit("SAVE_DETAIL", res);
           resolve();
         })
-        .catch(err => {
-          console.log(err);
-          reject();
-        });
-    });
+    }).catch(err => {
+      console.log(err)
+      reject()
+    })
   },
-  getDepartmenList({ commit, state }) {
-    return getDepartmenList(state.page)
+  /**
+   * 
+   * @param {*} param0 
+   * @param {*} data 
+   * delete department
+   */
+  deleteDepartment({
+    commit
+  }, data) {
+
+    console.warn(data)
+    return new Promise((resolve, reject) => {
+      deleteDepartment(data).then(res => {
+          commit('component/TOGGLE_PANEL',false,{root:true})
+        resolve()
+      }).catch(err => {
+        console.log(err)
+        reject()
+      })
+    })
+  },
+  /**
+   * get department list
+   */
+  getDepartmenList({
+    commit,
+    state
+  }) {
+    return new Promise((resolve,reject)=>{
+      getDepartmentList(state.page)
       .then(result => {
         commit("SET_DEPARTLIST", result.items);
         commit("CHANGE_PAGE", result);
+        resolve()
+      }).catch(err => {
+        console.log(err);
+        reject();
+      });
+    })
+    
+  },
+  getAllDepartments({commit}){
+    return new Promise((resolve,reject)=>{
+      getAllDepartments().then(res => {
+        commit('SAVE_ALLDEPARTMENT',res.items)
+        resolve()
+      }).catch(err=>{
+        console.log(err)
+        reject()
       })
-  }
-};
+    })
+  },
+  setDepartmentManager({commit},data){
+    return new Promise((resolve,reject)=>{
+      setDepartmentManager(data).then(res => {
+        resolve()
+      }).catch(err=>{
+        console.log(err)
+        reject()
+      })
+    })
+  },
+}
 
 export default {
   namespaced: true,

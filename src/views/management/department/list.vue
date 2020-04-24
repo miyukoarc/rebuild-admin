@@ -65,6 +65,14 @@ export default {
       }
     }
   },
+  watch:{
+    $route: {
+      handler(newVal,oldVal){
+        console.log(newVal)
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapState({
       org: state => state.user.info.org
@@ -79,6 +87,10 @@ export default {
     console.log(this.department)
   },
   methods: {
+    handleChange(){
+
+    },
+    
     getOrgUuid() {
       this.formData.org = this.org.uuid
       this.changeFormData.org = this.org.uuid

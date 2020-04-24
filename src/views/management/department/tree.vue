@@ -1,16 +1,21 @@
 <template>
-  <div style="padding:30px;">
+  <div style="padding:30px;" class="px-3">
     <h3 style="margin: 0 0 20px 0">
       <span style="font-weight:normal">部门管理</span>
     </h3>
 
     <tips :msg="tipsMsg" />
 
+    <!-- <component v-bind:is="AddDepartment" ref="addDialog"></component> -->
+
+    <add-department ref="addDialog"/>
+
     <!-- <br> -->
     <!-- <hr> -->
 
     <div style="margin:20px 0 20px 0;">
-      <el-button type="success" @click.native="showDialog = !showDialog" plain size="mini">
+
+      <el-button type="success" @click.native="showAddDialog" plain size="mini">
         <i class="el-icon-circle-plus-outline"></i>
         创建部门
       </el-button>
@@ -19,6 +24,7 @@
         <i class="el-icon-refresh"></i>
         刷新数据
       </el-button>
+      
     </div>
 
     <el-tree
@@ -36,36 +42,20 @@
       :expand-on-click-node="false"
     >
       <span class="custom-tree-node" slot-scope="{node, data}">
-        <span>{{data.name}}</span>
+        <span>
+          <span>
+          <i class="el-icon-connection"></i> 
+          {{data.name}}
+        </span>
         <span>
           <el-button type="text" size="mini" @click="()=>handleDetail(node,data)">查看详情</el-button>
         </span>
+        </span>
+        
       </span>
     </el-tree>
 
-    <el-dialog title="创建部门" width="30%" :visible.sync="showDialog">
-      <el-form
-        label-position="left"
-        size="mini"
-        ref="formData"
-        label-width="100px"
-        :model="formData"
-        :rules="rules"
-      >
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="formData.name"></el-input>
-        </el-form-item>
-
-        <el-form-item label="Code" prop="code">
-          <el-input v-model="formData.code"></el-input>
-        </el-form-item>
-      </el-form>
-
-      <template slot="footer">
-        <el-button type="primary" size="mini" @click="handleForm">确定</el-button>
-        <el-button type="danger" size="mini" @click="showDialog = !showDialog">取消</el-button>
-      </template>
-    </el-dialog>
+    
 
     <right-panel>
       <div>
@@ -81,6 +71,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Tips from '@/components/Tips'
 import RightPanel from '@/components/RightPanel'
+import AddDepartment from './add.vue'
 // import RelationCard from  './card'
 import ChangeForm from './form.vue'
 export default {
@@ -88,6 +79,7 @@ export default {
     Tips,
     RightPanel,
     ChangeForm,
+    AddDepartment
     // RelationCard
   },
   data() {
@@ -95,11 +87,7 @@ export default {
       tipsMsg: '请注意请注意',
       showDialog: false,
       // showDetail: false,
-      formData: {
-        name: '',
-        code: '',
-        org: ''
-      }, //create
+      
       changeFormData: {
         name: '',
         code: '',
@@ -109,16 +97,18 @@ export default {
       }, //updata
       departmentUser: [],
       allNode: 0,
-      rules: {
-        name: [
-          { required: true, message: '请输入名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        code: [
-          { required: true, message: '请输入Code', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ]
-      }
+      
+    }
+  },
+  watch:{
+    
+    $route:{
+      handler (newVal,oldVal){
+        if(newVal.query.detail){
+          this.showDetail(newVal.query.detail)
+        }
+      },
+      immediate: true
     }
   },
   computed: {
@@ -129,14 +119,22 @@ export default {
   },
   async mounted() {
     // await this.getDepartment()
-    await this.$store.dispatch('department/getDepartment')
+    const getDepartmentTree = this.$store.dispatch('department/getDepartment')
+    const getgetEmployeeList = this.$store.dispatch('employee/getEmployeeList')
+    const getDepartmentList = this.$store.dispatch('department/getAllDepartments')
+    await Promise.all(['getDepartmentTree','getgetEmployeeList','getDepartmentList'])
     this.getOrgUuid()
     this.treeNode(this.department)
-    console.log(this.department)
   },
   methods: {
+    showAddDialog(){
+      // console.log(this.$refs.addDialog.showDialog)
+      this.$refs.addDialog.showDialog = true
+    },
+    getChild(){
+      alert('!')
+    },
     getOrgUuid() {
-      this.formData.org = this.org.uuid
       this.changeFormData.org = this.org.uuid
     },
     handleDragLeave(draggingNode, dropNode, ev) {
@@ -170,14 +168,35 @@ export default {
       this.changeFormData.code = node.data.code
       this.changeFormData.uuid = node.data.uuid
     },
+    showDetail(id){
+      this.$store.dispatch('department/getDepartmentDetail',id)
+      .then(_=>{
+        this.$store.commit('component/TOGGLE_PANEL', true)
+      }).catch(err=>{
+        this.$message({
+          type: 'error',
+          message: err
+        })
+      })
+    },
     handleDetail(node, data) {
-      console.log(node, data)
+      // console.log(node, data)
+      const nextUrl = `${this.$route.path}?detail=${data.uuid}`
 
-      this.$store
+      if(nextUrl==this.$route.fullPath){
+        console.log(nextUrl)
+        this.$store
         .dispatch('department/getDepartmentDetail', data.uuid)
         .then(_ => {
           this.$store.commit('component/TOGGLE_PANEL', true)
+          this.$route.query.detail = data.uuid
         })
+      }
+      
+
+      this.$router.push({path:nextUrl})
+
+      
     },
     treeNode(arr) {
       arr.forEach(item => {

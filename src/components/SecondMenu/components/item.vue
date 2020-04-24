@@ -38,7 +38,7 @@ export default {
       }
     },
     handleClick(){
-      console.log(this.menuType,this.item,this.menuModule)
+      // console.log(this.menuType,this.item,this.menuModule)
 
       switch(this.menuType){
         case 'transfer':
@@ -56,7 +56,7 @@ export default {
       this.$router.push(this.item.url)
     },
     transferQuery(str){
-      console.log(str)
+      // console.log(str)
     }
   }
 

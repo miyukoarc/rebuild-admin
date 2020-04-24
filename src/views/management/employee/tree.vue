@@ -11,7 +11,7 @@
       node-key="id"
       :expand-on-click-node="false"
       block
-      default-expand-all
+      :default-expanded-keys='[1]'
       style="width:100%"
     >
       <span class="custom-tree-node" slot-scope="{ node, data }">
