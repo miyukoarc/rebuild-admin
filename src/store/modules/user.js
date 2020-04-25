@@ -37,15 +37,16 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login(
-        // { username: username.trim(), password: password },
-        qs.stringify({ username: username.trim(), 
-          password: password,
-          grant_type: 'password',
-          type: 'sms'
-        })
+        { username: username.trim(), password: password }
+        // qs.stringify({ username: username.trim(), 
+        //   password: password,
+        //   grant_type: 'password',
+        //   type: 'sms'
+        // })
         
         ).then(async res => {
-        const { access_token } = res.data
+        // const { access_token } = res.data
+        const { access_token } = res
         await commit('SET_TOKEN', access_token)
         await setToken(access_token)
         resolve()

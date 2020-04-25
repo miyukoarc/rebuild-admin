@@ -33,8 +33,9 @@ Vue.prototype.TIM = TIM
  * please remove it before going online ! ! !
  */
 // if (process.env.NODE_ENV === 'production') {
-//   const { mockXHR } = require('../mock')
-//   mockXHR()
+  // console.log('mock')
+  const { mockXHR } = require('../mock')
+  mockXHR()
 // }
 
 // set ElementUI lang to EN
