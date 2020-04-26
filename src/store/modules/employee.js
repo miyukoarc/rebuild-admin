@@ -1,7 +1,10 @@
 import {
   getEmployeeList,
   getEmpByDepartId,
-  addEmployee
+  addEmployee,
+  getUserByPhone,
+  addEmployForUser,
+  deleteUserByUnionId
 } from '@/api/employee'
 // import {getDepartment} from '@/api/department';
 // import Page from "@/utils/PageDefault";
@@ -28,26 +31,35 @@ const actions = {
   getEmpByDepartId({
     commit,state
   },id) {
-    return new Promise((resolve,reject)=>{
-      getEmpByDepartId(id).then(res => {
+    return getEmpByDepartId(id).then(res => {
         commit('SAVE_EMPLOYEELIST', res.items)
-        resolve(res)
-      }).catch(err=>{
-          console.log(err);
-          reject(err)
+        return res;
       })
-    })
   },
   addEmployee({
     commit,state
   },id) {
-    return new Promise((resolve,reject)=>{
-      addEmployee(form).then(res => {
-        resolve(res)
-      }).catch(err=>{
-          console.log(err);
-          reject(err)
+    return addEmployee(form).then(res => {
+        return res;
       })
+  },
+  getUserByPhone({
+    commit,state
+  },phone){
+    return getUserByPhone(phone).then((result) => {
+      return result;
+    })
+  },
+  addEmployForUser({
+    commit,state
+  },form){
+    return addEmployForUser(form).then((result) => {
+      return result;
+    })
+  },
+  deleteUserByUnionId({commit,state},form){
+    return deleteUserByUnionId(form).then((result) => {
+      return result;
     })
   }
 }

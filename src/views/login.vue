@@ -112,7 +112,8 @@ export default {
       })
     },
     handleGenKey(){
-      genKey(13700000001).then((res)=>{
+      const username = this.loginForm.username
+      genKey(username).then((res)=>{
         this.loginForm.password = res.data
       })
     },
@@ -120,7 +121,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          this.$store.dispatch('user/login', this.loginForm).then(async() => {
+
+            await this.$store.dispatch('im/user/login', this.loginForm.username)
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
@@ -131,7 +134,8 @@ export default {
           return false
         }
       })
-    },imLogin(userSig){
+    },
+    imLogin(userSig){
       this.tim.login({
         userID: this.loginForm.username,
         userSig: userSig

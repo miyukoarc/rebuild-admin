@@ -38,6 +38,20 @@ const columns = [
   },
   {
     visible: true,
+    label: "上级部门",
+    prop: "parent",
+    uuid: 5,
+    align: "center",
+    sort:false,
+    formatter:function(row, column, cellValue, index){
+      if(cellValue){
+        return cellValue.name;
+      }
+      return "";
+    }
+  },
+  {
+    visible: true,
     label: "创建时间",
     prop: "createdAt",
     uuid: 4,

@@ -60,10 +60,10 @@ export default {
           if(this.menuType!='router'){
               this.TOGGLE_TYPE('router')
           }//定义二级菜单'路由'功能
-          this.$store.commit('secondMenu/TOGGLE_STATE',true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SET_OPENARR',this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          this.$store.commit('secondMenu/TOGGLE_STATE', true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
           break;
 
         case 'friend':

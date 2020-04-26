@@ -1,13 +1,13 @@
 <template>
   <el-container id="dialog-button">
-    <el-button type="primary" @click="centerDialogVisible = true" v-bind="$attrs">
+    <el-button type="primary" @click="show = true" v-bind="$attrs">
       <slot></slot>
     </el-button>
 
     <el-dialog
       append-to-body
       destroy-on-close
-      :visible.sync="centerDialogVisible"
+      :visible.sync="show"
       v-bind="$attrs"
     >
     <slot name="dialog">
@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      centerDialogVisible: false
+      show: false
     };
   }
 };

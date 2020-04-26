@@ -27,7 +27,6 @@ export default {
   watch: {
     $route:{
       handler(newVal,oldVal){
-        console.log(newVal.params.modules)
         this.initSecondMenu(newVal.params.modules)
       },
       immediate: true

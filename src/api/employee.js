@@ -20,3 +20,27 @@ export function getEmployeeList(){
         data:form
     })
   }
+
+  export function getUserByPhone(phone){
+    return request({
+      url:`/v1/detail/user/mobile/${phone}`,
+      method:'get'
+    })
+  }
+
+  export function addEmployForUser(form){
+    return request({
+      url:'/v1/org/locateUserDepartment',
+      method:'post',
+      data:form
+    })
+  }
+ 
+  export function deleteUserByUnionId(form){
+    return request({
+      url:'/v1/org/deleteUser',
+      method:'post',
+      data:form
+    })
+  }
+  

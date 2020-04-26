@@ -5,17 +5,23 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters({
+      hidden: 'im/setting/hidden'
+    })
+  },
   async mounted() {
     await this.initImListener()
-    // this.checkIMLogin()
+    this.checkIMLogin()
     const check = this.checkIMLogin()
     if (check.userSig || check.userID) {
       this.tim
         .login(this.checkIMLogin())
         .then(() => {
-          this.$store.commit('showMessage', {
+          this.$store.commit('im/setting/showMessage', {
             type: 'success',
             message: '欢迎回来'
           })
@@ -56,12 +62,13 @@ export default {
         this.TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED,
         this.onReceiveGroupSystemNotice
       )
+      console.log('会话列表更新')
     },
     onReceiveMessage({ data: messageList }) {
       if (messageList[0].conversationID != undefined) {
         this.handleVideoMessage(messageList)
         this.handleAt(messageList)
-        this.$store.commit('pushCurrentMessageList', messageList)
+        this.$store.commit('im/conversation/pushCurrentMessageList', messageList)
       }
 
       // console.info(messageList)
@@ -69,7 +76,7 @@ export default {
     },
     onError({ data }) {
       if (data.message !== 'Network Error') {
-        this.$store.commit('showMessage', {
+        this.$store.commit('im/setting/showMessage', {
           message: data.message,
           type: 'error'
         })
@@ -77,16 +84,16 @@ export default {
     },
     onReadyStateUpdate({ name }) {
       const isSDKReady = name === this.TIM.EVENT.SDK_READY ? true : false
-      this.$store.commit('user/toggleIsSDKReady', isSDKReady)
+      this.$store.commit('im/user/toggleIsSDKReady', isSDKReady)
 
       if (isSDKReady) {
         this.tim
           .getMyProfile()
           .then(({ data }) => {
-            this.$store.commit('user/updateCurrentUserProfile', data)
+            this.$store.commit('im/user/updateCurrentUserProfile', data)
           })
           .catch(error => {
-            this.$store.commit('showMessage', {
+            this.$store.commit('im/setting/showMessage', {
               type: 'error',
               message: error.message
             })
@@ -94,21 +101,21 @@ export default {
         this.tim
           .getFriendList()
           .then(({ data: friendList }) => {
-            this.$store.commit('upadteFriendList', friendList)
+            this.$store.commit('im/friend/upadteFriendList', friendList)
           })
           .catch(error => {
-            this.$store.commit('showMessage', {
+            this.$store.commit('im/setting/showMessage', {
               type: 'error',
               message: error.message
             })
           })
           .catch(error => {
-            this.$store.commit('showMessage', {
+            this.$store.commit('im/setting/showMessage', {
               type: 'error',
               message: error.message
             })
           })
-        this.$store.dispatch('getBlacklist')
+        this.$store.dispatch('im/blacklist/getBlacklist',{},{root:true})
       }
     },
 
@@ -125,18 +132,24 @@ export default {
       }
     },
     onKickOut(event) {
-      this.$store.commit('showMessage', {
+      this.$message({
         message: `${this.kickedOutReason(event.data.type)}被踢出，请重新登录。`,
-        type: 'error'
+        error: 'error'
       })
-      this.$store.commit('user/toggleIsLogin', false)
-      this.$store.commit('reset')
+      
+      this.$store.commit('im/user/toggleIsLogin', false)
+      this.$store.commit('im/blacklist/reset')
+      this.$store.commit('im/conversation/reset')
+      this.$store.commit('im/friend/reset')
+      this.$store.commit('im/group/reset')
+      this.$store.commit('im/user/reset')
     },
     onUpdateConversationList(event) {
-      this.$store.commit('updateConversationList', event.data)
+      console.log('更新会话列表')
+      this.$store.commit('im/conversation/updateConversationList', event.data)
     },
     onUpdateGroupList(event) {
-      this.$store.commit('updateGroupList', event.data)
+      this.$store.commit('im/group/updateGroupList', event.data)
     },
     onReceiveGroupSystemNotice(event) {
       const isKickedout = event.data.type === 4
@@ -145,7 +158,7 @@ export default {
         this.currentConversation.conversationID
       // 在当前会话被踢，需reset当前会话
       if (isKickedout && isCurrentConversation) {
-        this.$store.commit('resetCurrentConversation')
+        this.$store.commit('im/conversation/resetCurrentConversation')
       }
       Notification({
         title: '新系统通知',
@@ -153,7 +166,7 @@ export default {
         duration: 3000,
         onClick: () => {
           const SystemConversationID = '@TIM#SYSTEM'
-          this.$store.dispatch('checkoutConversation', SystemConversationID)
+          this.$store.dispatch('im/conversation/checkoutConversation', SystemConversationID)
         }
       })
     },
@@ -178,7 +191,7 @@ export default {
         // @ 我的
         if (matched.includes(`@${this.currentUserProfile.userID}`)) {
           // 当前页面不可见时，调用window.Notification接口，系统级别通知。
-          if (this.$store.getters.hidden) {
+          if (this.$store.getters['im/setting/hidden']) {
             this.notifyMe(message)
           }
           Notification({
@@ -194,7 +207,7 @@ export default {
     },
     selectConversation(conversationID) {
       if (conversationID !== this.currentConversation.conversationID) {
-        this.$store.dispatch('checkoutConversation', conversationID)
+        this.$store.dispatch('im/conversation/checkoutConversation', conversationID,{root:true})
       }
     },
     isJsonStr(str) {
@@ -218,7 +231,7 @@ export default {
           this.$bus.$emit('busy', videoPayload, videoMessageList[0])
           return
         }
-        this.$store.commit('GENERATE_VIDEO_ROOM', videoPayload.room_id)
+        this.$store.commit('im/video/GENERATE_VIDEO_ROOM', videoPayload.room_id)
         this.selectConversation(videoMessageList[0].conversationID) // 切换当前会话页
         if (videoMessageList[0].from !== this.userID) {
           this.$bus.$emit('isCalled')
@@ -273,7 +286,7 @@ export default {
       })
       notification.onclick = () => {
         window.focus()
-        this.$store.dispatch('checkoutConversation', message.conversationID)
+        this.$store.dispatch('im/conversation/checkoutConversation', message.conversationID,{root:true})
         notification.close()
       }
     },

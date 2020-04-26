@@ -67,13 +67,13 @@ export default {
       this.$store.dispatch('department/getDepartmenList').then().catch(err=>{})
     },
     onCancel() {
-      this.$refs["dialogbutton"].centerDialogVisible = false;
+      this.$refs["dialogbutton"].show = false;
     },
     onSubmit(form) {
       // console.log(form);
       this.addRole(form)
         .then(result => {
-          this.$refs["dialogbutton"].centerDialogVisible = false;
+          this.$refs["dialogbutton"].show = false;
           this.$message({
             type:'success',
             message:'添加成功'
