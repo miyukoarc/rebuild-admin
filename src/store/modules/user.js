@@ -8,6 +8,7 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     userInfo: {},
+    userSig: ''
   }
 }
 
@@ -28,12 +29,16 @@ const mutations = {
   },
   SAVE_USERINFO: (state, info) =>{
     state.userInfo = info
+  },
+  SAVE_USERSIG:(state,sig)=>{
+    state.userSig = sig
+    window.localStorage.setItem('userSig',sig)
   }
 }
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  login({ commit,state }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login(
@@ -47,6 +52,8 @@ const actions = {
         ).then(async res => {
         const { access_token } = res.data
         // const { access_token } = res
+        window.localStorage.setItem('userID',username)
+        // window.localStorage.setItem('userSig',state.userSig)
         await commit('SET_TOKEN', access_token)
         await setToken(access_token)
         resolve()

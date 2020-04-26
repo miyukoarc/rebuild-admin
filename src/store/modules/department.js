@@ -9,10 +9,9 @@ import {
   getAllDepartments,
   setDepartmentManager
 } from "@/api/department";
-import {
-  Message
-} from "element-ui";
+import { Message } from "element-ui";
 import Page from "@/utils/PageDefault";
+import { isEmpty } from "@/utils/normal";
 
 const columns = [
   {
@@ -28,10 +27,38 @@ const columns = [
     prop: "manager",
     uuid: 3,
     align: "center",
-    sort:false,
-    formatter:function(row, column, cellValue, index){
-      if(cellValue){
+    sort: false,
+    formatter: function(row, column, cellValue, index) {
+      if (cellValue) {
         return cellValue.nickname;
+      }
+      return "";
+    }
+  },
+  {
+    visible: true,
+    label: "上级部门",
+    prop: "parent",
+    uuid: 5,
+    align: "center",
+    sort: false,
+    formatter: function(row, column, cellValue, index) {
+      if (cellValue) {
+        return cellValue.name;
+      }
+      return "";
+    }
+  },
+  {
+    visible: true,
+    label: "人数",
+    prop: "users",
+    uuid: 6,
+    align: "center",
+    sort: false,
+    formatter: function(row, column, cellValue, index) {
+      if (!isEmpty(cellValue)) {
+        return cellValue.length;
       }
       return "";
     }
@@ -48,7 +75,7 @@ const columns = [
     label: "Code",
     prop: "code",
     uuid: 1,
-    sort:false,
+    sort: false,
     align: "center"
   },
   {
@@ -57,7 +84,7 @@ const columns = [
     prop: "caozuo",
     align: "center",
     sort: false,
-    type:'button',
+    type: "button",
     width: "240"
   }
 ];
@@ -86,15 +113,15 @@ const mutations = {
     if (detail.parent) {
       state.currentParent = detail.parent;
     }
-    if (detail.children&&detail.children.length) {
+    if (detail.children && detail.children.length) {
       state.currentChildren = detail.children;
     }
   },
   SET_DEPARTLIST(state, val) {
     state.departList = val;
   },
-  SAVE_ALLDEPARTMENT(state,all){
-    state.allDepartments = all
+  SAVE_ALLDEPARTMENT(state, all) {
+    state.allDepartments = all;
   },
   CHANGE_PAGE(state, val) {
     state.page.total = val.total;
@@ -104,13 +131,11 @@ const mutations = {
 };
 
 const actions = {
-    /**
-     * 
-     * @param {*} param0 get department tree
-     */
-  getDepartment({
-    commit
-  }) {
+  /**
+   *
+   * @param {*} param0 get department tree
+   */
+  getDepartment({ commit }) {
     return new Promise((resolve, reject) => {
       getDepartment()
         .then(res => {
@@ -130,14 +155,12 @@ const actions = {
     });
   },
   /**
-   * 
-   * @param {*} param0 
-   * @param {*} formData 
+   *
+   * @param {*} param0
+   * @param {*} formData
    * add new department
    */
-  createDepartment({
-    commit
-  }, formData) {
+  createDepartment({ commit }, formData) {
     return new Promise((resolve, reject) => {
       createDepartment(formData)
         .then(res => {
@@ -157,15 +180,13 @@ const actions = {
     });
   },
   /**
-   * 
-   * @param {*} param0 
-   * @param {*} formData 
-   * 
+   *
+   * @param {*} param0
+   * @param {*} formData
+   *
    * updata department info
    */
-  updateDepartment({
-    commit
-  }, formData) {
+  updateDepartment({ commit }, formData) {
     return new Promise((resolve, reject) => {
       updateDepartment(formData)
         .then(res => {
@@ -184,15 +205,13 @@ const actions = {
     });
   },
   /**
-   * 
-   * @param {*} param0 
-   * @param {*} id 
-   * 
+   *
+   * @param {*} param0
+   * @param {*} id
+   *
    * get users of the department
    */
-  getDepartmentUser({
-    commit
-  }, id) {
+  getDepartmentUser({ commit }, id) {
     return new Promise((resolve, reject) => {
       getDepartmentUser(id)
         .then(res => {
@@ -206,86 +225,84 @@ const actions = {
     });
   },
   /**
-   * 
-   * @param {*} param0 
-   * @param {*} id 
+   *
+   * @param {*} param0
+   * @param {*} id
    * get department detail
    */
-  getDepartmentDetail({
-    commit
-  }, id) {
+  getDepartmentDetail({ commit }, id) {
     return new Promise((resolve, reject) => {
-      getDepartmentDetail(id)
-        .then(res => {
-          commit("SAVE_DETAIL", res);
-          resolve();
-        })
+      getDepartmentDetail(id).then(res => {
+        commit("SAVE_DETAIL", res);
+        resolve();
+      });
     }).catch(err => {
-      console.log(err)
-      reject()
-    })
+      console.log(err);
+      reject();
+    });
   },
   /**
-   * 
-   * @param {*} param0 
-   * @param {*} data 
+   *
+   * @param {*} param0
+   * @param {*} data
    * delete department
    */
-  deleteDepartment({
-    commit
-  }, data) {
+  deleteDepartment({ commit }, data) {
     return new Promise((resolve, reject) => {
-      deleteDepartment(data).then(res => {
-          commit('component/TOGGLE_PANEL',false,{root:true})
-        resolve()
-      }).catch(err => {
-        // console.log()
-        reject('请先删除该部门所有员工和下属部门')
-      })
-    })
+      deleteDepartment(data)
+        .then(res => {
+          commit("component/TOGGLE_PANEL", false, { root: true });
+          resolve();
+        })
+        .catch(err => {
+          // console.log()
+          reject("请先删除该部门所有员工和下属部门");
+        });
+    });
   },
   /**
    * get department list
    */
-  getDepartmenList({
-    commit,
-    state
-  }) {
-    return new Promise((resolve,reject)=>{
+  getDepartmenList({ commit, state }) {
+    return new Promise((resolve, reject) => {
       getDepartmentList(state.page)
-      .then(result => {
-        commit("SET_DEPARTLIST", result.items);
-        commit("CHANGE_PAGE", result);
-        resolve()
-      }).catch(err => {
-        console.log(err);
-        reject();
-      });
-    })
-    
+        .then(result => {
+          commit("SET_DEPARTLIST", result.items);
+          commit("CHANGE_PAGE", result);
+          resolve();
+        })
+        .catch(err => {
+          console.log(err);
+          reject();
+        });
+    });
   },
-  getAllDepartments({commit}){
-    return new Promise((resolve,reject)=>{
-      getAllDepartments().then(res => {
-        commit('SAVE_ALLDEPARTMENT',res.items)
-        resolve()
-      }).catch(err=>{
-        console.log(err)
-        reject()
-      })
-    })
+  getAllDepartments({ commit }) {
+    return new Promise((resolve, reject) => {
+      getAllDepartments()
+        .then(res => {
+          commit("SAVE_ALLDEPARTMENT", res.items);
+          resolve();
+        })
+        .catch(err => {
+          console.log(err);
+          reject();
+        });
+    });
   },
-  setDepartmentManager({commit},data){
-    return new Promise((resolve,reject)=>{
-      setDepartmentManager(data).then(res => {
-        resolve()
-      }).catch(err=>{
-        console.log(err)
-        reject()
-      })
-    })
+  setDepartmentManager({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      setDepartmentManager(data)
+        .then(res => {
+          resolve();
+        })
+        .catch(err => {
+          console.log(err);
+          reject();
+        });
+    });
   }
-}
+};
 
 export default {
   namespaced: true,

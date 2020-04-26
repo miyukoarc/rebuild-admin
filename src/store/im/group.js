@@ -1,71 +1,60 @@
 import tim from '@/tim'
 const state ={
-    currentUserProfile: {},
-    isLogin: false,
-    isSDKReady: false, // TIM SDK 是否 ready
-    userID: 0,
-    userSig: '',
-    sdkAppID: 0,
+  groupList: [],
+  currentMemberList: [],
+  createGroupModelVisible: false
+}
+
+const getters = {
+  hasGroupList: state => state.groupList.length > 0
 }
 const mutations = {
-    updateCurrentUserProfile(state, userProfile) {
-    state.currentUserProfile = userProfile
-    },//更新当前用户资料
-    toggleIsLogin(state, isLogin) {
-    state.isLogin = typeof isLogin === 'undefined' ? !state.isLogin : isLogin
-    },//切换登录状态
-    toggleIsSDKReady(state, isSDKReady) {
-    state.isSDKReady = typeof isSDKReady === 'undefined' ? !state.isSDKReady : isSDKReady
-    },//切换sdk状态
-    reset(state) {
+  updateGroupList(state, groupList) {
+    state.groupList = groupList
+  },
+  updateCreateGroupModelVisible(state, visible) {
+    state.createGroupModelVisible = visible
+  },
+  updateCurrentMemberList(state, memberList) {
+    state.currentMemberList = [...state.currentMemberList, ...memberList]
+  },
+  deleteGroupMemeber(state, userID) {
+    state.currentMemberList = state.currentMemberList.filter((member) => member.userID !== userID)
+  },
+  deleteGroupMemberList(state, userIDList) {
+    state.currentMemberList = state.currentMemberList.filter((member) => !userIDList.includes(member.userID))
+  },
+  resetCurrentMemberList(state) {
+    state.currentMemberList = []
+  },
+  reset(state) {
     Object.assign(state, {
-        currentUserProfile: {},
-        isLogin: false,
-        isSDKReady: false // TIM SDK 是否 ready
+      groupList: [],
+      currentMemberList: [],
+      createGroupModelVisible: false
     })
-    },//重置
-    GET_USER_INFO(state, payload) {
-    state.userID = payload.userID
-    state.userSig = payload.userSig
-    state.sdkAppID = payload.sdkAppID
-    },//记录用户信息
+  }
 }
 const actions ={
-    // login(context, userID) {
-    //   tim
-    //     .login({
-    //       userID,
-    //       userSig: window.genTestUserSig(userID).userSig
-    //     })
-    //     .then(() => {
-    //       context.commit('toggleIsLogin', true)
-    //       context.commit('startComputeCurrent')
-    //       window.$message({ type: 'success', message: '登录成功' })
-    //     })
-    //     .catch(imError => {
-    //       if (imError.code === 2000) {
-    //         window.$message.error(imError.message + ', 请检查是否正确填写了 SDKAPPID')
-    //       } else {
-    //         window.$message.error(imError.message)
-    //       }
-    //     })
-    // },
-    logout(context) {
-        // 若有当前会话，在退出登录时已读上报
-        if (context.rootState.conversation.currentConversation.conversationID) {
-          tim.setMessageRead({ conversationID: context.rootState.conversation.currentConversation.conversationID })
-        }
-        tim.logout().then(() => {
-          context.commit('toggleIsLogin')
-          context.commit('stopComputeCurrent')
-          context.commit('reset')
-        })
-      }
+  updateGroupList(context, groupList) {
+    context.commit('updateGroupList', groupList)
+  },
+  getGroupMemberList(context, groupID) {
+    return tim.getGroupMemberList({
+      groupID: groupID,
+      offset: context.state.currentMemberList.length,
+      count: 30
+    }).then((imResponse) => {
+      context.commit('updateCurrentMemberList', imResponse.data.memberList)
+      return imResponse
+    })
+  }
 }
 
 export default {
     namespaced: true,
     state,
+    getters,
     mutations,
     actions
 }

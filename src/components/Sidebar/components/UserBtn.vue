@@ -43,8 +43,15 @@ export default {
         async logout() {
             // await this.$store.dispatch('user/logout')
             await removeToken()
+            await this.clearSig()
             this.$router.push(`/d/login?redirect=${this.$route.fullPath}`)
+
+        },
+        clearSig(){
+          window.localStorage.removeItem('userID')
+          window.localStorage.removeItem('userSig')
         }
+
     }
 }
 </script>

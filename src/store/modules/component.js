@@ -1,12 +1,19 @@
 const state ={
-    showRightPanel: false
+    showRightPanel: false,
+    showConversationProfile: true,
+
 }
 const mutations = {
     TOGGLE_PANEL(state,current){
         state.showRightPanel = current
+    },
+    TOGGLE_CONVERSATIONPROFILE(state,current){
+        state.showConversationProfile = current
     }
 }
-const actions ={}
+const actions ={
+
+}
 
 export default {
     namespaced: true,

@@ -25,7 +25,6 @@ const imModules = imFiles.keys().reduce((imModules,imModulesPath) => {
 
   
   const moduleName = imModulesPath.replace(/^\.\//, 'im/').replace(/\.js$/,'')
-  console.log(moduleName,imModulesPath)
   const value = imFiles(imModulesPath)
   imModules[moduleName] = value.default
   return imModules
@@ -38,7 +37,9 @@ const store = new Vuex.Store({
     ...modules,
     ...imModules
   },
-  getters
+  getters: {
+    ...getters,
+  }
   // plugins: [createPersistedState()],
 })
 

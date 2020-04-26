@@ -1,11 +1,11 @@
 <template>
-  <div style="height:calc(100% - 244px)">
+  <div style="height:calc(100% - 200px)">
     <el-header height="auto" style="padding:18px 0 0 0;">
       <mHeadedr></mHeadedr>
     </el-header>
 
 
-    <div style="height: calc(100% - 69px);">
+    <div style="height: calc(100%);">
       <cTable
         :columns="columns"
         :data="departList"

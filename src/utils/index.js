@@ -161,3 +161,9 @@ export function titleNotify(count) {
   }
 }
 
+
+// Object.prototype.isEmptyObject = function(){
+//     for(let key in this){
+//       return false
+//   }return true
+// }

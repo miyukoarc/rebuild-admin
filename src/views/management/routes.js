@@ -4,7 +4,7 @@ import roleList from './role/index.vue'
 import stateSettingList from './stateSetting/list'
 import stateSettingTree from './stateSetting/tree'
 import departmentTree from './department/tree.vue'
-import employee from './employee/index'
+import employee from './employee/rightList'
 export default [
     {
         path: 'department/list',

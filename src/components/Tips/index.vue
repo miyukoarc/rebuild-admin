@@ -8,8 +8,6 @@ export default {
             <div class="tip-container">
                 <h5 class="tips-title"><i class="el-icon-magic-stick"></i><span class="title">提示</span></h5>
                 <p>{msg}</p>
-                <p>{msg}</p> 
-                <p>{msg}</p> 
             </div>
         )
     }
