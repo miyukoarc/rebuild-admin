@@ -1,37 +1,36 @@
 import tim from '@/tim'
-const user = {
-  state: {
+const state ={
     currentUserProfile: {},
     isLogin: false,
     isSDKReady: false, // TIM SDK 是否 ready
     userID: 0,
     userSig: '',
     sdkAppID: 0,
-  },
-  mutations: {
+}
+const mutations = {
     updateCurrentUserProfile(state, userProfile) {
-      state.currentUserProfile = userProfile
+    state.currentUserProfile = userProfile
     },//更新当前用户资料
     toggleIsLogin(state, isLogin) {
-      state.isLogin = typeof isLogin === 'undefined' ? !state.isLogin : isLogin
+    state.isLogin = typeof isLogin === 'undefined' ? !state.isLogin : isLogin
     },//切换登录状态
     toggleIsSDKReady(state, isSDKReady) {
-      state.isSDKReady = typeof isSDKReady === 'undefined' ? !state.isSDKReady : isSDKReady
+    state.isSDKReady = typeof isSDKReady === 'undefined' ? !state.isSDKReady : isSDKReady
     },//切换sdk状态
     reset(state) {
-      Object.assign(state, {
+    Object.assign(state, {
         currentUserProfile: {},
         isLogin: false,
         isSDKReady: false // TIM SDK 是否 ready
-      })
+    })
     },//重置
     GET_USER_INFO(state, payload) {
-      state.userID = payload.userID
-      state.userSig = payload.userSig
-      state.sdkAppID = payload.sdkAppID
+    state.userID = payload.userID
+    state.userSig = payload.userSig
+    state.sdkAppID = payload.sdkAppID
     },//记录用户信息
-  },
-  actions: {
+}
+const actions ={
     // login(context, userID) {
     //   tim
     //     .login({
@@ -52,17 +51,21 @@ const user = {
     //     })
     // },
     logout(context) {
-      // 若有当前会话，在退出登录时已读上报
-      if (context.rootState.conversation.currentConversation.conversationID) {
-        tim.setMessageRead({ conversationID: context.rootState.conversation.currentConversation.conversationID })
+        // 若有当前会话，在退出登录时已读上报
+        if (context.rootState.conversation.currentConversation.conversationID) {
+          tim.setMessageRead({ conversationID: context.rootState.conversation.currentConversation.conversationID })
+        }
+        tim.logout().then(() => {
+          context.commit('toggleIsLogin')
+          context.commit('stopComputeCurrent')
+          context.commit('reset')
+        })
       }
-      tim.logout().then(() => {
-        context.commit('toggleIsLogin')
-        context.commit('stopComputeCurrent')
-        context.commit('reset')
-      })
-    }
-  }
 }
 
-export default user
+export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions
+}

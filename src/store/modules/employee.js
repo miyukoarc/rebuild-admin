@@ -19,7 +19,8 @@ const actions = {
     commit,state
   }) {
     return getEmployeeList().then(res => {
-      commit('SAVE_EMPLOYEELIST', res.items)
+      commit('SAVE_EMPLOYEELIST', res.items);
+      return res.total;
     }).catch(err=>{
         console.log(err)
     })

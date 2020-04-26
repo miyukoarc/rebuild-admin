@@ -1,29 +1,29 @@
 import request from '@/utils/request'
 import axios from 'axios'
 
-export function login(data) {
-  return request({
-    url: '/vue-admin-template/user/login',
-    method: 'post',
-    data
-  })
-}
-
-// export function login(data){
-//   return axios(
-//     {
-//       url: 'http://10.10.10.2:40000/oauth/token',
-//       method:'post',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       },
-//       data,
-//       auth:{
-//         username: 'org',
-//         password: 'org@tianyoukeji'
-//       }
-//     })
+// export function login(data) {
+//   return request({
+//     url: '/vue-admin-template/user/login',
+//     method: 'post',
+//     data
+//   })
 // }
+
+export function login(data){
+  return axios(
+    {
+      url: 'http://10.10.10.2:40000/oauth/token',
+      method:'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data,
+      auth:{
+        username: 'org',
+        password: 'org@tianyoukeji'
+      }
+    })
+}
 
 export function getInfo() {
   return request({

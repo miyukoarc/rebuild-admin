@@ -11,7 +11,7 @@
       node-key="uuid"
       :expand-on-click-node="false"
       block
-      :default-expanded-keys='[10000]'
+      :default-expanded-keys='[datalist[0].uuid]'
       style="width:100%"
       highlight-current
       @node-click="onNodeClick"
@@ -21,6 +21,7 @@
           <i class="el-icon-folder"  v-if="!node.expanded"></i>
           <span style="vertical-align: middle">{{data.name}}</span>
       </span>
+      
     </el-tree>
   </el-container>
 </template>
@@ -46,4 +47,10 @@ export default {
 </script>
 
 <style lang="scss">
+.custom-tree-node{
+  // display: inline-block;
+  // width:100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>

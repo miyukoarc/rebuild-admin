@@ -1,13 +1,13 @@
 <template>
   <el-container>
     <el-aside width="200px" class="p-3 border-sider">
-      <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="small"></el-input>
+      <!-- <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="small"></el-input> -->
       <m-tree :datalist="treeDataList" class="mt-2" @onNodeClick="onNodeClick" />
     </el-aside>
     <el-container class="p-3">
       <el-header height>
         <div class="py-2 employee-headedr-title">
-          <h4>浙江天邮科技有限公司（50人）</h4>
+          <h4>{{userInfo.org.name+'('+total+'人)'}}</h4>
           <!-- <div>
             <el-button type="text" size="mini">修改名称</el-button>
             <el-button type="text" size="mini" class="ml-1">添加子部门</el-button>
@@ -50,6 +50,7 @@ export default {
   },
   data() {
     return {
+      total:null,
       filterText: '',
       columns: [
         {
@@ -129,12 +130,13 @@ export default {
   computed: {
     ...mapState(NAME, ['employeeList', 'page']),
     ...mapState('department', ['department']),
+    ...mapState('user', ['userInfo']),
     treeDataList() {
       let list = [
         {
-          uuid: 10000,
+          uuid: this.userInfo.unionId,
           type:'org',
-          name: '浙江天邮科技',
+          name: this.userInfo.org.name,
           children: []
         }
       ]
@@ -155,7 +157,9 @@ export default {
           type: 'error'
         })
       })
-      this.getEmployeeList().catch(err => {
+      this.getEmployeeList().then(res=>{
+        this.total = res;
+      }).catch(err => {
         this.$message({
           message: `出错了哦:${err}`,
           type: 'error'

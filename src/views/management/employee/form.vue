@@ -2,7 +2,7 @@
   <el-form :model="form" ref="form" label-width="80px">
     <el-form-item label="名称">
       <el-select
-        v-model="form.name"
+        v-model="form.phone"
         placeholder="请输入关键词"
         remote
         reserve-keyword
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       form: {
-        name: ''
+        phone: ''
       },
       options: [],
       loading: false,
@@ -97,16 +97,19 @@ export default {
   methods: {
     onSubmit() {},
     remoteMethod(query) {
-      if (query !== '') {
-        this.loading = true
-        setTimeout(() => {
-          this.loading = false
-          this.options = this.list.filter(item => {
-            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1
-          })
-        }, 200)
-      } else {
-        this.options = []
+      // if (query !== '') {
+      //   this.loading = true
+      //   setTimeout(() => {
+      //     this.loading = false
+      //     this.options = this.list.filter(item => {
+      //       return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1
+      //     })
+      //   }, 200)
+      // } else {
+      //   this.options = []
+      // }
+      if(query!==''||query.length!=0){
+
       }
     }
   }
