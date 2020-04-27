@@ -34,6 +34,7 @@ export default {
   watch: {
     currentDetail: {
       handler(newVal, oldVal) {
+        console.log(newVal)
         this.initData()
       },
       deep: true,
@@ -42,7 +43,7 @@ export default {
   },
   computed: {
     ...mapState({
-      org: state => state.user.info.org,
+      org: state => state.user.userInfo.org,
       currentParent: state => state.department.currentParent,
       employeeList: state => state.employee.employeeList,
       allDepartments: state => state.department.allDepartments,
@@ -126,11 +127,7 @@ export default {
           </el-form-item>
 
           <el-form-item label="上级">
-            {isEmpty(currentParent) ? (
-              '未指定'
-            ) : (
-              'currentParent.name'
-            )}
+            {isEmpty(currentParent) ? '未指定' : 'currentParent.name'}
           </el-form-item>
           <el-form-item label="主管">
             {isEmpty(manager) ? '未指定' : <el-tag>{manager.nickname}</el-tag>}

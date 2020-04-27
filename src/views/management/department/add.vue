@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     ...mapState({
-      org: state => state.user.info.org,
+      org: state => state.user.userInfo.org,
       employeeList: state => state.employee.employeeList,
       departmentList: state => state.department.allDepartments
     }),

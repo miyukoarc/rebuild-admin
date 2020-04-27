@@ -4,7 +4,6 @@
       <mHeadedr></mHeadedr>
     </el-header>
 
-
     <div style="height: calc(100%);">
       <cTable
         :columns="columns"
@@ -21,37 +20,28 @@
       />
     </div>
 
-    <right-panel>
+    <right-panel></right-panel>
       <div>
         <component :is="'DepartmentDetail'" />
       </div>
     </right-panel>
 
-
-
-
-    
-
-    <el-dialog
-      width="30%"
-      :visible.sync="showDialog"
-      title="编辑"
-      >
+    <!-- <el-dialog width="30%" :visible.sync="showDialog" title="编辑">
       <EditForm @closeDialog="closeDialog"></EditForm>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
 <script>
-import mHeadedr from "./search-form";
-import cTable from "@/components/CommonTable";
-import { mapState, mapMutations, mapActions } from "vuex";
-import {getDepartmenList} from '@/api/department'
+import mHeadedr from './search-form'
+import cTable from '@/components/CommonTable'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import { getDepartmenList } from '@/api/department'
 import EditForm from './form'
-import Page from "@/utils/PageDefault";
+import Page from '@/utils/PageDefault'
 import RightPanel from '@/components/RightPanel'
 import DepartmentDetail from './detail'
-const NAME = "department";
+const NAME = 'department'
 export default {
   components: {
     cTable,
@@ -65,23 +55,23 @@ export default {
       showDialog: false,
       options: [
         {
-          value: ""
+          value: ''
         }
       ]
-    };
+    }
   },
   computed: {
-    ...mapState(NAME, ["departList", "page", "columns"]),
+    ...mapState(NAME, ['departList', 'page', 'columns']),
     routesData() {
-      return this.routes;
+      return this.routes
     }
   },
   created() {
-    this.initDataList();
+    this.initDataList()
   },
   methods: {
-    ...mapActions(NAME, ["getDepartmenList"]),
-    handleRow(val){
+    ...mapActions(NAME, ['getDepartmenList']),
+    handleRow(val) {
       console.log(val)
       this.$store
         .dispatch('department/getDepartmentDetail', val.uuid)
@@ -89,17 +79,17 @@ export default {
           this.$store.commit('component/TOGGLE_PANEL', true)
         })
     },
-    closeDialog(val){
-      console.log(val)
+    closeDialog(val) {
       this.showDialog = false
     },
-    handleEdit(val){
-      console.log(val)
-      this.$store.dispatch('department/getDepartmentDetail',val.uuid).then(_=>{
-        this.showDialog = true
-      })
+    handleEdit(val) {
+      this.$store
+        .dispatch('department/getDepartmentDetail', val.uuid)
+        .then(_ => {
+          this.showDialog = true
+        })
     },
-    handleDelete(val){
+    handleDelete(val) {
       this.$confirm('是否删除当前部门', 'Warning', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -111,7 +101,6 @@ export default {
               uuid: val.uuid
             })
             .then(_ => {
-
               this.$store.dispatch('department/getDepartmenList')
               // this.$router.replace(this.$route.path)
               this.$message({
@@ -127,30 +116,29 @@ export default {
             })
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
         })
-      console.log(val)
+      // console.log(val)
     },
     sortChange(val) {
-      this.initDataList();
+      this.initDataList()
     },
     pageChange() {
-      this.initDataList();
+      this.initDataList()
     },
     initDataList() {
-      
       this.getDepartmenList()
         .then(() => {})
         .catch(err => {
-          console.log(err);
+          // console.log(err)
           this.$message({
-            message: "出错了哦",
-            type: "error"
-          });
-        });
+            message: `出错了哦:${err}`,
+            type: 'error'
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

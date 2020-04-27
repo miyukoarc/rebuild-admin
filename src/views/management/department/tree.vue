@@ -141,7 +141,7 @@ export default {
   },
   computed: {
     ...mapState({
-      org: state => state.user.info.org
+      org: state => state.user.userInfo.org
     }),
     ...mapGetters(["department"])
   },

@@ -7,8 +7,8 @@
     <tips :msg="tipsMsg" />
 
     
-    <tableContent class="flex-1"/>
-    
+    <!-- <tableContent class="flex-1"/> -->
+    <tableTree  class="flex-1"/>
     <!-- <right-panel>
       <div>
         <change-form></change-form>
@@ -19,18 +19,21 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Tips from '@/components/Tips'
 import RightPanel from '@/components/RightPanel'
 // import RelationCard from  './card'
 import ChangeForm from './form.vue'
 import tableContent from './table';
+import tableTree from './tableTree';
 export default {
   components: {
     Tips,
     RightPanel,
     ChangeForm,
     tableContent,
+    tableTree,
     // RelationCard
   },
   data() {
@@ -67,18 +70,19 @@ export default {
   watch:{
     $route: {
       handler(newVal,oldVal){
-        console.log(newVal)
+        // console.log(newVal)
       },
       immediate: true
     }
   },
   computed: {
     ...mapState({
-      org: state => state.user.info.org
+      org: state => state.user.userInfo.org
     }),
     ...mapGetters(['department'])
   },
   async mounted() {
+      console.log(this.org)
     // await this.getDepartment()
 
     const getDepartmentTree = this.$store.dispatch('department/getDepartment')
