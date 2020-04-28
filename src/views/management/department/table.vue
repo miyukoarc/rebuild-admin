@@ -20,15 +20,15 @@
       />
     </div>
 
-    <right-panel></right-panel>
+    <right-panel>
       <div>
         <component :is="'DepartmentDetail'" />
       </div>
     </right-panel>
 
-    <!-- <el-dialog width="30%" :visible.sync="showDialog" title="编辑">
+    <el-dialog width="30%" :visible.sync="showDialog" title="编辑">
       <EditForm @closeDialog="closeDialog"></EditForm>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 

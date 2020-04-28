@@ -35,14 +35,19 @@ const mutations = {
       },//记录用户信息
 }
 const actions ={
-    login({commit}, userID) {
-      const localSig = window.genTestUserSig(userID).userSig
+    login({commit}, data) {
+      // const localSig = window.genTestUserSig(userID).userSig
+      console.warn(data)
+      const localSig= data.userSig
       commit('user/SAVE_USERSIG',localSig,{root:true})
       tim
-        .login({
-          userID,
-          userSig: localSig
-        })
+        .login(
+        //   {
+        //   userID,
+        //   userSig: localSig
+        // }
+        data
+        )
         .then(() => {
           commit('toggleIsLogin', true)
           commit('im/setting/startComputeCurrent',{},{root:true})

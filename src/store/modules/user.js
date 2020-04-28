@@ -2,17 +2,17 @@ import { login, logout, getInfo, getMenu } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import qs from 'qs'
-const getDefaultState = () => {
-  return {
+const getDefaultState={
     token: getToken(),
     name: '',
     avatar: '',
     userInfo: {},
     userSig: ''
-  }
 }
 
-const state = getDefaultState()
+const state = {
+  ...getDefaultState,
+}
 
 const mutations = {
   RESET_STATE: (state) => {
@@ -50,13 +50,13 @@ const actions = {
         })
         
         ).then(async res => {
-        const { access_token } = res.data
+        const { access_token,userSig,refresh_token } = res.data
         // const { access_token } = res
         window.localStorage.setItem('userID',username)
-        // window.localStorage.setItem('userSig',state.userSig)
+        window.localStorage.setItem('userSig',userSig)
         await commit('SET_TOKEN', access_token)
         await setToken(access_token)
-        resolve()
+        resolve(res.data)
       }).catch(error => {
         reject(error)
       })

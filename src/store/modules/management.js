@@ -21,10 +21,18 @@ const roleInit = {
     },
     {
       visible: true,
-      label: "平台",
+      label: "终端",
       prop: "terminal",
       uuid: 2,
-      align: "center"
+      align: "center",
+      formatter: function(row, column, cellValue, index) {
+        if (cellValue == "ORG") {
+          return "企业端";
+        } else if (cellValue == "USER") {
+          return "用户端";
+        }
+        return "";
+      }
     },
     {
       visible: true,

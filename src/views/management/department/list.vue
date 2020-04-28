@@ -7,8 +7,8 @@
     <tips :msg="tipsMsg" />
 
     
-    <!-- <tableContent class="flex-1"/> -->
-    <tableTree  class="flex-1"/>
+    <tableContent class="flex-1"/>
+    <!-- <tableTree  class="flex-1"/> -->
     <!-- <right-panel>
       <div>
         <change-form></change-form>

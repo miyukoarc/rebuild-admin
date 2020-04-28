@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
+import state from './state';
 // import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
@@ -33,13 +34,12 @@ const imModules = imFiles.keys().reduce((imModules,imModulesPath) => {
 
 
 const store = new Vuex.Store({
+  state,
   modules:{
     ...modules,
     ...imModules
   },
-  getters: {
-    ...getters,
-  }
+  getters,
   // plugins: [createPersistedState()],
 })
 

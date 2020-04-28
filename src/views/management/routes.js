@@ -3,8 +3,9 @@ import departmentList from './department/list.vue'
 import roleList from './role/index.vue'
 import stateSettingList from './stateSetting/list'
 import stateSettingTree from './stateSetting/tree'
-import departmentTree from './department/tree.vue'
+import departmentTree from './department/tableTree.vue'
 import employee from './employee/rightList'
+import menu from './menu'
 export default [
     {
         path: 'department/list',
@@ -35,6 +36,11 @@ export default [
         path: 'employee/list',
         name: 'employee',
         component: employee
+    },
+    {
+        path: 'menu/list',
+        name: 'menu',
+        component: menu
     }
 
 ]

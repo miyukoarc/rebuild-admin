@@ -6,8 +6,9 @@ function page() {
     pageSizes: [20, 50, 100],
     sort: "uuid", //排序字段名 默认uuid
     order: "asc", // asc或者desc
-    getZreo: function() {
-      return Object.assign({},this , {rows: 0});
+    isNull: function() {
+      // return Object.assign({},this , {rows: 0});
+      return null; //获取所有（无分页）
     }
   };
 }

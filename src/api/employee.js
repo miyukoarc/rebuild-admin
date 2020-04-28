@@ -1,9 +1,14 @@
 import request from "@/utils/request";
 
-export function getEmployeeList() {
+export function getEmployeeList(page) {
+  let nPage = {};
+  nPage.sort = page.sort + "," + page.order;
+  nPage.page = page.page - 1; 
+  nPage.size = page.rows;
   return request({
     url: "/v1/list/user",
-    method: "get"
+    method: "get",
+    params:nPage
   });
 }
 export function getEmpByDepartId(id) {
@@ -47,6 +52,14 @@ export function addEmployForUser(form) {
 export function deleteUserByUnionId(form) {
   return request({
     url: "/v1/org/deleteUser",
+    method: "post",
+    data: form
+  });
+}
+
+export function locateUserRole(form){
+  return request({
+    url: "/v1/org/locateUserRole",
     method: "post",
     data: form
   });
