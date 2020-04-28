@@ -1,4 +1,4 @@
-import {getStateMachineDetail}  from '@/api/stateSetting'
+import {getStateMachineDetail,getEventList}  from '@/api/stateSetting'
 
 const state ={
     stateMachine: {},
@@ -22,6 +22,18 @@ const actions = {
     GET_STATELIST({commit},role){
         return new Promise((resolve,reject)=>{
             getStateMachineDetail(role).then()
+        })
+    },
+    getEventList({commit}){
+        return new Promise((resolve,reject)=>{
+            getEventList().then((res)=>{
+                console.log(res)
+                resolve()
+            })
+            .catch(err=>{
+                console.log(err)
+                reject()
+            })
         })
     }
 }

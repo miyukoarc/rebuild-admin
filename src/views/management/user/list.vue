@@ -20,7 +20,8 @@
     </el-container>
 
     <right-panel>
-      <div>123123</div>
+      <!-- <div>123123</div> -->
+      <user-detail/>
     </right-panel>
   </el-container>
 </template>
@@ -28,6 +29,7 @@
 <script>
 // import mHeadedr from "./header";
 import RightPanel from "@/components/RightPanel";
+import UserDetail from './detail.vue'
 import ListHeader from "./header.vue";
 import cTable from "@/components/CommonTable";
 import { mapState, mapMutations, mapActions } from "vuex";
@@ -38,7 +40,8 @@ export default {
   components: {
     cTable,
     ListHeader,
-    RightPanel
+    RightPanel,
+    UserDetail
     // mHeadedr
   },
   data() {
@@ -130,15 +133,28 @@ export default {
         
         {
           visible: true,
-          label: "状态",
+          label: "可用",
           prop: "enabled",
           uuid: 2,
           align: "center",
           render: (row, column, cell) => {
             return (
-              <el-tag type={row.enabled ? "primary" : "danger"} size="mini">
-                {row.enabled ? "有效" : "无效"}
+              <el-tag type={row.enabled ? "success" : "danger"} size="mini">
+                {row.enabled ? "允许" : "禁止"}
               </el-tag>
+            );
+          }
+        },
+        {
+          visible: true,
+          label: "状态",
+          prop: "state",
+          uuid: 2,
+          align: "center",
+          render: (row, column, cell) => {
+              const currState = row.state.name
+            return (
+              <el-tag size="mini" type="primary"><span>{currState}</span></el-tag>
             );
           }
         },
@@ -225,61 +241,14 @@ export default {
     isEmpty(obj){
       return isEmpty(obj)
     },
-    handleKick(val) {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: val.uuid };
-      this.$store
-        .dispatch("userManage/kickUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
-    },
-    handleEnable(val) {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: val.uuid };
-      this.$store
-        .dispatch("userManage/enableUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
-    },
-    handleBan(val) {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: val.uuid };
-      this.$store
-        .dispatch("userManage/disableUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
-    },
+    
     handleRowClick(value) {
+        this.$store.commit('component/TOGGLE_PANEL',true)
+        this.$store.dispatch('userManage/getNormalUserDetail',value.uuid).then(()=>{
+            
+        }).catch(err=>{
+            console.log(err)
+        })
       console.log(value)
     },
     sortChange(val) {

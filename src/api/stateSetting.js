@@ -24,6 +24,13 @@ export function getStateMachineDetail(params){
     })
 }
 
+export function getEventList(){
+    return request({
+        url: '/v1/stateMachine/listEvent',
+        method: 'get'
+    })
+}
+
 
 
 

@@ -14,6 +14,9 @@ const state = {
 const mutations = {
   SAVE_USERLIST(state, list) {
     state.userList = list;
+  },
+  SAVE_DETAIL(state,info){
+      state.userDetail = info
   }
 };
 const actions = {

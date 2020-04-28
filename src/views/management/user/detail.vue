@@ -1,10 +1,10 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
-import RelationCard from './card'
+
 import { isEmpty } from '@/utils/normal'
 export default {
   components: {
-    RelationCard
+
   },
   data() {
     return {
@@ -47,12 +47,17 @@ export default {
       currentParent: state => state.department.currentParent,
       employeeList: state => state.employee.employeeList,
       allDepartments: state => state.department.allDepartments,
-      currentDetail: state => state.department.currentDetail
+      currentDetail: state => state.department.currentDetail,
+      /**
+       * 
+       */
+
+      userDetail: state => state.userManage.userDetail
     }),
     ...mapGetters(['showRightPanel'])
   },
   mounted() {
-    this.initData()
+    // this.initData()
   },
   beforeUpdate() {},
   updated() {},
@@ -62,6 +67,60 @@ export default {
     },
     handleClose() {
       this.$store.commit('component/TOGGLE_PANEL', false)
+    },
+    handleKick() {
+      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
+      this.$store
+        .dispatch("userManage/kickUser", data)
+        .then(()=>{
+          this.$message({
+            type: 'success',
+            message: '操作成功'
+          })
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message({
+            type: "error",
+            message: "操作失败"
+          });
+        });
+    },
+    handleEnable() {
+      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
+      this.$store
+        .dispatch("userManage/enableUser", data)
+        .then(()=>{
+          this.$message({
+            type: 'success',
+            message: '操作成功'
+          })
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message({
+            type: "error",
+            message: "操作失败"
+          });
+        });
+    },
+    handleBan() {
+      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
+      this.$store
+        .dispatch("userManage/disableUser", data)
+        .then(()=>{
+          this.$message({
+            type: 'success',
+            message: '操作成功'
+          })
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message({
+            type: "error",
+            message: "操作失败"
+          });
+        });
     },
     handleConfirm() {},
     handleDel() {
@@ -96,61 +155,53 @@ export default {
         })
     },
     initData() {
-      const currentManager = this.currentDetail.manager
-      this.setManagerForm.departmentId = this.currentDetail.uuid
-      this.updateForm.org = this.org.uuid
-      this.updateForm.uuid = this.currentDetail.uuid
-      this.updateForm.name = this.currentDetail.name
-      this.updateForm.code = this.currentDetail.code
-      if (this.currentParent.uuid) {
-        this.updateForm.parent = this.currentParent.uuid
-      }
-      if (!this.isEmpty(currentManager)) {
-        this.setManagerForm.managerId = currentManager.uuid
-      }
     }
   },
   render() {
-    const { name, code, users, manager } = this.currentDetail
-    const { isEmpty, handleClose, currentParent } = this
+    // const { name, code, users, manager } = this.currentDetail
+    const {nickname,events,state,enabled} = this.userDetail
+    const {handleClose,handleKick,handleBan} = this
+    console.log(events)
     return (
       <div>
         <h4>详情</h4>
         <br />
         <el-form label-width="100px" label-position="left">
+          <el-form-item>
+            <div>
+                <img />
+            </div>
+          </el-form-item>
           <el-form-item label="名称">
-            <div>{name}</div>
+            <div>{nickname}</div>
           </el-form-item>
 
-          <el-form-item label="Code">
-            <div>{code}</div>
+          <el-form-item label="状态">
+            <div>{state&&state.name}</div>
           </el-form-item>
 
-          <el-form-item label="上级">
-            {isEmpty(currentParent) ? '未指定' : 'currentParent.name'}
+          <el-form-item label="可用">
+            <div>
+                {
+                    enabled?<el-tag type="success">可用</el-tag>:<el-tag type="danger">不可用</el-tag>
+                }
+            </div>
           </el-form-item>
-          <el-form-item label="主管">
-            {isEmpty(manager) ? '未指定' : <el-tag>{manager.nickname}</el-tag>}
+          <el-form-item label="">
+            
           </el-form-item>
           <el-form-item label="组织关系">
-            <relation-card></relation-card>
+
           </el-form-item>
 
-          <el-form-item label="成员">
-            {isEmpty(users) ? (
-              <div>
-                {[] ||
-                  users.map(user => {
-                    return (
-                      <el-tag style={{ marginRight: '3px' }} key={user.uuid}>
-                        {user.nickname}
-                      </el-tag>
-                    )
-                  })}
-              </div>
-            ) : (
-              <div>未指定</div>
-            )}
+          <el-form-item label="操作">
+            {
+                []||events.map(item=>{
+                    <el-button key={item}>{
+                        item
+                    }</el-button>
+                })
+            }
           </el-form-item>
           <el-form-item>
             <el-button size="small" type="success" onClick={handleClose}>
