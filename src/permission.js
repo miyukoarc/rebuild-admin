@@ -80,9 +80,16 @@ const whiteList = ['/d/login'] // no redirect whitelist
 
               store.dispatch('permission/generateRoutes')
               
-              resolve()
+              // resolve()
             })
-            .catch(err => {})
+            .catch(err => {
+              Message({
+                type: 'error',
+                message: err||err.message
+              })
+
+              // reject()
+            })
 
           const accessed = store.state.permission.filtedRouter
 

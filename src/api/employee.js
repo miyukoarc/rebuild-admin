@@ -6,14 +6,14 @@ export function getEmployeeList(page) {
   nPage.page = page.page - 1; 
   nPage.size = page.rows;
   return request({
-    url: "/v1/list/user",
+    url: "/v1/list/org/user",
     method: "get",
     params:nPage
   });
 }
 export function getEmpByDepartId(id) {
   return request({
-    url: `/v1/list/user/department/${id}`,
+    url: `/v1/list/org/user/department/${id}`,
     method: "get"
   });
 }

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view v-if="isRouterAlive" />
   </div>
 </template>
 
@@ -8,10 +8,20 @@
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
+  data(){
+    return {
+      isRouterAlive: true
+    }
+  },
   computed: {
     ...mapGetters({
       hidden: 'im/setting/hidden'
     })
+  },
+  provide() {
+    return {
+      reload: this.reload,
+    };
   },
   async mounted() {
     await this.initImListener()
@@ -30,6 +40,12 @@ export default {
     }
   },
   methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    },
     checkIMLogin() {
       let userID = window.localStorage.getItem('userID')
       let userSig = window.localStorage.getItem('userSig')

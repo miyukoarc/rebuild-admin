@@ -28,6 +28,6 @@ export default [
         }
     },
     {
-        url: '/v1/list/user/'
+        url: '/v1/list/org/user/'
     }
 ]

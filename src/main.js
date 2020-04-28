@@ -26,6 +26,8 @@ import '@/assets/icon/iconfont.css'
 import '@/assets/icon/tim.css'
 
 
+import '@/utils/normal';//自定义工具函数
+
 //iconfont
 window.tim = tim
 window.TIM = TIM
@@ -36,6 +38,7 @@ Vue.prototype.tim = tim
 Vue.prototype.TIM = TIM
 Vue.prototype.$store = store
 Vue.prototype.$confirm = MessageBox.confirm
+
 
 
 /**

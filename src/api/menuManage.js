@@ -21,3 +21,11 @@ export function getMenuListByRole(id) {
     method: "get"
   });
 }
+
+export function addMenuForRole(form) {
+  return request({
+    url: `/v1/role/linkMenu`,
+    method: "post",
+    data:form
+  });
+}

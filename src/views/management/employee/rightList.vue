@@ -155,7 +155,7 @@ export default {
           uuid: 3,
           align: "center",
           sort: false,
-          formatter: function(row, column, cellValue, index) {
+          render: function(row, column, cellValue, index) {
             return cellValue == "MANAGER" ? "主管" : "";
           }
         },

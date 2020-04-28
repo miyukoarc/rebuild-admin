@@ -22,19 +22,19 @@
         prop="manager"
         label="主管"
         align="center"
-        :formatter="formatterRow"
+        :render="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="parent"
         label="上级"
         align="center"
-        :formatter="formatterRow"
+        :render="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="users"
         label="人数"
         align="center"
-        :formatter="formatterRow"
+        :render="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="code"

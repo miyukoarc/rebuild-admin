@@ -68,7 +68,7 @@ const actions ={
         }
         tim.logout().then(() => {
           context.commit('toggleIsLogin')
-          context.commit('stopComputeCurrent')
+          context.commit('im/setting/startComputeCurrent',{},{root:true})
           context.commit('reset')
         })
       }

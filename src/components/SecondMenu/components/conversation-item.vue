@@ -8,7 +8,7 @@
         <span class="tim-icon-close" title="删除会话" @click="deleteConversation"></span>
       </div>
       <div class="warp">
-        <!-- <avatar :src="avatar" :type="conversation.type" /> -->
+        <avatar :src="avatar" :type="conversation.type" />
         <div class="content">
           <div class="row-1">
             <div class="name">

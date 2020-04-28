@@ -12,7 +12,7 @@ import qs from 'qs';
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  baseURL: 'http://10.10.10.2:40001/',
+  baseURL: 'http://10.10.10.201:40001/',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -134,6 +134,7 @@ service.interceptors.response.use(
       //     })
       //   })
       // }
+
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return res.data
@@ -156,6 +157,7 @@ service.interceptors.response.use(
     //   type: 'error',
     //   duration: 2 * 1000
     // })
+    console.log(error)
     return Promise.reject(errMsg);
   }
 )

@@ -21,21 +21,32 @@ export default {
   },
   methods:{
     handleFriendClick() {
-      console.log(this.friend.userID)
-      this.tim.getConversationProfile(`C2C${this.friend.userID}`).then(({data})=>{
-        this.$store.commit('im/conversation/updateCurrentConversation', data)
-        this.$router.puah({url: '/d/conversation/conversation/list'})
-      })
-      .catch(error => {
-          this.$store.commit('im/setting/showMessage', {
-            type: 'error',
-            message: error.message
-          })
-      }) 
+      console.log(this.friend)
+      // this.tim.getConversationProfile(`C2C${this.friend.userID}`).then(({data})=>{
+        // console.log(data,data.conversation.conversationID)
+        // const id = data.conversation.conversationID
+        // this.$store.commit('im/conversation/updateCurrentConversation', data)
+        this.$store.commit('im/friend/SAVE_CURRENTINFO',this.friend.profile)
+        // this.$store.dispatch(
+        //   'im/conversation/checkoutConversation',
+        //   id
+        // ).then(_=>{
+        //   this.$router.push({path: '/d/conversation/conversation/list'})
+        // })
+      // })
+      // .catch(error => {
+      //     this.$store.commit('im/setting/showMessage', {
+      //       type: 'error',
+      //       message: error.message
+      //     })
+      // }) 
     }
   }  
 }
 </script>
 
 <style lang="scss" scoped>
+.friend-item-container{
+  padding: 15px 20px;
+}
 </style>

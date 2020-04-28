@@ -1,4 +1,4 @@
-import { login, logout, getInfo, getMenu } from '@/api/user'
+import { login, logout, getInfo, getMenu,updateUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import qs from 'qs'
@@ -16,7 +16,7 @@ const state = {
 
 const mutations = {
   RESET_STATE: (state) => {
-    Object.assign(state, getDefaultState())
+    Object.assign(state, getDefaultState)
   },
   SET_TOKEN: (state, token) => {
     state.token = token
@@ -107,7 +107,7 @@ const actions = {
   },
 
   getMenu ({commit}){
-    return new Promise(resolve=>{
+    return new Promise((resolve,reject)=>{
       getMenu().then((res)=>{
         
         let temp = {}
@@ -124,7 +124,23 @@ const actions = {
         
         resolve()
       }).catch(err=>{
+        reject(err)
+      })
+    })
+  },
 
+  /**
+   * update userinfo
+   */
+
+  updateUserInfo({commit},data){
+    return new Promise((resolve,reject)=>{
+      updateUserInfo(data).then(res=>{
+
+
+        resolve()
+      }).catch(err=>{
+        reject(err)
       })
     })
   }

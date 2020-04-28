@@ -1,9 +1,13 @@
 
 const state ={
     friendList: [],
+    currentFriendInfo: {},
     createGroupModelVisible: false
 }
 const mutations = {
+  SAVE_CURRENTINFO(state, info){
+    state.currentFriendInfo = info
+  },
     upadteFriendList(state, friendList) {
         state.friendList = friendList
       },

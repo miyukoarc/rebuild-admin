@@ -1,3 +1,6 @@
+
+import {Message} from 'element-ui'
+
 const state = {
   current: Date.now(), // 当前时间
   intervalID: 0,

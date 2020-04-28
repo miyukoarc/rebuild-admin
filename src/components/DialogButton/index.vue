@@ -23,7 +23,12 @@ export default {
     return {
       show: false
     };
-  }
+  },
+  mounted () {
+    this.$bus.$on('closeDialog',_=>{
+      this.show = false;
+    })
+  },
 };
 </script>
 

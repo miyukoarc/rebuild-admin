@@ -27,7 +27,7 @@
           align="center"
           :index="indexMethod"
         ></el-table-column>
-        <template v-for="col in columns">
+        <template v-for="col in afterColumns">
           <template v-if="col.visible">
             <el-table-column
               v-if="col.type==='image'"
@@ -37,7 +37,7 @@
               :sort-by="col.sortBy ? col.sortBy : col.prop"
               :width="col.width ? col.width : ''"
               :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.formatter"
+              :formatter="col.render"
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
@@ -58,17 +58,16 @@
               :sort-by="col.sortBy ? col.sortBy : col.prop"
               :width="col.width ? col.width : ''"
               :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.formatter"
+              :formatter="col.render"
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
             >
               <template slot-scope="scope">
-                  <el-tag
-                    :key="scope.row.enabled"
-                    :type="scope.row.enabled?'success':'error'">
-                    {{scope.row.enabled?'正常':''}}
-                  </el-tag>
+                <el-tag
+                  :key="scope.row.enabled"
+                  :type="scope.row.enabled?'success':'error'"
+                >{{scope.row.enabled?'有效':'无效'}}</el-tag>
               </template>
             </el-table-column>
             <el-table-column
@@ -79,15 +78,27 @@
               :sort-by="col.sortBy ? col.sortBy : col.prop"
               :width="col.width ? col.width : ''"
               :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.formatter"
+              :formatter="col.render"
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
             >
               <template slot-scope="scope">
-                <el-button type="primary" size="mini" v-waves icon="el-icon-edit" @click.native.stop="handleFirst(scope.row)">编辑</el-button>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  v-waves
+                  icon="el-icon-edit"
+                  @click.native.stop="handleFirst(scope.row)"
+                >编辑</el-button>
                 <!-- <dialog-button v-waves type="primary"  size="mini" icon="el-icon-edit">编辑</dialog-button> -->
-                <el-button type="danger" size="mini" v-waves icon="el-icon-delete" @click.native.stop="handleSecond(scope.row)">删除</el-button>
+                <el-button
+                  type="danger"
+                  size="mini"
+                  v-waves
+                  icon="el-icon-delete"
+                  @click.native.stop="handleSecond(scope.row)"
+                >删除</el-button>
               </template>
             </el-table-column>
 
@@ -99,12 +110,11 @@
               :sort-by="col.sortBy ? col.sortBy : col.prop"
               :width="col.width ? col.width : ''"
               :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.formatter"
+              :formatter="col.render"
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
             ></el-table-column>
-
           </template>
         </template>
       </el-table>
@@ -159,58 +169,62 @@ export default {
   },
   data() {
     return {
-      height: '100%',
+      height: "100%",
       currentPage: 1,
       pageSizes: [10, 20, 30, 50],
       pageSize: 50,
       total: 0,
       data: [],
-      param: {}
+      param: {},
+
       //handleChange: true
-    }
+    };
   },
   computed: {
     emptyText: function() {
-      return this.loading ? ' ' : '暂无数据'
+      return this.loading ? " " : "暂无数据";
+    },
+    afterColumns(){
+      return this.columns
     }
   },
   watch: {
     columns() {
-      this.$refs['table'].doLayout()
+      this.$refs["table"].doLayout();
     }
   },
   methods: {
-    handleFirst(data){
-      this.$emit('btnFirst',data)
+    handleFirst(data) {
+      this.$emit("btnFirst", data);
     },
-    handleSecond(data){
-      this.$emit('btnSecond',data)
+    handleSecond(data) {
+      this.$emit("btnSecond", data);
     },
     rowClick(row, column, cell, event) {
-      this.$emit('rowClick',row)
+      this.$emit("rowClick", row);
     },
     handleSizeChange(val) {
-      this.page.rows = val
-      this.$emit('pageChange')
+      this.page.rows = val;
+      this.$emit("pageChange");
     },
     handleCurrentChange(val) {
-      this.page.page = val
-      this.$emit('pageChange')
+      this.page.page = val;
+      this.$emit("pageChange");
     },
     sortChange(val) {
       // console.log('pagenation table sort change ', val)
-      if (val.hasOwnProperty('column') && val.column !== null) {
-        this.page.sort = val.column.sortBy
+      if (val.hasOwnProperty("column") && val.column !== null) {
+        this.page.sort = val.column.sortBy;
         if (val.order) {
-          this.page.order = val.order.includes('asc') ? 'asc' : 'desc'
+          this.page.order = val.order.includes("asc") ? "asc" : "desc";
         } else {
-          this.page.order = 'asc'
+          this.page.order = "asc";
         }
-        this.$emit('sortChange', val)
+        this.$emit("sortChange", val);
       }
     },
     indexMethod(index) {
-      return this.page.rows * (this.page.page - 1) + index + 1
+      return this.page.rows * (this.page.page - 1) + index + 1;
     },
     // onResize: function(val) {
     //   if (val) {
@@ -230,7 +244,7 @@ export default {
   },
   mounted() {},
   inheritAttrs: false
-}
+};
 </script>
 
 <style lang="css">
@@ -267,7 +281,8 @@ export default {
   color: #c0c4cc;
   background-color: #f4f4f5;
 }
-.common-table .el-switch__core, .el-switch__label{
+.common-table .el-switch__core,
+.el-switch__label {
   cursor: unset;
 }
 </style>

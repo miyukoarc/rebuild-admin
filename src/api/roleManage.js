@@ -32,7 +32,7 @@ export function getORGList(){
 
 // export function getEmployeeList(){
 //   return request({
-//     url: '/v1/list/user',
+//     url: '/v1/list/org/user',
 //     method:'get'
 //   })
 // }

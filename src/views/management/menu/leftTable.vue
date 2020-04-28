@@ -18,7 +18,7 @@
 import CTable from "@/components/CommonTable/index";
 import Page from "@/utils/PageDefault";
 import { mapState, mapActions } from "vuex";
-const NAME='menuManage'
+const NAME = "menuManage";
 export default {
   components: {
     CTable
@@ -27,15 +27,8 @@ export default {
     return {
       page: new Page(),
       currentRow: null,
+      currentRowID: null,
       columns: [
-        {
-          visible: true,
-          label: "Code",
-          prop: "code",
-          sort: false,
-          uuid: 3,
-          align: "center"
-        },
         {
           visible: true,
           label: "名称",
@@ -46,12 +39,21 @@ export default {
         },
         {
           visible: true,
+          label: "Code",
+          prop: "code",
+          sort: false,
+          uuid: 3,
+          align: "center"
+        },
+
+        {
+          visible: true,
           label: "终端",
           prop: "terminal",
           uuid: 2,
           align: "center",
           sort: false,
-          formatter: function(row, column, cellValue, index) {
+          render: function(row, column, cellValue, index) {
             if (cellValue == "ORG") {
               return "企业端";
             } else if (cellValue == "USER") {
@@ -68,22 +70,31 @@ export default {
   },
   mounted() {
     if (this.roleList.length == 0 || this.roleList) {
-      this.getRoleList().then(()=>{
-        this.$refs["singleTable"].$refs["table"].setCurrentRow(this.roleList[0]);
+      this.getRoleList().then(() => {
+        // this.$refs["singleTable"].$refs["table"].setCurrentRow(this.roleList[0]);
       });
     }
-    this.$refs["singleTable"].$refs["table"].setCurrentRow(this.roleList[0]);
+    this.$bus.$on("onRefleshMenuTree", _ => {
+      this.getMenuListByRole(this.currentRowID).catch(err => {
+        this.$message({
+          type: "error",
+          message: err
+        });
+      });
+    });
   },
   methods: {
     ...mapActions("role", ["getRoleList"]),
-    ...mapActions(NAME,['getMenuList','getMenuListByRole']),
+    ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
     handleCurrentChange(val) {
-      this.getMenuListByRole(val.uuid).catch(err=>{
+      this.currentRowID = val.uuid;
+      this.$bus.$emit("handleCurrentChange", val.uuid);
+      this.getMenuListByRole(val.uuid).catch(err => {
         this.$message({
-          type:'error',
-          message:err
-        })
-      })
+          type: "error",
+          message: err
+        });
+      });
     }
   }
 };
