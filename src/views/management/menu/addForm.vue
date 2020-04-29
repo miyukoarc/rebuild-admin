@@ -10,7 +10,7 @@
       <el-form-item label="图标">
         <el-input v-model="form.iconUrl"></el-input>
       </el-form-item>
-      <el-form-item label="公司">
+      <!-- <el-form-item label="公司">
         <el-select v-model="form.org" placeholder="请选择公司">
           <el-option
             v-for="item in orgList"
@@ -20,7 +20,7 @@
           >
           </el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="父级">
         <!-- <el-input v-model="form.parent"></el-input> -->
         <el-select v-model="form.parent" placeholder="请选择父级菜单">
@@ -68,15 +68,15 @@ export default {
         name: "",
         code: "",
         iconUrl: "",
-        org: "",
+        org: 1, 
         parent: "",
         roles: [],
         url: "",
         sort:null
       },
-      orgList:[
-          {name:'天邮',uuid:1}
-      ]
+      // orgList:[
+      //     {name:'天邮',uuid:1}
+      // ]
     };
   },
   inject:['reload'],
@@ -99,12 +99,6 @@ export default {
           });
           this.$bus.$emit("closeDialog");
           this.reload();
-        //   this.$store.dispatch("menuManage/getMenuList").catch(err => {
-        //     this.$message({
-        //       type: "error",
-        //       message: `出错了哦:${err}`
-        //     });
-        //   });
         })
         .catch(err => {
           this.$message({

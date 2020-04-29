@@ -1,59 +1,32 @@
-
 <template>
-  <div class="card-container">
-      <el-timeline>
-          <el-timeline-item v-if="!isEmpty(currentParent)">
-              <div>
-                  <h5>{{currentParent.name}}</h5>
-              </div>
-          </el-timeline-item>
-          <el-timeline-item type="primary" size="large">
-              <div>
-                  <h4>{{currentDetail.name}}</h4>
-              </div>
-          </el-timeline-item>
-          <el-timeline-item v-if="!isEmpty(currentChildren)">
-              <div class="child-container">
-                  <h5 v-for="item in currentChildren" :key="item.uuid">{{item.name}}</h5>
-              </div>
-          </el-timeline-item>
-      </el-timeline>
-  </div>
+  <card-board :title="'部门'">
+      <div>
+          <el-row>
+              <el-col :span="12">部门:</el-col>
+              <el-col :span="12">法务部</el-col>
+          </el-row>
+          <el-row>
+              <el-col :span="12">主管:</el-col>
+              <el-col :span="12">无名</el-col>
+          </el-row>
+      </div>
+  </card-board>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import {isEmpty} from '@/utils/normal'
+import CardBoard from '@/components/CardBoard'
 export default {
+    components: {
+        CardBoard
+    },
     data(){
         return {
 
-        }
-    },
-    computed:{
-        ...mapState({
-            currentParent: state => state.department.currentParent,
-            currentChildren: state => state.department.currentChildren,
-            currentDetail: state => state.department.currentDetail
-        }),
-        
-    },
-    mounted(){
-
-    },
-    methods: {
-        isEmpty(obj){
-            return isEmpty(obj)
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
-.card-container{
-    padding: 15px 0;
-}
-.child-container{
-    display: flex;
-}
+<style>
+
 </style>

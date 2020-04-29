@@ -43,11 +43,12 @@
               :align="col.align ? col.align : 'left'"
             >
               <template slot-scope="scope">
-                <el-image style="width: 50px; height: 50px" :src="scope.row.headimgurl" fit="fill">
+                <el-avatar :src="scope.row.headimgurl" icon="el-icon-user-solid"></el-avatar>
+                <!-- <el-image style="width: 50px; height: 50px" :src="scope.row.headimgurl" fit="fill">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
                   </div>
-                </el-image>
+                </el-image> -->
               </template>
             </el-table-column>
             <el-table-column

@@ -1,13 +1,13 @@
 <template>
   <div class="conversation-profile-wrapper">
-    <user-profile
+    <!-- <user-profile
       v-if="currentConversation.type === TIM.TYPES.CONV_C2C"
       :user-profile="currentConversation.userProfile"
-    />
-    <group-profile
+    /> -->
+    <!-- <group-profile
       v-else-if="currentConversation.type === TIM.TYPES.CONV_GROUP"
       :group-profile="currentConversation.groupProfile"
-    />
+    /> -->
   </div>
 </template>
 

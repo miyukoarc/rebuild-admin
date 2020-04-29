@@ -68,15 +68,15 @@ export default {
         .then(result => {
           this.$refs["dialogbutton"].show = false;
           this.$message({
-            type:'success',
-            message:'添加成功'
-          })
+            type: "success",
+            message: "添加成功"
+          });
         })
         .catch(err => {
           this.$message({
-            type:'error',
-            message:err
-          })
+            type: "error",
+            message: err
+          });
         });
     }
   }

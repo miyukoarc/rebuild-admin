@@ -51,7 +51,6 @@ export default {
           visible: true,
           label: "昵称",
           prop: "nickname",
-          uuid: 3,
           align: "center",
           render: (row, column, cell) => {
             return <div>{row.nickname}</div>;
@@ -71,7 +70,6 @@ export default {
           visible: true,
           label: "性别",
           prop: "gender",
-          uuid: 1,
           align: "center",
           render: (row, column, cell) => {
             let sex;
@@ -135,7 +133,6 @@ export default {
           visible: true,
           label: "可用",
           prop: "enabled",
-          uuid: 2,
           align: "center",
           render: (row, column, cell) => {
             return (
@@ -149,12 +146,16 @@ export default {
           visible: true,
           label: "状态",
           prop: "state",
-          uuid: 2,
           align: "center",
           render: (row, column, cell) => {
               const currState = row.state.name
             return (
-              <el-tag size="mini" type="primary"><span>{currState}</span></el-tag>
+              <div>
+              {
+                currState?<el-tag size="mini" type="primary"><span>{currState}</span></el-tag>:"未指定"
+              }
+              </div> 
+              
             );
           }
         },
@@ -163,54 +164,7 @@ export default {
           label: "创建时间",
           prop: "createdAt",
           align: "center"
-        }/*
-        {
-          visible: true,
-          label: "操作",
-          align: "center",
-          prop: "enabled",
-          sort: false,
-          width: "240",
-          render: (row, column, cell) => {
-            const { handleBan, handleEnable, handleKick } = this;
-            const enabledBtn = (
-              <el-button
-                size="mini"
-                type="success"
-                onClick={() => handleEnable(row)}
-              >
-                启用
-              </el-button>
-            );
-
-            const disabled = (
-              <el-button
-                size="mini"
-                type="danger"
-                onClick={() => handleBan(row)}
-              >
-                禁用
-              </el-button>
-            );
-
-            const kickBtn = (
-              <el-button
-                size="mini"
-                type="warning"
-                onClick={() => handleKick(row)}
-              >
-                下线
-              </el-button>
-            );
-
-            return (
-              <div>
-                {row.enabled ? disabled : enabledBtn}
-                {kickBtn}
-              </div>
-            );
-          }
-        }*/
+        }
       ],
       options: [
         {

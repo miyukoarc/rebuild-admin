@@ -75,12 +75,16 @@ export default {
       });
     }
     this.$bus.$on("onRefleshMenuTree", _ => {
-      this.getMenuListByRole(this.currentRowID).catch(err => {
-        this.$message({
-          type: "error",
-          message: err
+      if (!this.currentRowID) {
+        return;
+      } else {
+        this.getMenuListByRole(this.currentRowID).catch(err => {
+          this.$message({
+            type: "error",
+            message: err
+          });
         });
-      });
+      }
     });
   },
   methods: {

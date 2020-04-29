@@ -43,26 +43,51 @@ export default {
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
     handleSecondMenu(item) {
       // console.log(item)
-      // this.classifyUrl(item.url)
+      this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
-      
+
+      console.log('第一次判断',type)
+      const keys = Object.keys(this.menuMap)
+
+      const hasStatus = keys.some((item)=>{
+        return type==item
+      })
+
 
       if(type){
-        if(type!='friend'&&type!='conversation'&&type!='management'){
+        if(type!='friend'&&type!='conversation'&&type!='management'&&hasStatus){
           type = 'menu'
         }
+
+        // if(!hasStatus){
+          
+        // }
+
+      }else{
+        type = 'iframe'
       }
 
+      
+      console.log(type)
       switch (type) {
+        case 'iframe':
+
+          break;
         case 'menu':
-          console.log(this.$route.params.modules,this.menuMap[this.$route.params.modules].children)
           if(this.menuType!='router'){
               this.TOGGLE_TYPE('router')
           }//定义二级菜单'路由'功能
-          this.$store.commit('secondMenu/TOGGLE_STATE', true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          if(this.menuMap[this.$route.params.modules]){
+            this.$store.commit('secondMenu/TOGGLE_STATE', true)
+            this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
+            this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          }else{
+            this.$store.commit('secondMenu/TOGGLE_STATE', false)
+          // this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
+          // this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          }
+          
           this.$store.commit('secondMenu/SAVE_MODULE', type)
           break;
 
@@ -93,7 +118,19 @@ export default {
           this.$store.commit('secondMenu/SAVE_MODULE',type)
 
           break;
+
+        case 'stateSetting':
+          if(this.menuType!='router'){
+              this.TOGGLE_TYPE('router')
+          }//定义二级菜单'路由'功能
+
+          this.$store.commit('secondMenu/TOGGLE_STATE',true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
+          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          break;
         default:
+
+          console.log(type)
           this.TOGGLE_TYPE('transfer')
           this.$store.commit('secondMenu/TOGGLE_STATE',false)
           // this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type])
@@ -103,17 +140,26 @@ export default {
     },
     filterPath(url) {
       if (url.includes('http')) {
-        return '/store'
+        return '/iframe'
       } else return url
     },
     classifyUrl(url) {
-      let key = this.$route.params.modules
-      // if (!url.includes('http')) {
-      //   key = url.split('/')[2]
-      // } else {
-      //   key = 'store'
-      // }
+      console.log('url',url)
+      let key
+      if(url.includes('http')){
+        this.$store.commit('secondMenu/SAVE_IFRAMEURL',url)
+        key = 'iframe'
+      }
+      if(this.$route.params.modules)
+      {
+        key =this.$route.params.modules
+      }
+      if(!this.$route.params.modules&&!url.includes('http')){
+        key = url.split('/')[2]
+      }
+      console.log(key)
       this.checkSecondMenuType(key)
+    
     }
   }
 }

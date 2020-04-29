@@ -33,7 +33,7 @@
           >
             <span slot="reference"
               >({{
-                isEmptyObj(data.roles) ? 0 : data.roles.length
+                data.roles.isEmptyObj() ? 0 : data.roles.length
               }}个角色)</span
             >
             <el-tag
@@ -45,10 +45,14 @@
               {{ item.name }}
             </el-tag>
           </el-popover>
+
           <i
-            class="el-icon-delete ml-2"
+            class="el-icon-edit ml-4 node-edit"
+            @click.stop="onEditMenu(data)"
+          ></i>
+          <i
+            class="el-icon-delete ml-2 node-delete"
             @click.stop="onDeleteMenu(data.uuid)"
-            v-show="data.showDeleteBtn"
           ></i>
           <el-link
             type="primary"
@@ -59,14 +63,25 @@
         </span>
       </div>
     </el-tree>
+    <el-dialog
+      title="编辑"
+      :visible.sync="showEditDialog"
+      append-to-body
+      :width="dialogWidth"
+    >
+      <editForm :formData="editFormData" />
+    </el-dialog>
   </el-container>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { isEmpty } from "@/utils/normal";
+import editForm from "./editForm";
 const NAME = "menuManage";
 export default {
+  components: {
+    editForm
+  },
   data() {
     return {
       defaultProps: {
@@ -74,12 +89,14 @@ export default {
         name: "name"
       },
       roleId: "",
+      showEditDialog: false,
       // showCheckbox:false,
       showRoleCount: true,
-      showDeleteBtn: false,
-      keys: []
+      keys: [],
+      editFormData: {}
     };
   },
+  inject: ["reload"],
   computed: {
     ...mapState(NAME, ["roleMenus"]),
     showCheckbox() {
@@ -98,20 +115,44 @@ export default {
       this.roleId = val;
       this.showRoleCount = false;
     });
+    this.$bus.$on("closeDialog", _ => {
+      this.showEditDialog = false;
+    });
+  },
+  updated() {
+    this.$nextTick(() => {
+      var editNodes = document.getElementsByClassName("node-edit");
+      var delNodes = document.getElementsByClassName("node-delete");
+      var treeNodes = document.getElementsByClassName("custom-tree-node");
+      for (let i = 0; i < treeNodes.length; i++) {
+        const element = treeNodes[i];
+        element.onmouseover = () => {
+          if (!this.roleId) {
+            editNodes[i].style.display = "inline-block";
+            delNodes[i].style.display = "inline-block";
+          }
+        };
+        element.onmouseleave = () => {
+          editNodes[i].style.display = "none";
+          delNodes[i].style.display = "none";
+        };
+      }
+    });
   },
   methods: {
-    ...mapActions(NAME, ["addMenuForRole"]),
-    isEmptyObj(obj) {
-      return isEmpty(obj);
-    },
+    ...mapActions(NAME, ["addMenuForRole", "delMenuById"]),
     onMouseOver() {},
     onMouseLeave() {},
     onClicks(node) {},
     getKeysForList(list) {
+      // console.log(this.$refs['menuTree']);
       for (const val of list) {
+        let node = this.$refs['menuTree'].getNode(val.uuid);
+        // console.log(this.$refs['mainTree']);
+        console.log(node);
         if (val.hasOwnProperty("children")) {
           this.getKeysForList(val.children);
-        } else {
+        } else if(node.childNodes.length==0){
           this.keys.push(val.uuid);
         }
       }
@@ -122,9 +163,29 @@ export default {
       let uuid = this.roleId;
       this.addMenuForRole({ menuIds, uuid }).then(res => {
         this.$bus.$emit("onRefleshMenuTree");
+        // this.reload();
       });
     },
-    onDeleteMenu() {},
+    onDeleteMenu(uuid) {
+      this.delMenuById(uuid)
+        .then(result => {
+          this.$bus.$emit("onRefleshMenuTree");
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        })
+        .catch(err => {
+          this.$message({
+            type: "error",
+            message: "删除失败:必须先删除下级菜单和自己的角色的关联"
+          });
+        });
+    },
+    onEditMenu(data) {
+      this.showEditDialog = true;
+      this.editFormData = data;
+    },
     onClickURL(path) {
       this.$router.push(path);
     }
@@ -142,5 +203,13 @@ export default {
   right: 5px;
   top: 0;
   bottom: 0;
+}
+.node-edit {
+  color: #409eff;
+  display: none;
+}
+.node-delete {
+  color: #f56c6c;
+  display: none;
 }
 </style>

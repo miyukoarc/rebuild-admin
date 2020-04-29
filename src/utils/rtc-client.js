@@ -54,7 +54,7 @@ class RtcClient {
     }
 
     this.localStream_.on('player-state-changed', event => {
-      console.log(`local stream ${event.type} player is ${event.state}`);
+      console.log(`local stream ${event.type} player is ${event.state};
       if (event.type === 'video' && event.state === 'PLAYING') {
         // dismiss the remote user UI placeholder
       } else if (event.type === 'video' && event.state === 'STOPPPED') {
@@ -198,7 +198,7 @@ class RtcClient {
       const remoteStream = evt.stream;
       const id = remoteStream.getId();
       const userId = remoteStream.getUserId();
-      console.log(`remote stream added: [${userId}] ID: ${id} type: ${remoteStream.getType()}`);
+      console.log(`remote stream added: [${userId}] ID: ${id} type: ${remoteStream.getType()};
       console.log('subscribe to this remote stream');
       // 远端流默认已订阅所有音视频，此处可指定只订阅音频或者音视频，不能仅订阅视频。
       // 如果不想观看该路远端流，可调用 this.client_.unsubscribe(remoteStream) 取消订阅
@@ -227,7 +227,7 @@ class RtcClient {
       this.remoteStreams_ = this.remoteStreams_.filter(stream => {
         return stream.getId() !== id;
       });
-      console.log(`stream-removed ID: ${id}  type: ${remoteStream.getType()}`);
+      console.log(`stream-removed ID: ${id}  type: ${remoteStream.getType()};
     });
 
     // 处理远端流更新事件，在音视频通话过程中，远端流音频或视频可能会有更新
@@ -259,7 +259,7 @@ class RtcClient {
 
     // 信令通道连接状态通知
     this.client_.on('connection-state-changed', evt => {
-      console.log(`RtcClient state changed to ${evt.state} from ${evt.prevState}`);
+      console.log(`RtcClient state changed to ${evt.state} from ${evt.prevState};
     });
   }
 }

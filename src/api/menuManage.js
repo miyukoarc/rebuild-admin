@@ -29,3 +29,22 @@ export function addMenuForRole(form) {
     data:form
   });
 }
+
+
+export function delMenuById(uuid) {
+  return request({
+    url: `/v1/menu/delete`,
+    method: "post",
+    data:{
+      uuid,
+    }
+  });
+}
+
+export function editMenu(form) {
+  return request({
+    url: `/v1/menu/update`,
+    method: "post",
+    data:form
+  });
+}

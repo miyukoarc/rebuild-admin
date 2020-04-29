@@ -28,8 +28,8 @@ const columns = [
     uuid: 3,
     align: "center",
     sort: false,
-    formatter: function(row, column, cellValue, index) {
-      if (cellValue) {
+    render: function(row, column, cellValue, index) {
+      if (!cellValue.isEmptyObj()) {
         return cellValue.nickname;
       }
       return "";
@@ -42,8 +42,8 @@ const columns = [
     uuid: 5,
     align: "center",
     sort: false,
-    formatter: function(row, column, cellValue, index) {
-      if (cellValue) {
+    render: function(row, column, cellValue, index) {
+      if ((cellValue instanceof Object)&&!cellValue.isEmptyObj()) {
         return cellValue.name;
       }
       return "";
@@ -56,11 +56,11 @@ const columns = [
     uuid: 6,
     align: "center",
     sort: false,
-    formatter: function(row, column, cellValue, index) {
-      if (!isEmpty(cellValue)) {
+    render: function(row, column, cellValue, index) {
+      if ((cellValue instanceof Array)) {
         return cellValue.length;
       }
-      return "";
+      return 0;
     }
   },
   {
@@ -190,15 +190,16 @@ const actions = {
     return new Promise((resolve, reject) => {
       updateDepartment(formData)
         .then(res => {
+          console.log(res);
           // Message({
           //     message: '更新成功',
           //     type: 'success',
           //     duration: 2*1000
           // })
-          resolve();
+          resolve(res);
         })
         .catch(err => {
-          // Message
+          // Message        
           console.log(err);
           reject();
         });

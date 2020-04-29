@@ -6,7 +6,8 @@ const state = {
     currSecondMenu: [],
     openArr: [],
     menuModule: '',
-    menuType: ''
+    menuType: '',
+    currentIframe: ''
 }
 const mutations = { 
     SAVE_MENU(state,menu){
@@ -29,6 +30,9 @@ const mutations = {
     },
     SET_OPENARR(state,menu){
         state.openArr = treeNode(menu,'name')
+    },
+    SAVE_IFRAMEURL(state,url){
+        state.currentIframe =url
     }
 }
 

@@ -1,4 +1,4 @@
-import {addMenu,getMenuList,getMenuListByRole,addMenuForRole} from '@/api/menuManage';
+import {addMenu,getMenuList,getMenuListByRole,addMenuForRole,delMenuById,editMenu} from '@/api/menuManage';
 
 const state ={
     menuList:[],//所有的菜单
@@ -37,6 +37,12 @@ const actions ={
     },
     addMenu({commit,state},form){
         return addMenu(form);
+    },
+    delMenuById({commit,state},uuid){
+        return delMenuById(uuid);
+    },
+    editMenu({commit,state},form){
+        return editMenu(form);
     }
 }
 

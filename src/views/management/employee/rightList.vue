@@ -25,7 +25,6 @@
             type="primary"
             size="mini"
             title="添加成员"
-            width="400px"
             ref="addEmployDialog"
           >
             添加成员

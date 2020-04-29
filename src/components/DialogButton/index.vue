@@ -8,6 +8,7 @@
       append-to-body
       destroy-on-close
       :visible.sync="show"
+      :width="dialogWidth"
       v-bind="$attrs"
     >
     <slot name="dialog">

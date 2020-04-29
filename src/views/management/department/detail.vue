@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
-import RelationCard from './card'
+import RelationCard from './relation'
 import { isEmpty } from '@/utils/normal'
 export default {
   components: {

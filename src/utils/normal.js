@@ -17,3 +17,17 @@ export function treeNode(tree=[],key='name'){
     return temp
 }
 
+
+Object.defineProperty(Object.prototype, "isEmptyObj", {
+    enumerable: false,
+    // writable:false,
+    configurable:false,
+    get:function() {
+      return function () {
+        for (let key in this) {
+          return false;
+        }
+        return true;
+      };
+    },
+  });

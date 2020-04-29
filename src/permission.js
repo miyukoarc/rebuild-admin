@@ -45,29 +45,20 @@ const whiteList = ['/d/login'] // no redirect whitelist
       next({
         path: '/s'
       })
+
       NProgress.done()
     } else {
+
+      console.log(to.path)
+      if(to.path.includes('management')){
+        store.dispatch('stateSettings/getEventList')
+      }
+
       const hasGetUserInfo = store.getters.name
       if (hasGetUserInfo) {
 
-        // console.log(hasGetUserInfo,'hasGetUserInfo')
-
-        // console.log(router)
-
-        // const secondMenuState = window.localStorage.getItem('hasSecondMenu')
-
-        
-        // if(isEmpty(router.history.current.params)){
-          
-        //   store.commit('secondMenu/TOGGLE_STATE', secondMenuState)
-        // }
-        
-
-        
-
-        // const filtedRoutes = JSON.parse(window.localStorage.getItem('filtedRoutes'))
-
-        // router.addRoutes(filtedRoutes)
+        // store.dispatch('user/getInfo')
+        // store.dispatch('user/getMenu')
         next()
       } else {
         try {
@@ -90,6 +81,8 @@ const whiteList = ['/d/login'] // no redirect whitelist
 
               // reject()
             })
+
+          
 
           const accessed = store.state.permission.filtedRouter
 

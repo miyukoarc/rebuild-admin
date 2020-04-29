@@ -17,7 +17,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="管理员">
+      <el-form-item label="主管">
         <el-select v-model="setManagerForm.managerId">
           <el-option
             v-for="item in employeeList"
@@ -126,7 +126,7 @@ export default {
             .dispatch('department/updateDepartment', this.updateForm)
             .then(async _ => {
 
-              if(setManagerForm.managerId){
+              if(this.setManagerForm.managerId){
                 this.$store
                 .dispatch('department/setDepartmentManager', {
                   ...this.setManagerForm

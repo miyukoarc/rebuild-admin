@@ -8,7 +8,18 @@ const userInit = {
 
 const state = {
 ...userInit,
-  userDetail: {}
+  userDetail: {
+    userinfo: {},
+    state: {},
+    role: {},
+    city: {},
+    province: {},
+    country: {},
+    org: {},
+    department: {},
+    events: {},
+    logs: {}
+  }
 };
 
 const mutations = {

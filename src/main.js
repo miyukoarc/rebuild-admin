@@ -39,6 +39,8 @@ Vue.prototype.TIM = TIM
 Vue.prototype.$store = store
 Vue.prototype.$confirm = MessageBox.confirm
 
+Vue.prototype.dialogWidth = '600px' //dialog 统一宽度
+
 
 
 /**

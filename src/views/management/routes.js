@@ -7,6 +7,7 @@ import departmentTree from './department/tableTree.vue'
 import employee from './employee/rightList'
 import menu from './menu'
 import User from './user/list'
+
 export default [
     {
         path: 'department/list',

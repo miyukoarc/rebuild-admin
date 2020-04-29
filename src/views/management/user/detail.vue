@@ -1,34 +1,13 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
-
+import { EventDialog} from './dialog'
 import { isEmpty } from '@/utils/normal'
 export default {
   components: {
-
+    EventDialog
   },
   data() {
     return {
-      updateForm: {
-        name: '',
-        code: '',
-        org: '',
-        parent: '',
-        uuid: ''
-      },
-      setManagerForm: {
-        managerId: '',
-        departmentId: ''
-      },
-      rules: {
-        name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ],
-        code: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ]
-      }
     }
   },
   watch: {
@@ -48,120 +27,77 @@ export default {
       employeeList: state => state.employee.employeeList,
       allDepartments: state => state.department.allDepartments,
       currentDetail: state => state.department.currentDetail,
-      /**
-       * 
-       */
-
+      eventsMap: state => state.stateSettings.eventsMap,
       userDetail: state => state.userManage.userDetail
     }),
     ...mapGetters(['showRightPanel'])
   },
   mounted() {
-    // this.initData()
   },
   beforeUpdate() {},
   updated() {},
   methods: {
+    initHandleEvents(){
+
+    },
     isEmpty(obj) {
       return isEmpty(obj)
     },
     handleClose() {
       this.$store.commit('component/TOGGLE_PANEL', false)
     },
-    handleKick() {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
-      this.$store
-        .dispatch("userManage/kickUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
-    },
-    handleEnable() {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
-      this.$store
-        .dispatch("userManage/enableUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
-    },
-    handleBan() {
-      const data = { reason: "你写代码的样子真像蔡徐坤", uuid: this.userDetail.uuid };
-      this.$store
-        .dispatch("userManage/disableUser", data)
-        .then(()=>{
-          this.$message({
-            type: 'success',
-            message: '操作成功'
-          })
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            type: "error",
-            message: "操作失败"
-          });
-        });
+    handleEvents(type){
+      console.log(this.$ref,type)
+      
+      // switch(type){
+      //   case 'disable':
+      //     this.handleDisable()
+      //     break;
+      //   case 'kick':
+      //     this.handleKick()
+      //     break;
+      //   case 'enable':
+      //     this.handleEnable()
+      //     break;
+      //   default:
+      //     this.$message({
+      //       type: 'error',
+      //       event: '没有事件处理'
+      //     })
+      //     return false;
+      // }
     },
     handleConfirm() {},
-    handleDel() {
-      this.$confirm('是否删除当前部门', 'Warning', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(async () => {
-          await this.$store
-            .dispatch('department/deleteDepartment', {
-              uuid: this.currentDetail.uuid
-            })
-            .then(_ => {
-              this.$store.dispatch('department/getDepartment')
-
-              this.$router.replace(this.$route.path)
-              this.$message({
-                type: 'success',
-                message: '删除成功'
-              })
-            })
-            .catch(err => {
-              this.$message({
-                type: 'error',
-                message: err.error
-              })
-            })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     initData() {
     }
   },
   render() {
     // const { name, code, users, manager } = this.currentDetail
-    const {nickname,events,state,enabled} = this.userDetail
-    const {handleClose,handleKick,handleBan} = this
-    console.log(events)
+    const {nickname,events,state,enabled,headimgurl,country,province,city,gender,role,org,department} = this.userDetail
+    const {handleClose,handleEvents} = this
+    const {mobile}  = this.userDetail&&this.userDetail.userinfo
+
+
+
+    const sex = (gender)=>{
+      if(gender=='Gender_Type_Unknown'||!gender){
+        return (
+        <span>未知</span>
+      )
+      }
+      if(gender=='Gender_Type_Female'){
+        return (
+        <span>女</span>
+      )
+      }
+      if(gender=='Gender_Type_Male'){
+        return (
+        <span>男</span>
+      )
+      }
+      
+    }
+
     return (
       <div>
         <h4>详情</h4>
@@ -169,16 +105,36 @@ export default {
         <el-form label-width="100px" label-position="left">
           <el-form-item>
             <div>
-                <img />
+                <img width="128" height="128" src={headimgurl}/>
             </div>
           </el-form-item>
-          <el-form-item label="名称">
+          <el-form-item label="昵称">
             <div>{nickname}</div>
           </el-form-item>
-
-          <el-form-item label="状态">
-            <div>{state&&state.name}</div>
+          <el-form-item label="性别">
+            <div>{
+              sex(gender)
+            }</div>
           </el-form-item>
+          <el-form-item label="状态">
+            <div>{state.name?<el-tag type="primary" size="mini">{state.name}</el-tag>:'未指定'}</div>
+          </el-form-item>
+
+          <el-form-item label="角色">
+            <div>
+            {
+              role.name
+            }</div>
+          </el-form-item>
+          <el-form-item label="公司">
+          {
+            org.name
+          }</el-form-item>
+          <el-form-item label="部门">
+          {
+            department.name
+          }</el-form-item>
+          
 
           <el-form-item label="可用">
             <div>
@@ -187,19 +143,23 @@ export default {
                 }
             </div>
           </el-form-item>
-          <el-form-item label="">
-            
+          <el-form-item label="手机">
+            <div>
+            {
+              mobile
+            }
+            </div>
           </el-form-item>
-          <el-form-item label="组织关系">
-
+          <el-form-item label="国家/地区">
+            {
+              country||province||city?"未设置":country+province+city
+            }
           </el-form-item>
 
           <el-form-item label="操作">
             {
-                []||events.map(item=>{
-                    <el-button key={item}>{
-                        item
-                    }</el-button>
+                events.map(item=> {
+                  return <el-button key={item} onClick={()=>handleEvents(item)}>{item}</el-button>
                 })
             }
           </el-form-item>
@@ -209,6 +169,9 @@ export default {
             </el-button>
           </el-form-item>
         </el-form>
+        
+        <event-dialog ref="eventDialog"></event-dialog>
+        
       </div>
     )
   }

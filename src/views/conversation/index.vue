@@ -31,8 +31,8 @@
     </div>
 
     <div v-else class="header-fade" />
-    
-    <conversation-profile v-show="showCurrentProfile" style="height:100%" />
+      <conversation-panel />
+    <!-- <conversation-profile v-show="showCurrentProfile" style="height:100%" /> -->
     </div>
 </template>
 
@@ -43,6 +43,7 @@ import MessageSendBox from '@/components/Message/message-send-box'
 import ConversationProfile from './conversation-profile.vue'
 import ConversationCurrentProfile from './conversation-current-profile'
 import MemberProfileCard from '@/components/MemberProfileCard'
+import ConversationPanel from '@/components/ConversationPanel'
 
 export default {
   name: 'CurrentConversation',
@@ -51,7 +52,8 @@ export default {
     MessageItem,
     ConversationProfile,
     MemberProfileCard,
-    ConversationCurrentProfile
+    ConversationCurrentProfile,
+    ConversationPanel
   },
   data() {
     return {

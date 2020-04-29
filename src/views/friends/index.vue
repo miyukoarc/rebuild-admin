@@ -1,7 +1,8 @@
 <template>
   <div>
-      联系人
-      <friend-profile v-if="!isEmpty(currentFriendInfo)"></friend-profile>
+      <!-- 联系人 -->
+      <!-- <friend-profile v-if="!isEmpty(currentFriendInfo)"></friend-profile> -->
+      <img src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" alt="">
   </div>
 </template>
 

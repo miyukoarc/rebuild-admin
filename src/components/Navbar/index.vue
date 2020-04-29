@@ -1,10 +1,13 @@
 <template>
   <div class="navbar">
     <!-- <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" /> -->
-
+    <login-info :org="org" :username="username" :mobile="mobile"></login-info>
     <!-- <breadcrumb class="breadcrumb-container" /> -->
 
     <div class="right-menu">
+      <span>最小化</span>
+      <span>最大化</span>
+      <span>关闭</span>
       <!-- <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -32,17 +35,24 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters,mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import {removeToken} from '@/utils/auth'
-
+import LoginInfo from '@/components/LoginInfo'
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    LoginInfo
   },
   computed: {
+    ...mapState({
+      username: state => state.user.userInfo.nickname,
+      org: state => state.user.userInfo.org.name,
+      mobile: state => state.user.userInfo.userinfo.mobile
+
+    }),
     ...mapGetters([
       'sidebar',
       'avatar'
@@ -89,7 +99,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    // line-height: 50px;
 
     &:focus {
       outline: none;

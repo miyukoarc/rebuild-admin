@@ -27,7 +27,7 @@ export default {
     })
   },
   mounted(){
-    console.log(this.item)
+    console.log(this.menuType,this.item)
   },
   methods:{
     valString(item){
@@ -53,6 +53,7 @@ export default {
       // this.transferQuery(this.menuType)
     },
     pushRoute(){
+      console.log()
       this.$router.push(this.item.url)
     },
     transferQuery(str){

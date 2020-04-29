@@ -38,6 +38,8 @@ export default {
         })
         .catch(error => {})
     }
+
+    console.warn('1231232');
   },
   methods: {
     reload() {
