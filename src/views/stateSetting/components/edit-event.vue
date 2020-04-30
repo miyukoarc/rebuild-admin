@@ -50,6 +50,17 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="终端">
+        <el-select v-model="form.terminal" placeholder="请选择执行动作">
+          <el-option
+            v-for="item in ['ORG,USER']"
+            :key="item"
+            :label="item"
+            :value="item"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item :label="stateSettings.sort">
         <el-input-number
           size="small"
@@ -71,6 +82,15 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  props: {
+    // type: {
+    //   type: String,
+    //   default: 'create'
+    // },
+    pendingEvent: {
+      type: Object
+    }
+  },
   data() {
     return {
       stateSettings: {
@@ -111,7 +131,8 @@ export default {
         roles: [],
         sort: 10,
         target: null, //跳转目标状态
-        terminal: 'ORG' //可执行终端
+        terminal: 'ORG', //可执行终端
+        uuid: ''
       },
       rules: {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
@@ -129,6 +150,23 @@ export default {
       }
     }
   },
+  watch:{
+      pendingEvent: {
+          handler(newVal, oldVal){
+            //   console.log(newVal)
+            this.form.code = newVal.code
+            this.form.action = newVal.action
+            this.form.description = newVal.description
+            this.form.guardSpel = newVal.guardSpel
+            this.form.name = newVal.name
+            this.form.roles = newVal.roles.map((item)=>{return item.uuid})
+            this.form.sort = newVal.sort
+            this.form.target = newVal.target.uuid
+            this.form.terminal = newVal.terminal
+            this.form.uuid = newVal.uuid
+          }
+      }
+  },
   computed: {
     ...mapState({
       actionList: state => state.stateSettings.actionList,
@@ -138,14 +176,16 @@ export default {
     })
   },
   mounted() {
+      //初始化
       this.form.entity = this.currentEntity
+      
+    
   },
   methods: {
     onChange() {},
     handleConfirm() {
-
         this.$store
-          .dispatch('stateSettings/addEvent', this.form)
+          .dispatch('stateSettings/editEvent', this.form)
           .then(() => {
             this.$parent.$parent.dialogVisible = false
             this.$message({
@@ -158,7 +198,6 @@ export default {
               type: 'error',
               message: err
             })
-            
           })
       
     },

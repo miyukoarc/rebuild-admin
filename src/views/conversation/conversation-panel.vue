@@ -1,15 +1,21 @@
 <template>
   <div class="panel-conversation">
-      <component :is="genComponent('Example')"/>
+      <component :is="genComponent('FriendDetail')"/>
   </div>
 </template>
 
 <script>
 import Example from '@/components/Example'
-
+import FriendDetail from './friend-detail'
 export default {
     components:{
-        Example
+        Example,
+        FriendDetail
+    },
+    data(){
+        return {
+
+        }
     },
     computed: {
     },

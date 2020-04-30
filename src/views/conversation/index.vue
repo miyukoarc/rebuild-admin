@@ -43,7 +43,7 @@ import MessageSendBox from '@/components/Message/message-send-box'
 import ConversationProfile from './conversation-profile.vue'
 import ConversationCurrentProfile from './conversation-current-profile'
 import MemberProfileCard from '@/components/MemberProfileCard'
-import ConversationPanel from '@/components/ConversationPanel'
+import ConversationPanel from './conversation-panel'
 
 export default {
   name: 'CurrentConversation',
@@ -104,11 +104,19 @@ export default {
       if (!next && this.currentUnreadCount > 0) {
         this.tim.setMessageRead({ conversationID: this.currentConversation.conversationID })
       }
+    },
+    currentConversation:{
+        handler(newVal,oldVal){
+            this.initDetail()
+        },
+        immediate:true,
+        deep: true
     }
   },
   mounted() {
     this.$bus.$on('image-loaded', this.onImageLoaded)
     this.$bus.$on('scroll-bottom', this.scrollMessageListToButtom)
+    // this.initDetail()
     if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
       return false
     }
@@ -124,6 +132,11 @@ export default {
     }
   },
   methods: {
+    initDetail(){
+        const payload = this.currentConversation?.userProfile?.userID
+        console.log(payload)
+        this.$store.dispatch('contacts/getUserProfileByUserId',payload)
+    },
     onScroll({ target: { scrollTop }}) {
       const messageListNode = this.$refs['message-list']
       if (!messageListNode) {

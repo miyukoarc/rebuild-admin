@@ -543,9 +543,19 @@ export default {
     }
   },
   watch: {
+      $route:{
+        handler(newVal,oldVal){
+            console.warn(newVal)
+            const entity = newVal.params.entity
+            console.log(entity)
+        },
+        immediate:true,
+        deep:true
+    },
     currentRole(newValue, oldValue) {
       this.initData();
-    }
+    },
+    
   },
   created() {
     this.initData();

@@ -2,8 +2,8 @@
 <div class="outer-container">
     <p class="text-align-right">可执行动作</p>
     <div class="container" >
-        <span v-for="(item, index) in actions" :key="index">
-             <action-tag type="danger"  size="mini" class="tag-item">{{item}}</action-tag>
+        <span v-for="(item, index) in actionList" :key="index">
+             <action-tag type="danger"  size="mini" class="tag-item">{{item.name}}</action-tag>
         </span>
     </div>
 </div>
@@ -22,7 +22,7 @@ export default {
     },
     computed:{
         ...mapState({   
-            actions: state => state.stateSettings.actions
+            actionList: state => state.stateSettings.actionList
         })
     }
 }

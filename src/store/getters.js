@@ -12,7 +12,8 @@ const getters = {
   department: state => state.department.department,
   hasSecondMenu: state => state.secondMenu.hasSecondMenu,
   showRightPanel: state => state.component.showRightPanel,
-  showConversationProfile: state => state.component.showConversationProfile
+  showConversationProfile: state => state.component.showConversationProfile,
+  actions: state => state.stateSettings.actions
 }
 
 export default getters

@@ -4,7 +4,7 @@ export default {
   props: ["role", "stateList"],
   methods: {
     handleClick() {
-      this.$store.commit('stateSettings/SAVE_ROLE',this.role);
+      this.$store.commit('stateSettings/SAVE_ENTITY',this.role);
       // this.$store.commit('stateSetting/SAVE_CURRENTSTATE',this.stateList)
       // console.log("object");
       // const {role} = this

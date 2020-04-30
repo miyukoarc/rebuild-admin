@@ -67,7 +67,7 @@ export default {
     }
   },
   created() {
-    this.initDataList()
+    this.initDataList();
   },
   methods: {
     ...mapActions(NAME, ['getDepartmenList']),

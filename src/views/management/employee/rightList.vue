@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px" class="p-3 border-sider">
+    <el-aside width="auto" class="p-3 border-sider">
       <!-- <el-input placeholder="输入关键字进行过滤" v-model="filterText" size="small"></el-input> -->
       <m-tree
         :datalist="treeDataList"
@@ -203,7 +203,7 @@ export default {
         }
       ];
       list[0].children = this.department;
-      return list;
+      return this.department;
     }
   },
   mounted() {
@@ -255,16 +255,13 @@ export default {
       this.initData();
     },
     onNodeClick([data, node, tree]) {
-      if (data.hasOwnProperty("type") && "org" == data.type) {
-        this.initData();
-      } else {
+      
         this.getEmpByDepartId(data.uuid).catch(err => {
           this.$message({
             message: `出错了哦:${err}`,
             type: "error"
           });
         });
-      }
     },
     onSelectRow(selection, row) {
       this.selectList = selection;

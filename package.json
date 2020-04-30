@@ -15,6 +15,7 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "axios": "0.18.1",
     "cos-js-sdk-v5": "^0.5.26",
     "default-passive-events": "^1.0.10",

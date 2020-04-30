@@ -7,7 +7,7 @@ const state = {
   events:[],
   actions: ["doEnable", "doDisable", "doKick", "doSpeak", "doTest"],
   unusedEvents: [],
-  currentRole:"user",
+  currentEntity:"user",
   currentStateList: [],
   stateList: [],
   roleList: [],
@@ -24,8 +24,8 @@ const mutations = {
   ADD_STATE(state, form) {
     state.dataList[0].stateList = state.dataList[0].stateList.concat(form);
   },
-  SAVE_ROLE(state, role) {
-    state.currentRole = role;
+  SAVE_ENTITY(state, role) {
+    state.currentEntity = role;
   },
   SAVE_CURRENTSTATE(state, list) {
     state.currentStateList = list;
@@ -60,13 +60,18 @@ const actions = {
       commit("CHANGEROLELIST", res.items);
     });
   },
+  editEvent({commit},payload){
+      return Api.editEvent(payload).then(res => {
+        //   commit('')
+      })
+  },
   getStateList({ commit, state }) {
     return Api.getStateList().then(res => {
       commit("CHANGESTATELIST", res.items.user);
     });
   },
   getActionByEntity({ commit, state }) {
-    return Api.getActionByEntity(state.currentRole).then(res => {
+    return Api.getActionByEntity(state.currentEntity).then(res => {
       let item = res.items;
       item = item.map(e => {
         return { name: e, uuid: e };
@@ -75,13 +80,13 @@ const actions = {
     });
   },
   getUnuseEvent({ commit, state }) {
-    return Api.getUnuseEvent(state.currentRole).then(res => {
+    return Api.getUnuseEvent(state.currentEntity).then(res => {
       let item = res.items;
       commit("CHANGEUNUSEDEVENTS", item);
     });
   },
   getEventByEntity({ commit, state }) {
-    return Api.getEventByEntity(state.currentRole).then(res => {
+    return Api.getEventByEntity(state.currentEntity).then(res => {
       let items = res.items;
       let unuseList = state.unusedEvents;
       for (const item of items) {
@@ -95,7 +100,7 @@ const actions = {
   },
   getStateMachine({ commit, state }) {
     commit("CHANGELOADING", true);
-    return Api.getStateMachine(state.currentRole).then(res => {
+    return Api.getStateMachine(state.currentEntity).then(res => {
       commit("CHANGELOADING", false);
       let items = res.items;
       for (const item of items) {
@@ -122,7 +127,7 @@ const actions = {
     return Api.editEvent(obj);
   },
   updateCache({ commit, state }) {
-    return Api.updateCache(state.currentRole);
+    return Api.updateCache(state.currentEntity);
   },
   delTimerById({ commit, state }, obj) {
     return Api.delTimerById(obj);
@@ -133,7 +138,7 @@ const actions = {
   getEventList({commit}){
       return new Promise((resolve,reject)=>{
         getEventList().then(res=>{
-            commit('SAVE_EVENTLIST',res.itmes)
+            commit('SAVE_EVENTLIST',res.items)
             resolve()
         }).catch(err=>{
             console.log(err)

@@ -4,7 +4,6 @@ import request from "@/utils/request";
 
 
 const getRoleList = function() {
-  
   return request({
     url: "/v1/list/role",
     method: "get"

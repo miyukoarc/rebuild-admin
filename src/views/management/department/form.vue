@@ -109,6 +109,7 @@ export default {
   mounted() {
     this.initData()
   },
+  inject:['reload'],
   beforeUpdate() {},
   updated() {},
   methods: {
@@ -125,7 +126,7 @@ export default {
           this.$store
             .dispatch('department/updateDepartment', this.updateForm)
             .then(async _ => {
-
+              this.reload();
               if(this.setManagerForm.managerId){
                 this.$store
                 .dispatch('department/setDepartmentManager', {
@@ -198,6 +199,8 @@ export default {
         })
     },
     initData() {
+      this.$store
+            .dispatch('department/getAllDepartments');
       const currentManager = this.currentDetail.manager
       this.setManagerForm.departmentId = this.currentDetail.uuid
       this.updateForm.org = this.org.uuid

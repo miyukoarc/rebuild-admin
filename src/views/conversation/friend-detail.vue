@@ -5,88 +5,85 @@
     <el-form label-width="100px" label-position="left">
       <el-form-item>
         <div>
-          <img width="128" height="128" :src="userDetail.headimgurl" />
+          <img width="128" height="128" :src="currentContact.headimgurl" />
         </div>
       </el-form-item>
       <el-form-item label="昵称">
-        <div>{{userDetail.nickname}}</div>
+        <!-- <div>{{currentContact.nickname}}</div> -->
       </el-form-item>
       <el-form-item label="性别">
-        <div>{{sex(userDetail.gender)}}</div>
+        <!-- <div>{{sex(currentContact.gender)}}</div> -->
       </el-form-item>
       <el-form-item label="状态">
-        <div>
+        <!-- <div>
           <el-tag
             type="primary"
             size="mini"
-          >{{isEmpty(userDetail.state)?'未指定':userDetail.state.name}}</el-tag>
-        </div>
+          >{{isEmpty(currentContact.state)?'未指定':currentContact.state.name}}</el-tag>
+        </div> -->
       </el-form-item>
 
       <el-form-item label="角色">
-        <div>
+        <!-- <div>
           {{
-          userDetail.role&&userDetail.role.name
+          currentContact.role&&currentContact.role.name
           }}
-        </div>
+        </div> -->
       </el-form-item>
       <el-form-item label="公司">
-        {{
-        userDetail.org&&userDetail.org.name
-        }}
+        <!-- {{
+        currentContact.org&&currentContact.org.name
+        }} -->
       </el-form-item>
       <el-form-item label="部门">
-        {{
-        isEmpty(userDetail.department)?'未指定':userDetail.department.name
-        }}
+        <!-- {{
+        isEmpty(currentContact.department)?'未指定':currentContact.department.name
+        }} -->
       </el-form-item>
 
       <el-form-item label="可用">
-        <div>
-          <el-tag type="success" v-if="userDetail.enabled">可用</el-tag>
+        <!-- <div>
+          <el-tag type="success" v-if="currentContact.enabled">可用</el-tag>
           <el-tag type="danger" v-else>不可用</el-tag>
-        </div>
+        </div> -->
       </el-form-item>
       <el-form-item label="手机">
-        <div>{{userDetail.userinfo&&userDetail.userinfo.mobile}}</div>
+        <!-- <div>{{currentContact.userinfo&&currentContact.userinfo.mobile}}</div> -->
       </el-form-item>
       <el-form-item
         label="国家/地区"
-      >{{isEmpty(userDetail.country)&&isEmpty(userDetail.city)&&isEmpty(userDetail.province)?'未设置':userDetail.country+userDetail.city+userDetail.province}}</el-form-item>
-      <el-form-item label="操作">
+      >
+      <!-- {{isEmpty(currentContact.country)&&isEmpty(currentContact.city)&&isEmpty(currentContact.province)?'未设置':currentContact.country+currentContact.city+currentContact.province}} -->
+      </el-form-item>
+      <!-- <el-form-item label="操作" v-if="currentContact.events.length">
         <el-button
-          v-for="item in userDetail.events"
+          v-for="item in currentContact.events"
           :key="item"
           @click="handleEvents(item)"
         >{{item}}</el-button>
-      </el-form-item>
-      <el-form-item>
+      </el-form-item>-->
+      <!-- <el-form-item>
         <el-button size="small" type="success" @click="handleClose">返回</el-button>
-      </el-form-item>
+      </el-form-item>-->
     </el-form>
-
-    <EventDialog ref="eventDialog" />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import EventDialog from './dialog'
 import { isEmpty } from '@/utils/normal'
 export default {
   components: {
-    EventDialog
   },
   data() {
     return {}
   },
-  watch: {
-  },
+  watch: {},
   computed: {
     ...mapState({
       eventsMap: state => state.stateSettings.eventsMap,
-      userDetail: state => state.userManage.userDetail
-    }),
+      currentContact: state => state.contacts.currentContact
+    })
   },
   mounted() {},
   beforeUpdate() {},
@@ -103,10 +100,10 @@ export default {
         return '男'
       }
     },
-    initHandleEvents() {},
     isEmpty(obj) {
       return isEmpty(obj)
-    },
+    }
+    /*
     handleClose() {
       this.$store.commit('component/TOGGLE_PANEL', false)
     },
@@ -129,9 +126,7 @@ export default {
       this.$refs['eventDialog'].event = type
       this.$refs['eventDialog'].eventType = temp
       this.$refs['eventDialog'].dialogVisible = true
-    },
-    handleConfirm() {},
-    initData() {}
+    }*/
   }
 }
 </script>

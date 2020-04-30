@@ -147,7 +147,7 @@ service.interceptors.response.use(
     }
     // console.log(error.message);
     let nErr = {};
-    if(error.response.data){
+    if(error.response?.data){
       // nErr.name = error.response.data.error;
       nErr.msg = error.response.data.message;
     }

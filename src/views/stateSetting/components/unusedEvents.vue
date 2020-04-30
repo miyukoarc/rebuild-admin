@@ -3,7 +3,16 @@
     <p class="text-align-right">未使用事件</p>
     <div class="container">
       <!-- <div class="action-item" v-for="(item, index) in unusedEvents" :key="index">{{item}}</div> -->
-      <PanelButton
+      <div>
+        <el-button
+          @click="handleEdit(item)"
+          size="mini"
+          v-for="(item, index) in unusedEvents"
+          :key="index"
+        >{{item.name}}</el-button>
+      </div>
+
+      <!-- <PanelButton
         title="编辑事件"
         type="success"
         v-for="(item, index) in unusedEvents"
@@ -14,28 +23,27 @@
         :formData="item"
         :mType="AddButtonFormType.ADDBUTTONEVENT"
         @submitStateData="editStateData"
-      />
+      /> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import EditEvent from "./edit-detail";
-import PanelButton from "./CommonBtnAndPanel";
-import { AddButtonFormType } from "@/utils/commonEnum";
+import { mapState } from 'vuex'
+import EditEvent from './edit-detail'
+import PanelButton from './CommonBtnAndPanel'
+import { AddButtonFormType } from '@/utils/commonEnum'
 export default {
   components: {
     EditEvent,
-    PanelButton,
-
+    PanelButton
   },
   data() {
     return {
       AddButtonFormType,
       stringHtml: {},
       showEditState: false
-    };
+    }
   },
   computed: {
     ...mapState({
@@ -44,19 +52,27 @@ export default {
   },
   methods: {
     handleEdit(item) {
-      this.showEditState = true;
-      this.stringHtml = item;
-      this.$store.commit("stateSettings/TOGGLE_STATE", true);
+      // alert(item)
+      // console.log(this.$parent.$refs)
+      this.$parent.$refs['editDialog'].pendingEvent = item
+      
+      this.$parent.$refs['editDialog'].event = 'EditEvent'
+      
+      this.$parent.$refs['editDialog'].dialogVisible = true
+
+      //   this.showEditState = true;
+      //   this.stringHtml = item;
+      //   this.$store.commit("stateSettings/TOGGLE_STATE", true);
     },
-    editStateData([form,type]){
-      this.$emit("editStateData",[form,type]);
+    editStateData([form, type]) {
+      this.$emit('editStateData', [form, type])
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/base.scss";
+@import '@/styles/base.scss';
 .outer-container {
   margin: 0px 20px;
 }

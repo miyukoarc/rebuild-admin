@@ -1,16 +1,18 @@
 <template>
-  <el-dialog title="提示" :visible.sync="dialogVisible">
     <div>
-        <component :is="event" />
+        <el-dialog :title="genTitle()" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body width="600px">
+            <div>
+                <component :is="event" />
+            </div>
+        </el-dialog>
     </div>
-  </el-dialog>
 </template>
 
 <script>
 import EventDisable from './event-disable.vue'
 import EventEnable from './event-enable.vue'
 import EventKick from './event-kick.vue'
-
+import {mapState} from 'vuex'
 export default {
     components:{
         EventDisable,
@@ -20,11 +22,46 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      event: 'EventDisable'
+      event: 'EventDisable',
+      eventType: ''
     };
   },
+  watch:{
+      eventType:{
+          handler(newVal,oldVal){
+              if(newVal){
+                  this.genTitle()
+              }
+          },
+          immediate: true,
+      }
+  },
   computed:{
+      ...mapState({
+          eventsMap: state => state.stateSettings.eventsMap
+      })
+  },
+  mounted(){
+      
+      
+  },
+  updated(){
+      console.warn(this.genTitle())
+  },
+  methods: {
+      genTitle(){
+          if(this.eventsMap['user']){
+              for(let key of this.eventsMap['user']){
+              if(key.code == this.eventType){
+                  return key.name
+              }
+          }
+          }
+          
+          
+      }
   }
+  
 };
 </script>
 
