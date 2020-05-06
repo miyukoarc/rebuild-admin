@@ -13,8 +13,6 @@
       <div
         class="custom-tree-node"
         slot-scope="{ node, data }"
-        @mouseover="onMouseOver"
-        @mouseleave="onMouseLeave"
       >
         <i
           class="el-icon-folder-opened"
@@ -29,6 +27,7 @@
             width="200"
             trigger="hover"
             class="ml-2"
+            :enterable='false'
             v-show="showRoleCount"
           >
             <span slot="reference"
@@ -141,15 +140,9 @@ export default {
   },
   methods: {
     ...mapActions(NAME, ["addMenuForRole", "delMenuById"]),
-    onMouseOver() {},
-    onMouseLeave() {},
-    onClicks(node) {},
     getKeysForList(list) {
-      // console.log(this.$refs['menuTree']);
       for (const val of list) {
         let node = this.$refs['menuTree'].getNode(val.uuid);
-        // console.log(this.$refs['mainTree']);
-        console.log(node);
         if (val.hasOwnProperty("children")) {
           this.getKeysForList(val.children);
         } else if(node.childNodes.length==0){

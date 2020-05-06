@@ -30,6 +30,22 @@ export function getORGList(){
   })
 }
 
+
+export function editRole(form){
+  return request({
+    url:'/v1/role/update',
+    method:'post',
+    data:form
+  })
+}
+
+export function deleteRole(form){
+  return request({
+    url:'/v1/role/delete',
+    method:'post',
+    data:form
+  })
+}
 // export function getEmployeeList(){
 //   return request({
 //     url: '/v1/list/org/user',
@@ -39,4 +55,6 @@ export function getORGList(){
 export default {
     getRoleList,
     addRole,
+    editRole,
+    deleteRole,
 }

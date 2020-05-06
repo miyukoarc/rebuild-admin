@@ -28,8 +28,8 @@ export default {
     overflow-y: scroll;
 }
 
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
+// ::-webkit-scrollbar {
+//   width: 0px;
+//   height: 0px;
+// }
 </style>

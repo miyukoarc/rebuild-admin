@@ -33,6 +33,7 @@
           icon="el-icon-refresh"
           size="small"
           class="filter-item ml-2"
+          @click="onReflesh"
           >刷新</el-button
         >
       </el-form-item>
@@ -57,16 +58,20 @@ export default {
       }
     };
   },
+  inject:['reload'],
   methods: {
     ...mapActions(NAME, ["addRole"]),
     onCancle() {
       this.$refs["dialogbutton"].show = false;
     },
+    onReflesh(){
+      this.reload();
+    },
     onSubmit(form) {
-      // console.log(form);
       this.addRole(form)
         .then(result => {
           this.$refs["dialogbutton"].show = false;
+          this.reload();
           this.$message({
             type:'success',
             message:'添加成功'

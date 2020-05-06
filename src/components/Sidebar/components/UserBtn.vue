@@ -46,6 +46,7 @@
 import { mapGetters,mapState } from "vuex";
 import { removeToken } from "@/utils/auth";
 export default {
+    inject: ['reload'],
   data() {
     return {
       showProfile: false,
@@ -73,6 +74,7 @@ export default {
       await removeToken();
       await this.clearSig();
       this.$router.push(`/d/login?redirect=${this.$route.fullPath}`);
+      this.reload()
     },
     clearSig() {
       window.localStorage.removeItem("userID");

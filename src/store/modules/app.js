@@ -7,6 +7,7 @@ const state = {
   },
   device: 'desktop',
   mock: false,
+  language: ''
 }
 
 const mutations = {

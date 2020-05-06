@@ -164,7 +164,9 @@ export default {
             this.form.target = newVal.target.uuid
             this.form.terminal = newVal.terminal
             this.form.uuid = newVal.uuid
-          }
+          },
+          immediate: true,
+          deep: true
       }
   },
   computed: {

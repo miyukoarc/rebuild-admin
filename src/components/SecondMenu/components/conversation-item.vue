@@ -138,7 +138,6 @@ export default {
     ...mapGetters(['toAccount'])
   },
   mounted() {
-    console.log(this.$store)
     this.$bus.$on('new-messsage-at-me', event => {
       if (
         event.data.conversationID === this.conversation.conversationID &&

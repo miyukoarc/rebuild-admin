@@ -6,6 +6,15 @@ var AddButtonFormType;
 }(AddButtonFormType||(AddButtonFormType={})));
 
 
+var StateActionType;
+(function(StateActionType){
+    StateActionType["Event"] = 'CreateState',
+    StateActionType["State"] = 'CreateEvent',
+    StateActionType["Timer"] = 'timer'
+}(StateActionType||(StateActionType={})));
+
+
 module.exports = {
     AddButtonFormType,
+    StateActionType,
 }

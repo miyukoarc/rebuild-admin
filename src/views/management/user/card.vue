@@ -1,87 +1,49 @@
 <template>
-  <div class="p-3">
-    <el-form label-width="100px" label-position="left">
-      <el-form-item>
-        <div>
-          <img width="128" height="128" :src="currentContact.headimgurl" />
-        </div>
-      </el-form-item>
-      <el-form-item label="昵称">
-        <app-link :to="genLink(currentContact.uuid)">
-          <span style="color:#409EFF;">{{currentContact.nickname}}</span>
-        </app-link>
-      </el-form-item>
-      <el-form-item label="性别">
-        <div>{{sex(currentContact.gender)}}</div>
-      </el-form-item>
-      <!-- <el-form-item label="状态">
-        <div>
-          <el-tag
-            type="primary"
-            size="mini"
-          >{{isEmpty(currentContact.state)?'未指定':currentContact.state.name}}</el-tag>
-        </div>
-      </el-form-item>-->
+  <div class="p-2">
+    <div>
+      <div class="h5" v-if="customData">{{customData&&customData.nickname}}</div>
+      <img width="128" height="128" :src="customData&&customData.headimgurl" />
+    </div>
+    <div style="text-align:right;">
+      <el-button type="text" @click="showTransfer = true">转发</el-button>
+      <el-button type="text">详细</el-button>
+    </div>
 
-      <el-form-item label="角色">
-        <!-- <div>{{ currentContact.role&&currentContact.role.name }}</div> -->
-        <div v-if="currentContact.role">{{currentContact.role.name}}</div>
-      </el-form-item>
-      <el-form-item label="公司">
-        <div v-if="currentContact.org">{{currentContact.org.name}}</div>
-      </el-form-item>
-      <el-form-item label="部门">
-        {{
-        isEmpty(currentContact.department)?'未指定':currentContact.department.name
-        }}
-      </el-form-item>
-
-      <!-- <el-form-item label="手机">
-        <div v-if="currentContact.userinfo">{{currentContact.userinfo.mobile}}</div>
-      </el-form-item>-->
-      <el-form-item
-        label="国家/地区"
-      >{{isEmpty(currentContact.country)&&isEmpty(currentContact.city)&&isEmpty(currentContact.province)?'未设置':currentContact.country+currentContact.city+currentContact.province}}</el-form-item>
-
-      <el-form-item>
-        <el-button type="text" @click="handleTransfer">转发</el-button>
-      </el-form-item>
-
-      <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
-        <el-form label-width="100px">
-          <el-form-item label="转发至">
-            <el-select v-model="toAccount" placeholder="请选择">
-              <el-option-group
-                v-for="selection in options"
-                :key="selection.label"
-                :label="selection.label"
-              >
-                <el-option
-                  v-for="item in selection.options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-option-group>
-            </el-select>
-          </el-form-item>
-          <el-form-item label>
-            <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
-            <el-button type="danger" size="small" @click="showTransfer = false">取消</el-button>
-          </el-form-item>
-        </el-form>
-      </el-dialog>
-    </el-form>
+    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
+      <el-form label-width="100px">
+        <el-form-item label="转发至">
+          <el-select v-model="toAccount" placeholder="请选择">
+            <el-option-group
+              v-for="selection in options"
+              :key="selection.label"
+              :label="selection.label"
+            >
+              <el-option
+                v-for="item in selection.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-option-group>
+          </el-select>
+        </el-form-item>
+        <el-form-item label>
+          <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
+          <el-button type="danger" size="small" @click="showTransfer = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-import { isEmpty } from '@/utils/normal'
-import AppLink from '@/components/AppLink'
+import {mapState} from 'vuex'
+
 export default {
-  components: {
-    AppLink
+  props: {
+    payload: {
+      type: Object
+    }
   },
   data() {
     return {
@@ -126,19 +88,35 @@ export default {
     }
   },
   computed: {
-    ...mapState({
+      ...mapState({
       eventsMap: state => state.stateSettings.eventsMap,
       currentContact: state => state.contacts.currentContact,
       groupList: state => state['im/group'].groupList,
       friendList: state => state['im/friend'].friendList
-    })
+    }),
+    customData(){
+        return JSON.parse(this.payload.data)
+    },
+    customExtension() {
+        return JSON.parse(this.payload.extension)
+      
+    },
+    
   },
   mounted() {
-    this.handleSelection()
+      this.handleSelection()
+      console.log(JSON.parse(this.payload.data))
   },
-  beforeUpdate() {},
-  updated() {},
   methods: {
+    // customData(){
+    //     return JSON.stringfiy(this.payload.data)
+    // },
+    // customExtension() {
+    //     return JSON.stringfiy(this.payload.extension)
+      
+    // },
+    genUrl() {},
+
     handleSelection() {
       if (this.groupList) {
         this.groupList.forEach(item => {

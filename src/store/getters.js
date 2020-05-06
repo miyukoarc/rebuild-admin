@@ -13,7 +13,8 @@ const getters = {
   hasSecondMenu: state => state.secondMenu.hasSecondMenu,
   showRightPanel: state => state.component.showRightPanel,
   showConversationProfile: state => state.component.showConversationProfile,
-  actions: state => state.stateSettings.actions
+  actions: state => state.stateSettings.actions,
+  language: state => state.app.language
 }
 
 export default getters

@@ -90,10 +90,14 @@ export default {
   methods: {
     ...mapActions("role", ["getRoleList"]),
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
+    cancelSelect(){
+      this.$refs["singleTable"].$refs["table"].setCurrentRow();
+    },
     handleCurrentChange(val) {
-      this.currentRowID = val.uuid;
-      this.$bus.$emit("handleCurrentChange", val.uuid);
-      this.getMenuListByRole(val.uuid).catch(err => {
+      let aParam = val?val.uuid:val
+      this.currentRowID = aParam;
+      this.$bus.$emit("handleCurrentChange", aParam);
+      aParam&&this.getMenuListByRole(aParam).catch(err => {
         this.$message({
           type: "error",
           message: err

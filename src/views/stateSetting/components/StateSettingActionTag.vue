@@ -1,5 +1,5 @@
 <template>
-        <el-tag size="mini" type="danger">
+        <el-tag size="mini" type="success">
             <slot></slot>
         </el-tag>
 </template>

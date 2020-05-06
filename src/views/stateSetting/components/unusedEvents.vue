@@ -6,6 +6,8 @@
       <div>
         <el-button
           @click="handleEdit(item)"
+          plain
+          type="info"
           size="mini"
           v-for="(item, index) in unusedEvents"
           :key="index"
@@ -52,17 +54,11 @@ export default {
   },
   methods: {
     handleEdit(item) {
-      // alert(item)
-      // console.log(this.$parent.$refs)
       this.$parent.$refs['editDialog'].pendingEvent = item
       
       this.$parent.$refs['editDialog'].event = 'EditEvent'
       
       this.$parent.$refs['editDialog'].dialogVisible = true
-
-      //   this.showEditState = true;
-      //   this.stringHtml = item;
-      //   this.$store.commit("stateSettings/TOGGLE_STATE", true);
     },
     editStateData([form, type]) {
       this.$emit('editStateData', [form, type])

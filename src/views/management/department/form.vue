@@ -47,8 +47,8 @@
       </el-form-item>-->
       <el-form-item>
         <el-button size="small" type="primary" @click.native="handleConfirm('updateForm')">确定</el-button>
-        <el-button size="small" type="info" @click.native="handleClose">返回</el-button>
-        <el-button type="danger" size="small" @click.native="handleDel">删除</el-button>
+        <el-button size="small" type="info" @click.native="handleClose">取消</el-button>
+        <!-- <el-button type="danger" size="small" @click.native="handleDel">删除</el-button> -->
       </el-form-item>
     </el-form>
   </div>

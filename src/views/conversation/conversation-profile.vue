@@ -4,10 +4,13 @@
       v-if="currentConversation.type === TIM.TYPES.CONV_C2C"
       :user-profile="currentConversation.userProfile"
     /> -->
-    <!-- <group-profile
-      v-else-if="currentConversation.type === TIM.TYPES.CONV_GROUP"
+
+    <friend-detail v-if="currentConversation.type === TIM.TYPES.CONV_C2C"/>
+    
+    <group-profile
+      v-if="currentConversation.type === TIM.TYPES.CONV_GROUP"
       :group-profile="currentConversation.groupProfile"
-    /> -->
+    />
   </div>
 </template>
 
@@ -15,14 +18,28 @@
 import { mapState } from 'vuex'
 import GroupProfile from '@/components/ConversationProfile/group-profile.vue'
 import UserProfile from '@/components/ConversationProfile/user-profile.vue'
+import FriendDetail from './friend-detail.vue'
 export default {
   name: 'ConversationProfile',
   components: {
     GroupProfile,
-    UserProfile
+    UserProfile,
+    FriendDetail
   },
   data() {
     return {}
+  },
+  watch:{
+      currentConversation:{
+          handler(newVal,oldVal){
+              console.log(newVal.type)
+              if(newVal.type=='@TIM#SYSTEM'){
+                  this.$store.commit('component/TOGGLE_CONVERSATIONPROFILE',false)
+              }
+          },
+          deep: true,
+          immediate: true
+      }
   },
   computed: {
     ...mapState({
@@ -36,6 +53,7 @@ export default {
 @import '@/styles/base.scss';
 
 .conversation-profile-wrapper {
+min-width: 400px;
   background-color:$white;
   height: 100%;
   overflow-y: scroll;

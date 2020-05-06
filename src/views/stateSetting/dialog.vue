@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body width="600px">
+        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body :width="dialogWidth">
             <div>
                 <component :is="event" :pendingEvent="pendingEvent"/>
             </div>
@@ -43,9 +43,12 @@ export default {
       },
       pendingEvent:{
           handler(newVal,oldVal){
-            //   console.log(newVal)
+              
               this.pendingEvent = newVal
+
+              console.log(this.pendingEvent)
           },
+          deep: true,
           immediate: true
       }
   },

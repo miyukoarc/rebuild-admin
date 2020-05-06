@@ -1,7 +1,7 @@
 <template>
   <message-bubble :is-mine="isMine" :message="message">
     <div class="custom-element-wrapper">
-      <div v-if="this.payload.data === 'survey'" class="survey">
+      <!-- <div v-if="this.payload.data === 'survey'" class="survey">
         <div class="title">对IM DEMO的评分和建议</div>
         <el-rate
           v-model="rate"
@@ -11,22 +11,34 @@
           score-template="{value}"
         />
         <div class="suggestion">{{ this.payload.extension }}</div>
-      </div>
-      <span v-else class="text" title="您可以自行解析自定义消息">{{ text }}</span>
+      </div> -->
+      <card-board>
+          <component :is="activeComponent" :payload="payload"/>
+
+      </card-board>
+      <!-- <span class="text" title="您可以自行解析自定义消息">{{ text }}</span> -->
     </div>
   </message-bubble>
 </template>
 
 <script>
 import MessageBubble from '../message-bubble'
+import CardBoard from '@/components/CardBoard'
 import { Rate } from 'element-ui'
 import { ACTION } from '@/utils/trtcCustomMessageMap'
 import { formatDuration } from '@/utils/formatDuration'
-
+import UserCard from '@/views/management/user/card'
 export default {
   name: 'CustomElement',
+  data(){
+      return {
+          activeComponent: 'UserCard'
+      }
+  },
   components: {
+    UserCard,
     MessageBubble,
+    CardBoard,
     ElRate: Rate
   },
   props: {
@@ -43,6 +55,15 @@ export default {
     }
   },
   computed: {
+    // customData (){
+    //     return JSON.parse(this.payload.data)
+    // },
+    // customDescription(){
+    //     return this.payload.description
+    // },
+    // customExtension (){
+    //     return this.payload.extension
+    // },
     text() {
       return this.translateCustomMessage(this.payload)
     },
@@ -105,6 +126,10 @@ export default {
 .suggestion {
   padding-top: 10px;
   font-size: 14px;
+}
+
+.custom-element-wrapper{
+    display: flex;
 }
 
 </style>

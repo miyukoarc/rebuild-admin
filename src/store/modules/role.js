@@ -15,6 +15,18 @@ const actions ={
         return API.getRoleList(state.page.isNull()).then(res=>{
             commit('SET_ROLELIST',res.items);
         })
+    },
+    editRole({commit,state},form){
+        return API.editRole(form).then(res=>{
+            // commit('SET_ROLELIST',res.items);
+            return res;
+        })
+    },
+    deleteRole({commit,state},form){
+        return API.deleteRole(form).then(res=>{
+            // commit('SET_ROLELIST',res.items);
+            return res;
+        })
     }
 
 }

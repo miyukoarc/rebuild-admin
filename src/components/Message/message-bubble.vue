@@ -140,7 +140,7 @@ export default {
 		outline: none;
 		font-size: 14px;
 		position: relative;
-		max-width: 350px;
+		// max-width: 350px;
 		word-wrap: break-word;
 		word-break: break-all;
 		padding: 10px;

@@ -13,7 +13,7 @@ const actions ={
     getUserProfileByUserId({commit},id){
         return new Promise((resolve,reject)=>{
             getUserProfileByUserId(id).then(res=>{
-                console.log(res)
+                // console.log(res)
                 commit('SAVE_CURRENTCONTACT',res)
                 resolve()
             }).catch(err=>{

@@ -1,8 +1,8 @@
 
 import departmentList from './department/list.vue'
 import roleList from './role/index.vue'
-import stateSettingList from './stateSetting/list'
-import stateSettingTree from './stateSetting/tree'
+// import stateSettingList from './stateSetting/list'
+// import stateSettingTree from './stateSetting/tree'
 import departmentTree from './department/tableTree.vue'
 import employee from './employee/rightList'
 import menu from './menu'
@@ -24,16 +24,11 @@ export default [
         name: 'Role',
         component: roleList,
     },
-    {
-        path: 'state_setting/list',
-        name: 'stateSetting',
-        component: stateSettingList
-    },
-    {
-        path: 'state_setting/tree',
-        name: 'stateSettingTree',
-        component: stateSettingTree
-    },
+    // {
+    //     path: 'state_setting/tree',
+    //     name: 'stateSettingTree',
+    //     component: stateSettingTree
+    // },
     {
         path: 'employee/list',
         name: 'employee',

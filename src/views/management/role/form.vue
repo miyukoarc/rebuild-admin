@@ -10,7 +10,8 @@
       <el-input v-model="form.terminal"></el-input>
     </el-form-item>
     <el-form-item style="text-align: right">
-      <el-button type="primary" @click="onSubmit">添加</el-button>
+      <el-button type="primary" @click="onSubmit" v-if="!formData">添加</el-button>
+       <el-button type="primary" @click="onSubmit" v-if="formData">编辑</el-button>
       <el-button @click="onCancel">取消</el-button>
     </el-form-item>
   </el-form>
@@ -29,8 +30,7 @@ export default {
       form1: {
         code: "",
         name: "",
-        terminal: "ORG",
-        org: 1
+        terminal: "",
       },
       rules: {
         name: [{ required: true, message: "请输入名称", trigger: "blur" }],
@@ -41,15 +41,22 @@ export default {
   },
   computed: {
     form() {
-      if (this.formData) {
-        return this.formData;
+      if (this.formData&&!this.formData.isEmptyObj()) {
+       this.form1 = {
+         ...this.formData
+       }
+        return this.form1;
       }
       return this.form1;
+    },
+    org(){
+      return this.$store.state.user.userInfo.org.uuid;
     }
   },
   methods: {
     onSubmit() {
-      this.$emit("onSubmit", this.form);
+      this.form1.org = this.org;
+      this.$emit("onSubmit", this.form1);
     },
     onCancel() {
       this.$emit("onCancle");

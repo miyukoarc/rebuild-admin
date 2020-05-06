@@ -22,7 +22,7 @@
           v-if="node.expanded && node.childNodes != 0"
         ></i>
         <i class="el-icon-folder" v-else></i>
-        <el-tooltip placement="top" :content="data.name">
+        <el-tooltip placement="top" :content="data.name" :enterable='false'>
           <span class="tree-node-name" ref="nodeName"
             >{{ data.name }} ({{
               isEmptyObject(data.users) ? 0 : data.users.length

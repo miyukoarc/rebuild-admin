@@ -1,10 +1,10 @@
 <template>
-  <div class="statesetting-container" v-loading.body.lock="loading">
+  <div class="statesetting-container pb-5" v-loading.body.lock="loading">
     <div class="add-btn-container">
       <div style="display:flex;justify-content:space-between;">
         <div style="display:inline-block;margin: auto auto 0 0;">
           <el-button
-            type="success"
+            type="primary"
             size="small"
             @click="handleAction(action='CreateState')"
             inline
@@ -24,18 +24,23 @@
         </div>
       </div>
     </div>
-
     <edit-dialog ref="editDialog" />
 
     <div ref="stateSettingContent">
-      <div v-for="(item, index) in currentStateList" :key="index">
-        <el-row style class="state-container">
+      <div>
+        <el-row
+          style
+          class="state-container"
+          v-for="(item, index) in currentStateList"
+          :key="index"
+        >
           <el-col :span="4" style class="state-container-left" ref="stateLeft">
             <el-row>
               <el-col :span="18">
                 <h3 :id="item.code" class="text-align-left">
-                  <i class="el-icon-message-solid"></i>
-                  &nbsp;&nbsp;{{ item.name }}
+                  <!-- <i class="el-icon-message-solid"></i> -->
+                  <svg-icon icon-class="state"></svg-icon>
+                  <span class="ml-1">{{ item.name }}</span>
                 </h3>
               </el-col>
               <el-col :span="6" class="text-align-right" style="margin:1.2em 0">
@@ -47,10 +52,11 @@
                   :loading="subloading"
                   :stateId="item.uuid"
                   ref="stateAddEvent"
-                  width="600px"
+                  width="300px"
                 >
                   <template v-slot:customBtn>
-                      <i class="el-icon-s-help"></i>
+                    <!-- <i class="el-icon-camera-solid click-cursor" style="font-size:1.1em"></i> -->
+                     <svg-icon icon-class="addEvent" class="click-cursor common-icon"></svg-icon>
                     <!-- <el-button type="success" size="mini">添加</el-button> -->
                   </template>
                   <template v-slot:body>
@@ -85,8 +91,13 @@
                   size="mini"
                   type="success"
                   
-                ></el-button> -->
-                <i class="el-icon-camera-solid" @click="handleAction(action='CreateTimer',payload=item.uuid)"></i>
+                ></el-button>-->
+                <!-- <i
+                  class="el-icon-s-help click-cursor"
+                  style="font-size:1.1em"
+                  @click="handleAction(action='CreateTimer',payload=item.uuid)"
+                ></i> -->
+                <svg-icon icon-class="addTimer" style='height:1.1em;width:1.1em' class=" click-cursor"  @click="handleAction(action='CreateTimer',payload=item.uuid)"></svg-icon>
 
                 <!-- <StateSettingAddButton
                   labelText="添加定时器"
@@ -142,8 +153,11 @@
               </el-col>
 
               <el-col :span="12" class="text-align-right">
-                <StateTag type="danger" size="mini">
-                  <span>{{ item.stateType }}</span>
+                <StateTag>
+                  <span v-if="item.stateType=='BEGIN'">启动状态</span>
+                  <span v-else-if="item.stateType=='END'">结束状态</span>
+                  <span v-else-if="item.stateType=='CHOICE'">分支状态</span>
+                  <span v-else>通用状态</span>
                 </StateTag>
               </el-col>
             </el-row>
@@ -245,29 +259,18 @@
           <el-col :span="20" class="state-container-right" ref="stateRight">
             <div>
               <h3>
-                <i class="el-icon-camera-solid"></i>
-&nbsp;&nbsp;事件
+                <!-- <i class="el-icon-camera-solid mr-1"></i> -->
+                <svg-icon icon-class="event"></svg-icon>
+                <span>事件</span>
               </h3>
-              <el-table
-                row-class-name="bg-color-success"
-                header-row-class-name="header-title-success"
-                border
-                :data="[] && item.events"
-                size="mini"
-              >
-                <el-table-column :label="stateSettings.name" prop="name" align="center"></el-table-column>
-                <el-table-column :label="stateSettings.code" align="center">
+              <el-table  :data="[] && item.events" size="mini" class="fill" empty-text="暂无事件">
+                <el-table-column :label="stateSettings.name" prop="name" ></el-table-column>
+                <el-table-column :label="stateSettings.code" >
                   <template slot-scope="scope">
                     <span style="font-weight:700">{{ scope.row.code }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="stateSettings.description" align="center">
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.description || "无" }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="stateSettings.terminal" prop="terminal" align="center"></el-table-column>
-                <el-table-column :label="stateSettings.target" align="center">
+                 <el-table-column :label="stateSettings.target" >
                   <template slot-scope="scope">
                     <a v-if="!isEmpty(scope.row.target)" :href="`#${scope.row.target.code}`">
                       <StateTag size="mini">
@@ -279,27 +282,44 @@
                     <span v-else>无</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="stateSettings.guardSpel" align="center">
+               
+               
+                <el-table-column :label="stateSettings.guardSpel" >
                   <template slot-scope="scope">
                     <span>{{ scope.row.guardSpel || "无" }}</span>
                   </template>
                 </el-table-column>
 
-                <el-table-column :label="stateSettings.action" align="center">
+                <el-table-column :label="stateSettings.action" >
                   <template slot-scope="scope">
                     <action-tag>{{ scope.row.action }}</action-tag>
                   </template>
                 </el-table-column>
 
-                <el-table-column :label="stateSettings.roles" align="center">
+                <el-table-column :label="stateSettings.roles"  width="120">
                   <template slot-scope="scope">
-                    <tag-button :tags="[] && scope.row.roles"></tag-button>
+                    <tag-button :tags="[] && scope.row.roles" v-if="scope.row.roles.length==1"></tag-button>
+                    <el-badge
+                      :value="scope.row.roles.length"
+                      class="item mt-2"
+                      type="primary"
+                      v-else
+                    >
+                      <tag-button :tags="[] && scope.row.roles"></tag-button>
+                    </el-badge>
+                    <!-- <tag-button :tags="[] && scope.row.roles"></tag-button> -->
                   </template>
                 </el-table-column>
-                <el-table-column label="操作" width="180" align="center">
+                <el-table-column :label="stateSettings.terminal" prop="terminal" ></el-table-column>
+                 <el-table-column :label="stateSettings.description" >
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.description || "无" }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作" width="180" >
                   <template slot-scope="scope">
                     <el-button
-                      type="info"
+                      type="danger"
                       size="mini"
                       @click="onDelEvent(item.uuid, scope.row.uuid)"
                     >解除</el-button>
@@ -309,47 +329,47 @@
             </div>
             <div>
               <h3>
-                <i class="el-icon-s-help"></i>&nbsp;&nbsp;定时器
+                <!-- <i class="el-icon-s-help mr-1"></i> -->
+                <svg-icon icon-class="timer" class="common-icon"></svg-icon>
+                <span>定时器</span>
               </h3>
-              <div v-if="item.timers.length">
-                <el-table
-                  row-class-name="bg-color-warning"
-                  header-row-class-name="header-title-warning"
-                  border
-                  :data="item.timers"
+              <el-table
+                border
+                class="fill"
+                :data="item.timers.isEmptyObj()?null:item.timers"
+                empty-text="暂无定时器"
+              >
+                <el-table-column :label="stateSettings.name" prop="name" ></el-table-column>
+                <el-table-column
+                  :label="stateSettings.description"
+                  prop="description"
+                  
                 >
-                  <el-table-column :label="stateSettings.name" prop="name" align="center"></el-table-column>
-                  <el-table-column
-                    :label="stateSettings.description"
-                    prop="description"
-                    align="center"
-                  >
-                    <template slot-scope="scope">
-                      <span>{{ scope.row.description || "无" }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="stateSettings.action" align="center">
-                    <template slot-scope="scope">
-                      <action-tag>{{ scope.row.action }}</action-tag>
-                    </template>
-                  </el-table-column>
-                  <el-table-column :label="stateSettings.timer" align="center">
-                    <template slot-scope="scope">
-                      <div v-if="scope.row.timerOnce">{{ scope.row.timerOnce }}'' 延时定时器</div>
-                      <div v-if="scope.row.timerInterval">{{ scope.row.timerInterval }}'' 周期定时器</div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
-                      <el-button
-                        type="info"
-                        size="mini"
-                        @click="onDelTimer(item.uuid, scope.row.uuid)"
-                      >删除</el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </div>
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.description || "无" }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="stateSettings.action" >
+                  <template slot-scope="scope">
+                    <action-tag>{{ scope.row.action }}</action-tag>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="stateSettings.timer" >
+                  <template slot-scope="scope">
+                    <div v-if="scope.row.timerOnce">{{ scope.row.timerOnce }}'' 延时定时器</div>
+                    <div v-if="scope.row.timerInterval">{{ scope.row.timerInterval }}'' 周期定时器</div>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作" >
+                  <template slot-scope="scope">
+                    <el-button
+                      type="danger"
+                      size="mini"
+                      @click="onDelTimer(item.uuid, scope.row.uuid)"
+                    >删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
             </div>
           </el-col>
         </el-row>
@@ -362,7 +382,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import TagButton from './components/tag-button'
 import EventItem from './components/event-item'
-import TimerItem from './components/timer-item'
+// import TimerItem from './components/timer-item'
 import ActionsList from './components/actions-list'
 import UnusedEventList from './components/unusedEvents'
 import StateSettingAddButton from './components/StateSettingAddButton'
@@ -382,7 +402,7 @@ export default {
     EditDialog,
     TagButton,
     EventItem,
-    TimerItem,
+    // TimerItem,
     ActionsList,
     UnusedEventList,
     ButtonPanel,
@@ -465,9 +485,7 @@ export default {
   watch: {
     $route: {
       handler(newVal, oldVal) {
-        console.warn(newVal)
         const entity = newVal.params.entity
-        console.log(entity)
         this.$store.commit('stateSettings/SAVE_ENTITY', entity)
         this.$store.dispatch('stateSettings/getStateMachine')
         this.$store.dispatch('stateSettings/getActionByEntity')
@@ -587,7 +605,7 @@ export default {
           this.initData()
           this.subloading = false
           this.$message({
-            message: 'success',
+            message: '添加成功',
             type: 'success',
             duration: 5 * 1000
           })
@@ -601,9 +619,9 @@ export default {
       this.addState(form)
         .then(res => {
           this.subloading = false
-          this.initData()
+          this.initData();
           this.$message({
-            message: 'success',
+            message: '添加成功',
             type: 'success',
             duration: 5 * 1000
           })
@@ -619,7 +637,7 @@ export default {
           this.initData()
           this.subloading = false
           this.$message({
-            message: 'success',
+            message: '添加成功',
             type: 'success',
             duration: 5 * 1000
           })
@@ -739,9 +757,9 @@ export default {
         let lHeig = leftDivs[index].offsetHeight
         let rHeig = rightDivs[index].offsetHeight
         if (lHeig < rHeig) {
-          rightDivs[index].style.borderLeft = '1px solid #dfe6ec'
+          rightDivs[index].style.borderLeft = '1px solid #dcdfe6'
         } else {
-          leftDivs[index].style.borderRight = '1px solid #dfe6ec'
+          leftDivs[index].style.borderRight = '1px solid #dcdfe6'
         }
       }
     },
@@ -768,7 +786,7 @@ export default {
     },
     handleAction(action, payload) {
       this.$refs['editDialog'].dialogVisible = true
-    //   this.$parent.$refs['editDialog'].type = 'create'
+      //   this.$parent.$refs['editDialog'].type = 'create'
       this.$refs['editDialog'].event = action
       if (payload) {
         // alert(payload)
@@ -780,6 +798,7 @@ export default {
 
 <style lang="scss">
 @import '@/styles/base.scss';
+@import '@/styles/mixin.scss';
 
 .el-table--enable-row-hover .el-table__body tr:hover > td {
   background-color: initial !important;
@@ -796,15 +815,15 @@ export default {
   margin-bottom: (0!important);
 }
 .el-table .bg-color-success {
-  background: #f0f9eb;
+  // background: #f0f9eb;
 }
 
 .el-table .bg-color-warning {
-  background: #fdf6ec;
+  // background: #fdf6ec;
 }
 
 .el-table .bg-color-primary {
-  background: #ecf5ff;
+  // background: #ecf5ff;
 }
 
 .el-table th {
@@ -816,31 +835,46 @@ export default {
 }
 
 .statesetting-container {
+  @include scrollBar;
   .header-title-success {
-    color: #000;
-    background: #f0f9eb;
+    // color: #000;
+    // background: #f0f9eb;
   }
   .header-title-danger {
-    color: #000;
-    background: #fef0f0;
+    // color: #000;
+    // background: #fef0f0;
   }
   .header-title-warning {
-    color: #000;
-    background: #fdf6ec;
+    // color: #000;
+    // background: #fdf6ec;
   }
 }
 .statesetting-container .el-button {
   margin-left: 10px;
 }
+.el-table__body-wrapper {
+  @include scrollBar;
+}
+.click-cursor {
+  cursor: pointer;
+}
+.state-container:nth-child(even) {
+  background: #fafafa;
+}
+.common-icon{
+  width: 1.2em !important;
+  height: 1.2em !important;
+}
 </style>
 
 <style lang="scss" scoped>
+@import '@/styles/mixin.scss';
 .property-item {
   margin-bottom: 1.2em;
 }
 .add-btn-container {
   padding: 15px 0 15px 5px;
-  background-color: #fff;
+  border-bottom: 1px solid #dcdfe6;
 }
 .statesetting-container {
   width: 100%;
@@ -864,20 +898,22 @@ label {
   font-weight: (normal!important);
 }
 .state-container {
-  background: #ecf5ff;
-  border-bottom: 1px solid #dfe6ec;
+  // background: #ecf5ff;
+  border-bottom: 1px solid #dcdfe6;
   border-collapse: collapse;
 }
 .state-container-left {
-  padding: 10px 12px;
+  padding: 8px 12px 2em;
   font-size: 14px;
 }
-.state-container-left > div:not(:first-child) {
+// .state-container-left > div:not(:first-child) {
+.state-container-left {
   color: #606266;
   font-size: 13px;
 }
 .state-container-right {
-  padding: 10px 12px;
+  @include scrollBar;
+  padding: 8px 12px 2em;
   margin: 0px;
   font-size: 13px;
 }
@@ -894,5 +930,10 @@ label {
   background: #67c23a;
   border-radius: 3px;
   margin: 1em 0;
+}
+h3 {
+  color: #303133;
+  // font-weight: 600;
+  font-size: 1.06em;
 }
 </style>

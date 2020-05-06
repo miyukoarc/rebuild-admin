@@ -39,7 +39,6 @@ export default {
         .catch(error => {})
     }
 
-    console.warn('1231232');
   },
   methods: {
     reload() {
@@ -80,7 +79,6 @@ export default {
         this.TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED,
         this.onReceiveGroupSystemNotice
       )
-      console.log('会话列表更新')
     },
     onReceiveMessage({ data: messageList }) {
       if (messageList[0].conversationID != undefined) {
@@ -127,12 +125,23 @@ export default {
               message: error.message
             })
           })
-          .catch(error => {
+        //   .catch(error => {
+        //     this.$store.commit('im/setting/showMessage', {
+        //       type: 'error',
+        //       message: error.message
+        //     })
+        //   })
+
+        this.tim.getGroupList().then(({data:groupList})=>{
+            const payload = groupList.groupList
+            this.$store.commit('im/group/updateGroupList',payload)
+            console.log(payload,'获取群组列表')
+        }).catch(error=>{
             this.$store.commit('im/setting/showMessage', {
               type: 'error',
               message: error.message
             })
-          })
+        })
         this.$store.dispatch('im/blacklist/getBlacklist',{},{root:true})
       }
     },

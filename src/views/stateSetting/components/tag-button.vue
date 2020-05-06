@@ -9,6 +9,7 @@
           :key="index"
           size="mini"
           type="info"
+          class="mt-1"
         >{{ item.name }}</el-tag>
       </div>
 
@@ -19,9 +20,10 @@
         :key="index"
         size="mini"
         type="info"
+         class="mt-1"
       >
         {{ item.name }}
-        <sup style="color:#ff4949">&nbsp;&nbsp;{{`${tags.length-1}+`}}</sup>
+        <!-- <sup style="color:#ff4949">&nbsp;&nbsp;{{`${tags.length-1}+`}}</sup> -->
       </el-tag>
     </el-popover>
   </div>
@@ -31,6 +33,7 @@
       v-for="(item, index) in tags"
       :key="index"
       size="mini"
+       class="mt-1"
       type="info"
     >{{ item.name }}</el-tag>
   </div>

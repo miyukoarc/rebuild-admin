@@ -8,10 +8,12 @@
           <addForm />
         </div>
       </DialogButton>
+      <el-button type="primary" @click="cancelSelect" class="ml-2">取消单选</el-button>
+      
     </el-header>
     <el-container>
       <el-aside width="450px" class="px-3">
-        <PAside />
+        <PAside ref="leftTable"/>
       </el-aside>
       <el-main height class="permiss-index-main px-3 py-0 ml-3">
         <el-row>
@@ -79,6 +81,10 @@ export default {
   },
   methods: {
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
+    cancelSelect(){
+      this.$refs['leftTable'].cancelSelect();
+      this.initDataList();
+    },
     initDataList() {
       this.getMenuList().catch(err => {
         this.$message({
