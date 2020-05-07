@@ -52,6 +52,9 @@ export default {
   mounted() {
     this.$bus.$on('image-preview', this.handlePreview)
   },
+  beforeDestroy () {
+      this.$bus.$off('image-preview')
+  },
   methods: {
     handlePreview({ url }) {
       this.url = url

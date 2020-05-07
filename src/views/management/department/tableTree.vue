@@ -22,19 +22,19 @@
         prop="manager"
         label="主管"
         align="center"
-        :render="formatterRow"
+        :formatter="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="parent"
         label="上级"
         align="center"
-        :render="formatterRow"
+        :formatter="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="users"
         label="人数"
         align="center"
-        :render="formatterRow"
+        :formatter="formatterRow"
       ></el-table-column>
       <el-table-column
         prop="code"
@@ -110,9 +110,9 @@ export default {
   },
   methods: {
     ...mapActions("department", ["getDepartment"]),
-    isEmptyObj(obj) {
-      return isEmpty(obj);
-    },
+    // isEmptyObj(obj) {
+    //   return isEmpty(obj);
+    // },
     closeDialog(val) {
       this.showDialog = false;
     },
@@ -169,16 +169,21 @@ export default {
       this.$router.push({ path: nextUrl });
     },
     formatterRow: function(row, column, cellValue, index) {
+      // cellValue = Array.prototype.slice.call(cellValue)
+      // if(cellValue instanceof Array){
+      //   console.log(Object.getPrototypeOf(cellValue)===Array.prototype);
+      //   console.log(typeof cellValue);
+      // }
       if (cellValue instanceof Array) {
         return cellValue.length;
       } else {
-        if (!this.isEmptyObj(cellValue)) {
-          return cellValue.name;
+        if (!cellValue.isEmptyObj()) {
+          return cellValue.name||cellValue.nickname;
         }
-        return "";
+        return "无";
       }
 
-      return "";
+      return "无";
     }
   }
 };

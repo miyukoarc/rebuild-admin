@@ -150,8 +150,12 @@ export default {
   },
   mounted() {
     this.form.entity = this.currentEntity
+    
   },
   methods: {
+    initData (){
+        this.form.state = this.$parent.$parent.payload
+    },
     handleConfirm() {
       this.$refs['form'].validate(async valid => {
         await this.checkOutType()

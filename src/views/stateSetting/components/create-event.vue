@@ -105,7 +105,7 @@ export default {
         action: '', //unrequire
         code: '',
         description: '',
-        entity: "string",
+        entity: 'string',
         guardSpel: '', //执行条件
         name: '',
         roles: [],
@@ -138,29 +138,29 @@ export default {
     })
   },
   mounted() {
-      this.form.entity = this.currentEntity
+    this.form.entity = this.currentEntity
   },
   methods: {
     onChange() {},
     handleConfirm() {
-
-        this.$store
-          .dispatch('stateSettings/addEvent', this.form)
-          .then(() => {
-            this.$parent.$parent.dialogVisible = false
-            this.$message({
-              type: 'sucess',
-              message: '操作成功'
+      this.$refs['form'].validate(valid => {
+        valid &&
+          this.$store
+            .dispatch('stateSettings/addEvent', this.form)
+            .then(() => {
+              this.$parent.$parent.dialogVisible = false
+              this.$message({
+                type: 'sucess',
+                message: '操作成功'
+              })
             })
-          })
-          .catch(err => {
-            this.$message({
-              type: 'error',
-              message: err
+            .catch(err => {
+              this.$message({
+                type: 'error',
+                message: err
+              })
             })
-            
-          })
-      
+      })
     },
     handleCancel() {
       this.$parent.$parent.dialogVisible = false

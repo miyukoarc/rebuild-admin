@@ -57,32 +57,33 @@
             <el-button
               v-for="item in userDetail.events"
               :key="item"
+              type="primary"
               @click="handleEvents(item)"
             >{{item}}</el-button>
           </el-form-item>
-          <el-form-item>
+          <!-- <el-form-item>
             <el-button size="small" type="success" @click="handleClose">返回</el-button>
-          </el-form-item>
+          </el-form-item>-->
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="操作历史" name="logs" :disabled="!userDetail.logs.length">
-          <el-scrollbar>
-              <el-timeline>
-                <el-timeline-item 
-                v-for="item in userDetail.logs" 
-                :key="item.uuid"
-                :timestamp="item.createdAt"
-                >
-                <el-card>
-                    <p>{{item.org.name}}</p>
-                    <p>{{item.operator.nickname}}</p>
-                    <span class="font-sm">执行了</span>
-                    <p>{{item.event}}</p>
-                    <!-- <p>{{item.createdAt}}</p> -->
-                </el-card>
-                </el-timeline-item>
-              </el-timeline>
-          </el-scrollbar>
+        <el-scrollbar>
+          <el-timeline class="py-3">
+            <el-timeline-item
+              v-for="item in userDetail.logs"
+              :key="item.uuid"
+              :timestamp="item.createdAt"
+            >
+                <div>
+                  {{item.operator.nickname}}
+                  <span style="font-size:12px;color:#E6A23C;">@{{item.org.name}}</span>
+                  <span class="font-sm">执行了</span>
+                  <span style="color:#F56C6C;">{{item.event}}</span>
+                </div>
+                
+            </el-timeline-item>
+          </el-timeline>
+        </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
 
@@ -103,9 +104,7 @@ export default {
       activeType: 'detail'
     }
   },
-  watch: {
-
-  },
+  watch: {},
   computed: {
     ...mapState({
       eventsMap: state => state.stateSettings.eventsMap,

@@ -134,6 +134,6 @@ export default {
   }
 }
 .rightPanel-items{
-  padding: 60px;
+  padding: 30px;
 }
 </style>

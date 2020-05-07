@@ -1,12 +1,14 @@
 <template>
   <div class="p-2">
     <div>
-      <div class="h5" v-if="customData">{{customData&&customData.nickname}}</div>
+      <div class="h5">{{customData&&customData.nickname}}</div>
       <img width="128" height="128" :src="customData&&customData.headimgurl" />
     </div>
     <div style="text-align:right;">
       <el-button type="text" @click="showTransfer = true">转发</el-button>
-      <el-button type="text">详细</el-button>
+      <!-- <app-link :to="`/d/management/user/list?detail=${customExtension}`"> -->
+    <el-button type="text" @click="handleDetail">详细</el-button>
+      <!-- </app-link> -->
     </div>
 
     <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
@@ -37,7 +39,8 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
+import AppLink from '@/components/AppLink'
 
 export default {
   props: {
@@ -45,6 +48,7 @@ export default {
       type: Object
     }
   },
+  components: { AppLink },
   data() {
     return {
       showTransfer: false,
@@ -67,56 +71,52 @@ export default {
           options: []
         }
       ]
+      //   parseData: this.customData
     }
   },
   watch: {
     toAccount: {
       handler(newVal, oldVal) {
-        //   console.log(newVal)
+
         if (newVal.includes('@TGS')) {
           this.conversationType = 'GROUP'
-          //   console.log(newVal,'TIM.TYPES.CONV_GROUP')
+
         }
 
         if (!newVal.includes('@TGS')) {
           this.conversationType = 'C2C'
-          //   console.log(newVal,'TIM.TYPES.CONV_C2C')
+
         }
       },
       deep: true
-      //   immediate:true
+
     }
   },
   computed: {
-      ...mapState({
+    ...mapState({
       eventsMap: state => state.stateSettings.eventsMap,
       currentContact: state => state.contacts.currentContact,
       groupList: state => state['im/group'].groupList,
       friendList: state => state['im/friend'].friendList
     }),
-    customData(){
-        return JSON.parse(this.payload.data)
+    customData() {
+        let str
+        try{
+            str = this.payload.data
+            return JSON.parse(str)
+        }catch(err){
+
+        }
+
     },
     customExtension() {
-        return JSON.parse(this.payload.extension)
-      
-    },
-    
+      return this.payload.extension.split('/')[1]
+    }
   },
   mounted() {
-      this.handleSelection()
-      console.log(JSON.parse(this.payload.data))
+    this.handleSelection()
   },
   methods: {
-    // customData(){
-    //     return JSON.stringfiy(this.payload.data)
-    // },
-    // customExtension() {
-    //     return JSON.stringfiy(this.payload.extension)
-      
-    // },
-    genUrl() {},
-
     handleSelection() {
       if (this.groupList) {
         this.groupList.forEach(item => {
@@ -153,7 +153,6 @@ export default {
       return '/d/management/user/list?detail=' + url
     },
     handleTransfer() {
-      console.log(this.showTransfer)
       this.showTransfer = true
     },
     handleConfirm() {
@@ -162,7 +161,7 @@ export default {
     postCustomMessage() {
       this.transferForm.data = JSON.stringify(this.currentContact)
       this.transferForm.description = '名片'
-      this.transferForm.extension = `/d/management/user/detail?=${this.currentContact.uuid}`
+      this.transferForm.extension = `user/${this.currentContact.uuid}`
 
       const message = this.tim.createCustomMessage({
         to: this.toAccount,
@@ -171,6 +170,8 @@ export default {
           ...this.transferForm
         }
       })
+
+      console.log(JSON.stringify(this.currentContact))
 
       console.log(message)
 
@@ -189,6 +190,9 @@ export default {
       })
 
       this.showTransfer = false
+    },
+    handleDetail(){
+        this.$bus.$emit('showConversationDetailPanel',this.payload.extension)
     }
   }
 }

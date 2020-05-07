@@ -160,25 +160,25 @@ export default {
     }
   },
   watch: {
-    $route: {
-      handler(newVal, oldVal) {
-        // console.log(newVal.query.detail)
-        if (newVal.query.detail) {
-          this.$store.commit('component/TOGGLE_PANEL', true)
-          this.$store
-            .dispatch('userManage/getNormalUserDetail', newVal.query.detail)
-            .then(() => {})
-            .catch(err => {
-              this.$message({
-                type: 'error',
-                message: err
-              })
-            })
-        }
-      },
-      deep: true,
-      immediate: true
-    }
+    // $route: {
+    //   handler(newVal, oldVal) {
+    //     // console.log(newVal.query.detail)
+    //     if (newVal.query.detail) {
+    //       this.$store.commit('component/TOGGLE_PANEL', true)
+    //       this.$store
+    //         .dispatch('userManage/getNormalUserDetail', newVal.query.detail)
+    //         .then(() => {})
+    //         .catch(err => {
+    //           this.$message({
+    //             type: 'error',
+    //             message: err
+    //           })
+    //         })
+    //     }
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   },
   computed: {
     // ...mapState(NAME, ["roleList", "rolePage", "columns"]),

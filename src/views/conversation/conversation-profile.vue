@@ -16,14 +16,14 @@
 
 <script>
 import { mapState } from 'vuex'
-import GroupProfile from '@/components/ConversationProfile/group-profile.vue'
-import UserProfile from '@/components/ConversationProfile/user-profile.vue'
+import GroupProfile from './group-detail.vue'
+// import UserProfile from '@/components/ConversationProfile/user-profile.vue'
 import FriendDetail from './friend-detail.vue'
 export default {
   name: 'ConversationProfile',
   components: {
     GroupProfile,
-    UserProfile,
+    // UserProfile,
     FriendDetail
   },
   data() {
@@ -53,7 +53,7 @@ export default {
 @import '@/styles/base.scss';
 
 .conversation-profile-wrapper {
-min-width: 400px;
+  min-width: 600px;
   background-color:$white;
   height: 100%;
   overflow-y: scroll;

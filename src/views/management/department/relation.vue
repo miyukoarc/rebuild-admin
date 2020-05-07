@@ -27,7 +27,7 @@ import {isEmpty} from '@/utils/normal'
 export default {
     data(){
         return {
-
+            tree: []
         }
     },
     computed:{
@@ -39,11 +39,34 @@ export default {
         
     },
     mounted(){
-
+        this.genTree()
     },
     methods: {
         isEmpty(obj){
             return isEmpty(obj)
+        },
+        genTree(){
+
+            let tempChildren = []
+            if(this.currentParent.name){
+                this.tree.push({
+                    label:this.currentParent.name,
+                    children: []
+                })
+                if(this.currentDetail.name){
+                    this.tree[0].children.push({
+                        label:this.currentDetail.name,
+                    })
+                }
+            }
+
+            if(this.currentChildren.length){
+                this.currentChildren.forEach(item=>{
+                    tempChildren.push({label:item.name})
+                })
+
+                this.tree[0].children.children = tempChildren
+            }
         }
     }
 }

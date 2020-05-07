@@ -9,7 +9,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button v-waves type="primary" size="small" icon="el-icon-search"
+        <el-button v-waves type="primary" size="small" icon="el-icon-search" 
           >搜索</el-button>
         <dialog-button
           v-waves

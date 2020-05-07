@@ -1,8 +1,8 @@
 <template>
     <div>
-        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body :width="dialogWidth">
+        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body :width="dialogWidth" >
             <div>
-                <component :is="event" :pendingEvent="pendingEvent"/>
+                <component ref="dialogChild" :is="event" :pendingEvent="pendingEvent" :key="event"/>
             </div>
         </el-dialog>
     </div>
@@ -29,10 +29,19 @@ export default {
       event: '',
       title: '',
       type: '',
+      payload: null,
       pendingEvent: {}
     };
   },
   watch:{
+      payload:{
+          handler(newVal,oldVal){
+              this.$nextTick(()=>{
+                  this.$refs['dialogChild'].initData()
+              })
+              
+          }
+      },
       event:{
           handler(newVal,oldVal){
               if(newVal){

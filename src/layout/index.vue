@@ -76,7 +76,7 @@ export default {
     z-index: 999;
   }
 
-  .fixed-header {
+  .fixed-header { 
     position: fixed;
     top: 0;
     right: 0;
@@ -86,7 +86,7 @@ export default {
   }
 
   .hideSidebar .fixed-header {
-    width: calc(100% - 54px)
+    width: calc(100% -  #{$sideBarWidth});
   }
 
   .mobile .fixed-header {

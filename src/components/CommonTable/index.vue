@@ -249,7 +249,7 @@ export default {
 </script>
 
 <style lang="css">
-.el-table th {
+.common-table .el-table th {
   text-align: center;
 }
 .common-table .el-table--enable-row-hover .el-table__body tr:hover {

@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" ref="form" label-width="80px">
     <el-form-item label="名称">
-      <el-select v-model="form.phone" placeholder="请输入关键词" remote reserve-keyword :remote-method="remoteMethod"
+      <el-select v-model="form.phone" placeholder="请输入手机号" remote reserve-keyword :remote-method="remoteMethod"
         filterable :loading="loading">
         <el-option v-for="item in options" :key="item.uuid" :label="item.nickname" :value="item.uuid">
           <div>

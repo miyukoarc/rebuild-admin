@@ -14,7 +14,6 @@
       </div> -->
       <card-board>
           <component :is="activeComponent" :payload="payload"/>
-
       </card-board>
       <!-- <span class="text" title="您可以自行解析自定义消息">{{ text }}</span> -->
     </div>
@@ -28,6 +27,8 @@ import { Rate } from 'element-ui'
 import { ACTION } from '@/utils/trtcCustomMessageMap'
 import { formatDuration } from '@/utils/formatDuration'
 import UserCard from '@/views/management/user/card'
+import DepartmentCard from '@/views/management/department/card'
+
 export default {
   name: 'CustomElement',
   data(){
@@ -55,6 +56,14 @@ export default {
     }
   },
   computed: {
+      genComponent(){
+          const type = this.payload.split('/')[1]
+          switch(type){
+            //   case 'user':
+            //       return UserCard;
+            //       case 'department'
+          }
+      },
     // customData (){
     //     return JSON.parse(this.payload.data)
     // },

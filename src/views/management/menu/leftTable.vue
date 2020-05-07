@@ -87,6 +87,9 @@ export default {
       }
     });
   },
+  beforeDestroy () {
+      this.$bus.$off('onRefleshMenuTree')
+  },
   methods: {
     ...mapActions("role", ["getRoleList"]),
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),

@@ -79,6 +79,9 @@ export default {
       this.initDataList();
     });
   },
+  beforeDestroy () {
+      this.$bus.$off('onRefleshMenuTree')
+  },
   methods: {
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
     cancelSelect(){

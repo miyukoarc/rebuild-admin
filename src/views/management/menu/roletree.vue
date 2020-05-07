@@ -127,16 +127,24 @@ export default {
         const element = treeNodes[i];
         element.onmouseover = () => {
           if (!this.roleId) {
-            editNodes[i].style.display = "inline-block";
-            delNodes[i].style.display = "inline-block";
+            editNodes[i].style.opacity = 1;
+            delNodes[i].style.opacity = 1;
+            editNodes[i].style.filter = 'opacity(1)';
+            delNodes[i].style.filter = 'opacity(1)';
           }
         };
         element.onmouseleave = () => {
-          editNodes[i].style.display = "none";
-          delNodes[i].style.display = "none";
+          editNodes[i].style.opacity = 0;
+          delNodes[i].style.opacity = 0;
+          editNodes[i].style.filter = 'opacity(0)';
+          delNodes[i].style.filter = 'opacity(0)';
         };
       }
     });
+  },
+  beforeDestroy () {
+      this.$bus.$off('handleCurrentChange')
+      this.$bus.$off('closeDialog')
   },
   methods: {
     ...mapActions(NAME, ["addMenuForRole", "delMenuById"]),
@@ -199,10 +207,16 @@ export default {
 }
 .node-edit {
   color: #409eff;
-  display: none;
+  filter: opacity(0);
+  opacity: 0;
+  transition: opacity .8s;
+  // display: none;
 }
 .node-delete {
   color: #f56c6c;
-  display: none;
+  filter: opacity(0);
+  opacity: 0;
+  transition: opacity .8s;
+  // display: none;
 }
 </style>

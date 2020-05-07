@@ -115,7 +115,7 @@ export default {
     const { isEmpty, handleClose, currentParent } = this
     return (
       <div>
-        <h4>详情</h4>
+        <h4>部门</h4>
         <br />
         <el-form label-width="100px" label-position="left">
           <el-form-item label="名称">
@@ -127,29 +127,44 @@ export default {
           </el-form-item>
 
           <el-form-item label="上级">
-            {isEmpty(currentParent) ? '未指定' : 'currentParent.name'}
+            {isEmpty(currentParent) ? '未指定' : currentParent.name}
           </el-form-item>
           <el-form-item label="主管">
-            {isEmpty(manager) ? '未指定' : <el-tag>{manager.nickname}</el-tag>}
+            {
+              <img
+                class="mr-2"
+                width="36"
+                height="36"
+                src={manager.headimgurl}
+              />
+            }
+            {isEmpty(manager) ? '未指定' : <span>{manager.nickname}</span>}
           </el-form-item>
           <el-form-item label="组织关系">
             <relation-card></relation-card>
           </el-form-item>
 
-          <el-form-item label="成员">
+          <el-form-item label="员工">
             {isEmpty(users) ? (
+              <div>未指定</div>
+            ) : (
               <div>
-                {[] ||
+                {
                   users.map(user => {
                     return (
-                      <el-tag style={{ marginRight: '3px' }} key={user.uuid}>
-                        {user.nickname}
-                      </el-tag>
+
+                        <div key={user.uuid}>
+                            <img class="mr-2"
+                                width="36"
+                                height="36"
+                                src={user.headimgurl}
+                            />
+                            <span>{user.nickname}</span>
+                        </div>
+                      
                     )
                   })}
               </div>
-            ) : (
-              <div>未指定</div>
             )}
           </el-form-item>
           <el-form-item>

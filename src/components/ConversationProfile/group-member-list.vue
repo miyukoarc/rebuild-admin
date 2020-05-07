@@ -152,14 +152,9 @@ export default {
 	}
 }
 
-
-// .add-group-member {
-//   cursor: pointer;
-// }
-// .add-button {
-//   border: 1px solid gray;
-//   text-align: center;
-//   line-height: 30px;
-// }
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 
 </style>

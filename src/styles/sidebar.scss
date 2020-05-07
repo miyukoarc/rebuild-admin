@@ -1,3 +1,5 @@
+
+@import './variables.scss';
 #app {
 
   .main-container {
@@ -88,11 +90,11 @@
 
   .hideSidebar {
     .sidebar-container {
-      width: 54px !important;
+      max-width: $sideBarWidth;
     }
 
     .main-container {
-      margin-left: 54px;
+      margin-left: $sideBarWidth;
     }
 
     .submenu-title-noDropdown {

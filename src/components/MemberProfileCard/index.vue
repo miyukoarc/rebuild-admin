@@ -77,6 +77,9 @@ export default {
     // 通过事件总线，监听 showMemebrProfile 事件
     this.$bus.$on('showMemberProfile', this.handleShowMemberProfile, this)
   },
+  beforeDestroy () {
+      this.$bus.$off('showMemberProfile')
+  },
   methods: {
     handleSendMessage() {
       this.$store.dispatch('im/conversation/checkoutConversation', `C2C${this.member.userID}`)

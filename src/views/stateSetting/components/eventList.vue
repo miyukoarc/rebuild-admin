@@ -1,6 +1,6 @@
 <template>
   <div class="outer-container">
-    <p class="text-align-right">未使用事件</p>
+    <p class="text-align-right">{{eventTitle}}</p>
     <div class="container">
       <!-- <div class="action-item" v-for="(item, index) in unusedEvents" :key="index">{{item}}</div> -->
       <div>
@@ -9,7 +9,7 @@
           plain
           type="info"
           size="mini"
-          v-for="(item, index) in unusedEvents"
+          v-for="(item, index) in dataList"
           :key="index"
         >{{item.name}}</el-button>
       </div>
@@ -39,6 +39,13 @@ export default {
   components: {
     EditEvent,
     PanelButton
+  },
+  props:{
+    eventTitle:String,
+    dataList:{
+      type:Array,
+      default:[]
+    }
   },
   data() {
     return {

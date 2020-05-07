@@ -2,7 +2,6 @@
   <div>
     <group-member-list :group-profile="groupProfile" />
 
-
     <!--
     <div class="group-info-content">
       <div class="info-item">
@@ -225,35 +224,64 @@
       </div>
     </div>-->
 
-
     <div class="detail-container p-3">
-        <el-form
-            label-position="left"
-            label-width="100px"
-        >
-            <div class="py-3">
-                <img width="96" height="96" :src="avatar"/>
-            </div>
-            <el-form-item label="部门">
-                <el-button type="text" @click="handleDetail">{{name}}</el-button>
-            </el-form-item>
+      <el-form label-position="left" label-width="100px">
+        <div class="py-3">
+          <img width="96" height="96" :src="avatar" />
+        </div>
+        <el-form-item label="部门">
+          <el-button type="text" @click="handleDetail">{{currentDepartment.name}}</el-button>
+        </el-form-item>
 
-            <el-form-item label="公告">
-                <div>{{notification||'无'}}</div>
-            </el-form-item>
+        <el-form-item label="主管">
+          <el-button
+            type="text"
+            v-if="currentDepartment.manager"
+            @click="handleUser"
+          >{{currentDepartment.manager.nickname}}</el-button>
+        </el-form-item>
 
-            <el-form-item label="">
-                <el-button type="text">转发</el-button>
-            </el-form-item>
-        </el-form>
+        <el-form-item label="公告">
+          <div>{{notification||'无'}}</div>
+        </el-form-item>
+
+        <el-form-item label>
+          <el-button type="text" @click="handleTransfer">转发</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+
+    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
+        <el-form label-width="100px">
+          <el-form-item label="转发至">
+            <el-select v-model="toAccount" placeholder="请选择">
+              <el-option-group
+                v-for="selection in options"
+                :key="selection.label"
+                :label="selection.label"
+              >
+                <el-option
+                  v-for="item in selection.options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-option-group>
+            </el-select>
+          </el-form-item>
+          <el-form-item label>
+            <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
+            <el-button type="danger" size="small" @click="showTransfer = false">取消</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
   </div>
 </template>
 
 <script>
 import GroupMemberList from '@/components/ConversationProfile/group-member-list.vue'
 import { Select, Option } from 'element-ui'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -290,13 +318,35 @@ export default {
         NeedPermission: '需要验证',
         DisableApply: '禁止加群'
       },
-      detail: {}
+      showTransfer: false,
+      toAccount: '',
+      conversationType: '', //TIM.TYPES.CONV_C2C//TIM.TYPES.CONV_GROUP
+      description: '',
+      extendsion: '',
+      transferForm: {
+        data: '',
+        description: '',
+        extension: ''
+      },
+      options: [
+        {
+          label: '群组',
+          options: []
+        },
+        {
+          label: '联系人',
+          options: []
+        }
+      ]
     }
   },
   computed: {
-      ...mapState({
-        //   groupProfile:state => state['im/conversation']?.currentConversation?.groupProfile
-      }),
+    ...mapState({
+      currentDepartment: state => state['department'].currentDetail,
+      groupList: state => state['im/group'].groupList,
+      friendList: state => state['im/friend'].friendList
+      //   groupProfile:state => state['im/conversation']?.currentConversation?.groupProfile
+    }),
     editable() {
       return (
         this.groupProfile.type === this.TIM.TYPES.GRP_PRIVATE ||
@@ -329,19 +379,49 @@ export default {
         messageRemindType: groupProfile.messageRemindType,
         nameCard: groupProfile.selfInfo.nameCard || ''
       })
+    },
+    toAccount: {
+      handler(newVal, oldVal) {
+        if (newVal.includes('@TGS')) {
+          this.conversationType = 'GROUP'
+        }
+
+        if (!newVal.includes('@TGS')) {
+          this.conversationType = 'C2C'
+        }
+      },
+      deep: true
     }
   },
-  mounted(){
-
+  mounted() {
+    this.getDetail()
+    this.handleSelection()
   },
   methods: {
-    handleDetail(){
-        const uuid = this.introduction.split('/')[1]
-        this.$store
-        .dispatch('department/getDepartmentDetail', uuid)
-        .then(()=>{
-          this.$bus.$emit('showConversation',this.introduction)
+      handleSelection() {
+      if (this.groupList) {
+        this.groupList.forEach(item => {
+          this.options[0].options.push({
+            label: item.name,
+            value: item.groupID
+          })
         })
+      }
+      if (this.friendList) {
+        this.friendList.forEach(item => {
+          this.options[1].options.push({
+            label: item.profile.nick,
+            value: item.userID
+          })
+        })
+      }
+    },
+    getDetail() {
+      const uuid = this.introduction.split('/')[1]
+      this.$store.dispatch('department/getDepartmentDetail', uuid)
+    },
+    handleDetail() {
+      this.$bus.$emit('showConversationDetailPanel', this.introduction)
     },
     inputFocus(ref) {
       this.$nextTick(() => {
@@ -449,14 +529,16 @@ export default {
         })
     },
     quitGroup() {
-      this.tim.quitGroup(this.groupProfile.groupID).then(({ data: { groupID }}) => {
-        this.$store.commit('showMessage', {
-          message: '退群成功'
+      this.tim
+        .quitGroup(this.groupProfile.groupID)
+        .then(({ data: { groupID } }) => {
+          this.$store.commit('showMessage', {
+            message: '退群成功'
+          })
+          if (groupID === this.groupProfile.groupID) {
+            this.$store.commit('resetCurrentConversation')
+          }
         })
-        if (groupID === this.groupProfile.groupID) {
-          this.$store.commit('resetCurrentConversation')
-        }
-      })
         .catch(error => {
           this.$store.commit('showMessage', {
             type: 'error',
@@ -465,15 +547,18 @@ export default {
         })
     },
     dismissGroup() {
-      this.tim.dismissGroup(this.groupProfile.groupID).then(({ data: { groupID }}) => {
-        this.$store.commit('showMessage', {
-          message: `群：${this.groupProfile.name || this.groupProfile.groupID}解散成功！`,
-          type: 'success'
+      this.tim
+        .dismissGroup(this.groupProfile.groupID)
+        .then(({ data: { groupID } }) => {
+          this.$store.commit('showMessage', {
+            message: `群：${this.groupProfile.name ||
+              this.groupProfile.groupID}解散成功！`,
+            type: 'success'
+          })
+          if (groupID === this.groupProfile.groupID) {
+            this.$store.commit('resetCurrentConversation')
+          }
         })
-        if (groupID === this.groupProfile.groupID) {
-          this.$store.commit('resetCurrentConversation')
-        }
-      })
         .catch(error => {
           this.$store.commit('showMessage', {
             type: 'error',
@@ -519,6 +604,48 @@ export default {
             message: error.message
           })
         })
+    },
+    handleUser() {
+      const payload = 'user/' + this.currentDepartment.manager.uuid
+      this.$bus.$emit('showConversationDetailPanel', payload)
+    },
+    handleTransfer() {
+        alert('1')
+      this.showTransfer = true
+    },
+    handleConfirm() {
+      this.postCustomMessage()
+    },
+    postCustomMessage() {
+      this.transferForm.data = JSON.stringify(this.currentDepartment)
+      this.transferForm.description = '名片'
+      this.transferForm.extension = `department/${this.currentDepartment.uuid}`
+
+      const message = this.tim.createCustomMessage({
+        to: this.toAccount,
+        conversationType: this.conversationType,
+        payload: {
+          ...this.transferForm
+        }
+      })
+
+      console.log(message)
+
+      this.$store.commit('im/conversation/pushCurrentMessageList', message)
+
+      this.tim.sendMessage(message).catch(error => {
+        this.$store.commit('im/setting/showMessage', {
+          type: 'error',
+          message: error.message
+        })
+      })
+      Object.assign(this.transferForm, {
+        data: '',
+        description: '',
+        extension: ''
+      })
+
+      this.showTransfer = false
     }
   }
 }
@@ -528,35 +655,35 @@ export default {
 @import '@/styles/base.scss';
 
 .group-info-content {
-	padding: 10px 10px;
-	.avatar {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-	}
+  padding: 10px 10px;
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 }
 .info-item {
-	margin-bottom: 12px;
-	.label {
-		font-size: 14px;
-		color: $secondary;
-	}
-	.content {
-		color: $background;
-		word-wrap: break-word;
-		word-break: break-all;
-	}
-	.long-content {
-		word-wrap: break-word;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-	}
+  margin-bottom: 12px;
+  .label {
+    font-size: 14px;
+    color: $secondary;
+  }
+  .content {
+    color: $background;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  .long-content {
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 }
 .cursor-pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 /* 设置滚动条的样式 */

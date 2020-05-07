@@ -229,8 +229,8 @@ export default {
       }
     },
     handleConfirm() {
-      this.$refs['addStateForm'].validate(valid => {
-        this.$store
+      this.$refs['form'].validate(valid => {
+        valid&&this.$store
           .dispatch('stateSettings/addState', this.form)
           .then(() => {
             this.$parent.$parent.dialogVisible = false

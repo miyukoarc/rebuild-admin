@@ -7,9 +7,10 @@
         </div>
       </el-form-item>
       <el-form-item label="昵称">
-        <app-link :to="genLink(currentContact.uuid)">
-          <span style="color:#409EFF;">{{currentContact.nickname}}</span>
-        </app-link>
+        <!-- <app-link :to="genLink(currentContact.uuid)"> -->
+        <!-- <span style="color:#409EFF;">{{currentContact.nickname}}</span> -->
+        <el-button type="text" @click="handleDetail"></el-button>
+        <!-- </app-link> -->
       </el-form-item>
       <el-form-item label="性别">
         <div>{{sex(currentContact.gender)}}</div>
@@ -71,6 +72,8 @@
           </el-form-item>
         </el-form>
       </el-dialog>
+
+
     </el-form>
   </div>
 </template>
@@ -110,19 +113,15 @@ export default {
   watch: {
     toAccount: {
       handler(newVal, oldVal) {
-        //   console.log(newVal)
         if (newVal.includes('@TGS')) {
           this.conversationType = 'GROUP'
-          //   console.log(newVal,'TIM.TYPES.CONV_GROUP')
         }
 
         if (!newVal.includes('@TGS')) {
           this.conversationType = 'C2C'
-          //   console.log(newVal,'TIM.TYPES.CONV_C2C')
         }
       },
       deep: true
-      //   immediate:true
     }
   },
   computed: {
@@ -139,6 +138,10 @@ export default {
   beforeUpdate() {},
   updated() {},
   methods: {
+    handleDetail() {
+      const payload = 'user/' + this.currentContact.uuid
+      this.$bus.$emit('showConversationDetailPanel', payload)
+    },
     handleSelection() {
       if (this.groupList) {
         this.groupList.forEach(item => {
@@ -175,7 +178,6 @@ export default {
       return '/d/management/user/list?detail=' + url
     },
     handleTransfer() {
-      console.log(this.showTransfer)
       this.showTransfer = true
     },
     handleConfirm() {
@@ -184,7 +186,7 @@ export default {
     postCustomMessage() {
       this.transferForm.data = JSON.stringify(this.currentContact)
       this.transferForm.description = '名片'
-      this.transferForm.extension = `/d/management/user/detail?=${this.currentContact.uuid}`
+      this.transferForm.extension = `user/${this.currentContact.uuid}`
 
       const message = this.tim.createCustomMessage({
         to: this.toAccount,

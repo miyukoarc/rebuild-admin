@@ -30,6 +30,9 @@ export default {
       this.show = false;
     })
   },
+  beforeDestroy () {
+      this.$bus.$off('closeDialog')
+  }
 };
 </script>
 

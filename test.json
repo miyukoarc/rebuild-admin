@@ -1,0 +1,20 @@
+{
+    "createdAt": "15887537",
+    "unionId":"10d993286ce8aa410af963ceae8a0ef7",
+    "gender":null,
+    "nickname":"用户rgf4xd",
+    "headimgurl":"https://www.gravatar.com/avatar/79fb79588bcf64787fab17cc4f6f1b9c?d=robohash&s=256",
+    "position":null,
+    "uuid":6,
+    "version":1,
+    "enabled":true,
+    "updatedAt":"1588753709"
+    }
+
+
+    {
+        "country":{},
+        "role":{"createdAt":"2020-04-29 13:52:17","code":"developer","name":"开发者de","terminal":"ORG","version":30,"uuid":1,"updatedAt":"2020-05-06 11:01:36"},
+        "unionId":"7e4d22aa9870ffa5983587e64bab284c",
+        "gender":null,
+        "org":{"createdAt":"2020-04-29 13:52:58","name":"天邮平台0754971220","uuid":1,"version":11,"updatedAt":"2020-05-06 11:34:40"},"city":{},"version":1,"uuid":5,"enabled":true,"createdAt":"2020-04-30 12:10:33","province":{},"headimgurl":"https://www.gravatar.com/avatar/eecd39de3bb422a1fec61af1054cc820?d=robohash&s=256","nickname":"用户nfzsa4","state":{},"position":null,"department":{"createdAt":"2020-04-29 13:52:58","code":"department1","groupId":"@TGS#1HHGM6MGM","name":"departme","uuid":1,"version":4,"updatedAt":"2020-04-29 18:25:36"},"updatedAt":"2020-04-30 12:10:34"}
