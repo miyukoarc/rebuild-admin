@@ -6,6 +6,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import {getToken} from '@/utils/auth'
 export default {
   name: 'App',
   data(){
@@ -27,7 +28,9 @@ export default {
     await this.initImListener()
     this.checkIMLogin()
     const check = this.checkIMLogin()
-    if (check.userSig || check.userID) {
+    const hasToken = this.getToken()
+    console.log(hasToken,'<----------------------->检查<----------------------->')
+    if ((check.userSig || check.userID)&&!!hasToken) {
       this.tim
         .login(this.checkIMLogin())
         .then(() => {
@@ -41,11 +44,15 @@ export default {
 
   },
   methods: {
+    getToken (){
+        return getToken()
+    },
     reload() {
       this.isRouterAlive = false;
-      this.$nextTick(function() {
-        this.isRouterAlive = true;
-      });
+      window.location.reload()
+    //   this.$nextTick(function() {
+    //     this.isRouterAlive = true;
+    //   });
     },
     checkIMLogin() {
       let userID = window.localStorage.getItem('userID')
@@ -76,7 +83,7 @@ export default {
       this.tim.on(this.TIM.EVENT.GROUP_LIST_UPDATED, this.onUpdateGroupList)
       // 收到新的群系统通知
       this.tim.on(
-        this.TIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED,
+        this.TIM.EVENT.MESSAGE_RECEIVED,
         this.onReceiveGroupSystemNotice
       )
     },
@@ -135,7 +142,6 @@ export default {
         this.tim.getGroupList().then(({data:groupList})=>{
             const payload = groupList.groupList
             this.$store.commit('im/group/updateGroupList',payload)
-            console.log(payload,'获取群组列表')
         }).catch(error=>{
             this.$store.commit('im/setting/showMessage', {
               type: 'error',
@@ -172,7 +178,6 @@ export default {
       this.$store.commit('im/user/reset')
     },
     onUpdateConversationList(event) {
-      console.log('更新会话列表')
       this.$store.commit('im/conversation/updateConversationList', event.data)
     },
     onUpdateGroupList(event) {

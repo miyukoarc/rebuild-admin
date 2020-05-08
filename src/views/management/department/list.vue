@@ -82,7 +82,7 @@ export default {
     ...mapGetters(['department'])
   },
   async mounted() {
-      console.log(this.org)
+    //   console.log(this.org)
     // await this.getDepartment()
 
     const getDepartmentTree = this.$store.dispatch('department/getDepartment')

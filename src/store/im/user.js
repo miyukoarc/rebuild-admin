@@ -37,7 +37,6 @@ const mutations = {
 const actions ={
     login({commit}, data) {
       // const localSig = window.genTestUserSig(userID).userSig
-      console.warn(data)
       const localSig= data.userSig
       commit('user/SAVE_USERSIG',localSig,{root:true})
       tim

@@ -12,7 +12,7 @@
         <el-button v-waves type="primary" size="small" icon="el-icon-search"
           >搜索</el-button
         >
-        <dialog-button
+        <!-- <dialog-button
           v-waves
           type="primary"
           size="small"
@@ -26,7 +26,7 @@
           <span slot="dialog">
             <mForm @onSubmit="onSubmit" @onCancle="onCancle" />
           </span>
-        </dialog-button>
+        </dialog-button> -->
         <el-button
           v-waves
           type="primary"

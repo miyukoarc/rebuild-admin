@@ -1,11 +1,12 @@
 import Api from "@/api/stateSetting";
-import {getEventList} from '@/api/stateSetting'
+import {getEventList,updateState} from '@/api/stateSetting'
 const state = {
   show: false,
   dataList: [],
   timers:[],
   events:[],
   actions: ["doEnable", "doDisable", "doKick", "doSpeak", "doTest"],
+  currentState:{},
   unusedEvents: [],
   currentEntity:"user",
   currentStateList: [],
@@ -51,6 +52,9 @@ const mutations = {
   CHANGEEVENTLIST(state, val) {
     state.eventList = val;
   },
+  SAVE_CURRENT(state,val){
+      state.currentState = val
+  }
   
 };
 
@@ -144,6 +148,16 @@ const actions = {
             console.log(err)
             reject()
         })
+      })
+  },
+  updateState({commit},payload){
+      return new Promise((resolve,reject)=>{
+          updateState(payload).then(res=>{
+              resolve()
+          }).catch(err=>{
+              console.log(err)
+              reject()
+          })
       })
   }
 };

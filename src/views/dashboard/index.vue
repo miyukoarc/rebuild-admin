@@ -5,20 +5,7 @@
         <span>name: {{ name }}</span>
       </div>
 
-      <card-board>
-        <div style="font-size:14px;">你写代码的样子好像蔡徐坤</div>
-      </card-board>
 
-
-      <card-board>
-        <div>
-          <el-row>
-            <el-col>
-
-            </el-col>
-          </el-row>
-        </div>
-      </card-board>
       
       
     </div>

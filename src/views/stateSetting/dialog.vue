@@ -13,6 +13,7 @@ import CreateState from './components/create-state'
 import CreateTimer from './components/create-timer'
 import CreateEvent from './components/create-event'
 import EditEvent from './components/edit-event'
+import EditState from './components/edit-state';
 import {mapState} from 'vuex'
 
 
@@ -22,6 +23,7 @@ export default {
         CreateTimer,
         CreateEvent,
         EditEvent,
+        EditState,
     },
   data() {
     return {
@@ -54,8 +56,6 @@ export default {
           handler(newVal,oldVal){
               
               this.pendingEvent = newVal
-
-              console.log(this.pendingEvent)
           },
           deep: true,
           immediate: true

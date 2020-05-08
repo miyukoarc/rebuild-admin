@@ -9,7 +9,7 @@
       <el-form-item label="昵称">
         <!-- <app-link :to="genLink(currentContact.uuid)"> -->
         <!-- <span style="color:#409EFF;">{{currentContact.nickname}}</span> -->
-        <el-button type="text" @click="handleDetail"></el-button>
+        <el-button type="text" @click="handleDetail">{{currentContact.nickname}}</el-button>
         <!-- </app-link> -->
       </el-form-item>
       <el-form-item label="性别">

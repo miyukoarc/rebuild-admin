@@ -241,7 +241,5 @@ export default {
   color: rgb(204, 200, 200);
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
+
 </style>

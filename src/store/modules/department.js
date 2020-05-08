@@ -13,81 +13,6 @@ import { Message } from "element-ui";
 import Page from "@/utils/PageDefault";
 import { isEmpty } from "@/utils/normal";
 
-const columns = [
-  {
-    visible: true,
-    label: "名称",
-    prop: "name",
-    uuid: 2,
-    align: "center"
-  },
-  {
-    visible: true,
-    label: "主管",
-    prop: "manager",
-    uuid: 3,
-    align: "center",
-    sort: false,
-    render: function(row, column, cellValue, index) {
-      if (!cellValue.isEmptyObj()) {
-        return cellValue.nickname;
-      }
-      return "";
-    }
-  },
-  {
-    visible: true,
-    label: "上级部门",
-    prop: "parent",
-    uuid: 5,
-    align: "center",
-    sort: false,
-    render: function(row, column, cellValue, index) {
-      if ((cellValue instanceof Object)&&!cellValue.isEmptyObj()) {
-        return cellValue.name;
-      }
-      return "";
-    }
-  },
-  {
-    visible: true,
-    label: "人数",
-    prop: "users",
-    uuid: 6,
-    align: "center",
-    sort: false,
-    render: function(row, column, cellValue, index) {
-      if ((cellValue instanceof Array)) {
-        return cellValue.length;
-      }
-      return 0;
-    }
-  },
-  {
-    visible: true,
-    label: "创建时间",
-    prop: "createdAt",
-    uuid: 4,
-    align: "center"
-  },
-  {
-    visible: true,
-    label: "Code",
-    prop: "code",
-    uuid: 1,
-    sort: false,
-    align: "center"
-  },
-  {
-    visible: true,
-    label: "操作",
-    prop: "caozuo",
-    align: "center",
-    sort: false,
-    type: "button",
-    width: "240"
-  }
-];
 const state = {
   department: [],
   currentUsers: [],
@@ -97,7 +22,6 @@ const state = {
   departList: [],
   page: new Page(),
   allDepartments: [],
-  columns: columns
   // relationNest: {}
 };
 

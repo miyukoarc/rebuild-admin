@@ -1,28 +1,29 @@
 <template>
-  <div class="user-btn">
-    <el-dropdown class="avatar-container" trigger="click">
+  <el-container class="user-btn">
+    <el-dropdown class="avatar-container" trigger="click" placement="bottom-start">
       <div class="avatar-wrapper">
-        <img :src="avatar" class="user-avatar" />
+        <!-- <img :src="avatar" class="user-avatar" /> -->
+        <el-avatar :src="avatar" class="user-avatar" :size="40"></el-avatar>
         <!-- <i class="el-icon-caret-bottom" /> -->
-      </div>
+      </div>  
       <el-dropdown-menu slot="dropdown" class="user-dropdown">
         <!-- <router-link to="/"> -->
-        <el-dropdown-item @click.native="handleShow">Profile</el-dropdown-item>
+        <el-dropdown-item @click.native="handleShow">个人信息</el-dropdown-item>
         <!-- </router-link> -->
-        <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+        <!-- <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
           <el-dropdown-item>Github</el-dropdown-item>
         </a>
         <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
           <el-dropdown-item>Docs</el-dropdown-item>
-        </a>
+        </a> -->
         <el-dropdown-item divided @click.native="logout">
-          <span style="display:block;">Log Out</span>
+          <span style="display:block;">退出</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-dialog title="profile" :width="dialogWidth" :visible.sync="showProfile" append-to-body>
-      <el-form :model="infoForm" label-width="100px" ref="infoForm" label-position="left">
+    <el-dialog title="个人信息" :width="dialogWidth" :visible.sync="showProfile" append-to-body>
+      <el-form :model="infoForm" label-width="50px" ref="infoForm" label-position="left">
         <!-- <el-form-item> -->
         <div class="py-3" style="text-align:center;">
           <!-- <img width="128" height="128" :src="infoForm.faceUrl" alt /> -->
@@ -30,7 +31,7 @@
           <!-- <a class="btn" >设置头像</a> -->
           <my-upload
             field="file"
-            @srcFileSet="srcFileSet"
+            @srcFileSet = "srcFileSet"
             @crop-success="cropSuccess"
             @crop-upload-success="cropUploadSuccess"
             @crop-upload-fail="cropUploadFail"
@@ -41,8 +42,24 @@
             :params="params"
             :headers="headers"
             img-format="png"
-          ></my-upload>
-          <img :src="infoForm.faceUrl" @click="toggleShow" />
+            
+          >
+          
+
+          </my-upload>
+          <el-image :src="infoForm.faceUrl" @click="toggleShow"  class="cursor-pointer" title="点击重新上传头像"/>
+
+          <!-- <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-change="handleChange"
+            :file-list="fileList">
+             <el-image
+              style="width: 100px; height: 100px"
+              src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" title="点击重新上传头像"></el-image>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload> -->
+
         </div>
         <!-- </el-form-item> -->
         <el-form-item label="性别">
@@ -63,12 +80,16 @@
           <el-input v-model="infoForm.selfSignature"></el-input>
         </el-form-item>
 
-        <el-form-item>
+        <!-- <el-form-item>
           <el-button type="primary" size="mini" @click="handleConfirm">确定</el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
+      <div slot="footer">
+        <el-button type="primary" @click="handleConfirm">确定</el-button>
+        <el-button >取消</el-button>
+      </div>
     </el-dialog>
-  </div>
+  </el-container>
 </template>
  
 <script>
@@ -138,9 +159,8 @@ export default {
       // await this.$store.dispatch('im/user/logout').then().catch(err=>{console.log(err)})
       await removeToken()
       await this.clearSig()
-      //   this.reload()
-      this.$router.replace(`/d/login?redirect=${this.$route.fullPath}`)
-      //   this.$router.push(`/d/login?redirect=${this.$route.fullPath}`)
+      this.$router.push(`/d/login?redirect=${this.$route.fullPath}`)
+      this.reload()
     },
     clearSig() {
       window.localStorage.removeItem('userID')
@@ -178,8 +198,8 @@ export default {
     /**
      * 上传头像
      */
-    srcFileSet(fileName, fileType, fileSize) {
-      console.log(fileName, fileType, fileSize)
+    srcFileSet(fileName, fileType, fileSize){
+        console.log(fileName, fileType, fileSize)
     },
 
     toggleShow() {
@@ -194,8 +214,8 @@ export default {
     cropSuccess(imgDataUrl, field) {
       console.log('-------- crop success --------')
       console.log(field)
-      //   this.infoForm.faceUrl = imgDataUrl
-      //   this.params.file = imgDataUrl
+    //   this.infoForm.faceUrl = imgDataUrl
+    //   this.params.file = imgDataUrl
     },
     /**
      * upload success
@@ -206,7 +226,7 @@ export default {
     cropUploadSuccess(jsonData, field) {
       console.log('-------- upload success --------')
       console.log(jsonData)
-      this.infoForm.faceUrl = 'http://10.10.10.199:40001/v1/file/' + jsonData.id
+      this.infoForm.faceUrl = 'http://10.10.10.199:40001/v1/file/'+ jsonData.id
       console.log('field: ' + field)
     },
     /**
@@ -228,8 +248,8 @@ export default {
 .user-btn {
   // float: right;
   text-align: center;
-  height: 50px;
-  line-height: 50px;
+  // height: 50px;
+  // line-height: 50px;
 
   &:focus {
     outline: none;
@@ -255,14 +275,14 @@ export default {
 
   .avatar-container {
     .avatar-wrapper {
-      margin-top: 5px;
-      position: relative;
+      // margin-top: 5px;
+      // position: relative;
 
       .user-avatar {
         cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+        // width: 40px;
+        // height: 40px;
+        // border-radius: 10px;
       }
 
       .el-icon-caret-bottom {

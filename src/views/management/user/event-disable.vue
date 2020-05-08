@@ -36,25 +36,32 @@ export default {
     handleConfirm() {
       const payload = { reason: this.form.reason, uuid: this.userDetail.uuid }
       this.$refs['form'].validate(valid => {
-        this.$store
-          .dispatch('userManage/disableUser', payload)
-          .then(() => {
-            this.$message({
-              type: 'success',
-              message: '操作成功'
+        if (valid) {
+          this.$store
+            .dispatch('userManage/disableUser', payload)
+            .then(() => {
+              this.$message({
+                type: 'success',
+                message: '操作成功'
+              })
             })
-          })
-          .catch(err => {
-            console.log(err)
-            this.$message({
-              type: 'error',
-              message: '操作失败'
+            .catch(err => {
+              console.log(err)
+              this.$message({
+                type: 'error',
+                message: '操作失败'
+              })
             })
+        } else {
+          this.$message({
+            type: 'error',
+            message: '请输入正确的原因'
           })
+        }
       })
     },
     handleCancel() {
-        console.log(this.$parent)
+      console.log(this.$parent)
       this.$parent.$parent.dialogVisible = false
     }
   }

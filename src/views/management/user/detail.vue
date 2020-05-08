@@ -32,7 +32,7 @@
           </el-form-item>
           <el-form-item label="公司">
             {{
-            userDetail.org&&userDetail.org.name
+            isEmpty(userDetail.org)?'未指定':userDetail.org.name
             }}
           </el-form-item>
           <el-form-item label="部门">

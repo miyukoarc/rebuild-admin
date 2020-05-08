@@ -11,9 +11,9 @@
           score-template="{value}"
         />
         <div class="suggestion">{{ this.payload.extension }}</div>
-      </div> -->
+      </div>-->
       <card-board>
-          <component :is="activeComponent" :payload="payload"/>
+        <component :is="activeComponent" :payload="payload" />
       </card-board>
       <!-- <span class="text" title="您可以自行解析自定义消息">{{ text }}</span> -->
     </div>
@@ -31,15 +31,16 @@ import DepartmentCard from '@/views/management/department/card'
 
 export default {
   name: 'CustomElement',
-  data(){
-      return {
-          activeComponent: 'UserCard'
-      }
+  data() {
+    return {
+      activeComponent: 'UserCard'
+    }
   },
   components: {
     UserCard,
     MessageBubble,
     CardBoard,
+    DepartmentCard,
     ElRate: Rate
   },
   props: {
@@ -56,14 +57,6 @@ export default {
     }
   },
   computed: {
-      genComponent(){
-          const type = this.payload.split('/')[1]
-          switch(type){
-            //   case 'user':
-            //       return UserCard;
-            //       case 'department'
-          }
-      },
     // customData (){
     //     return JSON.parse(this.payload.data)
     // },
@@ -80,7 +73,24 @@ export default {
       return parseInt(this.payload.description)
     }
   },
+  mounted() {
+    this.genComponent()
+  },
   methods: {
+    genComponent() {
+      const str = this.payload.extension
+      const type = str.split('/')[0]
+      switch (type) {
+        case 'user':
+          this.activeComponent = 'UserCard'
+          break
+        case 'department':
+          this.activeComponent = 'DepartmentCard'
+          break
+      }
+
+      console.log(type)
+    },
     translateCustomMessage(payload) {
       let videoPayload = {}
       try {
@@ -103,7 +113,9 @@ export default {
         case ACTION.VIDEO_CALL_ACTION_ACCEPTED:
           return '[开始通话]'
         case ACTION.VIDEO_CALL_ACTION_HANGUP:
-          return `[结束通话，通话时长：${formatDuration(videoPayload.duration)}]`
+          return `[结束通话，通话时长：${formatDuration(
+            videoPayload.duration
+          )}]`
         case ACTION.VIDEO_CALL_ACTION_LINE_BUSY:
           return '[正在通话中]'
         case ACTION.VIDEO_CALL_ACTION_ERROR:
@@ -137,8 +149,7 @@ export default {
   font-size: 14px;
 }
 
-.custom-element-wrapper{
-    display: flex;
+.custom-element-wrapper {
+  display: flex;
 }
-
 </style>

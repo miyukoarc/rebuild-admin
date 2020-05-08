@@ -25,7 +25,7 @@ export function updateDepartment(data) {
 
 export function getDepartmentUser(id) {
   return request({
-    url: "/v1/list/org/user/department/" + id,
+    url: "/v1/list/user/department/" + id,
     method: "get"
   });
 }

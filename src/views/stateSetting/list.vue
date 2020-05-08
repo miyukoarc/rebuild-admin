@@ -44,7 +44,7 @@
                 </h3>
               </el-col>
               <el-col :span="10" class="text-align-right" style="margin:1.2em 0">
-                <i class="el-icon-edit click-cursor mr-1"></i>
+                <i class="el-icon-edit click-cursor mr-1" @click="handleAction(action='EditState',payload=item)"></i>
                 <StateSettingAddButton
                   labelText="添加事件"
                   :mType="AddButtonFormType.ADDBUTTONEVENT"
@@ -351,11 +351,7 @@
                 empty-text="暂无定时器"
               >
                 <el-table-column :label="stateSettings.name" prop="name"></el-table-column>
-                <el-table-column :label="stateSettings.description" prop="description">
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.description || "无" }}</span>
-                  </template>
-                </el-table-column>
+                
                 <el-table-column :label="stateSettings.action">
                   <template slot-scope="scope">
                     <action-tag>{{ scope.row.action }}</action-tag>
@@ -365,6 +361,11 @@
                   <template slot-scope="scope">
                     <div v-if="scope.row.timerOnce">{{ scope.row.timerOnce }}'' 延时定时器</div>
                     <div v-if="scope.row.timerInterval">{{ scope.row.timerInterval }}'' 周期定时器</div>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="stateSettings.description" prop="description">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.description || "无" }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label width="120">
@@ -819,7 +820,12 @@ export default {
 
       if (payload) {
         // alert(payload)
+        console.log('<-------------->',payload)
         this.$refs['editDialog'].payload = payload
+        if(Object.keys(payload).length){
+            this.$store.commit('stateSettings/SAVE_CURRENT',payload)
+        }
+        
 
         // console.log(this.$refs['editDialog'])
       }

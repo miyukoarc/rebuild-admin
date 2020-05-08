@@ -118,8 +118,6 @@ const actions = {
             temp[item.code] = item
           }
         })
-
-        console.warn(temp)
         
         commit('secondMenu/SET_MENUMAP',temp,{root:true})
         commit('secondMenu/SAVE_MENU',res.items,{root:true})

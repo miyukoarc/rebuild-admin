@@ -31,6 +31,10 @@
       overflow-x: hidden !important;
     }
 
+    .el-scrollbar__view{
+      height: 100%;
+      padding-top: 8px;
+    }
     .el-scrollbar__bar.is-vertical {
       right: 0px;
     }
@@ -56,15 +60,26 @@
     }
 
     .svg-icon {
-      margin-right: 16px;
+      // margin-right: 16px;
+      display: block;
+      margin: 0 auto;
+      // height:36px;
+      font-size: 20px;
     }
 
     .el-menu {
       border: none;
       height: 100%;
       width: 100% !important;
+      
     }
-
+    .el-menu-item, .el-submenu__title{
+      height: auto;
+      line-height: normal;
+    }
+    .el-menu-item{
+      font-size: 12px;
+    }
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {

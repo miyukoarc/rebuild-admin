@@ -88,8 +88,13 @@ export default {
           prop: 'org',
           align: 'center',
           render: (row, column, cell) => {
-            // const {isEmpty} = this
-            return <div>{row.org && row.org.name}</div>
+
+            if(Object.keys(row.org).length){
+                return <span>{row.org.name}</span>
+            }else{
+                return <span>未指定</span>
+            }
+            // return <div>{row.org && row.org.name}</div>
           }
         },
         {
@@ -203,7 +208,9 @@ export default {
     },
 
     handleRowClick(value) {
-      this.$store.commit('component/TOGGLE_PANEL', true)
+
+      this.$store.commit('component/TOGGLE_PANEL', true);
+
       this.$store
         .dispatch('userManage/getNormalUserDetail', value.uuid)
         .then(() => {})

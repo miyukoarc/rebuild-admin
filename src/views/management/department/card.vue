@@ -1,13 +1,16 @@
 <template>
-  <div class="p-2">
+  <div class="p-2 cursor-pointer" @click.prevent="handleDetail">
     <div>
-      <div class="h5">{{customData&&customData.nickname}}</div>
-      <img width="128" height="128" :src="customData&&customData.headimgurl" />
+      <div class="h4 pb-2">{{customData&&customData.name}}</div>
+      <div style="width:128px;height:128px">
+          <img :width="groupUserSize" :height="groupUserSize" v-for="item in customData.users" :key="item.uuid" :src="item.headimgurl" alt="">
+      </div>
+      <!-- <img width="128" height="128" :src="customData&&customData.headimgurl" /> -->
     </div>
     <div style="text-align:right;">
-      <el-button type="text" @click="showTransfer = true">转发</el-button>
+      <el-button type="text" @click.stop="showTransfer = true">转发</el-button>
       <!-- <app-link :to="`/d/management/user/list?detail=${customExtension}`"> -->
-    <el-button type="text" @click="handleDetail">详细</el-button>
+      <el-button type="text" @click="handleDetail">详细</el-button>
       <!-- </app-link> -->
     </div>
 
@@ -70,7 +73,9 @@ export default {
           label: '联系人',
           options: []
         }
-      ]
+      ],
+      groupUserSize: '64',
+      userList: []
       //   parseData: this.customData
     }
   },
@@ -90,6 +95,15 @@ export default {
       },
       deep: true
 
+    },
+    customData: {
+        handler(newVal,oldVal){
+            if(newVal.users.length>4){
+                this.groupUserSize = '32'
+            }
+        },
+        immediate: true,
+        deep:true
     }
   },
   computed: {

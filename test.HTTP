@@ -9,3 +9,16 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 ###
 GET http://10.10.10.199:40001/v1/detail/department/1 HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+###
+GET http://10.10.10.199:40001/v1/list/myMenuTree HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+
+###
+GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+
+###
+GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1

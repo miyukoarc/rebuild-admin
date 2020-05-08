@@ -49,7 +49,7 @@ const whiteList = ['/d/login'] // no redirect whitelist
       NProgress.done()
     } else {
 
-      console.log(to.path)
+
       if(to.path.includes('management')){
         store.dispatch('stateSettings/getEventList')
       }

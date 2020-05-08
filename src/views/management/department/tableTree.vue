@@ -110,9 +110,9 @@ export default {
   },
   methods: {
     ...mapActions("department", ["getDepartment"]),
-    // isEmptyObj(obj) {
-    //   return isEmpty(obj);
-    // },
+    isEmpty(obj) {
+      return isEmpty(obj);
+    },
     closeDialog(val) {
       this.showDialog = false;
     },
@@ -177,9 +177,9 @@ export default {
       if (cellValue instanceof Array) {
         return cellValue.length;
       } else {
-        if (!cellValue.isEmptyObj()) {
-          return cellValue.name||cellValue.nickname;
-        }
+        // if (!cellValue.isEmptyObj()) {
+        //   return cellValue.name||cellValue.nickname;
+        // }
         return "无";
       }
 

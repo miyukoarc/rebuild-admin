@@ -13,7 +13,7 @@ export function getEmployeeList(page) {
 }
 export function getEmpByDepartId(id) {
   return request({
-    url: `/v1/list/org/user/department/${id}`,
+    url: `/v1/list/user/department/${id}`,
     method: "get"
   });
 }

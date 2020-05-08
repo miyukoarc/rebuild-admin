@@ -1,8 +1,8 @@
 <template>
   <div :class="{'has-logo':showLogo}" class="sidebar-shadow">
-    <div class="user-btn">
+    <!-- <div class="user-btn">
       <user-btn/>
-    </div>
+    </div> -->
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <!-- <el-menu
         :collapse="true"
@@ -17,14 +17,12 @@
      </el-menu> -->
 
      <el-menu
-        :collapse="true"
+        :collapse="false"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
         :unique-opened="false"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
-        
-        mode="vertical"
      >
      <accessed-item v-for="item in menu" :key="item.code" :item="item"></accessed-item>
     </el-menu>
@@ -72,6 +70,6 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-shadow{
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  box-shadow: 11px 0px 15px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 </style>

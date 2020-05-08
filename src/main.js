@@ -13,6 +13,8 @@ import Avatar from '@/components/Avatar/avatar.vue'
 
 import '@/styles/index.scss' // global css
 
+import '@/utils/normal'; // 自定义工具函数
+
 import App from './App'
 import store from './store'
 import router from './router'
@@ -28,18 +30,18 @@ import '@/assets/icon/iconfont.css'
 import '@/assets/icon/tim.css'
 
 
-import '@/utils/normal';//自定义工具函数
+
 
 //iconfont
 window.tim = tim
 window.TIM = TIM
 // window.store = store
 
-Vue.prototype.$bus = new Vue() // event Bus 用于无关系组件间的通信。
-Vue.prototype.tim = tim
-Vue.prototype.TIM = TIM
-Vue.prototype.$store = store
-Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$bus = new Vue(); // event Bus 用于无关系组件间的通信。
+Vue.prototype.tim = tim;
+Vue.prototype.TIM = TIM;
+Vue.prototype.$store = store;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 Vue.prototype.dialogWidth = '600px' //dialog 统一宽度
 

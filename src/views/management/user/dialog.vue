@@ -46,7 +46,7 @@ export default {
       
   },
   updated(){
-      console.warn(this.genTitle())
+    //   console.warn(this.genTitle())
   },
   methods: {
       genTitle(){

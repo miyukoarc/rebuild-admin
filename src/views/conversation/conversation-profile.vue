@@ -5,12 +5,18 @@
       :user-profile="currentConversation.userProfile"
     /> -->
 
-    <friend-detail v-if="currentConversation.type === TIM.TYPES.CONV_C2C"/>
+    <!-- <component /> -->
+
+    <!-- <friend-detail v-if="currentConversation.type === TIM.TYPES.CONV_C2C"/>
     
     <group-profile
       v-if="currentConversation.type === TIM.TYPES.CONV_GROUP"
       :group-profile="currentConversation.groupProfile"
-    />
+    /> -->
+
+
+
+    
   </div>
 </template>
 

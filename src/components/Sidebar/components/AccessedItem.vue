@@ -1,7 +1,7 @@
 <template>
   <div @click="handleSecondMenu(item)">
     <app-link :to="filterPath(item.url)">
-      <el-menu-item :index="item.url">
+      <el-menu-item :index="item.url" class="py-3">
         <icon-item :icon="item.iconUrl" :title="item.name"></icon-item>
       </el-menu-item>
     </app-link>
@@ -47,7 +47,7 @@ export default {
     },
     checkSecondMenuType(type) {
 
-      console.log('第一次判断',type)
+    //   console.log('第一次判断',type)
       const keys = Object.keys(this.menuMap)
 
       const hasStatus = keys.some((item)=>{
@@ -69,7 +69,7 @@ export default {
       }
 
       
-      console.log(type)
+    //   console.log(type)
       switch (type) {
         case 'iframe':
 
@@ -130,7 +130,7 @@ export default {
           break;
         default:
 
-          console.log(type)
+        //   console.log(type)
           this.TOGGLE_TYPE('transfer')
           this.$store.commit('secondMenu/TOGGLE_STATE',false)
           // this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type])
@@ -144,7 +144,7 @@ export default {
       } else return url
     },
     classifyUrl(url) {
-      console.log('url',url)
+    //   console.log('url',url)
       let key
       if(url.includes('http')){
         this.$store.commit('secondMenu/SAVE_IFRAMEURL',url)
@@ -157,7 +157,7 @@ export default {
       if(!this.$route.params.modules&&!url.includes('http')){
         key = url.split('/')[2]
       }
-      console.log(key)
+    //   console.log(key)
       this.checkSecondMenuType(key)
     
     }

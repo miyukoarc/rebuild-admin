@@ -17,10 +17,10 @@
     </div>
 
     <div v-if="menuModule=='friend'">
-      <el-menu-item>联系人</el-menu-item>
+      <!-- <el-menu-item>联系人</el-menu-item> -->
       <friend-item v-for="friend in friendList" :key="friend.userID" :friend="friend"></friend-item>
-      <el-menu-item>群组</el-menu-item>
-      <group-item v-for="group in groupList" :key="group.groupID" :group="group"></group-item>
+      <!-- <el-menu-item>群组</el-menu-item>
+      <group-item v-for="group in groupList" :key="group.groupID" :group="group"></group-item> -->
     </div>
 
     <div v-if="menuModule=='conversation'">

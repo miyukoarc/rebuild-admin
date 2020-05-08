@@ -112,6 +112,14 @@ export const getEventList = ()=>{
     })
 }
 
+export const updateState = (data) => {
+    return request({
+        url: '/v1/stateMachine/updateState',
+        method: 'post',
+        data
+    })
+}
+
 module.exports = {
   getRoleList,
   getStateList,

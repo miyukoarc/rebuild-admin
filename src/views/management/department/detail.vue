@@ -34,7 +34,6 @@ export default {
   watch: {
     currentDetail: {
       handler(newVal, oldVal) {
-        console.log(newVal)
         this.initData()
       },
       deep: true,
@@ -135,10 +134,10 @@ export default {
                 class="mr-2"
                 width="36"
                 height="36"
-                src={manager.headimgurl}
+                src={manager?.headimgurl}
               />
             }
-            {isEmpty(manager) ? '未指定' : <span>{manager.nickname}</span>}
+            {isEmpty(manager) ? '未指定' : <span>{manager?.nickname}</span>}
           </el-form-item>
           <el-form-item label="组织关系">
             <relation-card></relation-card>

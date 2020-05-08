@@ -57,22 +57,87 @@ export default {
         {
           value: ''
         }
+      ],
+      columns: [
+        {
+          visible: true,
+          label: '名称',
+          prop: 'name',
+          uuid: 2,
+          align: 'center'
+        },
+        {
+          visible: true,
+          label: '主管',
+          prop: 'manager',
+          uuid: 3,
+          align: 'center',
+          sort: false,
+          render: (row, column, cell) => {
+            return row.manager.nickname
+          }
+        },
+        {
+          visible: true,
+          label: '上级部门',
+          prop: 'parent',
+          uuid: 5,
+          align: 'center',
+          sort: false,
+          render: (row, column, cell) => {
+            return row.name
+          }
+        },
+        {
+          visible: true,
+          label: '人数',
+          prop: 'users',
+          uuid: 6,
+          align: 'center',
+          sort: false,
+          render: (row, column, cell) => {
+            return row.users.length||'0'
+          }
+        },
+        {
+          visible: true,
+          label: '创建时间',
+          prop: 'createdAt',
+          uuid: 4,
+          align: 'center'
+        },
+        {
+          visible: true,
+          label: 'Code',
+          prop: 'code',
+          uuid: 1,
+          sort: false,
+          align: 'center'
+        },
+        {
+          visible: true,
+          label: '操作',
+          prop: 'caozuo',
+          align: 'center',
+          sort: false,
+          type: 'button',
+          width: '240'
+        }
       ]
     }
   },
   computed: {
-    ...mapState(NAME, ['departList', 'page', 'columns']),
+    ...mapState(NAME, ['departList', 'page']),
     routesData() {
       return this.routes
     }
   },
   created() {
-    this.initDataList();
+    this.initDataList()
   },
   methods: {
     ...mapActions(NAME, ['getDepartmenList']),
     handleRow(val) {
-      console.log(val)
       this.$store
         .dispatch('department/getDepartmentDetail', val.uuid)
         .then(_ => {

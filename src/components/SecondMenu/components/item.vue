@@ -10,7 +10,7 @@
           :item='child'
           ></sidebar-item>
       </el-submenu>
-      <el-menu-item :index="item.url" v-else @click="handleClick">{{valString(item)}}</el-menu-item>
+      <el-menu-item :index="item.url" v-else @click="handleClick" style="padding-left:40px">{{valString(item)}}</el-menu-item>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
     })
   },
   mounted(){
-    console.log(this.menuType,this.item)
   },
   methods:{
     valString(item){
