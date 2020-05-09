@@ -1,7 +1,7 @@
 <template>
   <div @click="handleSecondMenu(item)">
     <app-link :to="filterPath(item.url)">
-      <el-menu-item :index="item.url" class="py-3">
+      <el-menu-item :index="item.url" class="py-3 px-0">
         <icon-item :icon="item.iconUrl" :title="item.name"></icon-item>
       </el-menu-item>
     </app-link>

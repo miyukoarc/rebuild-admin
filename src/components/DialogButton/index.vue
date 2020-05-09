@@ -7,6 +7,7 @@
     <el-dialog
       append-to-body
       destroy-on-close
+      :close-on-click-modal="false"
       :visible.sync="show"
       :width="dialogWidth"
       v-bind="$attrs"

@@ -21,7 +21,7 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-dialog title="profile" :width="dialogWidth" :visible.sync="showProfile" append-to-body>
+    <el-dialog title="profile" :width="dialogWidth" :visible.sync="showProfile" append-to-body :close-on-click-modal="false">
       <el-form :model="infoForm" label-width="100px" ref="infoForm" label-position="left">
         <!-- <el-form-item> -->
         <div class="py-3" style="text-align:center;">
@@ -138,6 +138,8 @@ export default {
       // await this.$store.dispatch('im/user/logout').then().catch(err=>{console.log(err)})
       await removeToken()
       await this.clearSig()
+      await this.$store.dispatch('im/user/logout')//退出im
+      await this.$store.commit('user/RESET_STATE')//重置用户信息
       //   this.reload()
       this.$router.replace(`/d/login?redirect=${this.$route.fullPath}`)
       //   this.$router.push(`/d/login?redirect=${this.$route.fullPath}`)

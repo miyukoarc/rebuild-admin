@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body :width="dialogWidth" >
+        <el-dialog :title="title" :visible.sync="dialogVisible" :modal-append-to-body="false" append-to-body :width="dialogWidth" :close-on-click-modal="false">
             <div>
                 <component ref="dialogChild" :is="event" :pendingEvent="pendingEvent" :key="event"/>
             </div>

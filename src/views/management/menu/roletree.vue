@@ -67,6 +67,7 @@
       :visible.sync="showEditDialog"
       append-to-body
       :width="dialogWidth"
+      :close-on-click-modal="false"
     >
       <editForm :formData="editFormData" />
     </el-dialog>

@@ -66,6 +66,7 @@
       :close-on-click-modal="false"
       title="定时器"
       :visible.sync="showTimerDialog"
+      
     >
       <div>
         <p>name:{{currentTimer.name}}</p>

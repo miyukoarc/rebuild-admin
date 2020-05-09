@@ -10,11 +10,11 @@
     <div style="text-align:right;">
       <el-button type="text" @click.stop="showTransfer = true">转发</el-button>
       <!-- <app-link :to="`/d/management/user/list?detail=${customExtension}`"> -->
-      <el-button type="text" @click="handleDetail">详细</el-button>
+      <el-button type="text" @click.stop="handleDetail">详细</el-button>
       <!-- </app-link> -->
     </div>
 
-    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
+    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body :close-on-click-modal="false">
       <el-form label-width="100px">
         <el-form-item label="转发至">
           <el-select v-model="toAccount" placeholder="请选择">

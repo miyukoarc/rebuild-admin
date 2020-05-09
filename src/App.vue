@@ -49,10 +49,10 @@ export default {
     },
     reload() {
       this.isRouterAlive = false;
-      window.location.reload()
-    //   this.$nextTick(function() {
-    //     this.isRouterAlive = true;
-    //   });
+    //   window.location.reload()
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
     },
     checkIMLogin() {
       let userID = window.localStorage.getItem('userID')

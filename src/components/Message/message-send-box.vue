@@ -15,7 +15,7 @@
       <i class="iconfont icon-diaocha" title="小调查" @click="surveyDialogVisible = true" />
       <i v-if="currentConversationType === 'C2C'&& toAccount !== userID" class="el-icon-video-camera" title="视频通话" @click="videoCall" />
     </div>
-    <el-dialog title="发自定义消息" :visible.sync="sendCustomDialogVisible" width="30%">
+    <el-dialog title="发自定义消息" :visible.sync="sendCustomDialogVisible" width="30%" :close-on-click-modal="false">
       <el-form label-width="100px">
         <el-form-item label="data">
           <el-input v-model="form.data" />
@@ -32,7 +32,7 @@
         <el-button type="primary" @click="sendCustomMessage">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="对IM Web demo的建议和使用感受" :visible.sync="surveyDialogVisible" width="30%">
+    <el-dialog title="对IM Web demo的建议和使用感受" :visible.sync="surveyDialogVisible" width="30%" :close-on-click-modal="false">
       <el-form label-width="100px">
         <el-form-item label="评分">
           <div class="block">

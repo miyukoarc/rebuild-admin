@@ -251,7 +251,7 @@
       </el-form>
     </div>
 
-    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body>
+    <el-dialog title="转发" width="600px" :visible.sync="showTransfer" append-to-body :close-on-click-modal="false">
         <el-form label-width="100px">
           <el-form-item label="转发至">
             <el-select v-model="toAccount" placeholder="请选择">

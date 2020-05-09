@@ -39,7 +39,7 @@
         :key="item.conversationID"
       ></conversation-item>
 
-      <el-dialog title="快速发起会话" :visible.sync="showDialog" width="30%" append-to-body>
+      <el-dialog title="快速发起会话" :visible.sync="showDialog" width="30%" append-to-body :close-on-click-modal="false">
         <el-input placeholder="请输入用户ID" v-model="userID" @keydown.enter.native="handleConfirm" />
         <span slot="footer" class="dialog-footer">
           <el-button @click="showDialog = false">取 消</el-button>

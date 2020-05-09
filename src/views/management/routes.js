@@ -7,6 +7,7 @@ import departmentTree from './department/tableTree.vue'
 import employee from './employee/rightList'
 import menu from './menu'
 import User from './user/list'
+import ORG from './org/list'
 
 export default [
     {
@@ -43,6 +44,11 @@ export default [
         path: 'user/list',
         name: 'User',
         component: User
+    },
+    {
+        path: 'org/list',
+        name: 'org',
+        component: ORG
     }
 
 ]

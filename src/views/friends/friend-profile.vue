@@ -8,15 +8,15 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "FriendProfile",
+  name: 'FriendProfile',
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapState({
-      currentFriendInfo: state => state["im/friend"].currentFriendInfo
+      currentFriendInfo: state => state['im/friend'].currentFriendInfo
     })
   },
   methods: {
@@ -24,23 +24,23 @@ export default {
       this.tim
         .getConversationProfile(`C2C${this.currentFriendInfo.userID}`)
         .then(({ data }) => {
-          console.log(data, data.conversation.conversationID);
-          const id = data.conversation.conversationID;
-          this.$store.commit("im/conversation/updateCurrentConversation", data);
+          console.log(data, data.conversation.conversationID)
+          const id = data.conversation.conversationID
+          this.$store.commit('im/conversation/updateCurrentConversation', data)
           // this.$store.commit('im/friend/SAVE_CURRENTINFO',this.friend.profile)
           this.$store
-            .dispatch("im/conversation/checkoutConversation", id)
+            .dispatch('im/conversation/checkoutConversation', id)
             .then(_ => {
-              this.$router.push({ path: "/d/conversation/conversation/list" });
-            });
+              this.$router.push({ path: '/d/conversation/conversation/list' })
+            })
         })
         .catch(error => {
-          this.$store.commit("im/setting/showMessage", {
-            type: "error",
+          this.$store.commit('im/setting/showMessage', {
+            type: 'error',
             message: error.message
-          });
-        });
+          })
+        })
     }
   }
-};
+}
 </script>

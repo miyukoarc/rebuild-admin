@@ -8,6 +8,7 @@
     <el-dialog
       :title="labelText"
       :visible.sync="showCreateState"
+      :close-on-click-modal="false"
       append-to-body
       destroy-on-close
       :width="width"
@@ -22,6 +23,7 @@
 <script>
 import { AddButtonFormType } from "@/utils/commonEnum";
 import StateSettingForm from './StateSettingForm';
+
 export default {
   name: "AddButton",
   components: {

@@ -35,7 +35,7 @@
 
     <div v-else class="header-fade" />
     <!-- <conversation-panel v-show="showCurrentProfile" /> -->
-    <conversation-profile v-show="showCurrentProfile" style="height:100%" />
+    <conversation-profile v-show="showCurrentProfile" style="height:100%" :profileType="profileType" />
 
     <el-drawer title="我是标题" :visible.sync="showDetail" size="600px" :with-header="false">
       <div class="detail-container">
@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      profileType: '',
       currentDetail: '',
       isShowScrollButtomTips: false,
       preScrollHeight: 0,
@@ -126,9 +127,33 @@ export default {
         })
       }
     },
+
     currentConversation: {
       handler(newVal, oldVal) {
-        console.log(newVal)
+        if (newVal.userProfile) {
+          console.log(
+            newVal.userProfile,
+            '<------------>userProfile<------------>'
+          )
+        }
+
+        if (newVal.groupProfile) {
+          console.log(
+            newVal.groupProfile,
+            '<------------>groupProfile<------------>'
+          )
+
+          const type = newVal.groupProfile.introduction.split('/')[0]
+          const uuid = newVal.groupProfile.introduction.split('/')[1]
+
+          this.profileType = this.genProfileType(type)
+        //   this.$store.dispatch()
+          console.log(type,uuid,this.profileType)
+        }
+
+        /**
+         * 控制profile界面是否显示
+         */
         this.showCurrentProfile = true
         if (newVal.isEmptyObj()) {
           this.showCurrentProfile = false
@@ -151,7 +176,6 @@ export default {
     this.$bus.$on('showConversationDetailPanel', target => {
       console.log('showConversationDetailPanel', target)
       this.genComponent(target)
-      
     })
     // this.initDetail()
     if (this.currentConversation.conversationID === '@TIM#SYSTEM') {
@@ -176,6 +200,22 @@ export default {
     }
   },
   methods: {
+    /**
+     * 控制profile面板展示类型
+     */
+    genProfileType(type) {
+
+        switch(type){
+            case 'department':
+                return 'DepartmentProfile';
+            case 'order':
+                return 'OrderProfile';
+        }
+
+    },
+    /**
+     * 控制自定义消息详情展示类型
+     */
     genComponent(info) {
       const payload = info
       const type = info.split('/')[0]
@@ -195,7 +235,7 @@ export default {
               })
             })
 
-          break;
+          break
 
         case 'department':
           this.$store
@@ -211,7 +251,7 @@ export default {
               })
             })
 
-            break;
+          break
       }
     },
     initDetail() {

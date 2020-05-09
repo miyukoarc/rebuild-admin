@@ -129,16 +129,21 @@ export default {
             {isEmpty(currentParent) ? '未指定' : currentParent.name}
           </el-form-item>
           <el-form-item label="主管">
-            {
-              <img
-                class="mr-2"
-                width="36"
-                height="36"
-                src={manager?.headimgurl}
-              />
-            }
-            {isEmpty(manager) ? '未指定' : <span>{manager?.nickname}</span>}
+            {isEmpty(manager) ? (
+              '未指定'
+            ) : (
+              <div>
+                <img
+                  class="mr-2"
+                  width="36"
+                  height="36"
+                  src={manager?.headimgurl}
+                />
+                <span>{manager?.nickname}</span>
+              </div>
+            )}
           </el-form-item>
+
           <el-form-item label="组织关系">
             <relation-card></relation-card>
           </el-form-item>
@@ -148,29 +153,29 @@ export default {
               <div>未指定</div>
             ) : (
               <div>
-                {
-                  users.map(user => {
-                    return (
-
-                        <div key={user.uuid}>
-                            <img class="mr-2"
-                                width="36"
-                                height="36"
-                                src={user.headimgurl}
-                            />
-                            <span>{user.nickname}</span>
-                        </div>
-                      
-                    )
-                  })}
+                {users.map(user => {
+                  return (
+                    <div key={user.uuid}>
+                      <img
+                        class="mr-2"
+                        width="36"
+                        height="36"
+                        src={user.headimgurl}
+                      />
+                      <span>{user.nickname}</span>
+                    </div>
+                  )
+                })}
               </div>
             )}
           </el-form-item>
-          <el-form-item>
+          {/*
+            <el-form-item>
             <el-button size="small" type="success" onClick={handleClose}>
               返回
             </el-button>
           </el-form-item>
+          */}
         </el-form>
       </div>
     )

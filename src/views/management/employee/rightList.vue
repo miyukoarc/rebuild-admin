@@ -68,7 +68,7 @@
         />
       </el-main>
     </el-container>
-    <el-dialog title="设置部门" :visible.sync="visibleDialog" width="400px">
+    <el-dialog title="设置部门" :visible.sync="visibleDialog" width="400px" :close-on-click-modal="false">
       <setting
        type='depart'
         @onSubmitData="onDepartSetting"
@@ -77,7 +77,7 @@
         @handleDelete="handleDelete"
       />
     </el-dialog>
-    <el-dialog title="设置角色" :visible.sync="visibleDialogRole" width="400px">
+    <el-dialog title="设置角色" :visible.sync="visibleDialogRole" width="400px" :close-on-click-modal="false">
       <setting
         @onSubmitData="onRoleSetting"
         @onCancel="onCancel"

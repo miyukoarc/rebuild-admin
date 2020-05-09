@@ -5,7 +5,7 @@
         <!-- <img :src="avatar" class="user-avatar" /> -->
         <el-avatar :src="avatar" class="user-avatar" :size="40"></el-avatar>
         <!-- <i class="el-icon-caret-bottom" /> -->
-      </div>  
+      </div>
       <el-dropdown-menu slot="dropdown" class="user-dropdown">
         <!-- <router-link to="/"> -->
         <el-dropdown-item @click.native="handleShow">个人信息</el-dropdown-item>
@@ -15,14 +15,14 @@
         </a>
         <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
           <el-dropdown-item>Docs</el-dropdown-item>
-        </a> -->
+        </a>-->
         <el-dropdown-item divided @click.native="logout">
           <span style="display:block;">退出</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-dialog title="个人信息" :width="dialogWidth" :visible.sync="showProfile" append-to-body>
+    <el-dialog title="个人信息" :width="dialogWidth" :visible.sync="showProfile" append-to-body :close-on-click-modal="false">
       <el-form :model="infoForm" label-width="50px" ref="infoForm" label-position="left">
         <!-- <el-form-item> -->
         <div class="py-3" style="text-align:center;">
@@ -31,7 +31,7 @@
           <!-- <a class="btn" >设置头像</a> -->
           <my-upload
             field="file"
-            @srcFileSet = "srcFileSet"
+            @srcFileSet="srcFileSet"
             @crop-success="cropSuccess"
             @crop-upload-success="cropUploadSuccess"
             @crop-upload-fail="cropUploadFail"
@@ -42,12 +42,13 @@
             :params="params"
             :headers="headers"
             img-format="png"
-            
-          >
-          
-
-          </my-upload>
-          <el-image :src="infoForm.faceUrl" @click="toggleShow"  class="cursor-pointer" title="点击重新上传头像"/>
+          ></my-upload>
+          <el-image
+            :src="infoForm.faceUrl"
+            @click="toggleShow"
+            class="cursor-pointer"
+            title="点击重新上传头像"
+          />
 
           <!-- <el-upload
             class="upload-demo"
@@ -58,8 +59,7 @@
               style="width: 100px; height: 100px"
               src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" title="点击重新上传头像"></el-image>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload> -->
-
+          </el-upload>-->
         </div>
         <!-- </el-form-item> -->
         <el-form-item label="性别">
@@ -82,11 +82,11 @@
 
         <!-- <el-form-item>
           <el-button type="primary" size="mini" @click="handleConfirm">确定</el-button>
-        </el-form-item> -->
+        </el-form-item>-->
       </el-form>
       <div slot="footer">
         <el-button type="primary" @click="handleConfirm">确定</el-button>
-        <el-button >取消</el-button>
+        <el-button>取消</el-button>
       </div>
     </el-dialog>
   </el-container>
@@ -180,12 +180,14 @@ export default {
       this.$store
         .dispatch('user/updateUserInfo', this.infoForm)
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '提交成功'
-          })
+          this.$store.dispatch('user/getInfo').then(() => {
+            this.$message({
+              type: 'success',
+              message: '提交成功'
+            })
 
-          this.showProfile = false
+            this.showProfile = false
+          })
         })
         .catch(err => {
           console.log(err)
@@ -198,8 +200,8 @@ export default {
     /**
      * 上传头像
      */
-    srcFileSet(fileName, fileType, fileSize){
-        console.log(fileName, fileType, fileSize)
+    srcFileSet(fileName, fileType, fileSize) {
+      console.log(fileName, fileType, fileSize)
     },
 
     toggleShow() {
@@ -214,8 +216,8 @@ export default {
     cropSuccess(imgDataUrl, field) {
       console.log('-------- crop success --------')
       console.log(field)
-    //   this.infoForm.faceUrl = imgDataUrl
-    //   this.params.file = imgDataUrl
+      //   this.infoForm.faceUrl = imgDataUrl
+      //   this.params.file = imgDataUrl
     },
     /**
      * upload success
@@ -226,7 +228,7 @@ export default {
     cropUploadSuccess(jsonData, field) {
       console.log('-------- upload success --------')
       console.log(jsonData)
-      this.infoForm.faceUrl = 'http://10.10.10.199:40001/v1/file/'+ jsonData.id
+      this.infoForm.faceUrl = 'http://10.10.10.199:40001/v1/file/' + jsonData.id
       console.log('field: ' + field)
     },
     /**

@@ -3,7 +3,7 @@
     <div class="group-system-element-wrapper">
       {{ text }}
       <el-button v-if="isJoinGroupRequest" type="text" @click="showDialog = true">处理</el-button>
-      <el-dialog title="处理加群申请" :visible.sync="showDialog" width="30%">
+      <el-dialog title="处理加群申请" :visible.sync="showDialog" width="30%" :close-on-click-modal="false">
         <el-form ref="form" v-model="form" label-width="100px">
           <el-form-item label="处理结果：">
             <el-radio-group v-model="form.handleAction">

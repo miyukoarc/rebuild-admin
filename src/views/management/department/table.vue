@@ -26,7 +26,7 @@
       </div>
     </right-panel>
 
-    <el-dialog width="30%" :visible.sync="showDialog" title="编辑">
+    <el-dialog width="30%" :visible.sync="showDialog" title="编辑" :close-on-click-modal="false">
       <EditForm @closeDialog="closeDialog"></EditForm>
     </el-dialog>
   </div>

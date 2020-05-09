@@ -1,6 +1,6 @@
 <template>
   <el-button :type="type">
-      <el-dialog title="添加定时器" :visible.sync="showState" append-to-body>
+      <el-dialog title="添加定时器" :visible.sync="showState" append-to-body :close-on-click-modal="false">
       <div>
         <el-row>
           <el-col :span="8">name:</el-col>

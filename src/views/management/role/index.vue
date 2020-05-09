@@ -23,7 +23,9 @@
       destroy-on-close
       append-to-body
       :visible.sync="showDialog"
-      :width="dialogWidth">
+      :width="dialogWidth"
+      :close-on-click-modal="false"
+      >
       <cForm :formData='editFormData' @onSubmit='onSubmit' @onCancle='onCancle'/>
     </el-dialog>  
     

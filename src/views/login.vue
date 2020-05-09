@@ -57,100 +57,104 @@
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span>password: any</span>
-        <!-- <el-button size="mini" type="primary" style="margin-left:70px" @click="toggleMock">{{serverState?'本地':'远程'}}</el-button> -->
         <el-button size="mini" type="success" style="margin-left:147px" @click="handleGenKey">GenKey</el-button>
+        <Test/>
       </div>
     </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
-import { genKey } from "@/api/user";
+import { validUsername } from '@/utils/validate'
+import { genKey } from '@/api/user'
+import Test from './test'
 export default {
-  name: "Login",
+  components: {
+    Test
+  },
+  name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error("Please enter the correct user name"));
+        callback(new Error('Please enter the correct user name'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error("The password can not be less than 6 digits"));
+        callback(new Error('The password can not be less than 6 digits'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       serverState: false,
       loginForm: {
-        username: "13700000001",
-        password: ""
+        username: '13700000001',
+        password: ''
       },
       loginRules: {
         // username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         // password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
-      passwordType: "password",
+      passwordType: 'password',
       redirect: undefined
-    };
+    }
   },
   watch: {
     $route: {
       handler: function(route) {
-        this.redirect = route.query && route.query.redirect;
+        this.redirect = route.query && route.query.redirect
       },
       immediate: true
     }
   },
   methods: {
     toggleMock() {
-      this.serverState = !this.serverState;
+      this.serverState = !this.serverState
     },
     showPwd() {
-      if (this.passwordType === "password") {
-        this.passwordType = "";
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
       } else {
-        this.passwordType = "password";
+        this.passwordType = 'password'
       }
       this.$nextTick(() => {
-        this.$refs.password.focus();
-      });
+        this.$refs.password.focus()
+      })
     },
     handleGenKey() {
-      const username = this.loginForm.username;
+      const username = this.loginForm.username
       genKey(username).then(res => {
-        this.loginForm.password = res.data;
-      });
+        this.loginForm.password = res.data
+      })
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           this.$store
-            .dispatch("user/login", this.loginForm)
+            .dispatch('user/login', this.loginForm)
             .then(res => {
               const data = {
                 userID: this.loginForm.username,
                 userSig: res.userSig
-              };
+              }
 
-              this.$store.dispatch("im/user/login",data);
-              this.$router.push({ path: this.redirect || "/" });
-              this.loading = false;
+              this.$store.dispatch('im/user/login', data)
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
             })
             .catch(() => {
-              this.loading = false;
-            });
+              this.loading = false
+            })
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     imLogin(userSig) {
       this.tim
@@ -158,10 +162,10 @@ export default {
           userID: this.loginForm.username,
           userSig: userSig
         })
-        .then(() => {});
+        .then(() => {})
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

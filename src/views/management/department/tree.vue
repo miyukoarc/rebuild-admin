@@ -68,6 +68,7 @@
       width="30%"
       :visible.sync="showDialog"
       :title="panelModel == 'AddDepartment' ? '添加' : '编辑'"
+      :close-on-click-modal="false"
     >
       <component
         :is="panelModel"

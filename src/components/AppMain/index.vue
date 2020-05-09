@@ -33,6 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/index.scss";
 .second-part{
   display: flex;
   height: 100%;

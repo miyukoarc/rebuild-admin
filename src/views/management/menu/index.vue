@@ -12,10 +12,10 @@
       
     </el-header>
     <el-container>
-      <el-aside width="450px" class="px-3">
+      <el-aside  class="px-3" style="flex:1">
         <PAside ref="leftTable"/>
       </el-aside>
-      <el-main height class="permiss-index-main px-3 py-0 ml-3">
+      <el-main height class="permiss-index-main px-3 py-0 ml-3" style="flex:2">
         <el-row>
           <el-col :span="24">
             <Tree :data="menuTree" class="fill" />
