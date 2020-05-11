@@ -14,7 +14,7 @@
 import Sidebar from '@/components/Sidebar'
 import Navbar from '@/components/Navbar'
 import AppMain from '@/components/AppMain'
-import { mapState,mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 // import ResizeMixin from './mixin/ResizeHandler'
 
 export default {
@@ -25,18 +25,19 @@ export default {
     AppMain
   },
   watch: {
-    $route:{
-      handler(newVal,oldVal){
-        this.initSecondMenu(newVal.params.modules)
+    $route: {
+      handler(newVal, oldVal) {
+        console.log(newVal.path, '<-------------------->')
+        this.handleSecondMenu(newVal.path)
       },
+      deep: true,
       immediate: true
-
     }
   },
   computed: {
     ...mapState({
       menuType: state => state.secondMenu.menuType,
-      menuMap:state => state.secondMenu.menuMap
+      menuMap: state => state.secondMenu.menuMap
     }),
     sidebar() {
       return this.$store.state.app.sidebar
@@ -53,108 +54,182 @@ export default {
       }
     }
   },
-  mounted(){
+  mounted() {
     // console.log(this.$route)
   },
   methods: {
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
-    initSecondMenu(type){
+    handleSecondMenu(item) {
+      this.classifyUrl(item)
+    },
+    checkSecondMenuType(type) {
+      //   console.log('第一次判断',type)
+      const keys = Object.keys(this.menuMap)
 
-      if(type){
-        if(type!='friend'&&type!='conversation'&&type!='management'){
+      const hasStatus = keys.some(item => {
+        return type == item
+      })
+
+      if (type) {
+        if (
+          type != 'friend' &&
+          type != 'conversation' &&
+          type != 'management' &&
+          hasStatus
+        ) {
           type = 'menu'
         }
+      } else {
+        type = 'iframe'
       }
 
       switch (type) {
+        case 'iframe':
+          if (this.menuType != 'transfer') {
+            this.TOGGLE_TYPE('transfer')
+          } //定义二级菜单'路由'功能
+          if (this.menuMap[this.$route.params.modules]) {
+            this.$store.commit('secondMenu/TOGGLE_STATE', true)
+            this.$store.commit(
+              'secondMenu/SAVE_SECONDMENU',
+              this.menuMap[this.$route.params.modules].children
+            )
+            this.$store.commit(
+              'secondMenu/SET_OPENARR',
+              this.menuMap[this.$route.params.modules].children
+            )
+          } else {
+            this.$store.commit('secondMenu/TOGGLE_STATE', false)
+            // this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
+            // this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          }
+
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
+          break
         case 'menu':
-          console.log(this.$route.params.modules,this.menuMap[this.$route.params.modules].children)
-          if(this.menuType!='router'){
-              this.TOGGLE_TYPE('router')
-          }//定义二级菜单'路由'功能
-          this.$store.commit('secondMenu/TOGGLE_STATE',true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SET_OPENARR',this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SAVE_MODULE',type)
-          break;
+          if (this.menuType != 'router') {
+            this.TOGGLE_TYPE('router')
+          } //定义二级菜单'路由'功能
+          if (this.menuMap[this.$route.params.modules]) {
+            this.$store.commit('secondMenu/TOGGLE_STATE', true)
+            this.$store.commit(
+              'secondMenu/SAVE_SECONDMENU',
+              this.menuMap[this.$route.params.modules].children
+            )
+            this.$store.commit(
+              'secondMenu/SET_OPENARR',
+              this.menuMap[this.$route.params.modules].children
+            )
+          } else {
+            this.$store.commit('secondMenu/TOGGLE_STATE', false)
+            // this.$store.commit('secondMenu/SAVE_SECONDMENU', this.menuMap[this.$route.params.modules].children)
+            // this.$store.commit('secondMenu/SET_OPENARR', this.menuMap[this.$route.params.modules].children)
+          }
+
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
+          break
 
         case 'friend':
-          if(this.menuType!='transfer'){
+          if (this.menuType != 'transfer') {
             this.TOGGLE_TYPE('transfer')
-          }//定义耳机菜单'传值功能'
-          this.$store.commit('secondMenu/TOGGLE_STATE',true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'小明'}])//储存当前二级菜单
-          this.$store.commit('secondMenu/SAVE_MODULE',type)
-          break;
+          } //定义耳机菜单'传值功能'
+          this.$store.commit('secondMenu/TOGGLE_STATE', true)
+          this.$store.commit('secondMenu/SAVE_SECONDMENU', [{ name: '小明' }]) //储存当前二级菜单
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
+          break
 
         case 'conversation':
-          if(this.menuType!='transfer'){
-              this.TOGGLE_TYPE('transfer')
+          if (this.menuType != 'transfer') {
+            this.TOGGLE_TYPE('transfer')
           }
-          this.$store.commit('secondMenu/TOGGLE_STATE',true)//渲染二级菜单
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',[{name:'消息1'}])
-          this.$store.commit('secondMenu/SAVE_MODULE',type)
-          break;
+          this.$store.commit('secondMenu/TOGGLE_STATE', true) //渲染二级菜单
+          this.$store.commit('secondMenu/SAVE_SECONDMENU', [{ name: '消息1' }])
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
+          break
         case 'management':
-          if(this.menuType!='router'){
-              this.TOGGLE_TYPE('router')
-          }//定义二级菜单'路由'功能
+          if (this.menuType != 'router') {
+            this.TOGGLE_TYPE('router')
+          } //定义二级菜单'路由'功能
 
-          this.$store.commit('secondMenu/TOGGLE_STATE',true)
-          this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[this.$route.params.modules].children)
-          this.$store.commit('secondMenu/SAVE_MODULE',type)
+          this.$store.commit('secondMenu/TOGGLE_STATE', true)
+          this.$store.commit(
+            'secondMenu/SAVE_SECONDMENU',
+            this.menuMap[this.$route.params.modules].children
+          )
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
 
-          break;
+          break
+
+        case 'stateSetting':
+          if (this.menuType != 'router') {
+            this.TOGGLE_TYPE('router')
+          } //定义二级菜单'路由'功能
+
+          this.$store.commit('secondMenu/TOGGLE_STATE', true)
+          this.$store.commit(
+            'secondMenu/SAVE_SECONDMENU',
+            this.menuMap[this.$route.params.modules].children
+          )
+          this.$store.commit('secondMenu/SAVE_MODULE', type)
+          break
         default:
+          //   console.log(type)
           this.TOGGLE_TYPE('transfer')
-          this.$store.commit('secondMenu/TOGGLE_STATE',false)
+          this.$store.commit('secondMenu/TOGGLE_STATE', false)
           // this.$store.commit('secondMenu/SAVE_SECONDMENU',this.menuMap[type])
-          break;
+          break
       }
-      // commit('secondMenu/SAVE_SECONDMENU',this.menuMap[])
+      // window.localStorage.setItem('hasSecondMenu',this.hasSecondMenu)
     },
+    classifyUrl(url) {
+      const temp = url
+
+      let key = temp.split('/')[2]
+
+      this.checkSecondMenuType(key)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-  @import "~@/styles/variables.scss";
+@import '~@/styles/mixin.scss';
+@import '~@/styles/variables.scss';
 
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
-    }
-  }
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
-  }
-
-  .fixed-header {
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  &.mobile.openSidebar {
     position: fixed;
     top: 0;
-    right: 0;
-    z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
-    transition: width 0.28s;
   }
+}
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 
-  .hideSidebar .fixed-header {
-    width: calc(100% - #{$sideBarWidth})
-  }
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
+}
 
-  .mobile .fixed-header {
-    width: 100%;
-  }
+.hideSidebar .fixed-header {
+  width: calc(100% - #{$sideBarWidth});
+}
+
+.mobile .fixed-header {
+  width: 100%;
+}
 </style>

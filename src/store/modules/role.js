@@ -3,11 +3,15 @@ import Page from '@/utils/PageDefault';
 
 const state ={
     roleList:[],
-    page:new Page()
+    page: new Page(),
+    currentRoleDetail: {}
 }
 const mutations = {
     SET_ROLELIST(state,val){
         state.roleList =  val;
+    },
+    SAVE_CURRENTDETAIL(state,val){
+        state.currentRoleDetail = val
     }
 }
 const actions ={
@@ -26,6 +30,11 @@ const actions ={
         return API.deleteRole(form).then(res=>{
             // commit('SET_ROLELIST',res.items);
             return res;
+        })
+    },
+    getRoleDetail({commit}, uuid){
+        return API.getRoleDetail(uuid).then(res => {
+            commit('SAVE_CURRENTDETAIL',res)
         })
     }
 

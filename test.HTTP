@@ -22,3 +22,62 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 
 ###
 GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1
+
+
+
+### contacts/getUserProfileByUserId
+GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### department/getDepartment
+GET http://10.10.10.199:40001/v1/list/departmentTree HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### department/getDepartmentUser
+GET http://10.10.10.199:40001/v1/list/user/department/2 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+
+### department/getDepartmentDetail
+GET http://10.10.10.199:40001/v1/detail/department/2 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### department/getDepartmentList
+GET http://10.10.10.199:40001/v1/list/department?page=0&size=20 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### department/getAllDepartments
+GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### employee/getEmployeeList
+GET http://10.10.10.199:40001/v1/list/org/user?page=0&size=20 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### employee/getEmpByDepartId
+GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### employee/getUserByPhone
+GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### menuManage/getMenuList
+GET http://10.10.10.199:40001/v1/list/menuTree HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### menuManage/getMenuListByRole
+GET http://10.10.10.199:40001/v1/list/menuTree/role/1 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleManage/getRoleList
+GET  http://10.10.10.199:40001/v1/list/role?page=0&size=20 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleManage/getORGList
+GET  http://10.10.10.199:40001/v1/list/org HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleManage/getRoleDetail
+GET http://10.10.10.199:40001/v1/detail/role/1 HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60

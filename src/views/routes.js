@@ -15,6 +15,8 @@ files.keys().forEach(key=>{
     
 })
 
+console.log(dynamicRoutes)
+
 
 
 export default [

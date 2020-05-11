@@ -66,6 +66,7 @@ export default {
       ]
     };
   },
+
   computed: {
     ...mapState(NAME, ["roleMenus"]),
     menuTree() {
@@ -78,6 +79,9 @@ export default {
     this.$bus.$on('onRefleshMenuTree',_=>{
       this.initDataList();
     });
+  },
+  mounted(){
+
   },
   beforeDestroy () {
       this.$bus.$off('onRefleshMenuTree')

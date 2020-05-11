@@ -22,7 +22,13 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-dialog title="个人信息" :width="dialogWidth" :visible.sync="showProfile" append-to-body :close-on-click-modal="false">
+    <el-dialog
+      title="个人信息"
+      :width="dialogWidth"
+      :visible.sync="showProfile"
+      append-to-body
+      :close-on-click-modal="false"
+    >
       <el-form :model="infoForm" label-width="50px" ref="infoForm" label-position="left">
         <!-- <el-form-item> -->
         <div class="py-3" style="text-align:center;">
@@ -203,7 +209,6 @@ export default {
     srcFileSet(fileName, fileType, fileSize) {
       console.log(fileName, fileType, fileSize)
     },
-
     toggleShow() {
       this.show = !this.show
     },
@@ -216,8 +221,8 @@ export default {
     cropSuccess(imgDataUrl, field) {
       console.log('-------- crop success --------')
       console.log(field)
-      //   this.infoForm.faceUrl = imgDataUrl
-      //   this.params.file = imgDataUrl
+      this.infoForm.faceUrl = imgDataUrl
+      this.params.file = imgDataUrl
     },
     /**
      * upload success
@@ -231,7 +236,7 @@ export default {
       this.infoForm.faceUrl = 'http://10.10.10.199:40001/v1/file/' + jsonData.id
       console.log('field: ' + field)
     },
-    /**
+    /*console.log
      * upload fail
      *
      * [param] status    server api return error status, like 500

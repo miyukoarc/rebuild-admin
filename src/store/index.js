@@ -23,8 +23,6 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 const imFiles = require.context('./im',true,/\.js$/)
 
 const imModules = imFiles.keys().reduce((imModules,imModulesPath) => {
-
-  
   const moduleName = imModulesPath.replace(/^\.\//, 'im/').replace(/\.js$/,'')
   const value = imFiles(imModulesPath)
   imModules[moduleName] = value.default

@@ -286,4 +286,9 @@ export default {
 .el-switch__label {
   cursor: unset;
 }
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
 </style>

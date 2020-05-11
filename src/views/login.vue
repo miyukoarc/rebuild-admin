@@ -58,7 +58,6 @@
         <span style="margin-right:20px;">username: admin</span>
         <span>password: any</span>
         <el-button size="mini" type="success" style="margin-left:147px" @click="handleGenKey">GenKey</el-button>
-        <Test/>
       </div>
     </el-form>
   </div>
@@ -67,11 +66,8 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import { genKey } from '@/api/user'
-import Test from './test'
 export default {
-  components: {
-    Test
-  },
+
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {

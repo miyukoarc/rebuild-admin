@@ -3,7 +3,7 @@ import Iframe from './iframe.vue'
 
 export default [
     {
-        path: '/iframe',
+        path: ':iframe',
         component:Iframe,
         name: 'Iframe',
         meta: {

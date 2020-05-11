@@ -461,7 +461,7 @@ export default {
           })
           this.formData.roles = roles
           this.formData.target = this.formData.target.uuid
-        } else if (!(roles instanceof Array)) {
+        } else if (!(Array.isArray(roles))) {
           this.formData.roles = []
         }
         return this.formData

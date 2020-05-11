@@ -24,6 +24,7 @@
 <script>
 import {mapState} from 'vuex'
 export default {
+    name: 'IframeView',
   data (){
     return {
       iframeSrc: 'http://10.10.10.199:40000/swagger-ui.html#/structure-show-controller',

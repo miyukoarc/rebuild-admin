@@ -15,6 +15,7 @@
         @pageChange="pageChange"
         @btnFirst='handleEdit'
         @btnSecond='handleDelete'
+        @rowClick='handleRow'
         border
       />
     </el-container>
@@ -27,7 +28,16 @@
       :close-on-click-modal="false"
       >
       <cForm :formData='editFormData' @onSubmit='onSubmit' @onCancle='onCancle'/>
-    </el-dialog>  
+    </el-dialog>
+
+
+    <right-panel>
+        <div>
+            <role-detail />
+        </div>
+    </right-panel>
+
+
     
   </el-container>
 </template>
@@ -36,6 +46,7 @@
 import mHeadedr from "./header";
 import cTable from "@/components/CommonTable";
 import RightPanel from '@/components/RightPanel';
+import RoleDetail from './detail'
 import cForm from './form';
 import { mapState, mapMutations, mapActions } from "vuex";
 const NAME = "management";
@@ -46,6 +57,7 @@ export default {
     mHeadedr,
     RightPanel,
     cForm,
+    RoleDetail
   },
   data() {
     return {
@@ -142,6 +154,15 @@ export default {
     },
     onCancle(){
       this.showDialog = false;
+    },
+    handleRow(val){
+        // console.log(val)
+        this.$store.dispatch('role/getRoleDetail',val.uuid).then(()=>{
+            this.$store.commit('component/TOGGLE_PANEL', true);
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     },
   }
 };

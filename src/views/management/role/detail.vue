@@ -1,10 +1,34 @@
+<template>
+    <div class="p-3">
+        <div class="h5">角色</div>
+        <el-form label-position="left" label-width="100px">
+            <el-form-item label="名称">
+                <div>{{currentRoleDetail.name}}</div>
+            </el-form-item>
+            <el-form-item label="名称">
+                <div>{{currentRoleDetail.code}}</div>
+            </el-form-item>
+            <el-form-item label="菜单权限">
+                <app-link :to="`/d/management/menu/list?detail=${currentRoleDetail.uuid}`">
+                <el-button type="text">转到</el-button>
+                </app-link>
+            </el-form-item>
+            <el-form-item label="创建时间">
+                <div>{{currentRoleDetail.createdAt}}</div>
+            </el-form-item>
+            <el-form-item label="更新时间">
+                <div>{{currentRoleDetail.updatedAt}}</div>
+            </el-form-item>
+        </el-form>
+    </div>
+</template>
 <script>
 import { mapState, mapGetters } from 'vuex'
-import RelationCard from './card'
 import { isEmpty } from '@/utils/normal'
+import AppLink from '@/components/AppLink'
 export default {
   components: {
-    RelationCard
+      AppLink
   },
   data() {
     return {
@@ -19,23 +43,12 @@ export default {
         managerId: '',
         departmentId: ''
       },
-      rules: {
-        name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ],
-        code: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ]
-      }
     }
   },
   watch: {
-    currentDetail: {
+    currentRoleDetail: {
       handler(newVal, oldVal) {
         console.log(newVal)
-        this.initData()
       },
       deep: true,
       immediate: true
@@ -43,16 +56,11 @@ export default {
   },
   computed: {
     ...mapState({
-      org: state => state.user.userInfo.org,
-      currentParent: state => state.department.currentParent,
-      employeeList: state => state.employee.employeeList,
-      allDepartments: state => state.department.allDepartments,
-      currentDetail: state => state.department.currentDetail
+        currentRoleDetail: state => state.role.currentRoleDetail
     }),
     ...mapGetters(['showRightPanel'])
   },
   mounted() {
-    this.initData()
   },
   beforeUpdate() {},
   updated() {},
@@ -64,102 +72,20 @@ export default {
       this.$store.commit('component/TOGGLE_PANEL', false)
     },
     handleConfirm() {},
-    handleDel() {
-      this.$confirm('是否删除当前部门', 'Warning', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(async () => {
-          await this.$store
-            .dispatch('department/deleteDepartment', {
-              uuid: this.currentDetail.uuid
-            })
-            .then(_ => {
-              this.$store.dispatch('department/getDepartment')
-
-              this.$router.replace(this.$route.path)
-              this.$message({
-                type: 'success',
-                message: '删除成功'
-              })
-            })
-            .catch(err => {
-              this.$message({
-                type: 'error',
-                message: err.error
-              })
-            })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    initData() {
-      const currentManager = this.currentDetail.manager
-      this.setManagerForm.departmentId = this.currentDetail.uuid
-      this.updateForm.org = this.org.uuid
-      this.updateForm.uuid = this.currentDetail.uuid
-      this.updateForm.name = this.currentDetail.name
-      this.updateForm.code = this.currentDetail.code
-      if (this.currentParent.uuid) {
-        this.updateForm.parent = this.currentParent.uuid
-      }
-      if (!this.isEmpty(currentManager)) {
-        this.setManagerForm.managerId = currentManager.uuid
-      }
-    }
-  },
-  render() {
-    const { name, code, users, manager } = this.currentDetail
-    const { isEmpty, handleClose, currentParent } = this
-    return (
-      <div>
-        <h4>详情</h4>
-        <br />
-        <el-form label-width="100px" label-position="left">
-          <el-form-item label="名称">
-            <div>{name}</div>
-          </el-form-item>
-
-          <el-form-item label="Code">
-            <div>{code}</div>
-          </el-form-item>
-
-          <el-form-item label="上级">
-            {isEmpty(currentParent) ? '未指定' : 'currentParent.name'}
-          </el-form-item>
-          <el-form-item label="主管">
-            {isEmpty(manager) ? '未指定' : <el-tag>{manager.nickname}</el-tag>}
-          </el-form-item>
-          <el-form-item label="组织关系">
-            <relation-card></relation-card>
-          </el-form-item>
-
-          <el-form-item label="成员">
-            {isEmpty(users) ? (
-              <div>
-                {[] ||
-                  users.map(user => {
-                    return (
-                      <el-tag style={{ marginRight: '3px' }} key={user.uuid}>
-                        {user.nickname}
-                      </el-tag>
-                    )
-                  })}
-              </div>
-            ) : (
-              <div>未指定</div>
-            )}
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" type="success" onClick={handleClose}>
-              返回
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-    )
+    // initData() {
+    //   const currentManager = this.currentDetail.manager
+    //   this.setManagerForm.departmentId = this.currentDetail.uuid
+    //   this.updateForm.org = this.org.uuid
+    //   this.updateForm.uuid = this.currentDetail.uuid
+    //   this.updateForm.name = this.currentDetail.name
+    //   this.updateForm.code = this.currentDetail.code
+    //   if (this.currentParent.uuid) {
+    //     this.updateForm.parent = this.currentParent.uuid
+    //   }
+    //   if (!this.isEmpty(currentManager)) {
+    //     this.setManagerForm.managerId = currentManager.uuid
+    //   }
+    // }
   }
 }
 </script>

@@ -128,17 +128,18 @@ export default {
         const element = treeNodes[i];
         element.onmouseover = () => {
           if (!this.roleId) {
-            editNodes[i].style.opacity = 1;
-            delNodes[i].style.opacity = 1;
             editNodes[i].style.filter = 'opacity(1)';
             delNodes[i].style.filter = 'opacity(1)';
+             editNodes[i].style.opacity = 1;
+            delNodes[i].style.opacity = 1;
           }
         };
         element.onmouseleave = () => {
-          editNodes[i].style.opacity = 0;
-          delNodes[i].style.opacity = 0;
+          
           editNodes[i].style.filter = 'opacity(0)';
           delNodes[i].style.filter = 'opacity(0)';
+          editNodes[i].style.opacity = 0;
+          delNodes[i].style.opacity = 0;
         };
       }
     });

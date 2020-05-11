@@ -2,6 +2,8 @@
 import { mapState, mapGetters } from 'vuex'
 import RelationCard from './relation'
 import { isEmpty } from '@/utils/normal'
+import { requestWarn } from '@/utils/normal';
+
 export default {
   components: {
     RelationCard
@@ -91,7 +93,7 @@ export default {
             })
         })
         .catch(err => {
-          console.log(err)
+          requestWarn(err)
         })
     },
     initData() {
@@ -150,7 +152,7 @@ export default {
 
           <el-form-item label="员工">
             {isEmpty(users) ? (
-              <div>未指定</div>
+              <div>无</div>
             ) : (
               <div>
                 {users.map(user => {

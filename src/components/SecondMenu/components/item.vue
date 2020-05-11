@@ -52,7 +52,7 @@ export default {
       // this.transferQuery(this.menuType)
     },
     pushRoute(){
-      console.log()
+      // console.log()
       this.$router.push(this.item.url)
     },
     transferQuery(str){

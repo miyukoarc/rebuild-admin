@@ -9,6 +9,7 @@
       @current-change="handleCurrentChange"
       :showIndex="true"
       :showCheckBox="false"
+      :current-row-key="$route.query.detail"
       border
     />
   </el-container>
@@ -65,6 +66,18 @@ export default {
       ]
     };
   },
+    watch:{
+      $route: {
+          handler(newVal, oldVal){
+              if(newVal.query.detail){
+                  console.log("监听到了")
+                  this.handleCurrentChange({uuid:newVal.query.detail})
+              }
+          },
+          deep: true,
+          immediate: true
+      }
+  },
   computed: {
     ...mapState("role", ["roleList"])
   },
@@ -95,11 +108,14 @@ export default {
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
     cancelSelect(){
       this.$refs["singleTable"].$refs["table"].setCurrentRow();
+    },rowKey(row){
+        console.log(row.uuid)
     },
     handleCurrentChange(val) {
       let aParam = val?val.uuid:val
       this.currentRowID = aParam;
       this.$bus.$emit("handleCurrentChange", aParam);
+    //   this.$router.push({url})
       aParam&&this.getMenuListByRole(aParam).catch(err => {
         this.$message({
           type: "error",

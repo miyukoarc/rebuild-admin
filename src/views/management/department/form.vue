@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-form label-width="100px" label-position="left" ref="updateForm" :model="updateForm" :rules="rules">
+    <el-form
+      label-width="100px"
+      label-position="left"
+      ref="updateForm"
+      :model="updateForm"
+      :rules="rules"
+    >
       <el-form-item label="名称" prop="name">
         <el-input v-model="updateForm.name"></el-input>
       </el-form-item>
@@ -58,6 +64,8 @@
 import { mapState, mapGetters } from 'vuex'
 import RelationCard from './card'
 import { isEmpty } from '@/utils/normal'
+import { requestWarn } from '@/utils/normal';
+
 export default {
   components: {
     RelationCard
@@ -109,7 +117,7 @@ export default {
   mounted() {
     this.initData()
   },
-  inject:['reload'],
+  inject: ['reload'],
   beforeUpdate() {},
   updated() {},
   methods: {
@@ -118,39 +126,37 @@ export default {
     },
     handleClose() {
       // this.$store.commit('component/TOGGLE_PANEL', false)
-      this.$emit('closeDialog',false)
+      this.$emit('closeDialog', false)
     },
     handleConfirm(ref) {
-        this.$refs[ref].validate(valid => {
+      this.$refs[ref].validate(valid => {
         if (valid) {
           this.$store
             .dispatch('department/updateDepartment', this.updateForm)
             .then(async _ => {
-              this.reload();
-              if(this.setManagerForm.managerId){
+              this.reload()
+              if (this.setManagerForm.managerId) {
                 this.$store
-                .dispatch('department/setDepartmentManager', {
-                  ...this.setManagerForm
-                }).catch(err=>{
-                  this.$message({
+                  .dispatch('department/setDepartmentManager', {
+                    ...this.setManagerForm
+                  })
+                  .catch(err => {
+                    this.$message({
                       type: 'error',
                       message: err
                     })
-                })
+                  })
               }
 
-              
-
-                  this.$store.dispatch('department/getAllDepartments').then(_ => {
-                    this.$message({
-                      type: 'success',
-                      message: '操作成功'
-                    })
-                    this.$emit('closeDialog',false)
-                  })
-                //   this.showDialog = false
-                this.handleClose()
-                
+              this.$store.dispatch('department/getAllDepartments').then(_ => {
+                this.$message({
+                  type: 'success',
+                  message: '操作成功'
+                })
+                this.$emit('closeDialog', false)
+              })
+              //   this.showDialog = false
+              this.handleClose()
             })
             .catch(err => {
               this.$message({
@@ -161,9 +167,7 @@ export default {
         } else {
           return false
         }
-        
       })
-    
     },
     handleDel() {
       this.$confirm('是否删除当前部门', 'Warning', {
@@ -185,7 +189,7 @@ export default {
                 type: 'success',
                 message: '删除成功'
               })
-              this.$emit('closeDialog',false)
+              this.$emit('closeDialog', false)
             })
             .catch(err => {
               this.$message({
@@ -195,12 +199,11 @@ export default {
             })
         })
         .catch(err => {
-          console.log(err)
+          requestWarn(err)
         })
     },
     initData() {
-      this.$store
-            .dispatch('department/getAllDepartments');
+      this.$store.dispatch('department/getAllDepartments')
       const currentManager = this.currentDetail.manager
       this.setManagerForm.departmentId = this.currentDetail.uuid
       this.updateForm.org = this.org.uuid

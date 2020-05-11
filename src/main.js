@@ -24,13 +24,19 @@ import '@/permission' // permission control
 
 import tim from './tim'
 import TIM from 'tim-js-sdk'
-import {MessageBox} from 'element-ui'
+import { MessageBox } from 'element-ui'
 
 import '@/assets/icon/iconfont.css'
 import '@/assets/icon/tim.css'
 
-
-
+// import logger from '@/utils/logger';
+// Vue.use(logger,{
+//   prefix: () => new Date(),
+//   dev: true,
+//   shortname: true,
+//   levels: ["log", "warn", "debug", "error", "dir"],
+//   forceLevels: []
+// })
 
 //iconfont
 window.tim = tim

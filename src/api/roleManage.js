@@ -1,10 +1,16 @@
 import request from '@/utils/request'
 
 export function getRoleList(page){
+
+  /**
+   * 后台page从0开始的，前端初始为1.
+   * 请求前需要-1
+   * 请求完成需+1
+   */
   let nPage = {};
    if(page!=null){
     nPage.sort = page.sort+','+page.order;
-    nPage.page = page.page - 1; //后台page从0开始的，前端初始为1，请求前需要-1，请求完成需+1
+    nPage.page = page.page - 1; 
     nPage.size = page.rows;
    }
     return request({
@@ -15,7 +21,6 @@ export function getRoleList(page){
 }
 
 
-
 export function addRole(form){
   return request({
     url:'/v1/role/add',
@@ -23,13 +28,13 @@ export function addRole(form){
     data:form
   })
 }
+
 export function getORGList(){
   return request({
     url:'v1/list/org',
     method:'get'
   })
 }
-
 
 export function editRole(form){
   return request({
@@ -52,9 +57,18 @@ export function deleteRole(form){
 //     method:'get'
 //   })
 // }
+
+export function getRoleDetail(uuid){
+    return request({
+        url: '/v1/detail/role/'+uuid,
+        method: 'get',
+    })
+}
+
 export default {
     getRoleList,
     addRole,
     editRole,
     deleteRole,
+    getRoleDetail
 }

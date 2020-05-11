@@ -90,6 +90,7 @@ import { isEmpty } from "@/utils/normal";
 import EditForm from "./form.vue";
 import DepartmentDetail from "./detail";
 import RightPanel from "@/components/RightPanel";
+
 export default {
   components: {
     EditForm,
@@ -108,6 +109,7 @@ export default {
   },
   mounted() {
     this.getDepartment();
+    // log(12456)
   },
   methods: {
     ...mapActions("department", ["getDepartment"]),
@@ -124,7 +126,7 @@ export default {
         .dispatch("department/getDepartmentDetail", row.uuid)
         .then(_ => {
              this.getDepartment();
-          this.showDialog = true;
+             this.showDialog = true;
         });
       this.$router.push({ path: nextUrl });
     },
@@ -169,13 +171,13 @@ export default {
         });
       this.$router.push({ path: nextUrl });
     },
-    formatterRow: function(row, column, cellValue, index) {
+    formatterRow(row, column, cellValue, index) {
       // cellValue = Array.prototype.slice.call(cellValue)
       // if(cellValue instanceof Array){
       //   console.log(Object.getPrototypeOf(cellValue)===Array.prototype);
       //   console.log(typeof cellValue);
       // }
-      if (cellValue instanceof Array) {
+      if (Array.isArray(cellValue)) {
         return cellValue.length;
       } else {
         // if (!cellValue.isEmptyObj()) {

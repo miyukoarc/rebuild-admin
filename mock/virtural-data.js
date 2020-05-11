@@ -1,4 +1,2021 @@
 export default {
+    /**
+     * contacts.js
+     */
+    getUserProfileByUserId:{
+        "country": {},
+        "role": {
+          "createdAt": "2020-04-29 13:52:17",
+          "code": "1",
+          "name": "开发者",
+          "terminal": "ORG",
+          "version": 38,
+          "uuid": 1,
+          "updatedAt": "2020-05-09 12:26:18"
+        },
+        "unionId": "a8074f37ee942a6860a756984a7fc1d1",
+        "gender": "Gender_Type_Female",
+        "org": {
+          "createdAt": "2020-04-29 13:52:58",
+          "name": "天邮平台0754971220",
+          "uuid": 1,
+          "version": 13,
+          "updatedAt": "2020-05-08 16:37:51"
+        },
+        "city": {},
+        "version": 9,
+        "uuid": 7,
+        "enabled": true,
+        "createdAt": "2020-05-08 13:59:06",
+        "province": {},
+        "headimgurl": "http://10.10.10.199:40001/v1/file/5eb607a8b1b79708b8dec134",
+        "nickname": "Chloe",
+        "state": {
+          "createdAt": "2020-04-29 13:52:58",
+          "code": "enabled",
+          "stateType": "COMMON",
+          "name": "有效状态",
+          "sort": 20,
+          "version": 6,
+          "uuid": 2,
+          "entity": "user",
+          "updatedAt": "2020-05-07 16:01:51"
+        },
+        "position": null,
+        "department": {
+          "createdAt": "2020-05-09 10:09:23",
+          "code": "test",
+          "groupId": "@TGS#1NGH2XNG2",
+          "name": "测试部门",
+          "uuid": 4,
+          "version": 1,
+          "updatedAt": "2020-05-09 10:09:24"
+        },
+        "updatedAt": "2020-05-09 10:10:07"
+      },
+    /**
+     * department.js
+     */
+    getDepartment:{
+        "items": [
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:23:52",
+            "code": "test2",
+            "manager": {},
+            "groupId": "@TGS#1S423XNGW",
+            "name": "测试2部",
+            "version": 1,
+            "uuid": 7,
+            "users": {},
+            "updatedAt": "2020-05-09 10:23:53"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:09:23",
+            "code": "test",
+            "manager": {},
+            "groupId": "@TGS#1NGH2XNG2",
+            "name": "测试部门",
+            "version": 1,
+            "uuid": 4,
+            "users": [
+              {
+                "uuid": 7
+              }
+            ],
+            "updatedAt": "2020-05-09 10:09:24"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "department1",
+            "manager": {},
+            "children": [
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 13:52:58",
+                  "code": "department1",
+                  "groupId": "@TGS#1HHGM6MGM",
+                  "name": "部门1",
+                  "uuid": 1,
+                  "version": 5,
+                  "updatedAt": "2020-05-08 11:57:50"
+                },
+                "createdAt": "2020-04-29 13:52:59",
+                "code": "department3",
+                "manager": {
+                  "createdAt": "2020-04-29 13:53:57",
+                  "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+                  "gender": "Gender_Type_Male",
+                  "nickname": "Jedi",
+                  "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+                  "position": "MANAGER",
+                  "uuid": 3,
+                  "version": 14,
+                  "enabled": true,
+                  "updatedAt": "2020-05-09 10:01:06"
+                },
+                "children": [
+                  {
+                    "parent": {
+                      "createdAt": "2020-04-29 13:52:59",
+                      "code": "department3",
+                      "groupId": "@TGS#1IIGM6MGO",
+                      "name": "部门2",
+                      "uuid": 2,
+                      "version": 6,
+                      "updatedAt": "2020-05-09 09:41:33"
+                    },
+                    "createdAt": "2020-04-29 13:52:59",
+                    "code": "department2",
+                    "manager": {},
+                    "groupId": "@TGS#1JJGM6MGQ",
+                    "name": "部门3",
+                    "version": 5,
+                    "uuid": 3,
+                    "users": [
+                      {
+                        "uuid": 2
+                      }
+                    ],
+                    "updatedAt": "2020-05-09 09:41:43"
+                  }
+                ],
+                "groupId": "@TGS#1IIGM6MGO",
+                "name": "部门2",
+                "version": 6,
+                "uuid": 2,
+                "users": [
+                  {
+                    "uuid": 5
+                  }
+                ],
+                "updatedAt": "2020-05-09 09:41:33"
+              }
+            ],
+            "groupId": "@TGS#1HHGM6MGM",
+            "name": "部门1",
+            "version": 5,
+            "uuid": 1,
+            "users": [
+              {
+                "uuid": 3
+              }
+            ],
+            "updatedAt": "2020-05-08 11:57:50"
+          }
+        ],
+        "total": 5,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      createDepartment:{
+          code: '200'
+      },
+      updateDepartment: {
+        code: '200'
+      },
+      getDepartmentUser: {
+        "items": [
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "7e4d22aa9870ffa5983587e64bab284c",
+            "gender": null,
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 5,
+            "version": 4,
+            "enabled": true,
+            "createdAt": "2020-04-30 12:10:33",
+            "headimgurl": "https://www.gravatar.com/avatar/eecd39de3bb422a1fec61af1054cc820?d=robohash&s=256",
+            "nickname": "用户nfzsa4",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": null,
+            "department": {
+              "createdAt": "2020-04-29 13:52:59",
+              "code": "department3",
+              "groupId": "@TGS#1IIGM6MGO",
+              "name": "部门2",
+              "uuid": 2,
+              "version": 6,
+              "updatedAt": "2020-05-09 09:41:33"
+            },
+            "userinfo": {
+              "isOnLine": false,
+              "mobile": "13700000003",
+              "uuid": 5
+            },
+            "updatedAt": "2020-05-07 16:32:36"
+          }
+        ],
+        "total": 1,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      getDepartmentDetail: {
+        "parent": {
+          "createdAt": "2020-04-29 13:52:58",
+          "code": "department1",
+          "groupId": "@TGS#1HHGM6MGM",
+          "name": "部门1",
+          "uuid": 1,
+          "version": 5,
+          "updatedAt": "2020-05-08 11:57:50"
+        },
+        "createdAt": "2020-04-29 13:52:59",
+        "code": "department3",
+        "manager": {
+          "createdAt": "2020-04-29 13:53:57",
+          "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+          "gender": "Gender_Type_Male",
+          "nickname": "Jedi",
+          "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+          "position": "MANAGER",
+          "uuid": 3,
+          "version": 14,
+          "enabled": true,
+          "updatedAt": "2020-05-09 10:01:06"
+        },
+        "children": [
+          {
+            "createdAt": "2020-04-29 13:52:59",
+            "code": "department2",
+            "groupId": "@TGS#1JJGM6MGQ",
+            "name": "部门3",
+            "version": 5,
+            "uuid": 3,
+            "updatedAt": "2020-05-09 09:41:43"
+          }
+        ],
+        "groupId": "@TGS#1IIGM6MGO",
+        "name": "部门2",
+        "version": 6,
+        "uuid": 2,
+        "users": [
+          {
+            "createdAt": "2020-04-30 12:10:33",
+            "unionId": "7e4d22aa9870ffa5983587e64bab284c",
+            "gender": null,
+            "nickname": "用户nfzsa4",
+            "headimgurl": "https://www.gravatar.com/avatar/eecd39de3bb422a1fec61af1054cc820?d=robohash&s=256",
+            "position": null,
+            "uuid": 5,
+            "version": 4,
+            "enabled": true,
+            "updatedAt": "2020-05-07 16:32:36"
+          }
+        ],
+        "updatedAt": "2020-05-09 09:41:33"
+      },
+      getDepartmentList:{
+        "items": [
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:23:52",
+            "code": "test2",
+            "manager": {},
+            "groupId": "@TGS#1S423XNGW",
+            "name": "测试2部",
+            "version": 1,
+            "uuid": 7,
+            "users": {},
+            "updatedAt": "2020-05-09 10:23:53"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:09:23",
+            "code": "test",
+            "manager": {},
+            "groupId": "@TGS#1NGH2XNG2",
+            "name": "测试部门",
+            "version": 1,
+            "uuid": 4,
+            "users": [
+              {
+                "uuid": 7
+              }
+            ],
+            "updatedAt": "2020-05-09 10:09:24"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 13:52:59",
+              "code": "department3",
+              "groupId": "@TGS#1IIGM6MGO",
+              "name": "部门2",
+              "uuid": 2,
+              "version": 6,
+              "updatedAt": "2020-05-09 09:41:33"
+            },
+            "createdAt": "2020-04-29 13:52:59",
+            "code": "department2",
+            "manager": {},
+            "groupId": "@TGS#1JJGM6MGQ",
+            "name": "部门3",
+            "version": 5,
+            "uuid": 3,
+            "users": [
+              {
+                "uuid": 2
+              }
+            ],
+            "updatedAt": "2020-05-09 09:41:43"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "department1",
+              "groupId": "@TGS#1HHGM6MGM",
+              "name": "部门1",
+              "uuid": 1,
+              "version": 5,
+              "updatedAt": "2020-05-08 11:57:50"
+            },
+            "createdAt": "2020-04-29 13:52:59",
+            "code": "department3",
+            "manager": {
+              "createdAt": "2020-04-29 13:53:57",
+              "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+              "gender": "Gender_Type_Male",
+              "nickname": "Jedi",
+              "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+              "position": "MANAGER",
+              "uuid": 3,
+              "version": 14,
+              "enabled": true,
+              "updatedAt": "2020-05-09 10:01:06"
+            },
+            "groupId": "@TGS#1IIGM6MGO",
+            "name": "部门2",
+            "version": 6,
+            "uuid": 2,
+            "users": [
+              {
+                "uuid": 5
+              }
+            ],
+            "updatedAt": "2020-05-09 09:41:33"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "department1",
+            "manager": {},
+            "groupId": "@TGS#1HHGM6MGM",
+            "name": "部门1",
+            "version": 5,
+            "uuid": 1,
+            "users": [
+              {
+                "uuid": 3
+              }
+            ],
+            "updatedAt": "2020-05-08 11:57:50"
+          }
+        ],
+        "total": 5,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      getAllDepartments: {
+        "items": [
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:23:52",
+            "code": "test2",
+            "manager": {},
+            "groupId": "@TGS#1S423XNGW",
+            "name": "测试2部",
+            "version": 1,
+            "uuid": 7,
+            "users": {},
+            "updatedAt": "2020-05-09 10:23:53"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 10:09:23",
+            "code": "test",
+            "manager": {},
+            "groupId": "@TGS#1NGH2XNG2",
+            "name": "测试部门",
+            "version": 1,
+            "uuid": 4,
+            "users": [
+              {
+                "uuid": 7
+              }
+            ],
+            "updatedAt": "2020-05-09 10:09:24"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 13:52:59",
+              "code": "department3",
+              "groupId": "@TGS#1IIGM6MGO",
+              "name": "部门2",
+              "uuid": 2,
+              "version": 6,
+              "updatedAt": "2020-05-09 09:41:33"
+            },
+            "createdAt": "2020-04-29 13:52:59",
+            "code": "department2",
+            "manager": {},
+            "groupId": "@TGS#1JJGM6MGQ",
+            "name": "部门3",
+            "version": 5,
+            "uuid": 3,
+            "users": [
+              {
+                "uuid": 2
+              }
+            ],
+            "updatedAt": "2020-05-09 09:41:43"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "department1",
+              "groupId": "@TGS#1HHGM6MGM",
+              "name": "部门1",
+              "uuid": 1,
+              "version": 5,
+              "updatedAt": "2020-05-08 11:57:50"
+            },
+            "createdAt": "2020-04-29 13:52:59",
+            "code": "department3",
+            "manager": {
+              "createdAt": "2020-04-29 13:53:57",
+              "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+              "gender": "Gender_Type_Male",
+              "nickname": "Jedi",
+              "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+              "position": "MANAGER",
+              "uuid": 3,
+              "version": 14,
+              "enabled": true,
+              "updatedAt": "2020-05-09 10:01:06"
+            },
+            "groupId": "@TGS#1IIGM6MGO",
+            "name": "部门2",
+            "version": 6,
+            "uuid": 2,
+            "users": [
+              {
+                "uuid": 5
+              }
+            ],
+            "updatedAt": "2020-05-09 09:41:33"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "department1",
+            "manager": {},
+            "groupId": "@TGS#1HHGM6MGM",
+            "name": "部门1",
+            "version": 5,
+            "uuid": 1,
+            "users": [
+              {
+                "uuid": 3
+              }
+            ],
+            "updatedAt": "2020-05-08 11:57:50"
+          }
+        ],
+        "total": 5,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      /**
+       * employee.js
+       */
+      getEmployeeList: {
+        "items": [
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "a8074f37ee942a6860a756984a7fc1d1",
+            "gender": "Gender_Type_Female",
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 7,
+            "version": 9,
+            "enabled": true,
+            "createdAt": "2020-05-08 13:59:06",
+            "headimgurl": "http://10.10.10.199:40001/v1/file/5eb607a8b1b79708b8dec134",
+            "nickname": "Chloe",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": null,
+            "department": {
+              "createdAt": "2020-05-09 10:09:23",
+              "code": "test",
+              "groupId": "@TGS#1NGH2XNG2",
+              "name": "测试部门",
+              "uuid": 4,
+              "version": 1,
+              "updatedAt": "2020-05-09 10:09:24"
+            },
+            "userinfo": {
+              "mobile": "13700000004",
+              "uuid": 7
+            },
+            "updatedAt": "2020-05-09 10:10:07"
+          },
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "10d993286ce8aa410af963ceae8a0ef7",
+            "gender": null,
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 6,
+            "version": 3,
+            "enabled": true,
+            "createdAt": "2020-05-06 16:28:28",
+            "headimgurl": "https://www.gravatar.com/avatar/79fb79588bcf64787fab17cc4f6f1b9c?d=robohash&s=256",
+            "nickname": "用户rgf4xd",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": null,
+            "department": {},
+            "userinfo": {
+              "mobile": "13700000005",
+              "uuid": 6
+            },
+            "updatedAt": "2020-05-08 10:59:06"
+          },
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "7e4d22aa9870ffa5983587e64bab284c",
+            "gender": null,
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 5,
+            "version": 4,
+            "enabled": true,
+            "createdAt": "2020-04-30 12:10:33",
+            "headimgurl": "https://www.gravatar.com/avatar/eecd39de3bb422a1fec61af1054cc820?d=robohash&s=256",
+            "nickname": "用户nfzsa4",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": null,
+            "department": {
+              "createdAt": "2020-04-29 13:52:59",
+              "code": "department3",
+              "groupId": "@TGS#1IIGM6MGO",
+              "name": "部门2",
+              "uuid": 2,
+              "version": 6,
+              "updatedAt": "2020-05-09 09:41:33"
+            },
+            "userinfo": {
+              "mobile": "13700000003",
+              "uuid": 5
+            },
+            "updatedAt": "2020-05-07 16:32:36"
+          },
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+            "gender": "Gender_Type_Male",
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 3,
+            "version": 14,
+            "enabled": true,
+            "createdAt": "2020-04-29 13:53:57",
+            "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+            "nickname": "Jedi",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": "MANAGER",
+            "department": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "department1",
+              "groupId": "@TGS#1HHGM6MGM",
+              "name": "部门1",
+              "uuid": 1,
+              "version": 5,
+              "updatedAt": "2020-05-08 11:57:50"
+            },
+            "userinfo": {
+              "mobile": "13700000002",
+              "uuid": 3
+            },
+            "updatedAt": "2020-05-09 10:01:06"
+          },
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "b53e0915d3b244db66a9bd74524b6931",
+            "gender": "Gender_Type_Female",
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 2,
+            "version": 6,
+            "enabled": true,
+            "createdAt": "2020-04-29 13:53:54",
+            "headimgurl": "https://www.gravatar.com/avatar/24fe9a1a26e3007977b6f5eabdd64afa?d=robohash&s=256",
+            "nickname": "用户gativs",
+            "state": {
+              "createdAt": "2020-04-29 16:14:36",
+              "code": "wait_payment",
+              "stateType": "BEGIN",
+              "name": "待支付",
+              "sort": 10,
+              "uuid": 4,
+              "version": 4,
+              "entity": "order",
+              "updatedAt": "2020-04-30 17:01:18"
+            },
+            "position": "MANAGER",
+            "department": {
+              "createdAt": "2020-04-29 13:52:59",
+              "code": "department2",
+              "groupId": "@TGS#1JJGM6MGQ",
+              "name": "部门3",
+              "uuid": 3,
+              "version": 5,
+              "updatedAt": "2020-05-09 09:41:43"
+            },
+            "userinfo": {
+              "mobile": "13700000001",
+              "uuid": 2
+            },
+            "updatedAt": "2020-05-08 13:50:30"
+          }
+        ],
+        "total": 5,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      getEmpByDepartId:{
+        "items": [
+          {
+            "role": {
+              "createdAt": "2020-04-29 13:52:17",
+              "code": "1",
+              "name": "开发者",
+              "terminal": "ORG",
+              "version": 38,
+              "uuid": 1,
+              "updatedAt": "2020-05-09 12:26:18"
+            },
+            "unionId": "2a8e7a4ddb5caa599c41575ef9a5cdda",
+            "gender": "Gender_Type_Male",
+            "org": {
+              "createdAt": "2020-04-29 13:52:58",
+              "name": "天邮平台0754971220",
+              "uuid": 1,
+              "version": 13,
+              "updatedAt": "2020-05-08 16:37:51"
+            },
+            "uuid": 3,
+            "version": 14,
+            "enabled": true,
+            "createdAt": "2020-04-29 13:53:57",
+            "headimgurl": "http://10.10.10.199:40001/v1/file/5eb52f0239a7227d1ef4dfbd",
+            "nickname": "Jedi",
+            "state": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "enabled",
+              "stateType": "COMMON",
+              "name": "有效状态",
+              "sort": 20,
+              "uuid": 2,
+              "version": 6,
+              "entity": "user",
+              "updatedAt": "2020-05-07 16:01:51"
+            },
+            "position": "MANAGER",
+            "department": {
+              "createdAt": "2020-04-29 13:52:58",
+              "code": "department1",
+              "groupId": "@TGS#1HHGM6MGM",
+              "name": "部门1",
+              "uuid": 1,
+              "version": 5,
+              "updatedAt": "2020-05-08 11:57:50"
+            },
+            "userinfo": {
+              "isOnLine": false,
+              "mobile": "13700000002",
+              "uuid": 3
+            },
+            "updatedAt": "2020-05-09 10:01:06"
+          }
+        ],
+        "total": 1,
+        "pageNumber": 0,
+        "pageSize": 20
+      },addEmployee:{
+          code: '200'
+      },
+      getUserByPhone:{
+        "country": {},
+        "role": {
+          "createdAt": "2020-04-29 13:52:17",
+          "code": "1",
+          "name": "开发者",
+          "terminal": "ORG",
+          "version": 38,
+          "uuid": 1,
+          "updatedAt": "2020-05-09 12:26:18"
+        },
+        "unionId": "a8074f37ee942a6860a756984a7fc1d1",
+        "gender": "Gender_Type_Female",
+        "org": {
+          "createdAt": "2020-04-29 13:52:58",
+          "name": "天邮平台0754971220",
+          "uuid": 1,
+          "version": 13,
+          "updatedAt": "2020-05-08 16:37:51"
+        },
+        "city": {},
+        "version": 9,
+        "uuid": 7,
+        "enabled": true,
+        "createdAt": "2020-05-08 13:59:06",
+        "province": {},
+        "headimgurl": "http://10.10.10.199:40001/v1/file/5eb607a8b1b79708b8dec134",
+        "nickname": "Chloe",
+        "state": {
+          "createdAt": "2020-04-29 13:52:58",
+          "code": "enabled",
+          "stateType": "COMMON",
+          "name": "有效状态",
+          "sort": 20,
+          "version": 6,
+          "uuid": 2,
+          "entity": "user",
+          "updatedAt": "2020-05-07 16:01:51"
+        },
+        "position": null,
+        "department": {
+          "createdAt": "2020-05-09 10:09:23",
+          "code": "test",
+          "groupId": "@TGS#1NGH2XNG2",
+          "name": "测试部门",
+          "uuid": 4,
+          "version": 1,
+          "updatedAt": "2020-05-09 10:09:24"
+        },
+        "updatedAt": "2020-05-09 10:10:07"
+      },
+      departSetting: {
+          code: '200',
+      },
+      addEmployForUser: {
+          code: '200'
+      },
+      deleteUserByUnionId: {
+        code: '200'
+      },
+      locateUserRole: {
+        code: '200'
+      },
+      /**
+       * menuManage
+       */
+      addMenu: {
+          code: '200'
+      },
+      getMenuList:{
+        "items": [
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "home",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_manager",
+                "name": "平台管理员",
+                "terminal": "ORG",
+                "version": 14,
+                "uuid": 3,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_super",
+                "name": "平台超管",
+                "terminal": "ORG",
+                "version": 12,
+                "uuid": 4,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_employee",
+                "name": "平台员工",
+                "terminal": "ORG",
+                "version": 8,
+                "uuid": 5,
+                "updatedAt": "2020-05-06 09:24:38"
+              }
+            ],
+            "name": "主页",
+            "iconUrl": "dashboard",
+            "sort": 1,
+            "uuid": 1,
+            "version": 1,
+            "url": "/d/dashboard",
+            "updatedAt": "2020-04-29 14:51:39"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "conversation",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_super",
+                "name": "平台超管",
+                "terminal": "ORG",
+                "version": 12,
+                "uuid": 4,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_employee",
+                "name": "平台员工",
+                "terminal": "ORG",
+                "version": 8,
+                "uuid": 5,
+                "updatedAt": "2020-05-06 09:24:38"
+              }
+            ],
+            "name": "会话",
+            "iconUrl": "form",
+            "sort": 1,
+            "uuid": 3,
+            "version": 2,
+            "url": "/d/conversation/conversation/list",
+            "updatedAt": "2020-05-08 14:17:16"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "management",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_manager",
+                "name": "平台管理员",
+                "terminal": "ORG",
+                "version": 14,
+                "uuid": 3,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_employee",
+                "name": "平台员工",
+                "terminal": "ORG",
+                "version": 8,
+                "uuid": 5,
+                "updatedAt": "2020-05-06 09:24:38"
+              }
+            ],
+            "name": "第二页",
+            "iconUrl": "nested",
+            "sort": 2,
+            "uuid": 5,
+            "version": 1,
+            "url": "/d/management",
+            "updatedAt": "2020-04-29 17:44:52"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "friend",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_super",
+                "name": "平台超管",
+                "terminal": "ORG",
+                "version": 12,
+                "uuid": 4,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_employee",
+                "name": "平台员工",
+                "terminal": "ORG",
+                "version": 8,
+                "uuid": 5,
+                "updatedAt": "2020-05-06 09:24:38"
+              }
+            ],
+            "name": "联系人",
+            "iconUrl": "example",
+            "sort": 3,
+            "uuid": 2,
+            "version": 1,
+            "url": "/d/friend/friend/list",
+            "updatedAt": "2020-05-08 14:17:40"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 14:09:46",
+            "code": "manager",
+            "children": [
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:25:40",
+                "code": "userManage",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "user",
+                    "name": "普通用户",
+                    "terminal": "USER",
+                    "version": 3,
+                    "uuid": 2,
+                    "updatedAt": "2020-05-08 11:44:21"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_manager",
+                    "name": "平台管理员",
+                    "terminal": "ORG",
+                    "version": 14,
+                    "uuid": 3,
+                    "updatedAt": "2020-05-09 17:19:07"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_employee",
+                    "name": "平台员工",
+                    "terminal": "ORG",
+                    "version": 8,
+                    "uuid": 5,
+                    "updatedAt": "2020-05-06 09:24:38"
+                  }
+                ],
+                "name": "用户管理",
+                "iconUrl": "",
+                "sort": 1,
+                "uuid": 14,
+                "version": 1,
+                "url": "/d/management/user/list",
+                "updatedAt": "2020-04-29 14:49:48"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 17:42:14",
+                "code": "dasdas",
+                "roles": {},
+                "name": "iidasdas",
+                "iconUrl": "",
+                "sort": 1,
+                "uuid": 21,
+                "version": 0,
+                "url": "/d/d//d",
+                "updatedAt": "2020-04-29 17:42:14"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:17:09",
+                "code": "employee",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_employee",
+                    "name": "平台员工",
+                    "terminal": "ORG",
+                    "version": 8,
+                    "uuid": 5,
+                    "updatedAt": "2020-05-06 09:24:38"
+                  }
+                ],
+                "name": "员工管理",
+                "iconUrl": "",
+                "sort": 4,
+                "uuid": 13,
+                "version": 0,
+                "url": "/d/management/employee/list",
+                "updatedAt": "2020-04-29 14:17:09"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:14:55",
+                "code": "roleManager",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_employee",
+                    "name": "平台员工",
+                    "terminal": "ORG",
+                    "version": 8,
+                    "uuid": 5,
+                    "updatedAt": "2020-05-06 09:24:38"
+                  }
+                ],
+                "name": "角色管理",
+                "iconUrl": "",
+                "sort": 6,
+                "uuid": 11,
+                "version": 0,
+                "url": "/d/management/role/list",
+                "updatedAt": "2020-04-29 14:14:55"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:16:02",
+                "code": "departManage",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_employee",
+                    "name": "平台员工",
+                    "terminal": "ORG",
+                    "version": 8,
+                    "uuid": 5,
+                    "updatedAt": "2020-05-06 09:24:38"
+                  }
+                ],
+                "name": "部门管理",
+                "iconUrl": "",
+                "sort": 9,
+                "uuid": 12,
+                "version": 0,
+                "url": "/d/management/department/list",
+                "updatedAt": "2020-04-29 14:16:02"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:11:44",
+                "code": "menu",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_employee",
+                    "name": "平台员工",
+                    "terminal": "ORG",
+                    "version": 8,
+                    "uuid": 5,
+                    "updatedAt": "2020-05-06 09:24:38"
+                  }
+                ],
+                "name": "菜单管理",
+                "iconUrl": "",
+                "sort": 10,
+                "uuid": 10,
+                "version": 0,
+                "url": "/d/management/menu/list",
+                "updatedAt": "2020-04-29 14:11:44"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-05-09 09:31:14",
+                "code": "orgManage",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  },
+                  {
+                    "createdAt": "2020-04-29 13:52:58",
+                    "code": "platform_manager",
+                    "name": "平台管理员",
+                    "terminal": "ORG",
+                    "version": 14,
+                    "uuid": 3,
+                    "updatedAt": "2020-05-09 17:19:07"
+                  }
+                ],
+                "name": "企业管理",
+                "iconUrl": "",
+                "sort": 39,
+                "uuid": 22,
+                "version": 0,
+                "url": "/d/management/org/list",
+                "updatedAt": "2020-05-09 09:31:14"
+              }
+            ],
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "user",
+                "name": "普通用户",
+                "terminal": "USER",
+                "version": 3,
+                "uuid": 2,
+                "updatedAt": "2020-05-08 11:44:21"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_manager",
+                "name": "平台管理员",
+                "terminal": "ORG",
+                "version": 14,
+                "uuid": 3,
+                "updatedAt": "2020-05-09 17:19:07"
+              },
+              {
+                "createdAt": "2020-04-29 13:52:58",
+                "code": "platform_employee",
+                "name": "平台员工",
+                "terminal": "ORG",
+                "version": 8,
+                "uuid": 5,
+                "updatedAt": "2020-05-06 09:24:38"
+              }
+            ],
+            "name": "管理",
+            "iconUrl": "table",
+            "sort": 27,
+            "uuid": 9,
+            "version": 13,
+            "url": "/d/management",
+            "updatedAt": "2020-05-08 14:18:46"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 12:26:06",
+            "code": "template",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              }
+            ],
+            "name": "模板",
+            "iconUrl": "eye",
+            "sort": 33,
+            "uuid": 23,
+            "version": 0,
+            "url": "/d/template",
+            "updatedAt": "2020-05-09 12:26:06"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 17:23:45",
+            "code": "stateSetting",
+            "children": [
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 17:23:45",
+                  "code": "stateSetting",
+                  "name": "状态机",
+                  "iconUrl": "eye-open",
+                  "sort": 34,
+                  "uuid": 17,
+                  "version": 4,
+                  "url": "/d/stateSetting",
+                  "updatedAt": "2020-05-08 14:18:17"
+                },
+                "createdAt": "2020-04-29 17:30:39",
+                "code": "UserState",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  }
+                ],
+                "name": "用户状态机",
+                "iconUrl": "",
+                "sort": 6,
+                "uuid": 18,
+                "version": 0,
+                "url": "/d/stateSetting/list/user",
+                "updatedAt": "2020-04-29 17:30:39"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 17:23:45",
+                  "code": "stateSetting",
+                  "name": "状态机",
+                  "iconUrl": "eye-open",
+                  "sort": 34,
+                  "uuid": 17,
+                  "version": 4,
+                  "url": "/d/stateSetting",
+                  "updatedAt": "2020-05-08 14:18:17"
+                },
+                "createdAt": null,
+                "code": "orderState",
+                "roles": [
+                  {
+                    "createdAt": "2020-04-29 13:52:17",
+                    "code": "1",
+                    "name": "开发者",
+                    "terminal": "ORG",
+                    "version": 38,
+                    "uuid": 1,
+                    "updatedAt": "2020-05-09 12:26:18"
+                  }
+                ],
+                "name": "订单状态机",
+                "iconUrl": null,
+                "sort": 16,
+                "uuid": 19,
+                "version": 1,
+                "url": "/d/stateSetting/list/order",
+                "updatedAt": "2020-05-07 10:08:28"
+              }
+            ],
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              }
+            ],
+            "name": "状态机",
+            "iconUrl": "eye-open",
+            "sort": 34,
+            "uuid": 17,
+            "version": 4,
+            "url": "/d/stateSetting",
+            "updatedAt": "2020-05-08 14:18:17"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "orgInterface",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              }
+            ],
+            "name": "企业端接口",
+            "iconUrl": "link",
+            "sort": 107,
+            "uuid": 4,
+            "version": 1,
+            "url": "http://10.10.10.199:40001/swagger-ui.html",
+            "updatedAt": "2020-04-29 14:50:54"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "oauthInterface",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              }
+            ],
+            "name": "登录端接口",
+            "iconUrl": "tree",
+            "sort": 202,
+            "uuid": 7,
+            "version": 1,
+            "url": "http://10.10.10.199:40000/swagger-ui.html",
+            "updatedAt": "2020-04-29 14:50:59"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "dbStructure",
+            "roles": [
+              {
+                "createdAt": "2020-04-29 13:52:17",
+                "code": "1",
+                "name": "开发者",
+                "terminal": "ORG",
+                "version": 38,
+                "uuid": 1,
+                "updatedAt": "2020-05-09 12:26:18"
+              }
+            ],
+            "name": "数据格式",
+            "iconUrl": "password",
+            "sort": 300,
+            "uuid": 6,
+            "version": 1,
+            "url": "http://10.10.10.199:40001/structure",
+            "updatedAt": "2020-04-29 14:50:47"
+          }
+        ],
+        "total": 19,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      getMenuListByRole:{
+        "items": [
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "home",
+            "name": "主页",
+            "iconUrl": "dashboard",
+            "sort": 1,
+            "uuid": 1,
+            "version": 1,
+            "url": "/d/dashboard",
+            "updatedAt": "2020-04-29 14:51:39"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "conversation",
+            "name": "会话",
+            "iconUrl": "form",
+            "sort": 1,
+            "uuid": 3,
+            "version": 2,
+            "url": "/d/conversation/conversation/list",
+            "updatedAt": "2020-05-08 14:17:16"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "friend",
+            "name": "联系人",
+            "iconUrl": "example",
+            "sort": 3,
+            "uuid": 2,
+            "version": 1,
+            "url": "/d/friend/friend/list",
+            "updatedAt": "2020-05-08 14:17:40"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 14:09:46",
+            "code": "manager",
+            "children": [
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:25:40",
+                "code": "userManage",
+                "name": "用户管理",
+                "iconUrl": "",
+                "sort": 1,
+                "uuid": 14,
+                "version": 1,
+                "url": "/d/management/user/list",
+                "updatedAt": "2020-04-29 14:49:48"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:17:09",
+                "code": "employee",
+                "name": "员工管理",
+                "iconUrl": "",
+                "sort": 4,
+                "uuid": 13,
+                "version": 0,
+                "url": "/d/management/employee/list",
+                "updatedAt": "2020-04-29 14:17:09"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:14:55",
+                "code": "roleManager",
+                "name": "角色管理",
+                "iconUrl": "",
+                "sort": 6,
+                "uuid": 11,
+                "version": 0,
+                "url": "/d/management/role/list",
+                "updatedAt": "2020-04-29 14:14:55"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:16:02",
+                "code": "departManage",
+                "name": "部门管理",
+                "iconUrl": "",
+                "sort": 9,
+                "uuid": 12,
+                "version": 0,
+                "url": "/d/management/department/list",
+                "updatedAt": "2020-04-29 14:16:02"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-04-29 14:11:44",
+                "code": "menu",
+                "name": "菜单管理",
+                "iconUrl": "",
+                "sort": 10,
+                "uuid": 10,
+                "version": 0,
+                "url": "/d/management/menu/list",
+                "updatedAt": "2020-04-29 14:11:44"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 14:09:46",
+                  "code": "manager",
+                  "name": "管理",
+                  "iconUrl": "table",
+                  "sort": 27,
+                  "uuid": 9,
+                  "version": 13,
+                  "url": "/d/management",
+                  "updatedAt": "2020-05-08 14:18:46"
+                },
+                "createdAt": "2020-05-09 09:31:14",
+                "code": "orgManage",
+                "name": "企业管理",
+                "iconUrl": "",
+                "sort": 39,
+                "uuid": 22,
+                "version": 0,
+                "url": "/d/management/org/list",
+                "updatedAt": "2020-05-09 09:31:14"
+              }
+            ],
+            "name": "管理",
+            "iconUrl": "table",
+            "sort": 27,
+            "uuid": 9,
+            "version": 13,
+            "url": "/d/management",
+            "updatedAt": "2020-05-08 14:18:46"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-05-09 12:26:06",
+            "code": "template",
+            "name": "模板",
+            "iconUrl": "eye",
+            "sort": 33,
+            "uuid": 23,
+            "version": 0,
+            "url": "/d/template",
+            "updatedAt": "2020-05-09 12:26:06"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 17:23:45",
+            "code": "stateSetting",
+            "children": [
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 17:23:45",
+                  "code": "stateSetting",
+                  "name": "状态机",
+                  "iconUrl": "eye-open",
+                  "sort": 34,
+                  "uuid": 17,
+                  "version": 4,
+                  "url": "/d/stateSetting",
+                  "updatedAt": "2020-05-08 14:18:17"
+                },
+                "createdAt": "2020-04-29 17:30:39",
+                "code": "UserState",
+                "name": "用户状态机",
+                "iconUrl": "",
+                "sort": 6,
+                "uuid": 18,
+                "version": 0,
+                "url": "/d/stateSetting/list/user",
+                "updatedAt": "2020-04-29 17:30:39"
+              },
+              {
+                "parent": {
+                  "createdAt": "2020-04-29 17:23:45",
+                  "code": "stateSetting",
+                  "name": "状态机",
+                  "iconUrl": "eye-open",
+                  "sort": 34,
+                  "uuid": 17,
+                  "version": 4,
+                  "url": "/d/stateSetting",
+                  "updatedAt": "2020-05-08 14:18:17"
+                },
+                "createdAt": null,
+                "code": "orderState",
+                "name": "订单状态机",
+                "iconUrl": null,
+                "sort": 16,
+                "uuid": 19,
+                "version": 1,
+                "url": "/d/stateSetting/list/order",
+                "updatedAt": "2020-05-07 10:08:28"
+              }
+            ],
+            "name": "状态机",
+            "iconUrl": "eye-open",
+            "sort": 34,
+            "uuid": 17,
+            "version": 4,
+            "url": "/d/stateSetting",
+            "updatedAt": "2020-05-08 14:18:17"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "orgInterface",
+            "name": "企业端接口",
+            "iconUrl": "link",
+            "sort": 107,
+            "uuid": 4,
+            "version": 1,
+            "url": "http://10.10.10.199:40001/swagger-ui.html",
+            "updatedAt": "2020-04-29 14:50:54"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "oauthInterface",
+            "name": "登录端接口",
+            "iconUrl": "tree",
+            "sort": 202,
+            "uuid": 7,
+            "version": 1,
+            "url": "http://10.10.10.199:40000/swagger-ui.html",
+            "updatedAt": "2020-04-29 14:50:59"
+          },
+          {
+            "parent": {},
+            "createdAt": "2020-04-29 13:53:01",
+            "code": "dbStructure",
+            "name": "数据格式",
+            "iconUrl": "password",
+            "sort": 300,
+            "uuid": 6,
+            "version": 1,
+            "url": "http://10.10.10.199:40001/structure",
+            "updatedAt": "2020-04-29 14:50:47"
+          }
+        ],
+        "total": 17,
+        "pageNumber": 0,
+        "pageSize": 20
+      },addMenuForRole:{
+          code: '200'
+      },
+      delMenuById: {
+          code: '200'
+      },
+      editMenu:{
+          code: '200'
+      },
+      /**
+       * roleManage.js
+       */
+      getRoleList: {
+        "items": [
+          {
+            "createdAt": "2020-05-06 11:30:37",
+            "code": "test",
+            "name": "testsdad",
+            "terminal": "ORG",
+            "version": 1,
+            "uuid": 7,
+            "updatedAt": "2020-05-06 11:34:40"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "platform_employee",
+            "name": "平台员工",
+            "terminal": "ORG",
+            "version": 8,
+            "uuid": 5,
+            "updatedAt": "2020-05-06 09:24:38"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "platform_super",
+            "name": "平台超管",
+            "terminal": "ORG",
+            "version": 12,
+            "uuid": 4,
+            "updatedAt": "2020-05-09 17:19:07"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:58",
+            "code": "platform_manager",
+            "name": "平台管理员",
+            "terminal": "ORG",
+            "version": 14,
+            "uuid": 3,
+            "updatedAt": "2020-05-09 17:19:07"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:17",
+            "code": "user",
+            "name": "普通用户",
+            "terminal": "USER",
+            "version": 3,
+            "uuid": 2,
+            "updatedAt": "2020-05-08 11:44:21"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:17",
+            "code": "1",
+            "name": "开发者",
+            "terminal": "ORG",
+            "version": 38,
+            "uuid": 1,
+            "updatedAt": "2020-05-09 12:26:18"
+          }
+        ],
+        "total": 6,
+        "pageNumber": 0,
+        "pageSize": 20
+      },addRole:{
+          code: '200'
+      },getORGList:{
+        "items": [
+          {
+            "createdAt": "2020-05-09 17:19:04",
+            "name": "天邮平台1609468040",
+            "description": null,
+            "uuid": 4,
+            "version": 1,
+            "updatedAt": "2020-05-09 17:19:07"
+          },
+          {
+            "createdAt": "2020-05-09 17:15:07",
+            "name": "天邮平台5985811566",
+            "description": null,
+            "uuid": 3,
+            "version": 1,
+            "updatedAt": "2020-05-09 17:15:12"
+          },
+          {
+            "createdAt": "2020-05-09 17:11:28",
+            "name": "天邮平台4412266160",
+            "description": null,
+            "uuid": 2,
+            "version": 1,
+            "updatedAt": "2020-05-09 17:12:13"
+          },
+          {
+            "createdAt": "2020-04-29 13:52:58",
+            "name": "天邮平台0754971220",
+            "description": null,
+            "uuid": 1,
+            "version": 13,
+            "updatedAt": "2020-05-08 16:37:51"
+          }
+        ],
+        "total": 4,
+        "pageNumber": 0,
+        "pageSize": 20
+      },
+      editRole:{
+          code: '200'
+      },
+      deleteRole:{
+          code: ''
+      },
   login: {
     "access_token": "b544bff9-bf98-4098-ac57-c64a5dea8e24",
     "token_type": "bearer",
@@ -238,212 +2255,299 @@ export default {
   },
   userMenu: {
     "items": [
-        {
-            "parent": {},
-            "createdAt": null,
-            "code": "dashboard",
-            "name": "主页",
-            "iconUrl": "example",
-            "sort": 7,
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "home",
+        "name": "主页",
+        "iconUrl": "dashboard",
+        "sort": 1,
+        "uuid": 1,
+        "version": 1,
+        "url": "/d/dashboard",
+        "updatedAt": "2020-04-29 14:51:39"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "conversation",
+        "name": "会话",
+        "iconUrl": "form",
+        "sort": 1,
+        "uuid": 3,
+        "version": 2,
+        "url": "/d/conversation/conversation/list",
+        "updatedAt": "2020-05-08 14:17:16"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "friend",
+        "name": "联系人",
+        "iconUrl": "example",
+        "sort": 3,
+        "uuid": 2,
+        "version": 1,
+        "url": "/d/friend/friend/list",
+        "updatedAt": "2020-05-08 14:17:40"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 14:09:46",
+        "code": "manager",
+        "children": [
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-04-29 14:25:40",
+            "code": "userManage",
+            "name": "用户管理",
+            "iconUrl": "",
+            "sort": 1,
+            "uuid": 14,
+            "version": 1,
+            "url": "/d/management/user/list",
+            "updatedAt": "2020-04-29 14:49:48"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-04-29 14:17:09",
+            "code": "employee",
+            "name": "员工管理",
+            "iconUrl": "",
+            "sort": 4,
             "uuid": 13,
             "version": 0,
-            "url": "/d/dashboard",
-            "updatedAt": null
-        },
-        {
-            "parent": {},
-            "createdAt": null,
-            "code": "first",
-            "children": [
-                {
-                    "parent": {
-                        "code": "first",
-                        "name": "一级",
-                        "iconUrl": "example",
-                        "sort": 8,
-                        "uuid": 8,
-                        "url": "/d/frist"
-                    },
-                    "createdAt": null,
-                    "code": "second",
-                    "children": [
-                        {
-                            "parent": {
-                                "code": "second",
-                                "name": "二级",
-                                "iconUrl": "example",
-                                "sort": 9,
-                                "uuid": 9,
-                                "url": ""
-                            },
-                            "createdAt": null,
-                            "code": "third2",
-                            "name": "三级二",
-                            "iconUrl": null,
-                            "sort": 11,
-                            "uuid": 11,
-                            "version": null,
-                            "url": "/d/frist/second/2",
-                            "updatedAt": null
-                        },
-                        {
-                            "parent": {
-                                "code": "second",
-                                "name": "二级",
-                                "iconUrl": "example",
-                                "sort": 9,
-                                "uuid": 9,
-                                "url": ""
-                            },
-                            "createdAt": null,
-                            "code": "third1",
-                            "name": "三级一",
-                            "iconUrl": null,
-                            "sort": 10,
-                            "uuid": 10,
-                            "version": null,
-                            "url": "/d/frist/second/1",
-                            "updatedAt": null
-                        }
-                    ],
-                    "name": "二级",
-                    "iconUrl": "example",
-                    "sort": 9,
-                    "uuid": 9,
-                    "version": null,
-                    "url": "",
-                    "updatedAt": null
-                }
-            ],
-            "name": "一级",
-            "iconUrl": "example",
-            "sort": 8,
-            "uuid": 8,
-            "version": null,
-            "url": "/d/frist",
-            "updatedAt": null
-        },
-        {
-            "parent": {},
-            "createdAt": null,
-            "code": "mall",
-            "name": "商城",
-            "iconUrl": "example",
+            "url": "/d/management/employee/list",
+            "updatedAt": "2020-04-29 14:17:09"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-04-29 14:14:55",
+            "code": "roleManager",
+            "name": "角色管理",
+            "iconUrl": "",
             "sort": 6,
-            "uuid": 7,
-            "version": null,
-            "url": "http://m.tmall.com",
-            "updatedAt": null
-        },
-        {
-            "parent": {},
-            "createdAt": "2020-03-21 09:19:57",
-            "code": "friend",
-            "name": "联系人",
-            "iconUrl": "example",
-            "sort": 2,
-            "uuid": 3,
+            "uuid": 11,
             "version": 0,
-            "url": "/d/friend/friend/list",
-            "updatedAt": "2020-03-21 09:19:57"
-        },
-        {
-            "parent": {},
-            "createdAt": "2020-03-21 09:19:57",
-            "code": "conversation",
-            "name": "会话",
-            "iconUrl": "example",
-            "sort": 1,
-            "uuid": 2,
+            "url": "/d/management/role/list",
+            "updatedAt": "2020-04-29 14:14:55"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-04-29 14:16:02",
+            "code": "departManage",
+            "name": "部门管理",
+            "iconUrl": "",
+            "sort": 9,
+            "uuid": 12,
             "version": 0,
-            "url": "/d/conversation/conversation/list",
-            "updatedAt": "2020-03-21 09:19:57"
-        },
-        {
-            "parent": {},
-            "createdAt": "2020-03-21 09:19:57",
-            "code": "management",
-            "children": [
-                {
-                    "parent": {
-                        "createdAt": "2020-03-21 09:19:57",
-                        "code": "management",
-                        "name": "管理",
-                        "iconUrl": "example",
-                        "sort": 0,
-                        "uuid": 1,
-                        "version": 0,
-                        "url": "/d/management",
-                        "updatedAt": "2020-03-21 09:19:57"
-                    },
-                    "createdAt": null,
-                    "code": "roles",
-                    "name": "角色管理",
-                    "iconUrl": null,
-                    "sort": 5,
-                    "uuid": 6,
-                    "version": null,
-                    "url": "/d/management/role/list",
-                    "updatedAt": null
-                },
-                {
-                    "parent": {
-                        "createdAt": "2020-03-21 09:19:57",
-                        "code": "management",
-                        "name": "管理",
-                        "iconUrl": "example",
-                        "sort": 0,
-                        "uuid": 1,
-                        "version": 0,
-                        "url": "/d/management",
-                        "updatedAt": "2020-03-21 09:19:57"
-                    },
-                    "createdAt": null,
-                    "code": "deparment",
-                    "name": "部门管理",
-                    "iconUrl": null,
-                    "sort": 4,
-                    "uuid": 5,
-                    "version": null,
-                    "url": "/d/management/department/list",
-                    "updatedAt": null
-                },
-                {
-                    "parent": {
-                        "createdAt": "2020-03-21 09:19:57",
-                        "code": "management",
-                        "name": "管理",
-                        "iconUrl": "example",
-                        "sort": 0,
-                        "uuid": 1,
-                        "version": 0,
-                        "url": "/d/management",
-                        "updatedAt": "2020-03-21 09:19:57"
-                    },
-                    "createdAt": "2020-03-21 09:19:57",
-                    "code": "state_setting",
-                    "name": "状态管理",
-                    "iconUrl": null,
-                    "sort": 3,
-                    "uuid": 4,
-                    "version": 0,
-                    "url": "/d/management/state_setting/list",
-                    "updatedAt": "2020-03-21 09:19:57"
-                }
-            ],
-            "name": "管理",
-            "iconUrl": "example",
-            "sort": 0,
-            "uuid": 1,
+            "url": "/d/management/department/list",
+            "updatedAt": "2020-04-29 14:16:02"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-04-29 14:11:44",
+            "code": "menu",
+            "name": "菜单管理",
+            "iconUrl": "",
+            "sort": 10,
+            "uuid": 10,
             "version": 0,
-            "url": "/d/management",
-            "updatedAt": "2020-03-21 09:19:57"
-        }
+            "url": "/d/management/menu/list",
+            "updatedAt": "2020-04-29 14:11:44"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 14:09:46",
+              "code": "manager",
+              "name": "管理",
+              "iconUrl": "table",
+              "sort": 27,
+              "uuid": 9,
+              "version": 13,
+              "url": "/d/management",
+              "updatedAt": "2020-05-08 14:18:46"
+            },
+            "createdAt": "2020-05-09 09:31:14",
+            "code": "orgManage",
+            "name": "企业管理",
+            "iconUrl": "",
+            "sort": 39,
+            "uuid": 22,
+            "version": 0,
+            "url": "/d/management/org/list",
+            "updatedAt": "2020-05-09 09:31:14"
+          }
+        ],
+        "name": "管理",
+        "iconUrl": "table",
+        "sort": 27,
+        "uuid": 9,
+        "version": 13,
+        "url": "/d/management",
+        "updatedAt": "2020-05-08 14:18:46"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-05-09 12:26:06",
+        "code": "template",
+        "name": "模板",
+        "iconUrl": "eye",
+        "sort": 33,
+        "uuid": 23,
+        "version": 0,
+        "url": "/d/template",
+        "updatedAt": "2020-05-09 12:26:06"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 17:23:45",
+        "code": "stateSetting",
+        "children": [
+          {
+            "parent": {
+              "createdAt": "2020-04-29 17:23:45",
+              "code": "stateSetting",
+              "name": "状态机",
+              "iconUrl": "eye-open",
+              "sort": 34,
+              "uuid": 17,
+              "version": 4,
+              "url": "/d/stateSetting",
+              "updatedAt": "2020-05-08 14:18:17"
+            },
+            "createdAt": "2020-04-29 17:30:39",
+            "code": "UserState",
+            "name": "用户状态机",
+            "iconUrl": "",
+            "sort": 6,
+            "uuid": 18,
+            "version": 0,
+            "url": "/d/stateSetting/list/user",
+            "updatedAt": "2020-04-29 17:30:39"
+          },
+          {
+            "parent": {
+              "createdAt": "2020-04-29 17:23:45",
+              "code": "stateSetting",
+              "name": "状态机",
+              "iconUrl": "eye-open",
+              "sort": 34,
+              "uuid": 17,
+              "version": 4,
+              "url": "/d/stateSetting",
+              "updatedAt": "2020-05-08 14:18:17"
+            },
+            "createdAt": null,
+            "code": "orderState",
+            "name": "订单状态机",
+            "iconUrl": null,
+            "sort": 16,
+            "uuid": 19,
+            "version": 1,
+            "url": "/d/stateSetting/list/order",
+            "updatedAt": "2020-05-07 10:08:28"
+          }
+        ],
+        "name": "状态机",
+        "iconUrl": "eye-open",
+        "sort": 34,
+        "uuid": 17,
+        "version": 4,
+        "url": "/d/stateSetting",
+        "updatedAt": "2020-05-08 14:18:17"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "orgInterface",
+        "name": "企业端接口",
+        "iconUrl": "link",
+        "sort": 107,
+        "uuid": 4,
+        "version": 1,
+        "url": "http://10.10.10.199:40001/swagger-ui.html",
+        "updatedAt": "2020-04-29 14:50:54"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "oauthInterface",
+        "name": "登录端接口",
+        "iconUrl": "tree",
+        "sort": 202,
+        "uuid": 7,
+        "version": 1,
+        "url": "http://10.10.10.199:40000/swagger-ui.html",
+        "updatedAt": "2020-04-29 14:50:59"
+      },
+      {
+        "parent": {},
+        "createdAt": "2020-04-29 13:53:01",
+        "code": "dbStructure",
+        "name": "数据格式",
+        "iconUrl": "password",
+        "sort": 300,
+        "uuid": 6,
+        "version": 1,
+        "url": "http://10.10.10.199:40001/structure",
+        "updatedAt": "2020-04-29 14:50:47"
+      }
     ],
-    "total": 12,
+    "total": 17,
     "pageNumber": 0,
     "pageSize": 20
-},
+  },
   stateMachine: {
     "items": {
       "order": [{

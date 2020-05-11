@@ -74,7 +74,12 @@ export default {
           align: 'center',
           sort: false,
           render: (row, column, cell) => {
-            return row.manager.nickname
+              if(row.manager.nickname){
+                  return (<span>{row.manager.nickname}</span>)
+              }else{
+                  return (<span>未指定</span>)
+              }
+            
           }
         },
         {

@@ -5,13 +5,14 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
-import {getToken} from '@/utils/auth'
+import { mapGetters } from 'vuex'
+import { getToken } from '@/utils/auth'
+
 export default {
   name: 'App',
-  data(){
+  data() {
     return {
-      isRouterAlive: true
+      isRouterAlive: true,
     }
   },
   computed: {
@@ -21,16 +22,19 @@ export default {
   },
   provide() {
     return {
-      reload: this.reload,
-    };
+      reload: this.reload
+    }
   },
   async mounted() {
     await this.initImListener()
     this.checkIMLogin()
     const check = this.checkIMLogin()
-    const hasToken = this.getToken()
-    console.log(hasToken,'<----------------------->检查<----------------------->')
-    if ((check.userSig || check.userID)&&!!hasToken) {
+    const hasToken = this.getToken();
+    console.log(
+      hasToken,
+      '<----------------------->检查<----------------------->'
+    )
+    if ((check.userSig || check.userID) && !!hasToken) {
       this.tim
         .login(this.checkIMLogin())
         .then(() => {
@@ -41,18 +45,17 @@ export default {
         })
         .catch(error => {})
     }
-
   },
   methods: {
-    getToken (){
-        return getToken()
+    getToken() {
+      return getToken()
     },
     reload() {
-      this.isRouterAlive = false;
-    //   window.location.reload()
+      this.isRouterAlive = false
+      //   window.location.reload()
       this.$nextTick(function() {
-        this.isRouterAlive = true;
-      });
+        this.isRouterAlive = true
+      })
     },
     checkIMLogin() {
       let userID = window.localStorage.getItem('userID')
@@ -91,7 +94,10 @@ export default {
       if (messageList[0].conversationID != undefined) {
         this.handleVideoMessage(messageList)
         this.handleAt(messageList)
-        this.$store.commit('im/conversation/pushCurrentMessageList', messageList)
+        this.$store.commit(
+          'im/conversation/pushCurrentMessageList',
+          messageList
+        )
       }
 
       // console.info(messageList)
@@ -139,16 +145,19 @@ export default {
         //     })
         //   })
 
-        this.tim.getGroupList().then(({data:groupList})=>{
+        this.tim
+          .getGroupList()
+          .then(({ data: groupList }) => {
             const payload = groupList.groupList
-            this.$store.commit('im/group/updateGroupList',payload)
-        }).catch(error=>{
+            this.$store.commit('im/group/updateGroupList', payload)
+          })
+          .catch(error => {
             this.$store.commit('im/setting/showMessage', {
               type: 'error',
               message: error.message
             })
-        })
-        this.$store.dispatch('im/blacklist/getBlacklist',{},{root:true})
+          })
+        this.$store.dispatch('im/blacklist/getBlacklist', {}, { root: true })
       }
     },
 
@@ -169,7 +178,7 @@ export default {
         message: `${this.kickedOutReason(event.data.type)}被踢出，请重新登录。`,
         error: 'error'
       })
-      
+
       this.$store.commit('im/user/toggleIsLogin', false)
       this.$store.commit('im/blacklist/reset')
       this.$store.commit('im/conversation/reset')
@@ -198,7 +207,10 @@ export default {
         duration: 3000,
         onClick: () => {
           const SystemConversationID = '@TIM#SYSTEM'
-          this.$store.dispatch('im/conversation/checkoutConversation', SystemConversationID)
+          this.$store.dispatch(
+            'im/conversation/checkoutConversation',
+            SystemConversationID
+          )
         }
       })
     },
@@ -239,7 +251,11 @@ export default {
     },
     selectConversation(conversationID) {
       if (conversationID !== this.currentConversation.conversationID) {
-        this.$store.dispatch('im/conversation/checkoutConversation', conversationID,{root:true})
+        this.$store.dispatch(
+          'im/conversation/checkoutConversation',
+          conversationID,
+          { root: true }
+        )
       }
     },
     isJsonStr(str) {
@@ -318,7 +334,11 @@ export default {
       })
       notification.onclick = () => {
         window.focus()
-        this.$store.dispatch('im/conversation/checkoutConversation', message.conversationID,{root:true})
+        this.$store.dispatch(
+          'im/conversation/checkoutConversation',
+          message.conversationID,
+          { root: true }
+        )
         notification.close()
       }
     },

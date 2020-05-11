@@ -46,7 +46,7 @@ export default {
   watch: {
     currentConversation: {
       handler(newVal, oldVal) {
-        console.log(newVal.type)
+        // console.log(newVal.type)
         if (newVal.type == '@TIM#SYSTEM') {
           this.$store.commit('component/TOGGLE_CONVERSATIONPROFILE', false)
         }

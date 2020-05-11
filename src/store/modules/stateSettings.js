@@ -1,14 +1,16 @@
 import Api from "@/api/stateSetting";
-import {getEventList,updateState} from '@/api/stateSetting'
+import { getEventList, updateState } from '@/api/stateSetting'
+import { requestWarn } from '@/utils/normal';
+
 const state = {
   show: false,
   dataList: [],
-  timers:[],
-  events:[],
+  timers: [],
+  events: [],
   actions: ["doEnable", "doDisable", "doKick", "doSpeak", "doTest"],
-  currentState:{},
+  currentState: {},
   unusedEvents: [],
-  currentEntity:"user",
+  currentEntity: "user",
   currentStateList: [],
   stateList: [],
   roleList: [],
@@ -19,7 +21,7 @@ const state = {
 };
 
 const mutations = {
-  SAVE_EVENTLIST(state,val){
+  SAVE_EVENTLIST(state, val) {
     state.eventsMap = val
   },
   ADD_STATE(state, form) {
@@ -52,10 +54,10 @@ const mutations = {
   CHANGEEVENTLIST(state, val) {
     state.eventList = val;
   },
-  SAVE_CURRENT(state,val){
-      state.currentState = val
+  SAVE_CURRENT(state, val) {
+    state.currentState = val
   }
-  
+
 };
 
 const actions = {
@@ -64,16 +66,19 @@ const actions = {
       commit("CHANGEROLELIST", res.items);
     });
   },
-  editEvent({commit},payload){
-      return Api.editEvent(payload).then(res => {
-        //   commit('')
-      })
+
+  editEvent({ commit }, payload) {
+    return Api.editEvent(payload).then(res => {
+      //   commit('')
+    })
   },
+
   getStateList({ commit, state }) {
     return Api.getStateList().then(res => {
       commit("CHANGESTATELIST", res.items.user);
     });
   },
+
   getActionByEntity({ commit, state }) {
     return Api.getActionByEntity(state.currentEntity).then(res => {
       let item = res.items;
@@ -83,12 +88,14 @@ const actions = {
       commit("CHANGEACTIONLIST", item);
     });
   },
+
   getUnuseEvent({ commit, state }) {
     return Api.getUnuseEvent(state.currentEntity).then(res => {
       let item = res.items;
       commit("CHANGEUNUSEDEVENTS", item);
     });
   },
+  
   getEventByEntity({ commit, state }) {
     return Api.getEventByEntity(state.currentEntity).then(res => {
       let items = res.items;
@@ -102,63 +109,74 @@ const actions = {
       commit("CHANGEEVENTLIST", items);
     });
   },
+
   getStateMachine({ commit, state }) {
     commit("CHANGELOADING", true);
     return Api.getStateMachine(state.currentEntity).then(res => {
       commit("CHANGELOADING", false);
       let items = res.items;
       for (const item of items) {
-        if (!(item["events"] instanceof Array)) {
+        if (!(Array.isArray(item["events"]))) {
           item["events"] = [];
         }
       }
       commit("SAVE_CURRENTSTATE", items);
     });
   },
+
   addEvent({ commit, state }, val) {
     return Api.addEvent(val);
   },
+
   addState({ commit, state }, val) {
     return Api.addState(val);
   },
+
   addTimer({ commit, state }, val) {
     return Api.addTimer(val);
   },
+
   addEventByState({ commit, state }, obj) {
     return Api.addEventByState(obj);
   },
+
   editEventData({ commit, state }, obj) {
     return Api.editEvent(obj);
   },
+
   updateCache({ commit, state }) {
     return Api.updateCache(state.currentEntity);
   },
+
   delTimerById({ commit, state }, obj) {
     return Api.delTimerById(obj);
   },
+
   stateUnlinkEvent({ commit, state }, obj) {
     return Api.stateUnlinkEvent(obj);
   },
-  getEventList({commit}){
-      return new Promise((resolve,reject)=>{
-        getEventList().then(res=>{
-            commit('SAVE_EVENTLIST',res.items)
-            resolve()
-        }).catch(err=>{
-            console.log(err)
-            reject()
-        })
+
+  getEventList({ commit }) {
+    return new Promise((resolve, reject) => {
+      getEventList().then(res => {
+        commit('SAVE_EVENTLIST', res.items)
+        resolve();
+      }).catch(err => {
+        requestWarn(err);
+        reject();
       })
+    })
   },
-  updateState({commit},payload){
-      return new Promise((resolve,reject)=>{
-          updateState(payload).then(res=>{
-              resolve()
-          }).catch(err=>{
-              console.log(err)
-              reject()
-          })
+
+  updateState({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      updateState(payload).then(res => {
+        resolve();
+      }).catch(err => {
+        requestWarn(err);
+        reject();
       })
+    })
   }
 };
 

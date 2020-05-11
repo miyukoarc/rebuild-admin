@@ -82,6 +82,7 @@
 import { mapState, mapGetters } from 'vuex'
 import { isEmpty } from '@/utils/normal'
 import AppLink from '@/components/AppLink'
+
 export default {
   components: {
     AppLink

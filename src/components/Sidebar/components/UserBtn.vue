@@ -76,6 +76,7 @@ import { mapGetters, mapState } from 'vuex'
 import { removeToken } from '@/utils/auth'
 import myUpload from 'vue-image-crop-upload'
 import { getToken } from '@/utils/auth'
+
 export default {
   inject: ['reload'],
   components: {

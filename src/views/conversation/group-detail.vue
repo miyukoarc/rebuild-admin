@@ -610,7 +610,7 @@ export default {
       this.$bus.$emit('showConversationDetailPanel', payload)
     },
     handleTransfer() {
-        alert('1')
+        // alert('1')
       this.showTransfer = true
     },
     handleConfirm() {

@@ -23,6 +23,7 @@
         :unique-opened="false"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
+        :default-active="$route.path"
      >
      <accessed-item v-for="item in menu" :key="item.code" :item="item"></accessed-item>
     </el-menu>

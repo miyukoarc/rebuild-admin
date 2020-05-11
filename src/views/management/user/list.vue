@@ -209,11 +209,13 @@ export default {
 
     handleRowClick(value) {
 
-      this.$store.commit('component/TOGGLE_PANEL', true);
+      
 
       this.$store
         .dispatch('userManage/getNormalUserDetail', value.uuid)
-        .then(() => {})
+        .then(() => {
+            this.$store.commit('component/TOGGLE_PANEL', true);
+        })
         .catch(err => {
           this.$message({
             type: 'error',

@@ -62,7 +62,7 @@ const whiteList = ['/d/login'] // no redirect whitelist
         next()
       } else {
         try {
-          // get user info
+          // get user info & menu
           const userInfo = store.dispatch('user/getInfo')
           const userMenu = store.dispatch('user/getMenu')
 
