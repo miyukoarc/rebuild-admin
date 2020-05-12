@@ -1,5 +1,4 @@
 export function isEmpty(obj) {
-  // if (!obj) return true;
   for (let key in obj) {
     return false
   } return true
@@ -37,7 +36,7 @@ export function requestWarn(msg) {
   console.error("[request error]: "+ msg);
 }
 
-// // 在生产环境下关闭console.log
-// if (process.env.NODE_ENV === "production") {
-//   window['console']['log'] = function() {};
-// }
+// 在生产环境下关闭console.log
+if (process.env.NODE_ENV === "production") {
+  window['console']['log'] = function() {};
+}

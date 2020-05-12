@@ -81,3 +81,20 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 ### roleManage/getRoleDetail
 GET http://10.10.10.199:40001/v1/detail/role/1 HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+
+### orgTemplate/addOrgTemplate
+POST http://10.10.10.199:40001/v1/orgTemplate/addOrgTemplate HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### orgTemplate/delOrgTemplate
+POST http://10.10.10.199:40001/v1/orgTemplate/delOrgTemplate HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### orgTemplate/queryOrgTemplate
+GET http://10.10.10.199:40001/v1/orgTemplate/queryOrgTemplate HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### orgTemplate/updateOrgTemplate
+POST http://10.10.10.199:40001/v1/orgTemplate/updateOrgTemplate HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60

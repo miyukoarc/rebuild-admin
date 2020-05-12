@@ -40,7 +40,7 @@ export default {
   methods: {
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
     handleSecondMenu(item) {
-    //   console.log(item.url)
+      //   console.log(item.url)
       this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
@@ -60,8 +60,6 @@ export default {
         ) {
           type = 'menu'
         }
-
-
       } else {
         type = 'iframe'
       }
@@ -181,11 +179,21 @@ export default {
       this.checkSecondMenuType(key)
     },
     filterPath(item) {
-        const {url,code}  = item
+      const { url, code } = item
       if (url.includes('http')) {
-        return '/d/iframe/'+code
+        return '/d/iframe/' + code
+      }
+
+      if (item.children) {
+        return item.children[0].url
       } else return url
     },
+    filterIndex(item) {
+      const { url, code } = item
+      if (url.includes('http')) {
+        return '/d/iframe/' + code
+      } else return url
+    }
   }
 }
 </script>

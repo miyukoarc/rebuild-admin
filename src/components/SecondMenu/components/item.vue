@@ -37,7 +37,7 @@ export default {
       }
     },
     handleClick(){
-      // console.log(this.menuType,this.item,this.menuModule)
+
 
       switch(this.menuType){
         case 'transfer':

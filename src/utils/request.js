@@ -62,9 +62,9 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
 
-    if(config.headers.showLoading !== false){
-          showLoading(config.headers.loadingTarget);
-    }
+//     if(config.headers.showLoading !== false){
+//           showLoading(config.headers.loadingTarget);
+//     }
 
     if (store.getters.token) {
       // let each request carry token
@@ -85,9 +85,9 @@ service.interceptors.request.use(
     // do something with request error
     // console.log(error) // for debug
 
-    if(config.headers.showLoading !== false){
-          showLoading(config.headers.loadingTarget);
-    }
+//     if(config.headers.showLoading !== false){
+//           showLoading(config.headers.loadingTarget);
+//     }
    
     return Promise.reject(error)
   }
@@ -109,9 +109,9 @@ service.interceptors.response.use(
     // const res = response.data
     const res = response
 
-    if(response.config.headers.showLoading !== false){
-        hideLoading();
-      }
+//     if(response.config.headers.showLoading !== false){
+//         hideLoading();
+//       }
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.status !== 200) {

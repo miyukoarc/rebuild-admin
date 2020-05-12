@@ -42,13 +42,13 @@
 
 <script>
 import DialogButton from "@/components/DialogButton";
-import mForm from "./form";
+// import mForm from "./form";
 import { mapState, mapMutations, mapActions } from "vuex";
 const NAME = "management";
 export default {
   components: {
     DialogButton,
-    mForm
+    // mForm
   },
   data() {
     return {

@@ -78,6 +78,7 @@
 import { mapState, mapActions } from "vuex";
 import editForm from "./editForm";
 const NAME = "menuManage";
+
 export default {
   components: {
     editForm
@@ -150,12 +151,16 @@ export default {
   },
   methods: {
     ...mapActions(NAME, ["addMenuForRole", "delMenuById"]),
+
+    // 递归，获取tree的key，根据key选择节点
     getKeysForList(list) {
       for (const val of list) {
+
+        // 获取节点
         let node = this.$refs['menuTree'].getNode(val.uuid);
         if (val.hasOwnProperty("children")) {
           this.getKeysForList(val.children);
-        } else if(node.childNodes.length==0){
+        } else if(node&&node.childNodes.length==0){
           this.keys.push(val.uuid);
         }
       }

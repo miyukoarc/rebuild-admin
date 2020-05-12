@@ -69,10 +69,17 @@ export default {
     watch:{
       $route: {
           handler(newVal, oldVal){
-              if(newVal.query.detail){
-                  console.log("监听到了")
-                  this.handleCurrentChange({uuid:newVal.query.detail})
-              }
+            //   const uuid = newVal.query.detail
+            //   if(uuid){
+            //       console.log("监听到了",uuid)
+
+
+            //       this.handleCurrentChange({uuid:uuid})
+
+            //       const item = this.roleList.find(i=>{return i.uuid==uuid})
+            //         // console.log(item,this.roleList)
+            //       this.setCurrentRow(item)
+            //   }
           },
           deep: true,
           immediate: true
@@ -100,12 +107,28 @@ export default {
       }
     });
   },
+  updated(){
+      this.initMenu()
+  },
   beforeDestroy () {
       this.$bus.$off('onRefleshMenuTree')
   },
   methods: {
     ...mapActions("role", ["getRoleList"]),
     ...mapActions(NAME, ["getMenuList", "getMenuListByRole"]),
+    initMenu(){
+        const uuid = this.$route.query.detail
+              if(uuid){
+                  console.log("监听到了",uuid)
+
+
+                  this.handleCurrentChange({uuid:uuid})
+
+                  const item = this.roleList.find(i=>{return i.uuid==uuid})
+                    // console.log(item,this.roleList)
+                  this.setCurrentRow(item)
+              }
+    },
     cancelSelect(){
       this.$refs["singleTable"].$refs["table"].setCurrentRow();
     },rowKey(row){
@@ -122,6 +145,10 @@ export default {
           message: err
         });
       });
+    },
+    setCurrentRow(item){
+        // console.log(this.$refs['singleTable'])
+        this.$refs['singleTable'].$refs["table"].setCurrentRow(item)
     }
   }
 };

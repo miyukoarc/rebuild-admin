@@ -54,6 +54,7 @@ const roleInit = {
 
 const state = {
   ...roleInit,
+  loading:false
 };
 const mutations = {
   SET_ROLELIST(state, val) {
@@ -67,6 +68,7 @@ const mutations = {
 };
 const actions = {
   getRoleList({ commit, state }) {
+
     return API.getRoleList(state.rolePage)
       .then(result => {
         //   console.log(result);

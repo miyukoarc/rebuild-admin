@@ -165,6 +165,7 @@ export default {
       // await this.$store.dispatch('im/user/logout').then().catch(err=>{console.log(err)})
       await removeToken()
       await this.clearSig()
+      await this.$store.commit('user/RESET_STATE')
       this.$router.push(`/d/login?redirect=${this.$route.fullPath}`)
       this.reload()
     },

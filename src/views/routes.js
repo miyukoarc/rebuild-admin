@@ -15,7 +15,7 @@ files.keys().forEach(key=>{
     
 })
 
-console.log(dynamicRoutes)
+// console.log(dynamicRoutes)
 
 
 

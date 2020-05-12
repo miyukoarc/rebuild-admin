@@ -99,8 +99,7 @@ export default {
       currSecondMenu: state => state.secondMenu.currSecondMenu,
       openArr: state => state.secondMenu.openArr,
       conversationList: state => state['im/conversation'].conversationList,
-      currentConversation: state =>
-        state['im/conversation'].currentConversation,
+      currentConversation: state => state['im/conversation'].currentConversation,
       friendList: state => state['im/friend'].friendList
     }),
     variables() {

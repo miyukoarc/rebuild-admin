@@ -1,4 +1,6 @@
-const state ={}
+const state ={
+    loading:false
+}
 const mutations = {
     
 }

@@ -370,13 +370,16 @@
                 </el-table-column>
                 <el-table-column label width="120">
                   <template slot-scope="scope">
-                    <el-button
+                    <!-- <el-button
                       type="text"
                       size="mini"
                       class="deleteBtn"
                       icon="el-icon-delete"
                       @click="onDelTimer(item.uuid, scope.row.uuid)"
-                    >删除</el-button>
+                    >删除</el-button> -->
+                    <span class="deleteBtn cursor-pointer" @click="onDelTimer(item.uuid, scope.row.uuid)">
+                        <i class="el-icon-delete"></i>
+                        删除</span>
                   </template>
                 </el-table-column>
               </el-table>

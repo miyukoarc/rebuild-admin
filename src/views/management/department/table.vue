@@ -17,6 +17,7 @@
         @btnFirst="handleEdit"
         @btnSecond="handleDelete"
         @rowClick="handleRow"
+        ref="simpleTable"
       />
     </div>
 
@@ -26,7 +27,7 @@
       </div>
     </right-panel>
 
-    <el-dialog width="30%" :visible.sync="showDialog" title="编辑" :close-on-click-modal="false">
+    <el-dialog  :visible.sync="showDialog" title="编辑" :close-on-click-modal="false">
       <EditForm @closeDialog="closeDialog"></EditForm>
     </el-dialog>
   </div>
@@ -140,6 +141,8 @@ export default {
   created() {
     this.initDataList()
   },
+  mounted(){
+  },
   methods: {
     ...mapActions(NAME, ['getDepartmenList']),
     handleRow(val) {
@@ -172,7 +175,7 @@ export default {
             })
             .then(_ => {
               this.$store.dispatch('department/getDepartmenList')
-              // this.$router.replace(this.$route.path)
+
               this.$message({
                 type: 'success',
                 message: '删除成功'
@@ -206,7 +209,8 @@ export default {
             type: 'error'
           })
         })
-    }
+    },
+
   }
 }
 </script>
