@@ -23,7 +23,7 @@
       </el-form-item> -->
       <el-form-item label="父级">
         <!-- <el-input v-model="form.parent"></el-input> -->
-        <el-select v-model.trim="form.parent" placeholder="请选择父级菜单">
+        <el-select v-model.trim="form.parent" clearable  placeholder="请选择父级菜单">
           <el-option
             v-for="item in pMenuList"
             :key="item.uuid"
@@ -35,7 +35,7 @@
       </el-form-item>
       <el-form-item label="角色">
         <!-- <el-input v-model="form.roles"></el-input> -->
-        <el-select v-model.trim="form.roles" placeholder="请选择角色" multiple>
+        <el-select v-model.trim="form.roles" clearable  placeholder="请选择角色" multiple>
           <el-option
             v-for="item in roleList"
             :key="item.uuid"
@@ -70,45 +70,58 @@ export default {
   },
   data() {
     return {
-      //   form: {
-      //     name: "",
-      //     code: "",
-      //     iconUrl: "",
-      //     org: 1,
-      //     parent: "",
-      //     roles: [],
-      //     url: "",
-      //     sort: null
-      //   }
+        formDefault: {
+          name: "",
+          code: "",
+          iconUrl: "",
+          org: 1,
+          parent: "",
+          roles: [],
+          url: "",
+          sort: null
+        }
     };
   },
   computed: {
     roleList() {
-      return this.$store.state.role.roleList;
+      return Array.from(this.$store.state.role.roleList);
     },
     pMenuList() {
       return this.$store.state.menuManage.menuList;
     },
-    form() {
-      let obj = this.formData;
-      if(!obj.roles.isEmptyObj()){
-          let arr = obj.roles.map(e=>{
-              return e.uuid;
-          });
-          obj.roles = arr;
-      }else{
-          obj.roles = [];
-      };
-      if(!obj.parent.isEmptyObj()){
-          obj.parent = obj.parent.uuid;
-      }else{
-          obj.parent = null;
+    form:{
+      get(){
+         let nForm = this.getNewData();
+        this.formDefault = {...nForm};
+        return this.formDefault;
+      },
+      set(val){
+        this.formDefault = val;
       }
-      obj.org = 1;
-      return obj;
     }
   },
+  mounted () {
+   
+  },
   methods: {
+    getNewData(){
+      let obj = this.formData;
+        if(!obj.roles.isEmptyObj()){
+            let arr = obj.roles.map(e=>{
+                return e.uuid;
+            });
+            obj.roles = arr;
+        }else{
+            obj.roles = [];
+        };
+        if(!obj.parent.isEmptyObj()){
+            obj.parent = obj.parent.uuid;
+        }else{
+            obj.parent = null;
+        }
+        obj.org = 1;
+        return obj;
+    },
     onSubmit() {
       // console.log(this.formData);
         this.$store

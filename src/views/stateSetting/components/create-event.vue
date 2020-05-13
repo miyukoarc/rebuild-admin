@@ -150,7 +150,7 @@ export default {
             .then(() => {
               this.$parent.$parent.dialogVisible = false
               this.$message({
-                type: 'sucess',
+                type: 'success',
                 message: '操作成功'
               })
             })

@@ -216,10 +216,14 @@ export default {
   computed: {
     ...mapState({
       actionList: state => state.stateSettings.actionList,
-      currentStateList: state => state.stateSettings.currentStateList
+      currentStateList: state => state.stateSettings.currentStateList,
+      currentEntity: state => state.stateSettings.currentEntity
     })
   },
   mounted() {},
+  updated(){
+      this.form.entity = this.currentEntity
+  },
   methods: {
     onStateChange() {
       if ('CHOICE' == this.form.stateType) {
@@ -235,7 +239,7 @@ export default {
           .then(() => {
             this.$parent.$parent.dialogVisible = false
             this.$message({
-              type: 'sucess',
+              type: 'success',
               message: '操作成功'
             })
           })

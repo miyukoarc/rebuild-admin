@@ -155,7 +155,17 @@ const actions = {
   stateUnlinkEvent({ commit, state }, obj) {
     return Api.stateUnlinkEvent(obj);
   },
-
+  updateSetting({ commit }, payload) {
+    return Api.updateState(payload)
+  // return new Promise((resolve, reject) => {
+  //   updateState(payload).then(res => {
+  //     resolve();
+  //   }).catch(err => {
+  //     // requestWarn(err);
+  //     reject();
+  //   })
+  // })
+  },
   getEventList({ commit }) {
     return new Promise((resolve, reject) => {
       getEventList().then(res => {
@@ -167,17 +177,7 @@ const actions = {
       })
     })
   },
-
-  updateState({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      updateState(payload).then(res => {
-        resolve();
-      }).catch(err => {
-        requestWarn(err);
-        reject();
-      })
-    })
-  }
+  
 };
 
 export default {

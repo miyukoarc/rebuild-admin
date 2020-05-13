@@ -14,16 +14,12 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 GET http://10.10.10.199:40001/v1/list/myMenuTree HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 
-
 ###
 GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 
-
 ###
 GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1
-
-
 
 ### contacts/getUserProfileByUserId
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
@@ -36,7 +32,6 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 ### department/getDepartmentUser
 GET http://10.10.10.199:40001/v1/list/user/department/2 HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
-
 
 ### department/getDepartmentDetail
 GET http://10.10.10.199:40001/v1/detail/department/2 HTTP/1.1
@@ -82,7 +77,6 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 GET http://10.10.10.199:40001/v1/detail/role/1 HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 
-
 ### orgTemplate/addOrgTemplate
 POST http://10.10.10.199:40001/v1/orgTemplate/addOrgTemplate HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
@@ -97,4 +91,40 @@ Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
 
 ### orgTemplate/updateOrgTemplate
 POST http://10.10.10.199:40001/v1/orgTemplate/updateOrgTemplate HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### menuTemplate/add
+POST http://10.10.10.199:40001/v1/menuTemplate/add HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### menuTemplate/delete
+POST http://10.10.10.199:40001/v1/menuTemplate/delete HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### menuTemplate/update
+POST http://10.10.10.199:40001/v1/menuTemplate/update HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleTemplate/add
+POST http://10.10.10.199:40001/v1/roleTemplate/add HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleTemplate/delete
+POST http://10.10.10.199:40001/v1/roleTemplate/delete HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### roleTemplate/linkMenu
+POST http://10.10.10.199:40001/v1/roleTemplate/linkMenu HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### departmentTemplate/add
+POST http://10.10.10.199:40001/v1/departmentTemplate/add HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### departmentTemplate/delete
+POST http://10.10.10.199:40001/v1/departmentTemplate/delete HTTP/1.1
+Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60
+
+### departmentTemplate/update
+POST http://10.10.10.199:40001/v1/departmentTemplate/update HTTP/1.1
 Authorization: Bearer ad6f6ab3-d67b-4e74-8778-27d91dbc7d60

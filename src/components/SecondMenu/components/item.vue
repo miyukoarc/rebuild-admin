@@ -41,6 +41,9 @@ export default {
 
       switch(this.menuType){
         case 'transfer':
+            // console.log(this.item)
+            // this.$route.push('')
+            this.$store.commit('secondMenu/SAVE_IFRAMEURL',this.item.url)
           // this.$store.dispatch('stateSettings/GET_STATELIST',this.item)
           // this.$store.commit('stateSettings/SAVE_ENTITY',this.item)
           break;

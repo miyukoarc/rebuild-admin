@@ -20,9 +20,11 @@
         <el-input v-model="form.description" placeholder></el-input>
       </el-form-item>
       <el-form-item>
+
         <template slot="label">
           <div class="text-align-left">{{ stateSettings.enterAction }}</div>
         </template>
+
         <el-select v-model="form.enterAction" placeholder="请选择执行动作">
           <el-option
             v-for="item in actionList"
@@ -131,7 +133,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -168,16 +170,16 @@ export default {
         code: '',
         description: '',
         enterAction: '',
-        entity: "string",
+        entity: 'string',
         exitAction: '',
         firstGuardSpel: '',
-        firstTarget: null,
-        lastTarget: null,
+        firstTarget: 0,
+        lastTarget: 0,
         name: '',
         sort: 10,
         stateType: 'COMMON', //require
         thenGuardSpel: '',
-        thenTarget: null,
+        thenTarget: 0,
         uuid: ''
       },
       stateTypeList: [
@@ -218,26 +220,26 @@ export default {
     ...mapState({
       actionList: state => state.stateSettings.actionList,
       currentStateList: state => state.stateSettings.currentStateList,
-      currentState:state => state.stateSettings.currentState
+      currentState: state => state.stateSettings.currentState
     })
   },
   mounted() {},
   methods: {
-    initData(){
-        this.form.code = this.currentState?.code
-        this.form.description = this.currentState?.description
-        this.form.enterAction = this.currentState?.enterAction
-        this.form.entity = this.currentState?.entity
-        this.form.exitAction = this.currentState?.exitAction
-        this.form.firstGuardSpel = this.currentState?.firstGuardSpel
-        this.form.firstTarget = this.currentState?.firstTarget
-        this.form.lastTarget = this.currentState?.lastTarget
-        this.form.name = this.currentState?.name
-        this.form.sort = this.currentState?.sort
-        this.form.stateType = this.currentState?.stateType
-        this.form.thenGuardSpel = this.currentState?.thenGuardSpel
-        this.form.thenTarget = this.currentState?.thenTarget
-        this.form.uuid = this.currentState?.uuid
+    initData() {
+      this.form.code = this.currentState?.code
+      this.form.description = this.currentState?.description
+      this.form.enterAction = this.currentState?.enterAction
+      this.form.entity = this.currentState?.entity
+      this.form.exitAction = this.currentState?.exitAction
+      this.form.firstGuardSpel = this.currentState?.firstGuardSpel
+      this.form.firstTarget = this.currentState?.firstTarget
+      this.form.lastTarget = this.currentState?.lastTarget
+      this.form.name = this.currentState?.name
+      this.form.sort = this.currentState?.sort
+      this.form.stateType = this.currentState?.stateType
+      this.form.thenGuardSpel = this.currentState?.thenGuardSpel
+      this.form.thenTarget = this.currentState?.thenTarget
+      this.form.uuid = this.currentState?.uuid
     },
     onStateChange() {
       if ('CHOICE' == this.form.stateType) {
@@ -247,23 +249,32 @@ export default {
       }
     },
     handleConfirm() {
+      const payload = this.form
       this.$refs['form'].validate(valid => {
-        valid&&this.$store
-          .dispatch('stateSettings/updateState', this.form)
-          .then(() => {
-            this.$parent.$parent.dialogVisible = false
-            this.$message({
-              type: 'sucess',
-              message: '操作成功'
-            })
-            this.$parent.$parent.dialogVisible = false
-          })
-          .catch(err => {
-            this.$message({
-              type: 'error',
-              message: err
-            })
-          })
+        if (valid) {
+        // console.log(this.$store)
+
+            this.$store
+              .dispatch('stateSettings/updateSetting', payload)
+              .then(() => {
+
+                this.$message({
+                  type: 'success',
+                  message: '操作成功'
+                })
+                // this.$parent.$parent.dialogVisible = false
+                this.handleCancel()
+              })
+              .catch(err => {
+                // console.log(err)
+                this.$message({
+                  type: 'error',
+                  message: err
+                })
+              })
+        } else {
+          return false
+        }
       })
     },
     handleCancel() {

@@ -12,7 +12,8 @@
     mode="vertical"
   >
     <!-- <component :is="itemComponent[menuModule]" /> -->
-    <div v-if="menuModule=='management'||menuModule=='menu'">
+    <!-- v-if="menuModule=='management'||menuModule=='menu'" -->
+    <div v-if="!(menuModule=='friend'||menuModule=='conversation')">
       <sidebar-item v-for="(item,index) in currSecondMenu" :key="item.url||index" :item="item" />
     </div>
 
