@@ -21,22 +21,23 @@ Object.defineProperty(Object.prototype, "isEmptyObj", {
   enumerable: false,
   configurable: false,
   get: function () {
-
     return function () {
       for (let key in this) {
-        return false;
+        return false
       }
-      return true;
-    };
+      return true
+    }
     
-  },
-});
+  }
+})
 
 export function requestWarn(msg) {
   console.error("[request error]: "+ msg);
 }
 
+
 // 在生产环境下关闭console.log
-if (process.env.NODE_ENV === "production") {
-  window['console']['log'] = function() {};
-}
+// if (process.env.NODE_ENV === "production") {
+//   window['console']['log'] = function() {};
+// }
+  

@@ -43,6 +43,9 @@ const store = new Vuex.Store({
       }
   },
   getters,
+  state:{
+
+  }
   // plugins: [createPersistedState()],
 })
 

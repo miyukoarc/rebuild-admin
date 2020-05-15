@@ -55,8 +55,10 @@ const actions = {
         // const { access_token } = res
         window.localStorage.setItem('userID',username)
         window.localStorage.setItem('userSig',userSig)
+        console.log(access_token)
         await commit('SET_TOKEN', access_token)
         await setToken(access_token)
+        
         resolve(res.data)
       }).catch(error => {
         reject(error)

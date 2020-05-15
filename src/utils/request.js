@@ -8,7 +8,6 @@ import qs from 'qs';
 
 
 
-
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -44,6 +43,7 @@ function hideLoading() {
   if (needLoadingRequestCount === 0) {
 
     toHideLoading();
+    
   }
 }
 

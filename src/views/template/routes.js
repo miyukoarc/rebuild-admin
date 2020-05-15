@@ -3,26 +3,32 @@ import departmentList from './department/list'
 import roleList from './role/list'
 import orgList from './org/list'
 import menuList from './menu/list'
+import stateSetting from './stateSetting/list'
 
 export default [
     {
-        path: 'departmentTemplate/list',
+        path: ':org/departmentTemplate',
         name: 'DepartmentTemplate',
         component: departmentList,
     },
     {
-        path: 'roleTemplate/list',
-        name: 'RoleList',
+        path: ':org/roleTemplate',
+        name: 'RoleTemplate',
         component: roleList,
     },
     {
-        path: 'orgTemplate/list',
-        name: 'OrgList',
+        path: ':org/orgTemplate',
+        name: 'OrgTemplate',
         component: orgList,
     },
     {
-        path: 'menuTemplate/list',
-        name: 'MenuList',
+        path: ':org/menuTemplate',
+        name: 'MenuTemplate',
         component: menuList,
     },
+    {
+        path: ':org/stateTemplate',
+        name: 'StateTemplate',
+        component: stateSetting
+    }
 ]

@@ -54,6 +54,7 @@ export function getMenu(){
     method: 'get'
   })
 }
+
 export function genKey(username){
   return axios(
     {
@@ -61,7 +62,6 @@ export function genKey(username){
       method:'get',
     })
 }
-
 
 export function updateUserInfo(data){
   return request({

@@ -33,7 +33,6 @@
         <!-- <el-form-item> -->
         <div class="py-3" style="text-align:center;">
           <!-- <img width="128" height="128" :src="infoForm.faceUrl" alt /> -->
-
           <!-- <a class="btn" >设置头像</a> -->
           <my-upload
             field="file"

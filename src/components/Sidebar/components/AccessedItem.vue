@@ -2,7 +2,13 @@
   <div @click="handleSecondMenu(item)">
     <app-link :to="filterPath(item)">
       <el-menu-item :index="filterPath(item)" class="py-3 px-0">
+
+        <!-- <app-link v-if="item.code==='template'" :to="filterPath(item)">
+            <icon-item :icon="item.iconUrl" :title="item.name"></icon-item>
+        </app-link> -->
+
         <icon-item :icon="item.iconUrl" :title="item.name"></icon-item>
+        
       </el-menu-item>
     </app-link>
   </div>
@@ -37,6 +43,9 @@ export default {
     }),
     ...mapGetters(['hasSecondMenu'])
   },
+  mounted(){
+      console.log(this.item)
+  },
   methods: {
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),
     handleSecondMenu(item) {
@@ -44,25 +53,6 @@ export default {
       this.classifyUrl(item.url)
     },
     checkSecondMenuType(type) {
-        // console.log('第一次判断',type)
-    //   const keys = Object.keys(this.menuMap)
-
-    //   const hasStatus = keys.some(item => {
-    //     return type == item
-    //   })
-
-    //   if (type) {
-    //     if (
-    //       type != 'friend' &&
-    //       type != 'conversation' &&
-    //       type != 'management' &&
-    //       hasStatus
-    //     ) {
-    //       type = 'menu'
-    //     }
-    //   } else {
-    //     type = 'iframe'
-    //   }
 
       switch (type) {
         case 'iframe':

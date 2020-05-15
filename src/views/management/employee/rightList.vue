@@ -145,7 +145,10 @@ export default {
           prop: "department.name",
           uuid: 5,
           align: "center",
-          sort: false
+          sort: false,
+          render: function(row,col,cell){
+              return cell+''
+          }
         },
         {
           visible: true,
@@ -155,7 +158,7 @@ export default {
           align: "center",
           sort: false,
           render: function(row, column, cellValue, index) {
-            return cellValue == "MANAGER" ? "主管" : "";
+            return cellValue == "MANAGER" ? "主管" : "未指定";
           }
         },
         {

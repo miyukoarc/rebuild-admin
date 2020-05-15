@@ -5,13 +5,18 @@ queryOrgTemplate,
 updateOrgTemplate
 } from '@/api/orgTemplate'
 
+
 const state = {
-    orgTemplateList: []
+    orgTemplateList: [],
+    loading: false,
 }
 
 const mutations = {
     SAVE_LIST(state,payload){
         state.orgTemplateList = payload
+    },
+    TOGGLE_LOADING(state,payload){
+        state.loading = payload
     }
 }
 
@@ -26,20 +31,25 @@ addOrgTemplate({commit},payload){
     })
 },
 delOrgTemplate({commit},payload){
+    commit('TOGGLE_LOADING',true)
     return new Promise((resolve,reject)=>{
         delOrgTemplate(payload).then(res=>{
-
+        commit('TOGGLE_LOADING',false)
         }).catch(err=>{
             console.log(err)
+            commit('TOGGLE_LOADING',false)
         })
     })
 },
 queryOrgTemplate({commit},payload){
+    commit('TOGGLE_LOADING',true)
     return new Promise((resolve,reject)=>{
         queryOrgTemplate(payload).then(res=>{
-
+            commit('SAVE_LIST',res.item)
+            commit('TOGGLE_LOADING',false)
         }).catch(err=>{
             console.log(err)
+            commit('TOGGLE_LOADING',false)
         })
     })
 },

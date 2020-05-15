@@ -5,10 +5,10 @@ export default [
     {
         path: ':iframe',
         component:Iframe,
-        name: 'Iframe',
+        name: 'IframeModel',
         meta: {
             title: 'iframe',
             icon: 'example'
         }
     }
-] 
+]

@@ -1,5 +1,20 @@
-import Api from "@/api/stateSetting";
-import { getEventList, updateState } from '@/api/stateSetting'
+// import Api from "@/api/stateSetting";
+import {
+  getEventList, updateState, getRoleList,
+  getStateList,
+  getActionByEntity,
+  addEvent,
+  addState,
+  addTimer,
+  editEvent,
+  getUnuseEvent,
+  getStateMachine,
+  updateCache,
+  delTimerById,
+  stateUnlinkEvent,
+  addEventByState,
+  getEventByEntity,
+} from '@/api/stateSetting'
 import { requestWarn } from '@/utils/normal';
 
 const state = {
@@ -62,25 +77,25 @@ const mutations = {
 
 const actions = {
   getRoleList({ commit, state }) {
-    return Api.getRoleList().then(res => {
+    return getRoleList().then(res => {
       commit("CHANGEROLELIST", res.items);
     });
   },
 
   editEvent({ commit }, payload) {
-    return Api.editEvent(payload).then(res => {
+    return editEvent(payload).then(res => {
       //   commit('')
     })
   },
 
   getStateList({ commit, state }) {
-    return Api.getStateList().then(res => {
+    return getStateList().then(res => {
       commit("CHANGESTATELIST", res.items.user);
     });
   },
 
   getActionByEntity({ commit, state }) {
-    return Api.getActionByEntity(state.currentEntity).then(res => {
+    return getActionByEntity(state.currentEntity).then(res => {
       let item = res.items;
       item = item.map(e => {
         return { name: e, uuid: e };
@@ -90,14 +105,14 @@ const actions = {
   },
 
   getUnuseEvent({ commit, state }) {
-    return Api.getUnuseEvent(state.currentEntity).then(res => {
+    return getUnuseEvent(state.currentEntity).then(res => {
       let item = res.items;
       commit("CHANGEUNUSEDEVENTS", item);
     });
   },
-  
+
   getEventByEntity({ commit, state }) {
-    return Api.getEventByEntity(state.currentEntity).then(res => {
+    return getEventByEntity(state.currentEntity).then(res => {
       let items = res.items;
       let unuseList = state.unusedEvents;
       for (const item of items) {
@@ -112,7 +127,7 @@ const actions = {
 
   getStateMachine({ commit, state }) {
     commit("CHANGELOADING", true);
-    return Api.getStateMachine(state.currentEntity).then(res => {
+    return getStateMachine(state.currentEntity).then(res => {
       commit("CHANGELOADING", false);
       let items = res.items;
       for (const item of items) {
@@ -125,46 +140,46 @@ const actions = {
   },
 
   addEvent({ commit, state }, val) {
-    return Api.addEvent(val);
+    return addEvent(val);
   },
 
   addState({ commit, state }, val) {
-    return Api.addState(val);
+    return addState(val);
   },
 
   addTimer({ commit, state }, val) {
-    return Api.addTimer(val);
+    return addTimer(val);
   },
 
   addEventByState({ commit, state }, obj) {
-    return Api.addEventByState(obj);
+    return addEventByState(obj);
   },
 
   editEventData({ commit, state }, obj) {
-    return Api.editEvent(obj);
+    return editEvent(obj);
   },
 
   updateCache({ commit, state }) {
-    return Api.updateCache(state.currentEntity);
+    return updateCache(state.currentEntity);
   },
 
   delTimerById({ commit, state }, obj) {
-    return Api.delTimerById(obj);
+    return delTimerById(obj);
   },
 
   stateUnlinkEvent({ commit, state }, obj) {
-    return Api.stateUnlinkEvent(obj);
+    return stateUnlinkEvent(obj);
   },
   updateSetting({ commit }, payload) {
-    return Api.updateState(payload)
-  // return new Promise((resolve, reject) => {
-  //   updateState(payload).then(res => {
-  //     resolve();
-  //   }).catch(err => {
-  //     // requestWarn(err);
-  //     reject();
-  //   })
-  // })
+    return updateState(payload)
+    // return new Promise((resolve, reject) => {
+    //   updateState(payload).then(res => {
+    //     resolve();
+    //   }).catch(err => {
+    //     // requestWarn(err);
+    //     reject();
+    //   })
+    // })
   },
   getEventList({ commit }) {
     return new Promise((resolve, reject) => {
@@ -177,7 +192,7 @@ const actions = {
       })
     })
   },
-  
+
 };
 
 export default {

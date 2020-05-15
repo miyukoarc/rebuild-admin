@@ -8,7 +8,6 @@ import 'default-passive-events'
 
 import i18n from './lang'
 
-
 import Avatar from '@/components/Avatar/avatar.vue'
 
 import '@/styles/index.scss' // global css
@@ -73,6 +72,8 @@ Vue.prototype.dialogWidth = '600px' //dialog 统一宽度
 Vue.use(ElementUI,{size:'small'})
 
 Vue.config.productionTip = false
+
+// Vue.config.devtools = true
 
 Vue.component('avatar', Avatar)
 /**

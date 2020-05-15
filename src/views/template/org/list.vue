@@ -200,6 +200,7 @@ export default {
     this.initDataList()
   },
   mounted() {
+      console.log(this.$route.params)
     // console.warn(this.userList)
   },
   methods: {
