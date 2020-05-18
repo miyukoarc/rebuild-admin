@@ -8,7 +8,34 @@
 <body>
     <script>
 
+        function ListNode(val){
+            this.val = val
+            this.next = null
+        }
 
+        /**
+         *  @params { ListNode } head
+         *  @return { ListNode }
+         * 
+        */
+        const reverseList = (head)=>{
+            if(!head){
+                return null
+            }
+            let pre = null
+            let cur = null
+            while(cur){
+                let next = cur.next
+                cur.next = pre
+                pre = cur
+                cur = next
+            }
+            return pre
+        }
+
+        let arr = [1,2,3]
+
+        console.log(Object.keys(arr).length)
     </script>
 </body>
 </html>

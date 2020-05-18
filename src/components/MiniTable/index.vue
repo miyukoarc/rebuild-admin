@@ -16,7 +16,7 @@
         @row-click="rowClick"
         :empty-text="emptyText"
         style="width: 100%"
-      >
+       >
         <el-table-column v-if="showCheckBox" type="selection" width="55" align="center"></el-table-column>
         <el-table-column v-if="showIndex" type="index" width="35" align="center"></el-table-column>
         <el-table-column
@@ -26,7 +26,7 @@
           type="index"
           align="center"
           :index="indexMethod"
-        ></el-table-column>
+          ></el-table-column>
         <template v-for="col in afterColumns">
           <template v-if="col.visible">
             <el-table-column
@@ -41,7 +41,7 @@
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
-            >
+              >
               <template slot-scope="scope">
                 <el-avatar :src="scope.row.headimgurl" icon="el-icon-user-solid"></el-avatar>
                 <!-- <el-image style="width: 50px; height: 50px" :src="scope.row.headimgurl" fit="fill">
@@ -63,7 +63,7 @@
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
-            >
+              >
               <template slot-scope="scope">
                 <el-tag
                   :key="scope.row.enabled"
@@ -83,7 +83,7 @@
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
-            >
+              >
               <template slot-scope="scope">
                 <el-button
                   type="primary"
@@ -115,7 +115,7 @@
               show-overflow-tooltip
               :key="col.uuid"
               :align="col.align ? col.align : 'left'"
-            ></el-table-column>
+              ></el-table-column>
           </template>
         </template>
       </el-table>

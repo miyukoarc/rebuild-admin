@@ -25,6 +25,7 @@
         </div>
       </div>
     </div>
+    
     <edit-dialog ref="editDialog" />
 
     <div ref="stateSettingContent">

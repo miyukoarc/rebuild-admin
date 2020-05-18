@@ -35,7 +35,11 @@
 
     <div v-else class="header-fade" />
     <!-- <conversation-panel v-show="showCurrentProfile" /> -->
-    <conversation-profile v-show="showCurrentProfile" style="height:100%" :profileType="profileType" />
+    <conversation-profile
+      v-show="showCurrentProfile"
+      style="height:100%"
+      :profileType="profileType"
+    />
 
     <el-drawer title="我是标题" :visible.sync="showDetail" size="600px" :with-header="false">
       <div class="detail-container">
@@ -55,6 +59,7 @@ import MemberProfileCard from '@/components/MemberProfileCard'
 // import ConversationPanel from './conversation-panel'
 import UserDetail from '@/views/management/user/detail.vue'
 import DepartmentDetail from '@/views/management/department/detail'
+import { isEmpty } from '@/utils/normal'
 export default {
   name: 'CurrentConversation',
   components: {
@@ -147,15 +152,15 @@ export default {
           const uuid = newVal.groupProfile.introduction.split('/')[1]
 
           this.profileType = this.genProfileType(type)
-        //   this.$store.dispatch()
-          console.log(type,uuid,this.profileType)
+          //   this.$store.dispatch()
+          console.log(type, uuid, this.profileType)
         }
 
         /**
          * 控制profile界面是否显示
          */
         this.showCurrentProfile = true
-        if (newVal.isEmptyObj()) {
+        if (isEmpty(newVal)) {
           this.showCurrentProfile = false
         }
         if (newVal.conversationID == '@TIM#SYSTEM') {
@@ -200,18 +205,19 @@ export default {
     }
   },
   methods: {
+    isEmpty(obj) {
+      return isEmpty(obj)
+    },
     /**
      * 控制profile面板展示类型
      */
     genProfileType(type) {
-
-        switch(type){
-            case 'department':
-                return 'DepartmentProfile';
-            case 'order':
-                return 'OrderProfile';
-        }
-
+      switch (type) {
+        case 'department':
+          return 'DepartmentProfile'
+        case 'order':
+          return 'OrderProfile'
+      }
     },
     /**
      * 控制自定义消息详情展示类型

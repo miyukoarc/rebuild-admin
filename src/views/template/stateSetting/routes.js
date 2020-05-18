@@ -4,7 +4,7 @@ import stateSettingTree from './tree'
 export default [
     {
         path: 'list/:entity',
-        name: 'StateSettingList',
+        name: 'StateSettingTemplate',
         component: stateSettingList,
     },
     // {

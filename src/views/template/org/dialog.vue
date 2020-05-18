@@ -9,28 +9,31 @@
 </template>
 
 <script>
-import EventDisable from './event-disable.vue'
-import EventEnable from './event-enable.vue'
-import EventKick from './event-kick.vue'
+// import EventDisable from './event-disable.vue'
+// import EventEnable from './event-enable.vue'
+// import EventKick from './event-kick.vue'
+import CreateTemplate from './event-create.vue'
+import EditTemplate from './event-edit.vue'
 import {mapState} from 'vuex'
 export default {
-    components:{
-        EventDisable,
-        EventKick,
-        EventEnable
-    },
+components:{
+    CreateTemplate,
+    EditTemplate
+},
   data() {
     return {
       dialogVisible: false,
-      event: 'EventDisable',
+      event: 'CreateTemplate',
       eventType: ''
     };
   },
   watch:{
       eventType:{
           handler(newVal,oldVal){
+            //   console.log(newVal)
               if(newVal){
                   this.genTitle()
+                //   this.toggleComponent(newVal)
               }
           },
           immediate: true,
@@ -38,7 +41,7 @@ export default {
   },
   computed:{
       ...mapState({
-          eventsMap: state => state.stateSettings.eventsMap
+
       })
   },
   mounted(){
@@ -49,17 +52,25 @@ export default {
     //   console.warn(this.genTitle())
   },
   methods: {
+    //   toggleComponent(type){
+    //       if(type=='edit'){
+    //           this.event = 'EditTemplate'
+    //       }
+    //       if(type=='create'){
+    //           this.event = 'CreateTemplate'
+    //       }
+    //   },
       genTitle(){
-          if(this.eventsMap['user']){
-              for(let key of this.eventsMap['user']){
-              if(key.code == this.eventType){
-                  return key.name
-              }
+          if(this.eventType==='create'){
+              return '创建模板'
           }
+
+          if(this.eventType==='edit'){
+              return '编辑模板'
           }
           
           
-      }
+      },
   }
   
 };

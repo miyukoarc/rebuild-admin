@@ -90,7 +90,7 @@ const whiteList = ['/d/login'] // no redirect whitelist
 
           router.addRoutes([...accessed,{path:'*',redirect:'/d/404'}])
 
-          
+          console.log(router);
 
           next({
             ...to,

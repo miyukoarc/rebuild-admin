@@ -1,7 +1,10 @@
 <template>
   <el-form :model="form" ref="form" :rules="rules" label-width="100px">
-    <el-form-item label="原因" prop="reason">
-      <el-input v-model="form.reason"></el-input>
+    <el-form-item label="名称" prop="name">
+      <el-input v-model="form.name"></el-input>
+    </el-form-item>
+    <el-form-item label="Code" prop="code">
+      <el-input v-model="form.code"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
@@ -16,34 +19,38 @@ export default {
   data() {
     return {
       form: {
-        reason: '',
-        uuid: ''
+        name: '',
+        code: ''
       },
       rules: {
-        reason: [
+        name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 5, max: 20, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ]
       }
     }
   },
-  computed: {
-    ...mapState({
-      userDetail: state => state.userManage.userDetail
-    })
-  },
+  computed: {},
   methods: {
     handleConfirm() {
-      const payload = { reason: this.form.reason, uuid: this.userDetail.uuid }
+      const payload = this.form
+
       this.$refs['form'].validate(valid => {
         if (valid) {
+          console.log(payload)
           this.$store
-            .dispatch('userManage/disableUser', payload)
+            .dispatch('orgTemplate/addOrgTemplate', payload)
             .then(() => {
               this.$message({
                 type: 'success',
                 message: '操作成功'
               })
+              this.handleCancel()
+              this.refresh()
             })
             .catch(err => {
               console.log(err)
@@ -55,14 +62,21 @@ export default {
         } else {
           this.$message({
             type: 'error',
-            message: '请输入正确的原因'
+            message: '请检查输入'
           })
         }
       })
     },
     handleCancel() {
-      console.log(this.$parent)
       this.$parent.$parent.dialogVisible = false
+    },
+    refresh() {
+      this.$store.dispatch('orgTemplate/orgTemplateQueryList').catch(err => {
+        this.$message({
+          type: 'error',
+          message: err
+        })
+      })
     }
   }
 }

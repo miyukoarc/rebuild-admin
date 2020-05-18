@@ -9,7 +9,7 @@
       <cTable
         :columns="columns"
         :data="orgTemplateList"
-        :showPagin="false"
+        :showPagin="true"
         :page="page"
         :showCheckBox="false"
         @sortChange="sortChange"
@@ -167,12 +167,14 @@ export default {
     }
   },
   watch: {
+      
   },
   computed: {
     // ...mapState(NAME, ["roleList", "rolePage", "columns"]),
     ...mapState({
       page: state => state.orgTemplate.page,
-      orgTemplateList: state => state.orgTemplate.orgTemplateList
+      orgTemplateList: state => state.orgTemplate.orgTemplateList,
+      currOrgTemplate: state => state.orgTemplate.currOrgTemplate
       // columns: state => state.userManage.columns
     }),
     routesData() {
@@ -180,6 +182,7 @@ export default {
     }
   },
   created() {
+      console.log('1')
     this.initDataList()
   },
   mounted() {
@@ -200,6 +203,7 @@ export default {
       handleClick (val,e){
           
           e.stopPropagation()
+          console.log(val)
           this.handleDelete(val.uuid)
           alert('点击')
       },
@@ -238,7 +242,7 @@ export default {
     },
     initDataList() {
       this.$store
-        .dispatch('departmentTemplate/templateQueryByCode',this.$route.params.org)
+        .dispatch('orgTemplate/orgTemplateQueryList')
         .catch(err => {
         this.$message({
           type: 'error',
