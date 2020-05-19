@@ -20,29 +20,37 @@
           >
           </el-option>
         </el-select>
-      </el-form-item> -->
+      </el-form-item>-->
       <el-form-item label="父级">
         <!-- <el-input v-model="form.parent"></el-input> -->
-        <el-select v-model.trim="form.parent" clearable  placeholder="请选择父级菜单">
+        <!-- <el-select v-model.trim="form.parent" clearable  placeholder="请选择父级菜单">
           <el-option
-            v-for="item in pMenuList"
-            :key="item.uuid"
+            v-for="(item,index) in pMenuList"
+            :key="index"
             :label="item.name"
             :value="item.uuid"
           >
+          <span v-html="item.name">
+          </span>
           </el-option>
-        </el-select>
+        </el-select>-->
+        <el-cascader
+          v-model.trim="form.parent"
+          clearable
+          placeholder="请选择父级菜单"
+          :options="pMenuList"
+          :props="{value:'uuid',label:'name',checkStrictly:true}"
+        ></el-cascader>
       </el-form-item>
       <el-form-item label="角色">
         <!-- <el-input v-model="form.roles"></el-input> -->
-        <el-select v-model.trim="form.roles" clearable  placeholder="请选择角色" multiple>
+        <el-select v-model.trim="form.roles" clearable placeholder="请选择角色" multiple>
           <el-option
-            v-for="item in roleList"
-            :key="item.uuid"
+            v-for="(item,index) in roleList"
+            :key="index"
             :label="item.name"
             :value="item.uuid"
-          >
-          </el-option>
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="路径">
@@ -50,10 +58,7 @@
       </el-form-item>
       <el-form-item label="排序">
         <!-- <el-input v-model="form.sort"></el-input> -->
-        <el-input-number
-          v-model="form.sort"
-          :min="1"
-        ></el-input-number>
+        <el-input-number v-model="form.sort" :min="1"></el-input-number>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -70,82 +75,103 @@ export default {
   },
   data() {
     return {
-        formDefault: {
-          name: "",
-          code: "",
-          iconUrl: "",
-          org: 1,
-          parent: "",
-          roles: [],
-          url: "",
-          sort: null
-        }
-    };
+      formDefault: {
+        name: '',
+        code: '',
+        iconUrl: '',
+        org: 1,
+        parent: '',
+        roles: [],
+        url: '',
+        sort: null
+      },
+      tabCount: 2,
+      menuListTemp: []
+    }
   },
   computed: {
     roleList() {
-      return Array.from(this.$store.state.role.roleList);
+      return Array.from(this.$store.state.role.roleList)
     },
     pMenuList() {
-      return this.$store.state.menuManage.menuList;
+      let menuList = []
+      menuList = Array.from(this.$store.state.menuManage.menuList)
+      // console.log(this.getMenu(menuList));
+      return menuList;
     },
-    form:{
-      get(){
-         let nForm = this.getNewData();
-        this.formDefault = {...nForm};
-        return this.formDefault;
+    form: {
+      get() {
+        let nForm = this.getNewData()
+        this.formDefault = { ...nForm }
+        return this.formDefault
       },
-      set(val){
-        this.formDefault = val;
+      set(val) {
+        this.formDefault = val
       }
     }
   },
-  mounted () {
-   
-  },
+  mounted() {},
   methods: {
-    getNewData(){
+    /**
+     * 让点击传入的数据符合element表单的格式
+     * 最多只支持三级菜单
+     */
+    getNewData() {
       let obj = this.formData;
-        if(!obj.roles.isEmptyObj()){
-            let arr = obj.roles.map(e=>{
-                return e.uuid;
-            });
-            obj.roles = arr;
-        }else{
-            obj.roles = [];
-        };
-        if(!obj.parent.isEmptyObj()){
-            obj.parent = obj.parent.uuid;
-        }else{
-            obj.parent = null;
-        }
-        obj.org = 1;
-        return obj;
+      let menuList = Array.from(this.$store.state.menuManage.menuList);
+      if (Array.isArray(obj.roles)) {
+        let arr = obj.roles.map(e => {
+          return e.uuid
+        })
+        obj.roles = arr
+      } else {
+        obj.roles = []
+      }
+      if (!obj.parent.isEmptyObj()) {
+        let ids = [],parentObj = obj.parent;
+        ids.unshift(parentObj.uuid);
+        menuList.forEach(e=>{
+          if(e.hasOwnProperty("children")){
+            e.children.forEach(m=>{
+              if(m.uuid === parentObj.uuid){
+                ids.unshift(e.uuid);
+              }
+            })
+          }
+        });
+        obj.parent = ids;
+      } else {
+        obj.parent = []
+      }
+      obj.org = 1
+      return obj
     },
     onSubmit() {
-      // console.log(this.formData);
-        this.$store
-          .dispatch("menuManage/editMenu", this.form)
-          .then(result => {
-            this.$message({
-              type: "success",
-              message: "修改成功"
-            });
-            this.$bus.$emit("closeDialog");
-            this.$bus.$emit("onRefleshMenuTree");
+      let subData = JSON.parse(JSON.stringify(this.form)); // 对象深拷贝
+      subData.parent = subData.parent.pop();
+
+      this.$store
+        .dispatch('menuManage/editMenu', subData)
+        .then(result => {
+          this.$message({
+            type: 'success',
+            message: '修改成功'
           })
-          .catch(err => {
-            this.$message({
-              type: "error",
-              message: "修改失败:" + err
-            });
-          });
+          this.$bus.$emit('closeDialog')
+          this.$bus.$emit('onRefleshMenuTree')
+        })
+        .catch(err => {
+          this.$message({
+            type: 'error',
+            message: '修改失败:' + err
+          })
+        })
     },
     onCancel() {
-      this.$bus.$emit("closeDialog");
+      this.$bus.$emit('closeDialog')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

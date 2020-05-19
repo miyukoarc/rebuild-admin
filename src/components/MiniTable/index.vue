@@ -4,9 +4,9 @@
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(255, 255, 255, 0.3)"
-    class="fill common-table"
+    class="common-table"
   >
-    <el-main class="fill" style="padding:0">
+    <el-main style="padding:0">
       <el-table
         ref="table"
         v-bind="$attrs"
@@ -29,82 +29,8 @@
           ></el-table-column>
         <template v-for="col in afterColumns">
           <template v-if="col.visible">
+        
             <el-table-column
-              v-if="col.type==='image'"
-              :prop="col.prop"
-              :label="col.label"
-              :sortable="col.sort === undefined ? 'custom' : col.sort"
-              :sort-by="col.sortBy ? col.sortBy : col.prop"
-              :width="col.width ? col.width : ''"
-              :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.render"
-              show-overflow-tooltip
-              :key="col.uuid"
-              :align="col.align ? col.align : 'left'"
-              >
-              <template slot-scope="scope">
-                <el-avatar :src="scope.row.headimgurl" icon="el-icon-user-solid"></el-avatar>
-                <!-- <el-image style="width: 50px; height: 50px" :src="scope.row.headimgurl" fit="fill">
-                  <div slot="error" class="image-slot">
-                    <i class="el-icon-picture-outline"></i>
-                  </div>
-                </el-image> -->
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-else-if="col.type==='status'"
-              :prop="col.prop"
-              :label="col.label"
-              :sortable="col.sort === undefined ? 'custom' : col.sort"
-              :sort-by="col.sortBy ? col.sortBy : col.prop"
-              :width="col.width ? col.width : ''"
-              :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.render"
-              show-overflow-tooltip
-              :key="col.uuid"
-              :align="col.align ? col.align : 'left'"
-              >
-              <template slot-scope="scope">
-                <el-tag
-                  :key="scope.row.enabled"
-                  :type="scope.row.enabled?'success':'error'"
-                >{{scope.row.enabled?'有效':'无效'}}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-              v-else-if="col.type==='button'"
-              prop="col.prop"
-              :label="col.label"
-              :sortable="col.sort === undefined ? 'custom' : col.sort"
-              :sort-by="col.sortBy ? col.sortBy : col.prop"
-              :width="col.width ? col.width : ''"
-              :fixed="col.fixed ? col.fixed : false"
-              :formatter="col.render"
-              show-overflow-tooltip
-              :key="col.uuid"
-              :align="col.align ? col.align : 'left'"
-              >
-              <template slot-scope="scope">
-                <el-button
-                  type="primary"
-                  size="mini"
-                  v-waves
-                  icon="el-icon-edit"
-                  @click.native.stop="handleFirst(scope.row)"
-                >编辑</el-button>
-                <!-- <dialog-button v-waves type="primary"  size="mini" icon="el-icon-edit">编辑</dialog-button> -->
-                <el-button
-                  type="danger"
-                  size="mini"
-                  v-waves
-                  icon="el-icon-delete"
-                  @click.native.stop="handleSecond(scope.row)"
-                >删除</el-button>
-              </template>
-            </el-table-column>
-
-            <el-table-column
-              v-else
               :prop="col.prop"
               :label="col.label"
               :sortable="col.sort === undefined ? 'custom' : col.sort"

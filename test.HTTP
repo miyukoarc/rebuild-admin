@@ -179,3 +179,7 @@ Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
 ###
 GET http://10.10.10.199:40001/v1/menuTemplate/queryByCode?code=plateform HTTP/1.1
 Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+
+###
+GET http://10.10.10.199:40001/v1/orgTemplate/queryByName?name=通讯公 HTTP/1.1
+Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99

@@ -1,26 +1,9 @@
 import request from '@/utils/request'
 
-export function getRoleTemplateList(code){
-    return request({
-        method:"get",
-        url:"/v1/roleTemplate/queryByCode",
-        params:{
-            code,
-        }
-    })
-}
-
-export function delRoleTemplate(form){
-    return request({
-        method:"post",
-        url:"/v1/roleTemplate/delete",
-        data:form
-    })
-}
 
 export const addTemplate =(payload)=>{
     return request({
-        url: '/v1/roleTemplate/add',
+        url: '/v1/menuTemplate/add',
         method: 'post',
         data: payload
     })
@@ -28,7 +11,7 @@ export const addTemplate =(payload)=>{
 
 export const delTemplate = (payload) => {
     return request({
-        url: '/v1/roleTemplate/delete',
+        url: '/v1/menuTemplate/delete',
         method: 'post',
         data: payload
     })
@@ -36,15 +19,7 @@ export const delTemplate = (payload) => {
 
 export const updateTemplate = (payload) => {
     return request({
-        url: '/v1/roleTemplate/update',
-        method: 'post',
-        data: payload
-    })
-}
-
-export const linkMenu = (payload) => {
-    return request({
-        url: '/v1/roleTemplate/linkMenu',
+        url: '/v1/menuTemplate/update',
         method: 'post',
         data: payload
     })
@@ -52,7 +27,7 @@ export const linkMenu = (payload) => {
 
 export const templateQueryList = (payload) => {
     return request({
-        url: '/v1/roleTemplate/queryList',
+        url: '/v1/menuTemplate/queryList',
         method: 'get',
         params: {
             uuid: payload
@@ -62,7 +37,7 @@ export const templateQueryList = (payload) => {
 
 export const templateQueryById = (payload)=>{
     return request({
-        url: '/v1/roleTemplate/queryById',
+        url: '/v1/menuTemplate/queryById',
         method: 'get',
         params: {
             uuid: payload
@@ -72,7 +47,7 @@ export const templateQueryById = (payload)=>{
 
 export const templateQueryByCode = (payload)=>{
     return request({
-        url: '/v1/roleTemplate/queryByCode',
+        url: '/v1/menuTemplate/queryByCode',
         method: 'get',
         params: {
             code: payload
@@ -81,10 +56,20 @@ export const templateQueryByCode = (payload)=>{
 }
 
 
+export const templateQueryByTree = (payload)=>{
+    return request({
+        url: '/v1/menuTemplate/queryTree',
+        method: 'get',
+        params: {
+            uuid: payload
+        }
+    })
+}
+
 
 export const templateQueryByName = (payload)=>{
     return request({
-        url: '/v1/roleTemplate/queryByName',
+        url: '/v1/menuTemplate/queryByName',
         method: 'get',
         params: {
             name: payload

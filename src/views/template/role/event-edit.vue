@@ -6,21 +6,18 @@
     <el-form-item label="Code" prop="code">
       <el-input v-model="form.code"></el-input>
     </el-form-item>
-    <el-form-item label="上级">
-        <el-checkbox v-model="hasParent">是否为子部门</el-checkbox>
-    </el-form-item>
-    <el-form-item>
-        <el-select  v-model="form.parent" placeholder="请选择">
+
+    <el-form-item label="终端">
+        <el-select  v-model="form.terminal" placeholder="请选择">
             <el-option
-                :disabled="!hasParent"
-                v-for="item in departmentTemplates"
-                :key="item.uuid"
+                v-for="item in options"
+                :key="item.val"
                 :label="item.name"
-                :value="item.uuid"
+                :value="item.val"
             ></el-option>
         </el-select>
     </el-form-item>
-    
+
     <el-form-item>
       <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
       <el-button type="danger" size="small" @click="handleCancel">取消</el-button>
@@ -31,21 +28,19 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    inject: ['reload'],
+  inject: ['reload'],
   data() {
     return {
-      hasParent: false,
       form: {
-        name: '',
         code: '',
-        org: '',
+        name: '',
+        org: 0,
+        // parent: 0,
+        terminal: '',
+        uuid: ''
       },
       rules: {
         name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
-        ],
-        code: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
           { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ]
@@ -53,28 +48,37 @@ export default {
     }
   },
   watch: {
-      hasParent:{
-          handler(newVal,oldVal){
-              if(newVal){
-                  this.$set(this.form,'parent',this.departmentTemplates[0].uuid)
-              }
-              if(!newVal){
-                  this.$delete(this.form,'parent')
-              }
-          },
-          immediate:true
-      }
+    currRoleTemplate: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          //   console.log(newVal)
+          this.initData()
+        }
+      },
+      immediate: true
+    }
   },
   computed: {
-      ...mapState({
-          currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
-          departmentTemplates: state => state.orgTemplate.currOrgTemplate.departmentTemplates
-      })
+    ...mapState({
+      currDepartmentTemplate: state =>
+        state.departmentTemplate.currDepartmentTemplate,
+      currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
+      currRoleTemplate: state => state.roleTemplate.currRoleTemplate
+    })
   },
-  mounted(){
-      this.form.org = this.currOrgTemplate.uuid
+  updated() {
+    //   console.log('updated')
+    //   this.initData()
   },
   methods: {
+    initData() {
+      this.form.code = this.currRoleTemplate.code
+      this.form.name = this.currRoleTemplate.name
+      this.form.uuid = this.currRoleTemplate.uuid
+      this.form.terminal = this.currRoleTemplate.currRoleTemplate
+      // this.form.parent = this.currDepartmentTemplate
+      this.form.org = this.currOrgTemplate.uuid
+    },
     handleConfirm() {
       const payload = this.form
 
@@ -82,7 +86,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('departmentTemplate/addTemplate', payload)
+            .dispatch('departmentTemplate/updateTemplate', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -110,14 +114,19 @@ export default {
       this.$parent.$parent.dialogVisible = false
     },
     refresh() {
-      this.$store.dispatch('departmentTemplate/templateQueryByTree',this.currOrgTemplate.uuid).then(()=>{
+      console.log('刷新')
+      const payload = this.$route.params.org
+      this.$store
+        .dispatch('departmentTemplate/templateQueryList', payload)
+        .then(() => {
           this.reload()
-      }).catch(err => {
-        this.$message({
-          type: 'error',
-          message: err
         })
-      })
+        .catch(err => {
+          this.$message({
+            type: 'error',
+            message: err
+          })
+        })
     }
   }
 }

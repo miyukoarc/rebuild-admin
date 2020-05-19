@@ -155,7 +155,12 @@ export default {
             label: '操作',
             align: 'center',
             render: (row,column, cell) =>{
-                return <el-button type='danger' size='mini' onClick={(e)=>this.handleClick(row,e)}>删除</el-button>
+
+                return  <div>
+                            <el-button type='primary' size='mini' onClick={(e)=>this.handleEdit(row,e)}>编辑</el-button>
+                            <el-button type='danger' size='mini' onClick={(e)=>this.handleClick(row,e)}>删除</el-button>
+                        </div>
+                 
             }
         }
       ],
@@ -186,15 +191,11 @@ export default {
     this.initDataList()
   },
   mounted() {
-    // console.log(this.$route.params)
     this.$bus.$on('showFormDialog',target=>{
         this.$refs['formDialog'].event = 'CreateTemplate'
         this.$refs['formDialog'].eventType = 'create'
         this.$refs['formDialog'].dialogVisible = true
-        // console.log(this.$refs['formDialog'])
-        // console.log(target)
     })
-    // console.warn(this.userList)
   },
   beforeDestroy(){
       this.$bus.$off('showFormDialog')
@@ -212,10 +213,7 @@ export default {
     },
 
     handleRowClick(value) {
-        this.$store.commit('orgTemplate/SAVE_DETAIL',value)
-        this.$refs['formDialog'].event = 'EditTemplate'
-        this.$refs['formDialog'].eventType = 'edit'
-        this.$refs['formDialog'].dialogVisible = true
+        
         
     },
     sortChange(val) {
@@ -239,6 +237,12 @@ export default {
                 message: err
             })
         })
+    },
+    handleEdit(value){
+        this.$store.commit('orgTemplate/SAVE_DETAIL',value)
+        this.$refs['formDialog'].event = 'EditTemplate'
+        this.$refs['formDialog'].eventType = 'edit'
+        this.$refs['formDialog'].dialogVisible = true
     },
     initDataList() {
       this.$store

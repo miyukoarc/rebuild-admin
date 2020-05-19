@@ -6,17 +6,16 @@
     <el-form-item label="Code" prop="code">
       <el-input v-model="form.code"></el-input>
     </el-form-item>
-    <el-form-item label="上级">
+    <!-- <el-form-item label="上级">
         <el-checkbox v-model="hasParent">是否为子部门</el-checkbox>
-    </el-form-item>
-    <el-form-item>
-        <el-select  v-model="form.parent" placeholder="请选择">
+    </el-form-item> -->
+    <el-form-item label="终端">
+        <el-select  v-model="form.terminal" placeholder="请选择">
             <el-option
-                :disabled="!hasParent"
-                v-for="item in departmentTemplates"
-                :key="item.uuid"
+                v-for="item in options"
+                :key="item.val"
                 :label="item.name"
-                :value="item.uuid"
+                :value="item.val"
             ></el-option>
         </el-select>
     </el-form-item>
@@ -39,7 +38,9 @@ export default {
         name: '',
         code: '',
         org: '',
+        terminal: []
       },
+      options: [{val:'USER',name:'用户'},{val:'ORG',name:'平台'}],
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -68,7 +69,8 @@ export default {
   computed: {
       ...mapState({
           currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
-          departmentTemplates: state => state.orgTemplate.currOrgTemplate.departmentTemplates
+          departmentTemplates: state => state.orgTemplate.currOrgTemplate.departmentTemplates,
+          currRoleTemplate: state => state.roleTemplate.currRoleTemplate
       })
   },
   mounted(){
@@ -82,7 +84,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('departmentTemplate/addTemplate', payload)
+            .dispatch('roleTemplate/addTemplate', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -110,7 +112,7 @@ export default {
       this.$parent.$parent.dialogVisible = false
     },
     refresh() {
-      this.$store.dispatch('departmentTemplate/templateQueryByTree',this.currOrgTemplate.uuid).then(()=>{
+      this.$store.dispatch('roleTemplate/templateQueryList',this.currOrgTemplate.uuid).then(()=>{
           this.reload()
       }).catch(err => {
         this.$message({

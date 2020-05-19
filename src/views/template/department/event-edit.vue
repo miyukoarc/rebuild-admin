@@ -5,7 +5,7 @@
     </el-form-item>
     <!-- <el-form-item label="Code" prop="code">
       <el-input v-model="form.code"></el-input>
-    </el-form-item> -->
+    </el-form-item>-->
     <el-form-item>
       <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
       <el-button type="danger" size="small" @click="handleCancel">取消</el-button>
@@ -16,10 +16,14 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  inject: ['reload'],
   data() {
     return {
       form: {
+        code: '',
         name: '',
+        org: 0,
+        // parent: 0,
         uuid: ''
       },
       rules: {
@@ -31,39 +35,43 @@ export default {
     }
   },
   watch: {
-      currOrgTemplate:{
-          handler(newVal,oldVal){
-              if(newVal){
-                //   console.log(newVal)
-                  this.initData()
-              }
-          },
-          immediate: true,
-          
-      }
+    currDepartmentTemplate: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          //   console.log(newVal)
+          this.initData()
+        }
+      },
+      immediate: true
+    }
   },
   computed: {
-      ...mapState({
-          currOrgTemplate: state => state.orgTemplate.currOrgTemplate
-      })
+    ...mapState({
+      currDepartmentTemplate: state =>
+        state.departmentTemplate.currDepartmentTemplate,
+      currOrgTemplate: state => state.orgTemplate.currOrgTemplate
+    })
   },
-  updated(){
+  updated() {
     //   console.log('updated')
     //   this.initData()
   },
   methods: {
-    initData(){
-        this.form.name = this.currOrgTemplate.name
-        this.form.uuid = this.currOrgTemplate.uuid
+    initData() {
+      this.form.code = this.currDepartmentTemplate.code
+      this.form.name = this.currDepartmentTemplate.name
+      this.form.uuid = this.currDepartmentTemplate.uuid
+      // this.form.parent = this.currDepartmentTemplate
+      this.form.org = this.currOrgTemplate.uuid
     },
     handleConfirm() {
       const payload = this.form
 
       this.$refs['form'].validate(valid => {
         if (valid) {
-            console.log(payload)
+          console.log(payload)
           this.$store
-            .dispatch('orgTemplate/updateOrgTemplate', payload)
+            .dispatch('departmentTemplate/updateTemplate', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -91,12 +99,19 @@ export default {
       this.$parent.$parent.dialogVisible = false
     },
     refresh() {
-      this.$store.dispatch('orgTemplate/orgTemplateQueryList').catch(err => {
-        this.$message({
-          type: 'error',
-          message: err
+      console.log('刷新')
+      const payload = this.$route.params.org
+      this.$store
+        .dispatch('departmentTemplate/templateQueryList', payload)
+        .then(() => {
+          this.reload()
         })
-      })
+        .catch(err => {
+          this.$message({
+            type: 'error',
+            message: err
+          })
+        })
     }
   }
 }

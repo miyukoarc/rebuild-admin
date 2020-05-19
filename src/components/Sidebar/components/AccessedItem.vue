@@ -44,7 +44,7 @@ export default {
     ...mapGetters(['hasSecondMenu'])
   },
   mounted(){
-      console.log(this.item)
+    //   console.log(this.item)
   },
   methods: {
     ...mapMutations('secondMenu', ['TOGGLE_TYPE', 'TOGGLE_STATE']),

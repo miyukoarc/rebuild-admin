@@ -1,6 +1,6 @@
 import Layout from './layout.vue'
 
-const files = require.context('../views', true ,/\.js$/)
+const files = require.context('../views', true ,/routes\.js$/)
 
 // console.log(files.keys())
 

@@ -157,7 +157,6 @@ service.interceptors.response.use(
     //   type: 'error',
     //   duration: 2 * 1000
     // })
-    console.log(error)
     return Promise.reject(errMsg);
   }
 )

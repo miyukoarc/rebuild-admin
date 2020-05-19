@@ -4,7 +4,7 @@ import roleList from './role/list'
 import orgList from './org/list'
 import menuList from './menu/list'
 import stateSetting from './stateSetting/list'
-
+import roleExample from './org/list-example.vue'
 export default [
     {
         path: ':org/departmentTemplate',
@@ -15,6 +15,11 @@ export default [
         path: ':org/roleTemplate',
         name: 'RoleTemplate',
         component: roleList,
+    },
+    {
+        path: ':org/roleTemplate/example',
+        name: 'RoleExampleTemplate',
+        component: roleExample,
     },
     {
         path: ':org/orgTemplate',

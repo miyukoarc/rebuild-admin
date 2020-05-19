@@ -12,7 +12,7 @@
       class="fill"
       @row-click="handleDetail"
       :tree-props="{ children: 'children' }"
-    >
+      >
       <el-table-column
         prop="name"
         label="名称"

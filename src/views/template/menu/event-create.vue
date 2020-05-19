@@ -6,20 +6,56 @@
     <el-form-item label="Code" prop="code">
       <el-input v-model="form.code"></el-input>
     </el-form-item>
-    <el-form-item label="上级">
-        <el-checkbox v-model="hasParent">是否为子部门</el-checkbox>
+
+    <el-form-item label="图标" prop="code">
+      <el-input v-model="form.iconUrl"></el-input>
     </el-form-item>
+
+    <el-form-item label="地址" prop="url">
+      <el-input v-model="form.url"></el-input>
+    </el-form-item>
+
+
+    <el-form-item label="角色" prop="role">
+        <el-select
+            v-model="form.role"
+            multiple
+            collapse-tags
+            placeholder="请选择">
+            <el-option
+            v-for="item in roleTemplates"
+            :key="item.uuid"
+            :label="item.name"
+            :value="item.uuid">
+            </el-option>
+        </el-select>
+    </el-form-item>
+
+
+
+    <el-form-item label="上级">
+        <el-checkbox v-model="hasParent">是否为子菜单</el-checkbox>
+    </el-form-item>
+
     <el-form-item>
         <el-select  v-model="form.parent" placeholder="请选择">
             <el-option
                 :disabled="!hasParent"
-                v-for="item in departmentTemplates"
+                v-for="item in menuTemplates"
                 :key="item.uuid"
                 :label="item.name"
                 :value="item.uuid"
             ></el-option>
         </el-select>
     </el-form-item>
+
+
+    <el-form-item label="排序" prop="sort">
+        <el-input-number v-model="form.sort" :step="2">
+        </el-input-number>
+    </el-form-item>
+
+
     
     <el-form-item>
       <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
@@ -38,7 +74,10 @@ export default {
       form: {
         name: '',
         code: '',
+        iconUrl: '',
+        url: '',
         org: '',
+        sort: 0,
       },
       rules: {
         name: [
@@ -56,7 +95,7 @@ export default {
       hasParent:{
           handler(newVal,oldVal){
               if(newVal){
-                  this.$set(this.form,'parent',this.departmentTemplates[0].uuid)
+                  this.$set(this.form,'parent',this.menuTemplates[0].uuid)
               }
               if(!newVal){
                   this.$delete(this.form,'parent')
@@ -68,6 +107,8 @@ export default {
   computed: {
       ...mapState({
           currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
+          menuTemplates: state => state.menuTemplate.menuTemplates,
+          roleTemplates: state => state.orgTemplate.currOrgTemplate.roleTemplates,
           departmentTemplates: state => state.orgTemplate.currOrgTemplate.departmentTemplates
       })
   },
@@ -82,7 +123,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('departmentTemplate/addTemplate', payload)
+            .dispatch('menuTemplate/addTemplate', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -110,7 +151,7 @@ export default {
       this.$parent.$parent.dialogVisible = false
     },
     refresh() {
-      this.$store.dispatch('departmentTemplate/templateQueryByTree',this.currOrgTemplate.uuid).then(()=>{
+      this.$store.dispatch('menuTemplate/templateQueryByTree',this.currOrgTemplate.uuid).then(()=>{
           this.reload()
       }).catch(err => {
         this.$message({

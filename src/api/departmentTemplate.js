@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export const addTemplate =(payload)=>{
     return request({
-        url: '/v1/departmentTemplate/addOrgTemplate',
+        url: '/v1/departmentTemplate/add',
         method: 'post',
         data: payload
     })
@@ -11,7 +11,7 @@ export const addTemplate =(payload)=>{
 
 export const delTemplate = (payload) => {
     return request({
-        url: '/v1/departmentTemplate/delOrgTemplate',
+        url: '/v1/departmentTemplate/delete',
         method: 'post',
         data: payload
     })
@@ -19,7 +19,7 @@ export const delTemplate = (payload) => {
 
 export const updateTemplate = (payload) => {
     return request({
-        url: '/v1/departmentTemplate/updateOrgTemplate',
+        url: '/v1/departmentTemplate/update',
         method: 'post',
         data: payload
     })
@@ -62,6 +62,17 @@ export const templateQueryByTree = (payload)=>{
         method: 'get',
         params: {
             uuid: payload
+        }
+    })
+}
+
+
+export const templateQueryByName = (payload)=>{
+    return request({
+        url: '/v1/departmentTemplate/queryByName',
+        method: 'get',
+        params: {
+            name: payload
         }
     })
 }
