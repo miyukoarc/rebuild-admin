@@ -1,7 +1,8 @@
 <template>
   <div>
-    <el-submenu v-if="item.children!=undefined" :index="item.name" popper-append-to-body>
+    <el-submenu v-if="item.children!=undefined" :index="item.code" popper-append-to-body>
       <template slot="title">
+        
         <span>
           <span
             :class="{'link-active':isLinkActive}"
@@ -12,7 +13,7 @@
           <span v-else>{{item.name}}</span>
         </span>
       </template>
-      <sidebar-item v-for="child in item.children" :key="child.name" :item="child"></sidebar-item>
+      <sidebar-item v-for="child in item.children" :key="child.code" :item="child"></sidebar-item>
     </el-submenu>
     <el-menu-item
       :index="item.url"

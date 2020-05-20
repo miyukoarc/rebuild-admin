@@ -4,9 +4,12 @@
         <cHeader/>
     </el-header>
     <el-main height class="pt-0">
-      <cTable :columns="columns" :showPagin="false" border />
+      <cTable 
+      :columns="columns" 
+      :showPagin="false" border />
     </el-main>
   </el-container>
+
 </template>
 
 <script>
@@ -60,6 +63,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+
   },
   methods:{
     initData(){

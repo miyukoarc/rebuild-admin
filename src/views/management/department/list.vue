@@ -88,10 +88,10 @@ export default {
     const getDepartmentTree = this.$store.dispatch('department/getDepartment')
     const getgetEmployeeList = this.$store.dispatch('employee/getEmployeeList')
     const getDepartmentList = this.$store.dispatch(
-      'department/getDepartmenList'
+      'department/getAllDepartments'
     )
     await Promise.all([
-      'getDepartmentTree',
+      'getAllDepartments',
       'getgetEmployeeList',
       'getDepartmentList'
     ])

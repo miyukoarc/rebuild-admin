@@ -126,7 +126,8 @@ export default {
       roleTemplates: state =>
         state.orgTemplate.currOrgTemplate.roleTemplates,
       menuTemplates: state =>
-        state.orgTemplate.currOrgTemplate.menuTemplates
+        state.orgTemplate.currOrgTemplate.menuTemplates,
+        loading: state => state.orgTemplate.loading
     })
   },
   created() {

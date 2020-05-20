@@ -18,6 +18,7 @@
         border
       />-->
       <el-table
+        v-loading="loading"
         :data="departmentTemplates"
         style="width: 100%"
         row-key="uuid"
@@ -60,7 +61,6 @@ import FormDialog from './dialog'
 import { mapState, mapMutations, mapActions } from 'vuex'
 const NAME = 'management'
 import isEmpty from '@/utils/normal'
-import Page from '@/utils/PageDefault'
 import Mixin from '../mixins/index'
 
 export default {
@@ -202,7 +202,8 @@ export default {
     ...mapState({
       page: state => state.orgTemplate.page,
       orgTemplateList: state => state.orgTemplate.orgTemplateList,
-      departmentTemplates: state => state.departmentTemplate.departmentTemplates
+      departmentTemplates: state => state.departmentTemplate.departmentTemplates,
+      loading: state => state.departmentTemplate.loading
       // columns: state => state.userManage.columns
     }),
     routesData() {

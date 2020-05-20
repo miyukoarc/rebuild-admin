@@ -18,6 +18,7 @@
         border
       />-->
       <el-table
+      v-loading="loading"
         :data="menuTemplates"
         style="width: 100%"
         row-key="uuid"
@@ -103,7 +104,8 @@ export default {
     ...mapState({
       page: state => state.orgTemplate.page,
       orgTemplateList: state => state.orgTemplate.orgTemplateList,
-      menuTemplates: state => state.menuTemplate.menuTemplates
+      menuTemplates: state => state.menuTemplate.menuTemplates,
+      loading: state => state.menuTemplate.loading
       // columns: state => state.userManage.columns
     }),
     routesData() {

@@ -17,7 +17,29 @@
         <el-input v-model="formData.code"></el-input>
       </el-form-item>
 
+      <!-- <el-form-item label="终端" prop="terminal">
+        <el-select v-model="formData.terminal" placeholder="请选择">
+          <el-option v-for="item in options" :key="item.val" :label="item.name" :value="item.val"></el-option>
+        </el-select>
+      </el-form-item> -->
+
       <el-form-item label="上级">
+        <el-checkbox v-model="hasParent">是否为子部门</el-checkbox>
+      </el-form-item>
+      <el-form-item>
+        <el-select v-model="formData.parent" placeholder="请选择">
+          <el-option
+            :disabled="!hasParent"
+            v-for="item in allDepartments"
+            :key="item.code"
+            :label="item.name"
+            :value="item.uuid"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+
+      <!-- <el-form-item label="上级">
+
         <el-select v-model="formData.parent" placeholder="请选择">
           <el-option
             v-for="item in departmentList"
@@ -26,7 +48,7 @@
             :value="item.uuid"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
 
       <el-form-item label="主管">
         <el-select v-model="addManager.managerId">
@@ -55,6 +77,7 @@ export default {
   data() {
     return {
       // showDialog: false,
+      hasParent: false,
       rules: {
         name: [
           { required: true, message: '请输入名称', trigger: 'blur' },
@@ -69,20 +92,36 @@ export default {
         name: '',
         code: '',
         org: '',
-        parent: ''
+        parent: '',
+        // terminal: 'ORG'
       }, //create
+      options: [
+        { val: 'ORG', name: '企业' },
+        { val: 'USER', name: '用户' }
+      ],
       addManager: {
         departmentId: '',
         managerId: ''
       }
     }
   },
-  watch: {},
+  watch: {
+    hasParent: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.$set(this.formData, 'parent', this.departmentList[0].uuid)
+        }
+        if (!newVal) {
+          this.$delete(this.formData, 'parent')
+        }
+      }
+    }
+  },
   computed: {
     ...mapState({
       org: state => state.user.userInfo.org,
       employeeList: state => state.employee.employeeList,
-      departmentList: state => state.department.allDepartments
+      allDepartments: state => state.department.allDepartments
     }),
     ...mapGetters(['department'])
   },
@@ -101,41 +140,42 @@ export default {
             .dispatch('department/createDepartment', this.formData)
             .then(async _ => {
               if (this.addManager.managerId) {
-                this.$store.dispatch('department/setDepartmentManager', {
-                  ...this.addManager,
-                  departmentId: _.uuid
-                }).then(async _ => {
-                  const tree = this.$store.dispatch('department/getDepartmenList')
-                  const list = this.$store.dispatch(
-                    'department/getAllDepartments'
-                  )
-
-                  Promise.all(['tree', 'list']).then(_ => {
-                    this.$message({
-                      type: 'success',
-                      message: '添加成功'
-                    })
-                    this.$emit('close', false)
-                    Object.assign(this.$data, this.$options.data().formData)
+                this.$store
+                  .dispatch('department/setDepartmentManager', {
+                    ...this.addManager,
+                    departmentId: _.uuid
                   })
-                })
+                  .then(async _ => {
+                    const tree = this.$store.dispatch(
+                      'department/getDepartmenList'
+                    )
+                    const list = this.$store.dispatch(
+                      'department/getAllDepartments'
+                    )
+
+                    Promise.all(['tree', 'list']).then(_ => {
+                      this.$message({
+                        type: 'success',
+                        message: '添加成功'
+                      })
+                      this.$emit('close', false)
+                      Object.assign(this.$data, this.$options.data().formData)
+                    })
+                  })
               }
 
-                  const tree = this.$store.dispatch('department/getDepartmenList')
-                  const list = this.$store.dispatch(
-                    'department/getAllDepartments'
-                  )
+              const tree = this.$store.dispatch('department/getDepartmenList')
+              const list = this.$store.dispatch('department/getAllDepartments')
 
-                  Promise.all(['tree', 'list']).then(_ => {
-                    this.$message({
-                      type: 'success',
-                      message: '添加成功'
-                    })
-                    this.$emit('close', false)
-                    Object.assign(this.$data, this.$options.data().formData)
-                  })
-                  // this.showDialog = false
-                
+              Promise.all(['tree', 'list']).then(_ => {
+                this.$message({
+                  type: 'success',
+                  message: '添加成功'
+                })
+                this.$emit('close', false)
+                Object.assign(this.$data, this.$options.data().formData)
+              })
+              // this.showDialog = false
             })
             .catch(err => {
               this.$message({
