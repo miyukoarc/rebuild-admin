@@ -176,7 +176,7 @@ export default {
     onKickOut(event) {
       this.$message({
         message: `${this.kickedOutReason(event.data.type)}被踢出，请重新登录。`,
-        error: 'error'
+        type: 'error'
       })
 
       this.$store.commit('im/user/toggleIsLogin', false)

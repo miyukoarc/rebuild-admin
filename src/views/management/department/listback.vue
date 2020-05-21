@@ -29,7 +29,7 @@
         class="fill"
         @row-click="handleDetail"
         :tree-props="{ children: 'children' }"
-      >
+        >
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
         <el-table-column prop="code" label="Code" align="center"></el-table-column>
         <el-table-column prop="createdAt" label="创建时间" align="center"></el-table-column>
@@ -43,7 +43,6 @@
     </el-container>
 
     <right-panel>
-      <!-- <div>123123</div> -->
       <user-detail />
     </right-panel>
 
@@ -62,8 +61,15 @@ export default {
     data() {},
     methods: {
         handleEdit(val) {},
-        handleDelete(val) {}
-    }
+        handleDelete(val) {},
+        initData() {
+            this.$store.dispatch()
+        }
+    },
+    created (){
+        this.initData()
+    },
+    mounted (){}
 
 }
 </script>

@@ -1,3 +1,14 @@
+### auth
+POST http://10.10.10.199:40000/oauth/token HTTP/1.1
+Authorization: Basic b3JnOm9yZ0B0aWFueW91a2VqaQ==
+Content-Type: application/x-www-form-urlencoded
+
+username=13700000004
+&password=409586
+&grant_type=password
+&type=sms
+
+
 ###
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
 Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
@@ -13,13 +24,13 @@ Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
 ###
 GET http://10.10.10.199:40001/v1/list/myMenuTree HTTP/1.1
 Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
-
+  
 ###
 GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
 Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
 
 ###
-GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1
+GET http://10.10.10.199:40000/sms?username=13700000004 HTTP/1.1
 
 ### contacts/getUserProfileByUserId
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
@@ -182,4 +193,8 @@ Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
 
 ###
 GET http://10.10.10.199:40001/v1/orgTemplate/queryByName?name=通讯公 HTTP/1.1
+Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+
+###
+GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
 Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
