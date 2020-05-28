@@ -67,7 +67,6 @@
 import { validUsername } from '@/utils/validate'
 import { genKey } from '@/api/user'
 export default {
-
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -128,7 +127,6 @@ export default {
       })
     },
     handleLogin() {
-        console.log(this.$store)
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -143,10 +141,15 @@ export default {
               this.$store.dispatch('im/user/login', data)
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
+
             })
-            .catch((err) => {
-                console.log(err)
+            .catch(err => {
+              console.log(err)
               this.loading = false
+              this.$message({
+                  type: 'error',
+                  message: '登录失败'
+              })
             })
         } else {
           console.log('error submit!!')

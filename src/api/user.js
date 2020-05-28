@@ -9,24 +9,26 @@ import axios from 'axios'
 //   })
 // }
 
-export function login(data){
-  return axios(
-    {
-      url: 'http://10.10.10.199:40000/oauth/token',
-      method:'post',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data,
-      auth:{
-        username: 'org',
-        password: 'org@tianyoukeji'
-      }
-    })
+const baseURL = 'http://10.10.10.199:40001/'
+
+export function login(data) {
+  return axios({
+    url: 'http://10.10.10.199:40000/oauth/token',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data,
+    auth: {
+      username: 'org',
+      password: 'org@tianyoukeji'
+    }
+  })
 }
 
 export function getInfo() {
   return request({
+    baseURL,
     url: '/v1/detail/myInfo',
     method: 'get',
   })
@@ -34,6 +36,7 @@ export function getInfo() {
 
 export function logout() {
   return request({
+    baseURL,
     url: '/vue-admin-template/user/logout',
     method: 'post'
   })
@@ -48,23 +51,24 @@ export function logout() {
 //   })
 // }
 
-export function getMenu(){
+export function getMenu() {
   return request({
+    baseURL,
     url: '/v1/list/myMenuTree',
     method: 'get'
   })
 }
 
-export function genKey(username){
-  return axios(
-    {
-      url: 'http://10.10.10.199:40000/sms?username='+username,
-      method:'get',
-    })
+export function genKey(username) {
+  return axios({
+    url: 'http://10.10.10.199:40000/sms?username=' + username,
+    method: 'get',
+  })
 }
 
-export function updateUserInfo(data){
+export function updateUserInfo(data) {
   return request({
+    baseURL,
     url: '/v1/user/update',
     method: 'post',
     data

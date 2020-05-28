@@ -3,198 +3,196 @@ POST http://10.10.10.199:40000/oauth/token HTTP/1.1
 Authorization: Basic b3JnOm9yZ0B0aWFueW91a2VqaQ==
 Content-Type: application/x-www-form-urlencoded
 
-username=13700000004
-&password=409586
+username=13700000001
+&password=390626
 &grant_type=password
 &type=sms
 
-
 ###
-GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000001 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/file/5eb38119c882e611b49a3b38 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/detail/department/1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/list/myMenuTree HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
   
 ###
 GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40000/sms?username=13700000004 HTTP/1.1
+GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1
 
 ### contacts/getUserProfileByUserId
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartment
 GET http://10.10.10.199:40001/v1/list/departmentTree HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentUser
 GET http://10.10.10.199:40001/v1/list/user/department/2 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentDetail
 GET http://10.10.10.199:40001/v1/detail/department/2 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentList
 GET http://10.10.10.199:40001/v1/list/department?page=0&size=20 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getAllDepartments
 GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getEmployeeList
 GET http://10.10.10.199:40001/v1/list/org/user?page=0&size=20 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getEmpByDepartId
 GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getUserByPhone
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuManage/getMenuList
 GET http://10.10.10.199:40001/v1/list/menuTree HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuManage/getMenuListByRole
 GET http://10.10.10.199:40001/v1/list/menuTree/role/1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getRoleList
 GET  http://10.10.10.199:40001/v1/list/role?page=0&size=20 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getORGList
 GET  http://10.10.10.199:40001/v1/list/org HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getRoleDetail
 GET http://10.10.10.199:40001/v1/detail/role/1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/addOrgTemplate
 POST http://10.10.10.199:40001/v1/orgTemplate/addOrgTemplate HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/delOrgTemplate
 POST http://10.10.10.199:40001/v1/orgTemplate/delOrgTemplate HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryList
 GET http://10.10.10.199:40001/v1/orgTemplate/queryList HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryById
 GET http://10.10.10.199:40001/v1/orgTemplate/queryById?uuid=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/updateOrgTemplate
 POST http://10.10.10.199:40001/v1/orgTemplate/updateOrgTemplate HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/add
 POST http://10.10.10.199:40001/v1/menuTemplate/add HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/delete
 POST http://10.10.10.199:40001/v1/menuTemplate/delete HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/update
 POST http://10.10.10.199:40001/v1/menuTemplate/update HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
-
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryList
 GET http://10.10.10.199:40001/v1/menuTemplate/queryList?uuid=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryById
 GET http://10.10.10.199:40001/v1/menuTemplate/queryById?uuid=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryTree
 GET http://10.10.10.199:40001/v1/menuTemplate/queryTree HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/add
 POST http://10.10.10.199:40001/v1/roleTemplate/add HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/delete
 POST http://10.10.10.199:40001/v1/roleTemplate/delete HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/linkMenu
 POST http://10.10.10.199:40001/v1/roleTemplate/linkMenu HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
 GET http://10.10.10.199:40001/v1/roleTemplate/queryById?uuid=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
 GET http://10.10.10.199:40001/v1/roleTemplate/queryList HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/add
 POST http://10.10.10.199:40001/v1/departmentTemplate/add HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/delete
 POST http://10.10.10.199:40001/v1/departmentTemplate/delete HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/update
 POST http://10.10.10.199:40001/v1/departmentTemplate/update HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
-
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
 GET http://10.10.10.199:40001/v1/departmentTemplate/queryById?uuid=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
 GET http://10.10.10.199:40001/v1/departmentTemplate/queryList?orgTemplateId=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
 GET http://10.10.10.199:40001/v1/departmentTemplate/queryByTree?orgTemplateId=1 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
-
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/departmentTemplate/queryByCode?code=plateform HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/roleTemplate/queryByCode?code=plateform HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/menuTemplate/queryByCode?code=plateform HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/orgTemplate/queryByName?name=通讯公 HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
 GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
-Authorization: Bearer 757b45aa-9a3f-4d96-9b30-618976e9ec99
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
