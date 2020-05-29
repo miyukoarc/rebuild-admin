@@ -32,7 +32,7 @@
           >
             <span slot="reference"
               >({{
-                data.roles.isEmptyObj() ? 0 : data.roles.length
+                Object.keys(data.roles).length ? 0 : data.roles.length
               }}个角色)</span
             >
             <el-tag

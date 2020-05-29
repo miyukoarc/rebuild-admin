@@ -1,15 +1,15 @@
 ### auth
-POST http://10.10.10.199:40000/oauth/token HTTP/1.1
+POST http://10.10.10.149:8000/oauth/token HTTP/1.1
 Authorization: Basic b3JnOm9yZ0B0aWFueW91a2VqaQ==
 Content-Type: application/x-www-form-urlencoded
 
 username=13700000001
-&password=390626
+&password=995933
 &grant_type=password
 &type=sms
 
 ###
-GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000001 HTTP/1.1
+GET http://10.10.10.149:8000/v1/detail/user/mobile/13700000001 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
@@ -21,7 +21,7 @@ GET http://10.10.10.199:40001/v1/detail/department/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/list/myMenuTree HTTP/1.1
+GET http://10.10.10.149:8001/v1/list/myMenuTree HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
   
 ###
@@ -29,7 +29,7 @@ GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40000/sms?username=13700000001 HTTP/1.1
+GET http://10.10.10.149:8000/sms?username=13700000001 HTTP/1.1
 
 ### contacts/getUserProfileByUserId
 GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
@@ -195,4 +195,11 @@ Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
+###
+GET  http://10.10.10.199:40002/license/receipt/queryList HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+###
+GET  http://10.10.10.199:40002/license/penalize/queryList/1 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 

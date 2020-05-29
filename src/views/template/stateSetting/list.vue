@@ -347,7 +347,7 @@
               <el-divider></el-divider>
               <el-table
                 class="fill"
-                :data="item.timers.isEmptyObj()?null:item.timers"
+                :data="Object.keys(item.timers).length?null:item.timers"
                 empty-text="暂无定时器"
               >
                 <el-table-column :label="stateSettings.name" prop="name"></el-table-column>
@@ -857,40 +857,40 @@ export default {
 .add-btn-container .el-form-item {
   margin-bottom: (0!important);
 }
-.el-table .bg-color-success {
-  // background: #f0f9eb;
-}
+// .el-table .bg-color-success {
+//   // background: #f0f9eb;
+// }
 
-.el-table .bg-color-warning {
-  // background: #fdf6ec;
-}
+// .el-table .bg-color-warning {
+//   // background: #fdf6ec;
+// }
 
-.el-table .bg-color-primary {
-  // background: #ecf5ff;
-}
+// .el-table .bg-color-primary {
+//   // background: #ecf5ff;
+// }
 
-.el-table th {
-  // background-color: initial;
-}
+// .el-table th {
+//   // background-color: initial;
+// }
 
-.el-table tr {
-  // background-color: initial;
-}
+// .el-table tr {
+//   // background-color: initial;
+// }
 
 .statesetting-container {
   @include scrollBar;
-  .header-title-success {
-    // color: #000;
-    // background: #f0f9eb;
-  }
-  .header-title-danger {
-    // color: #000;
-    // background: #fef0f0;
-  }
-  .header-title-warning {
-    // color: #000;
-    // background: #fdf6ec;
-  }
+//   .header-title-success {
+//     // color: #000;
+//     // background: #f0f9eb;
+//   }
+//   .header-title-danger {
+//     // color: #000;
+//     // background: #fef0f0;
+//   }
+//   .header-title-warning {
+//     // color: #000;
+//     // background: #fdf6ec;
+//   }
 }
 // .statesetting-container .el-button {
 //   margin-left: 10px;

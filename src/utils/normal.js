@@ -17,19 +17,7 @@ export function treeNode(tree = [], key = 'name') {
   return temp
 }
 
-Object.defineProperty(Object.prototype, "isEmptyObj", {
-  enumerable: false,
-  configurable: false,
-  get: function () {
-    return function () {
-      for (let key in this) {
-        return false
-      }
-      return true
-    }
-    
-  }
-})
+
 
 export function requestWarn(msg) {
   console.error("[request error]: "+ msg);

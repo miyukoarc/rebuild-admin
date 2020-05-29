@@ -27,7 +27,8 @@ export default {
   watch: {
     $route: {
       handler(newVal, oldVal) {
-        console.log(newVal.path, '<-------------------->')
+
+        console.log(newVal, '<-------------------->')
         this.handleSecondMenu(newVal.path)
       },
       deep: true,

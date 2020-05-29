@@ -180,7 +180,7 @@ export default {
       if (Array.isArray(cellValue)) {
         return cellValue.length;
       } else {
-        // if (!cellValue.isEmptyObj()) {
+        // if (!Object.keys(cellValue).length) {
         //   return cellValue.name||cellValue.nickname;
         // }
         return "无";

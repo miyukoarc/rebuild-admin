@@ -77,3 +77,4 @@ export const getLicenseList = (payload) => {
         data: payload
     })
   }
+

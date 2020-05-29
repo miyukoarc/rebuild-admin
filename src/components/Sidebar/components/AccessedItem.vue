@@ -54,6 +54,8 @@ export default {
     },
     checkSecondMenuType(type) {
 
+        console.log(type)
+
       switch (type) {
         case 'iframe':
           if (this.menuType != 'transfer') {

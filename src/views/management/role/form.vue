@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     form() {
-      if (this.formData&&!this.formData.isEmptyObj()) {
+      if (this.formData&&!Object.keys(this.formData).length) {
        this.form1 = {
          ...this.formData
        }

@@ -12,7 +12,7 @@ import Avatar from '@/components/Avatar/avatar.vue'
 
 import '@/styles/index.scss' // global css
 
-import '@/utils/normal'; // 自定义工具函数
+// import '@/utils/normal'; // 自定义工具函数
 
 import App from './App'
 import store from './store'

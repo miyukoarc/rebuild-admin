@@ -127,7 +127,7 @@ export default {
       } else {
         obj.roles = []
       }
-      if (!obj.parent.isEmptyObj()) {
+      if (Object.keys(obj.parent).length) {
         let ids = [],parentObj = obj.parent;
         ids.unshift(parentObj.uuid);
         menuList.forEach(e=>{
