@@ -5,7 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .container{
+        width: 800px;
+        height: 200px;
+        outline: 1px solid red;
+    }
+    .container >*{
+        outline: 1px solid red;
+    }
+
+    .box-1{
+        float: left;
+        width: 780px;
+        height: 80px;margin: 10px;
+        
+    }
+    .box-2{
+        float: left;
+        width: 780px;
+        height: 80px;margin: 10px;
+    }
+</style>
 <body>
+
+    <div class="container">
+        <div class="box-1"></div>
+        <div class="box-2"></div>
+    </div>
     <script>
 
         // function ListNode(val){

@@ -5,6 +5,8 @@ import orgList from './org/list'
 import menuList from './menu/list'
 import stateSetting from './stateSetting/list'
 import roleExample from './org/list-example.vue'
+import licenseTemplate from './license/list.vue'
+
 export default [
     {
         path: ':org/departmentTemplate',
@@ -35,5 +37,10 @@ export default [
         path: ':org/stateTemplate',
         name: 'StateTemplate',
         component: stateSetting
+    },
+    {
+        path: ':org/licenseTemplate',
+        name: 'LicenseTemplate',
+        component: licenseTemplate
     }
 ]

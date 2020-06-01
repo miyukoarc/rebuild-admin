@@ -40,11 +40,8 @@ export const deleteLicense = (uuid) => {
 export const getLicenseList = (payload) => {
   return request({
     baseURL,
-    url: '/license/queryList',
-    method: 'post',
-    params: {
-      orgId: payload
-    }
+    url: '/license/queryList/'+payload,
+    method: 'get',
   })
 }
 
@@ -56,11 +53,9 @@ export const getLicenseList = (payload) => {
  export const getLicenseByOrg = (payload) => {
     return request({
         baseURL,
-        url: '/license/queryOne',
-        method:'post',
-        params: {
-            uuid: payload
-        }
+        url: '/license/queryOne/'+payload,
+        method: 'get',
+
     })
  }
 

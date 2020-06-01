@@ -1,5 +1,12 @@
+@loginport = 40000
+@normalport = 40001
+
+@examport = 40002
+
+@hostname = 10.10.10.199
+
 ### auth
-POST http://10.10.10.149:8000/oauth/token HTTP/1.1
+POST http://{{hostname}}:8000/oauth/token HTTP/1.1
 Authorization: Basic b3JnOm9yZ0B0aWFueW91a2VqaQ==
 Content-Type: application/x-www-form-urlencoded
 
@@ -9,197 +16,643 @@ username=13700000001
 &type=sms
 
 ###
-GET http://10.10.10.149:8000/v1/detail/user/mobile/13700000001 HTTP/1.1
+GET http://{{hostname}}:8000/v1/detail/user/mobile/13700000001 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/file/5eb38119c882e611b49a3b38 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/file/5eb38119c882e611b49a3b38 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/detail/department/1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/detail/department/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.149:8001/v1/list/myMenuTree HTTP/1.1
+GET http://{{hostname}}:8001/v1/list/myMenuTree HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
   
 ###
-GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/user/department/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.149:8000/sms?username=13700000001 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/sms?username=13700000001 HTTP/1.1
 
 ### contacts/getUserProfileByUserId
-GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/detail/user/mobile/13700000004 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartment
-GET http://10.10.10.199:40001/v1/list/departmentTree HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/departmentTree HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentUser
-GET http://10.10.10.199:40001/v1/list/user/department/2 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/user/department/2 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentDetail
-GET http://10.10.10.199:40001/v1/detail/department/2 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/detail/department/2 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getDepartmentList
-GET http://10.10.10.199:40001/v1/list/department?page=0&size=20 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/department?page=0&size=20 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### department/getAllDepartments
-GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/department HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getEmployeeList
-GET http://10.10.10.199:40001/v1/list/org/user?page=0&size=20 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/org/user?page=0&size=20 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getEmpByDepartId
-GET http://10.10.10.199:40001/v1/list/user/department/1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/user/department/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### employee/getUserByPhone
-GET http://10.10.10.199:40001/v1/detail/user/mobile/13700000004 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/detail/user/mobile/13700000004 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuManage/getMenuList
-GET http://10.10.10.199:40001/v1/list/menuTree HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/menuTree HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuManage/getMenuListByRole
-GET http://10.10.10.199:40001/v1/list/menuTree/role/1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/menuTree/role/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getRoleList
-GET  http://10.10.10.199:40001/v1/list/role?page=0&size=20 HTTP/1.1
+GET  http://{{hostname}}:{{normalport}}/v1/list/role?page=0&size=20 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getORGList
-GET  http://10.10.10.199:40001/v1/list/org HTTP/1.1
+GET  http://{{hostname}}:{{normalport}}/v1/list/org HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleManage/getRoleDetail
-GET http://10.10.10.199:40001/v1/detail/role/1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/detail/role/1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/addOrgTemplate
-POST http://10.10.10.199:40001/v1/orgTemplate/addOrgTemplate HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/orgTemplate/addOrgTemplate HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/delOrgTemplate
-POST http://10.10.10.199:40001/v1/orgTemplate/delOrgTemplate HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/orgTemplate/delOrgTemplate HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryList
-GET http://10.10.10.199:40001/v1/orgTemplate/queryList HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/orgTemplate/queryList HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryById
-GET http://10.10.10.199:40001/v1/orgTemplate/queryById?uuid=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/orgTemplate/queryById?uuid=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/updateOrgTemplate
-POST http://10.10.10.199:40001/v1/orgTemplate/updateOrgTemplate HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/orgTemplate/updateOrgTemplate HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/add
-POST http://10.10.10.199:40001/v1/menuTemplate/add HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/menuTemplate/add HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/delete
-POST http://10.10.10.199:40001/v1/menuTemplate/delete HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/menuTemplate/delete HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/update
-POST http://10.10.10.199:40001/v1/menuTemplate/update HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/menuTemplate/update HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryList
-GET http://10.10.10.199:40001/v1/menuTemplate/queryList?uuid=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/menuTemplate/queryList?uuid=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryById
-GET http://10.10.10.199:40001/v1/menuTemplate/queryById?uuid=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/menuTemplate/queryById?uuid=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### menuTemplate/queryTree
-GET http://10.10.10.199:40001/v1/menuTemplate/queryTree HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/menuTemplate/queryTree HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/add
-POST http://10.10.10.199:40001/v1/roleTemplate/add HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/roleTemplate/add HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/delete
-POST http://10.10.10.199:40001/v1/roleTemplate/delete HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/roleTemplate/delete HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### roleTemplate/linkMenu
-POST http://10.10.10.199:40001/v1/roleTemplate/linkMenu HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/roleTemplate/linkMenu HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
-GET http://10.10.10.199:40001/v1/roleTemplate/queryById?uuid=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/roleTemplate/queryById?uuid=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
-GET http://10.10.10.199:40001/v1/roleTemplate/queryList HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/roleTemplate/queryList HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/add
-POST http://10.10.10.199:40001/v1/departmentTemplate/add HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/departmentTemplate/add HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/delete
-POST http://10.10.10.199:40001/v1/departmentTemplate/delete HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/departmentTemplate/delete HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### departmentTemplate/update
-POST http://10.10.10.199:40001/v1/departmentTemplate/update HTTP/1.1
+POST http://{{hostname}}:{{normalport}}/v1/departmentTemplate/update HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
-GET http://10.10.10.199:40001/v1/departmentTemplate/queryById?uuid=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/departmentTemplate/queryById?uuid=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
-GET http://10.10.10.199:40001/v1/departmentTemplate/queryList?orgTemplateId=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/departmentTemplate/queryList?orgTemplateId=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ### orgTemplate/queryOrgTemplate
-GET http://10.10.10.199:40001/v1/departmentTemplate/queryByTree?orgTemplateId=1 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/departmentTemplate/queryByTree?orgTemplateId=1 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/departmentTemplate/queryByCode?code=plateform HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/departmentTemplate/queryByCode?code=plateform HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/roleTemplate/queryByCode?code=plateform HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/roleTemplate/queryByCode?code=plateform HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/menuTemplate/queryByCode?code=plateform HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/menuTemplate/queryByCode?code=plateform HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/orgTemplate/queryByName?name=通讯公 HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/orgTemplate/queryByName?name=通讯公 HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
 ###
-GET http://10.10.10.199:40001/v1/list/department HTTP/1.1
+GET http://{{hostname}}:{{normalport}}/v1/list/department HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
-###
-GET  http://10.10.10.199:40002/license/receipt/queryList HTTP/1.1
+
+
+### licensePenalize add
+POST http://{{hostname}}:{{examport}}/license/penalize/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "name": "测试惩罚措施",
+  "org": 1,
+  "penalize": "测试惩罚措施",
+  "url": "测试惩罚措施"
+}
+
+
+### licensePenalize delete
+POST http://{{hostname}}:{{examport}}/license/penalize/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 2
+}
+
+### licensePenalize update
+POST http://{{hostname}}:{{examport}}/license/penalize/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "name": "测试惩罚措施",
+  "org": 1,
+  "penalize": "测试惩罚措施修改",
+  "url": "测试惩罚措施",
+  "uuid": 2
+}
+
+
+### licensePenalize queryList
+@licenTemplateId = 1
+GET http://{{hostname}}:{{examport}}/license/penalize/queryList/{{licenTemplateId}} HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 
-###
-GET  http://10.10.10.199:40002/license/penalize/queryList/1 HTTP/1.1
+
+
+### licenseReceipt add
+POST http://{{hostname}}:{{examport}}/license/receipt/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "city": "杭州",
+  "country": "中华人民共和国",
+  "courierUser": 1,
+  "licenseTemplateAddress": "string",
+  "licenseTemplateApplyUrl": "string",
+  "licenseTemplateContent": "string",
+  "licenseTemplateExplanation": "string",
+  "licenseTemplateScore": 100,
+  "policemenUser": 1,
+  "province": "string",
+  "reasonClassify": "MILD",
+  "license": 1
+}
+
+### licenseReceipte delete
+POST http://{{hostname}}:{{examport}}/license/receipt/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 1
+}
+
+### licenseReceipte update
+POST http://{{hostname}}:{{examport}}/license/receipt/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "city": "杭州",
+  "country": "中华人民共和国",
+  "courierUser": 1,
+  "licenseTemplateAddress": "string",
+  "licenseTemplateApplyUrl": "string",
+  "licenseTemplateContent": "string",
+  "licenseTemplateExplanation": "string",
+  "licenseTemplateScore": 100,
+  "policemenUser": 1,
+  "province": "string",
+  "reasonClassify": "MILD",
+  "license": 1,
+  "uuid": 4
+}
+
+
+
+### licenseReceipte queryList
+GET http://{{hostname}}:{{examport}}/license/receipt/queryList HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+
+
+### licenseGrade add 
+POST http://{{hostname}}:{{examport}}/license/grade/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "colour": "string",
+  "enableCount": true,
+  "gradeBeginScore": 1,
+  "gradeEndScore": 1,
+  "gradeExplanation": "string",
+  "isEnableCount": true,
+  "licenseTemplate": 1,
+  "mildCount": 1,
+  "moderateCount": 1,
+  "name": "string",
+  "org": 1,
+  "severeCount": 1,
+  "useByDefault": true
+}
+
+
+### licenseGrade delete
+POST http://{{hostname}}:{{examport}}/license/grade/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 1
+}
+
+### licenseGrade update
+POST http://{{hostname}}:{{examport}}/license/grade/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "colour": "string",
+  "enableCount": true,
+  "gradeBeginScore": 1,
+  "gradeEndScore": 1,
+  "gradeExplanation": "string",
+  "isEnableCount": true,
+  "licenseTemplate": 1,
+  "mildCount": 1,
+  "moderateCount": 1,
+  "name": "string",
+  "org": 1,
+  "severeCount": 1,
+  "useByDefault": true,
+  "uuid": 2
+}
+
+### licenseGrade queryList
+@orgMakeLicenseId = 1
+GET http://{{hostname}}:{{examport}}/license/grade/queryList/{{orgMakeLicenseId}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+
+### licenseAnswer add
+POST http://{{hostname}}:{{examport}}/license/answer/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "answerContent": "解释型演示",
+  "explanation": "解释型演示",
+  "licenseTemplateQuestion": 1,
+  "name": "解释型演示",
+  "right": true
+}
+
+
+### licenseAnswer delete
+POST http://{{hostname}}:{{examport}}/license/answer/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 1
+}
+
+
+### licenseAnswer update
+POST http://{{hostname}}:{{examport}}/license/answer/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "answerContent": "解释型演示",
+  "explanation": "解释型演示修改",
+  "licenseTemplateQuestion": 1,
+  "name": "解释型演示",
+  "right": true,
+  "uuid": 2
+}
+
+### licenseAnswer queryList
+@licenseTemplateQuestionId = 1
+GET http://{{hostname}}:{{examport}}/license/answer/queryList/{{licenseTemplateQuestionId}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+
+
+### licenseReason add
+POST http://{{hostname}}:{{examport}}/license/reason/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseReasonScore": 3,
+  "regulationContent": "测试规则条目",
+  "name": "测试证照条规2",
+  "reasonClassify":"MILD",
+  "enable":true,
+  "licenseTemplate":1,
+  "org":1
+}
+
+### licenseReason delete
+POST http://{{hostname}}:{{examport}}/license/reason/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 4
+}
+
+### licenseReason update
+POST http://{{hostname}}:{{examport}}/license/reason/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseReasonScore": 3,
+  "regulationContent": "测试规则条目3",
+  "name": "测试证照条规2",
+  "reasonClassify":"MILD",
+  "enable":true,
+  "licenseTemplate":1,
+  "org": 1,
+  "uuid": 5
+}
+
+### licenseReason licenseTemplateReasonId 
+@licenseTemplateReasonId = 1
+GET http://{{hostname}}:{{examport}}/license/reason/queryList/{{licenseTemplateReasonId}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+### licenseReason enable
+GET http://{{hostname}}:{{examport}}/license/reason/update/enable/5 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+
+### licenseTemplate add
+POST  http://{{hostname}}:{{examport}}/license/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "city":"杭州市",
+    "country":"中华人民共和国",
+    "duration": 3,
+    "durationType": "DAY",
+    "examScore": 90,
+    "licenseType": "USER",
+    "licenseScore": "36",
+    "licenseNum":"ZJHZ",
+    "name": "测试证照",
+    "province":"浙江省",
+    "org": 1
+}
+
+
+### licenseTemplate delete
+POST http://{{hostname}}:{{examport}}/license/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 2
+}
+
+### licenseTemplate update
+POST http://{{hostname}}:{{examport}}/license/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "city":"杭州市",
+  "country":"中华人民共和国",
+  "duration": 3,
+  "durationType": "DAY",
+  "examScore": 90,
+  "licenseType": "USER",
+  "licenseScore": "36",
+  "licenseNum":"ZJHZ",
+  "name": "测试证照",
+  "province":"浙江省",
+  "org": 1,
+  "uuid": 3
+}
+
+### licenseTemplate queryList 
+GET http://{{hostname}}:{{examport}}/license/queryList/1 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+### licenseTemplate queryOne
+GET http://{{hostname}}:{{examport}}/license/queryOne/1 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+### licenseController add
+POST http://{{hostname}}:{{examport}}/license/user/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseType": "ORG",
+  "org": 1,
+  "user": 1
+}
+
+### licenseController delete
+POST http://{{hostname}}:{{examport}}/license/user/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 0
+}
+
+### licenseController update
+POST http://{{hostname}}:{{examport}}/license/user/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+### licenseController gradeUpdate
+POST http://{{hostname}}:{{examport}}/license/user/grade/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+### licenseController queryList
+GET http://{{hostname}}:{{examport}}/license/user/queryList/1 HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+### licenseController queryOne
+@uuid = 1
+GET http://{{hostname}}:{{examport}}/license/user/queryOne/{{uuid}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+### licenseQuestion add
+POST http://{{hostname}}:{{examport}}/license/question/add HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseTemplateQuestionContent": "string",
+  "name": "string",
+  "org": 1,
+  "questionsUrl": "string",
+  "score": 1
+}
+
+### licenseQuestion delete
+POST http://{{hostname}}:{{examport}}/license/question/delete HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+    "uuid": 2 
+}
+
+### licenseQuestion exam
+POST http://{{hostname}}:{{examport}}/license/question/exam HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseTemplateExamHistory": 1,
+  "user": 1
+}
+
+
+### licenseQuestion exam isRight
+POST http://{{hostname}}:{{examport}}/license/question/exam/isRight HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseTemplateExamHistory": 1,
+  "licenseTemplateQuestion": 1,
+  "selected": 1,
+  "user": 1
+}
+
+### licenseQuestion exam result
+POST http://{{hostname}}:{{examport}}/license/question/exam/result HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseTemplateExamHistory": 1,
+  "user": 1
+}
+
+### licenseQuestion update
+POST http://{{hostname}}:{{examport}}/license/question/update HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+Content-Type: application/json
+
+{
+  "licenseTemplate": 1,
+  "licenseTemplateQuestionContent": "string",
+  "name": "string",
+  "org": 1,
+  "questionsUrl": "string",
+  "score": 1,
+  "uuid": 3
+}
+
+### licenseQuestion queryList
+@orgId = 1
+GET http://{{hostname}}:{{examport}}/license/question/queryList/{{orgId}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+### licenseQuestion queryList history
+GET http://{{hostname}}:{{examport}}/license/question/queryList/history HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+### licenseQuestion queryList history uuid
+GET http://{{hostname}}:{{examport}}/license/question/queryList/history/{{uuid}} HTTP/1.1
+Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
+
+
+### licenseQuestion queryOne uuid
+GET http://{{hostname}}:{{examport}}/license/question/queryOne/{{uuid}} HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 

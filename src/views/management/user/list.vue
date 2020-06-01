@@ -208,9 +208,6 @@ export default {
     },
 
     handleRowClick(value) {
-
-      
-
       this.$store
         .dispatch('userManage/getNormalUserDetail', value.uuid)
         .then(() => {
