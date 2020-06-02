@@ -6,10 +6,10 @@ const baseURL = 'http://10.10.10.199:40002/'
  * 添加证件模板
  * @param {object} payload
  */
-export const addLicense = (payload) => {
+export const publishLicense = (payload) => {
     return request({
       baseURL,
-      url: '/license/add',
+      url: '/license/user/add',
       method: 'post',
       data: payload
     })
@@ -23,12 +23,26 @@ export const addLicense = (payload) => {
   export const deleteLicense = (uuid) => {
     return request({
       baseURL,
-      url: '/license/delete',
+      url: '/license/user/delete',
       method: 'post',
       data: {
         uuid
       }
     })
+  }
+
+  /**
+   * 将证件修改到指定颜色
+   * @param {object} payload 
+   */
+
+  export const setLicenseGrade = (payload)=>{
+      return request({
+          baseURL,
+          url: '/license/user/grade/update',
+          method: 'post',
+          data: payload
+      })
   }
   
   /**
@@ -39,7 +53,7 @@ export const addLicense = (payload) => {
   export const getLicenseList = (payload) => {
     return request({
       baseURL,
-      url: '/license/queryList/'+payload,
+      url: '/license/user/queryList/'+payload,
       method: 'get',
     })
   }
@@ -52,7 +66,7 @@ export const addLicense = (payload) => {
    export const getLicenseByOne = (payload) => {
       return request({
           baseURL,
-          url: '/license/queryOne/'+payload,
+          url: '/license/user/queryOne/'+payload,
           method: 'get',
   
       })
@@ -66,7 +80,7 @@ export const addLicense = (payload) => {
     export const updataLicense = (payload)=> {
       return request({
           baseURL,
-          url: '/license/update',
+          url: '/license/user/update',
           method:'post',
           data: payload
       })

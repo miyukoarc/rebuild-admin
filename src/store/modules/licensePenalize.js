@@ -1,26 +1,26 @@
-import {addLicense,getLicenseList,getLicenseByOne,deleteLicense} from '@/api/licenseTemplate'
+import {addPenalize,deletePenalize,getPenalizeList,updatePenalize} from '@/api/licensePenalize'
 
 const state = {
     loading: false,
-    licenseList: [],
-    currentLicense: {}
+    penalizeList: [],
+    currentPenalize: {}
 }
 const mutations = {
     SAVE_LIST(state,payload){
-        state.licenseList = payload
+        state.penalizeList = payload
     },
     SAVE_DETAIL(state, payload){
-        state.currentLicense = payload
+        state.currentPenalize = payload
     },
     TOGGLE_LOADING(state,current){
         state.loading = current
     }
 }
 const actions ={
-    addLicense({commit},payload){
+    addPenalize({commit},payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            addLicense(payload).then(res=>{
+            addPenalize(payload).then(res=>{
                 console.log(res)
                 commit('TOGGLE_LOADING', false)
                 resolve()
@@ -33,13 +33,13 @@ const actions ={
             })
         })
     },
-    getLicenseList({commit}, payload){
+    deletePenalize({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            getLicenseList(payload).then(res=>{
+            deletePenalize(payload).then(res=>{
                 console.log(res)
                 commit('TOGGLE_LOADING', false)
-                commit('SAVE_LIST',res.items)
+                
                 resolve()
                 
             })
@@ -50,13 +50,16 @@ const actions ={
             })
         })
     },
-    getLicenseByOne({commit}, payload){
+    getPenalizeList({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            getLicenseByOne(payload).then(res=>{
+            getPenalizeList(payload).then(res=>{
 
                 commit('TOGGLE_LOADING', false)
-                commit('SAVE_DETAIL',res.items[0])
+                if(res.items.length){
+                    commit('SAVE_LIST',res.items)
+                }
+                
                 resolve()
                 
             })
@@ -67,10 +70,10 @@ const actions ={
             })
         })
     },
-    deleteLicense({commit}, payload){
+    updatePenalize({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            deleteLicense(payload).then(res=>{
+            updatePenalize(payload).then(res=>{
 
                 commit('TOGGLE_LOADING', false)
                 resolve()

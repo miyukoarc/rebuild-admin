@@ -19,7 +19,7 @@
       />-->
       <el-table
         v-loading="loading"
-        :data="licenseList"
+        :data="licensePenalizeList"
         style="width: 100%"
         row-key="uuid"
         border
@@ -32,9 +32,6 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
-        <!-- <el-table-column label="规则" align="center"></el-table-column>
-        <el-table-column label="处罚措施" align="center"></el-table-column>
-        <el-table-column label="等级" align="center"></el-table-column> -->
         <el-table-column prop="licenseType" label="证照类型" align="center"></el-table-column>
         <el-table-column label="有效期" align="center">
             <template v-slot="scope">
@@ -80,8 +77,6 @@ import FormDialog from './dialog'
 import { mapState, mapMutations, mapActions } from 'vuex'
 const NAME = 'management'
 import isEmpty from '@/utils/normal'
-import Mixin from '../mixins/index'
-
 export default {
   components: {
     cTable,
@@ -91,7 +86,6 @@ export default {
     FormDialog
     // mHeadedr
   },
-  mixins: [Mixin],
   data() {
     return {
       options: [
@@ -106,11 +100,10 @@ export default {
     // ...mapState(NAME, ["roleList", "rolePage", "columns"]),
     ...mapState({
       page: state => state.orgTemplate.page,
-      orgTemplateList: state => state.orgTemplate.orgTemplateList,
-      departmentTemplates: state => state.departmentTemplate.departmentTemplates,
       loading: state => state.licenseTemplate.loading,
       orgId: state => state.user?.userInfo?.org?.uuid,
-      licenseList: state => state.licenseTemplate?.licenseList
+      licenseList: state => state.licenseTemplate?.licenseList,
+      licensePenalizeList: state => state.licensePenalize.licensePenalizeList
       // columns: state => state.userManage.columns
     }),
     routesData() {
@@ -133,6 +126,7 @@ export default {
   },
   beforeDestroy() {
     this.$bus.$off('showFormDialog')
+    this.$bus.$off('transferTemplateUuid')
   },
   methods: {
     handleClick(val, e) {
@@ -228,13 +222,6 @@ export default {
             message: err
           })
         })
-
-        this.$store.dispatch('licensePenalize/getPenalizeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
-        this.$store.dispatch('licenseGrade/getGradeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
-        this.$store.dispatch('licenseReason/getReasonList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
     }
   }
 }

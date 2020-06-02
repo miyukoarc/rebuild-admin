@@ -1,4 +1,4 @@
-import {addLicense,getLicenseList,getLicenseByOne,deleteLicense} from '@/api/licenseTemplate'
+import {publishLicense,getLicenseList,getLicenseByOne,deleteLicense} from '@/api/licenseUser'
 
 const state = {
     loading: false,
@@ -17,10 +17,10 @@ const mutations = {
     }
 }
 const actions ={
-    addLicense({commit},payload){
+    publishLicense({commit},payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            addLicense(payload).then(res=>{
+            publishLicense(payload).then(res=>{
                 console.log(res)
                 commit('TOGGLE_LOADING', false)
                 resolve()

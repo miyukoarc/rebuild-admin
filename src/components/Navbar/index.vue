@@ -40,6 +40,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import {removeToken} from '@/utils/auth'
 import LoginInfo from '@/components/LoginInfo'
+
 export default {
   components: {
     Breadcrumb,
@@ -48,9 +49,9 @@ export default {
   },
   computed: {
     ...mapState({
-      username: state => state.user.userInfo.nickname,
-      org: state => state.user.userInfo.org.name,
-      mobile: state => state.user.userInfo.userinfo.mobile
+      username: state => state.user?.userInfo?.nickname,
+      org: state => state.user?.userInfo?.org?.name,
+      mobile: state => state.user?.userInfo?.userinfo?.mobile
 
     }),
     ...mapGetters([

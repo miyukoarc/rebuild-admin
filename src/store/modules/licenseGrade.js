@@ -1,26 +1,26 @@
-import {addLicense,getLicenseList,getLicenseByOne,deleteLicense} from '@/api/licenseTemplate'
+import {addGrade,deleteGrade,getGradeList,updateGrade} from '@/api/licenseGrade'
 
 const state = {
     loading: false,
-    licenseList: [],
-    currentLicense: {}
+    gradeList: [],
+    currentGrade: {}
 }
 const mutations = {
     SAVE_LIST(state,payload){
-        state.licenseList = payload
+        state.gradeList = payload
     },
     SAVE_DETAIL(state, payload){
-        state.currentLicense = payload
+        state.currentGrade = payload
     },
     TOGGLE_LOADING(state,current){
         state.loading = current
     }
 }
 const actions ={
-    addLicense({commit},payload){
+    addGrade({commit},payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            addLicense(payload).then(res=>{
+            addGrade(payload).then(res=>{
                 console.log(res)
                 commit('TOGGLE_LOADING', false)
                 resolve()
@@ -33,13 +33,13 @@ const actions ={
             })
         })
     },
-    getLicenseList({commit}, payload){
+    deleteGrade({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            getLicenseList(payload).then(res=>{
+            deleteGrade(payload).then(res=>{
                 console.log(res)
                 commit('TOGGLE_LOADING', false)
-                commit('SAVE_LIST',res.items)
+                
                 resolve()
                 
             })
@@ -50,13 +50,16 @@ const actions ={
             })
         })
     },
-    getLicenseByOne({commit}, payload){
+    getGradeList({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            getLicenseByOne(payload).then(res=>{
+            getGradeList(payload).then(res=>{
 
                 commit('TOGGLE_LOADING', false)
-                commit('SAVE_DETAIL',res.items[0])
+                if(res.items.length){
+                    commit('SAVE_LIST',res.items)
+                }
+                
                 resolve()
                 
             })
@@ -67,10 +70,10 @@ const actions ={
             })
         })
     },
-    deleteLicense({commit}, payload){
+    updateGrade({commit}, payload){
         commit('TOGGLE_LOADING', true)
         return new Promise((resolve,reject)=>{
-            deleteLicense(payload).then(res=>{
+            updateGrade(payload).then(res=>{
 
                 commit('TOGGLE_LOADING', false)
                 resolve()

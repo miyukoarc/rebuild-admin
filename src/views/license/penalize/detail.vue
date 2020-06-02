@@ -1,7 +1,5 @@
 <template>
   <div>
-    <el-tabs v-model="activeType">
-      <el-tab-pane label="模板详情" name="detail">
         <el-form label-width="100px" label-position="left">
           <el-form-item label="名称">
             <div>{{currentLicense.name}}</div>
@@ -10,13 +8,15 @@
             <div>{{currentLicense.licenseType}}</div>
           </el-form-item>
           <el-form-item label="所属机构">
-            <div v-if="currentLicense.org">{{currentLicense.org.name}}</div>
+            <div v-if="currentLicense.org">
+                {{currentLicense.org.name}}
+            </div>
           </el-form-item>
 
           <el-form-item label="考试">
             <div>
               {{
-              currentLicense.examScore
+                  currentLicense.examScore
               }}
             </div>
           </el-form-item>
@@ -37,8 +37,8 @@
             }}
           </el-form-item>
 
-          <!-- <el-form-item label="所属地区"> -->
-          <!-- {{
+          <el-form-item label="所属地区">
+            <!-- {{
                 Object.keys(currentLicense.city).length?currentLicense.country:""
             }}
             {{
@@ -46,21 +46,15 @@
             }}
             {{
                 Object.keys(currentLicense.city).length?currentLicense.city:""
-          }}-->
-          <!-- </el-form-item> -->
+            }} -->
+          </el-form-item>
+
+
+          <!-- <el-form-item>
+            <el-button size="small" type="success" @click="handleClose">返回</el-button>
+          </el-form-item>-->
         </el-form>
-      </el-tab-pane>
-      <el-tab-pane label="处罚措施" name="penalize">
-          <table-penalize></table-penalize>
-        
-      </el-tab-pane>
-      <el-tab-pane label="证照规则" name="reason">
-        <table-reason></table-reason>
-      </el-tab-pane>
-      <el-tab-pane label="证照等级" name="grade">
-        <table-grade></table-grade>
-      </el-tab-pane>
-    </el-tabs>
+
 
     <EventDialog ref="eventDialog" />
   </div>
@@ -70,19 +64,9 @@
 import { mapState, mapGetters } from 'vuex'
 import EventDialog from './dialog'
 import { isEmpty } from '@/utils/normal'
-import TableGrade from './components/table-grade'
-import TablePenalize from './components/table-penalize'
-import TableReason from './components/table-reason'
-
 export default {
   components: {
-    EventDialog,
-    TableGrade,
-    TablePenalize,
-    TableReason
-    // TableGrade:()=>import('./components/table-grade'),
-    // TablePenalize:()=>import('./components/table-penalize'),
-    // TableReason:()=>import('./components/table-reason')
+    EventDialog
   },
   data() {
     return {

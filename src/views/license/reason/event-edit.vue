@@ -67,7 +67,7 @@ export default {
         name: '测试证照',
         province: '浙江省',
         org: 1,
-        uuid: 0
+        uuid: 0,
       },
       countries: ['中华人民共和国'],
       cities: ['杭州市'],
@@ -107,22 +107,36 @@ export default {
     //   console.log('updated')
     //   this.initData()
   },
-  mounted() {},
+  mounted() {
+     
+
+  },
   methods: {
     initData() {
+      //   const parent = this.currDepartmentTemplate.parent
+      //   this.form.code = this.currDepartmentTemplate.code
+      //   this.form.name = this.currDepartmentTemplate.name
+      //   this.form.uuid = this.currDepartmentTemplate.uuid
+      //   // this.form.parent = this.currDepartmentTemplate
+      //   if (Object.keys(parent).length) {
+      //     this.hasParent = true
+      //     this.$set(this.form, 'parent', parent.uuid)
+      //     //   this.form.parent = parent.uuid
+      //   }
+      //   this.form.org = this.currOrgTemplate.uuid
 
-      console.log('123')
-      for (let key in this.currentLicense) {
-        console.log(key)
-        for (let target in this.form) {
-          if (key === target) {
-            this.form[target] = this.currentLicense[target]
+       console.log('123')
+    for (let key in this.currentLicense) {
+      console.log(key)
+      for(let target in this.form){
+          if(key===target){
+              this.form[target] = this.currentLicense[target]
           }
-        }
       }
+    }
 
-      this.form['licenseNum'] = this.currentLicense['licenseNum'].slice(0, 4)
-      this.form['uuid'] = this.currentLicense['uuid']
+    this.form['licenseNum'] = this.currentLicense['licenseNum'].slice(0,4)
+    this.form['uuid'] = this.currentLicense['uuid']
     },
     handleConfirm() {
       const payload = this.form

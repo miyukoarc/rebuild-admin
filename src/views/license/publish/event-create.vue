@@ -1,7 +1,14 @@
 <template>
   <el-form :model="form" ref="form" :rules="rules" label-width="100px">
-    <el-form-item label="名称">
-      <el-input v-model="form.name"></el-input>
+    <el-form-item label="证照模板">
+      <el-select v-model="form.licenseTemplate" placeholder="请选择">
+        <el-option
+          v-for="item in licenseList"
+          :key="item.uuid"
+          :label="item.name"
+          :value="item.uuid"
+        ></el-option>
+      </el-select>
     </el-form-item>
 
     <el-form-item label="证照类型">
@@ -10,42 +17,21 @@
       </el-select>
     </el-form-item>
 
-    <el-form-item label="有效期">
-      <el-input v-model="form.duration"></el-input>
-      <el-select v-model="form.durationType" placeholder="请选择">
-        <el-option v-for="item in durationTypes" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-    </el-form-item>
-
-    <el-form-item label="地区">
-      <el-select v-model="form.countries" placeholder="请选择">
-        <el-option v-for="item in countries" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-      <el-select v-model="form.province" placeholder="请选择">
-        <el-option v-for="item in provinces" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-      <el-select v-model="form.cities" placeholder="请选择">
-        <el-option v-for="item in cities" :key="item" :label="item" :value="item"></el-option>
-      </el-select>
-    </el-form-item>
-
-    <el-form-item label="考试合格">
-      <el-input v-model="form.examScore"></el-input>
-    </el-form-item>
-
-    <el-form-item label="初始积分">
-      <el-input v-model="form.licenseScore"></el-input>
-    </el-form-item>
 
     <el-form-item label="证照周期">
-        <el-input v-model="form.replyRegularly"></el-input>
+      <el-input v-model.number="form.replyRegularly"></el-input>
       <el-select v-model="form.replyRegularlyType" placeholder="请选择">
         <el-option v-for="item in replyRegularlyTypes" :key="item" :label="item" :value="item"></el-option>
       </el-select>
     </el-form-item>
 
-    <el-form-item label="证件号">
-      <el-input v-model="form.licenseNum"></el-input>
+    <el-form-item label="生效日期">
+      <el-date-picker
+        v-model="form.beginTime"
+        type="date"
+        placeholder="选择日期"
+        value-format="yyyy-MM-dd"
+      ></el-date-picker>
     </el-form-item>
 
     <el-form-item>
@@ -61,27 +47,17 @@ export default {
   inject: ['reload'],
   data() {
     return {
-      hasParent: false,
       form: {
-        city: '杭州市',
-        country: '中华人民共和国',
-        duration: 3,
-        durationType: 'DAY',
-        examScore: 90,
-        licenseType: 'USER',
-        licenseScore: 36,
-        licenseNum: 'ZJHZ',
-        name: '测试证照',
-        province: '浙江省',
-        replyRegularly: 1,
-        replyRegularlyType: 'MONTH',
-        org: 1
+        beginTime: '',
+        licenseTemplate: 1,
+        licenseType: 'ORG',
+        org: 0,
+        replyRegularly: 0,
+        replyRegularlyType: 'DAY',
+        user: 0
       },
-      countries: ['中华人民共和国'],
-      cities: ['杭州市'],
-      provinces: ['浙江省'],
+
       replyRegularlyTypes: ['DAY', 'MONTH', 'YEAR'],
-      durationTypes: ['DAY', 'MONTH', 'YEAR'],
       licenseTypes: ['ORG', 'USER'],
       rules: {
         name: [
@@ -96,27 +72,18 @@ export default {
     }
   },
   watch: {
-    hasParent: {
-      handler(newVal, oldVal) {
-        if (newVal) {
-          this.$set(this.form, 'parent', this.departmentTemplates[0].uuid)
-        }
-        if (!newVal) {
-          this.$delete(this.form, 'parent')
-        }
-      },
-      immediate: true
-    }
   },
   computed: {
     ...mapState({
+      licenseList: state => state.licenseTemplate.licenseList, //licenseTemplate
       currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
-      departmentTemplates: state =>
-        state.orgTemplate.currOrgTemplate.departmentTemplates
+      orgId: state => state.user?.userInfo?.org?.uuid,
+      userInfo: state => state.user?.userInfo,
     })
   },
   mounted() {
-    this.form.org = this.currOrgTemplate.uuid
+    this.form.org = this.userInfo.org.uuid
+    this.form.user = this.userInfo.uuid
   },
   methods: {
     handleConfirm() {
@@ -126,7 +93,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('licenseTemplate/addLicense', payload)
+            .dispatch('licenseUser/publishLicense', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -155,7 +122,7 @@ export default {
     },
     refresh() {
       this.$store
-        .dispatch('licenseTemplate/getLicenseList', this.currOrgTemplate.uuid)
+        .dispatch('licenseUser/getLicenseList', this.userInfo.org.uuid)
         .then(() => {
           this.reload()
         })

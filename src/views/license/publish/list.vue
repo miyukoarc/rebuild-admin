@@ -5,10 +5,10 @@
       <list-header></list-header>
     </el-header>
 
-    <el-container>
+    <div class="table-container">
       <!-- <cTable
         :columns="columns"
-        :data="orgTemplateList"
+        :data="licenseList"
         :showPagin="false"
         :page="page"
         :showCheckBox="false"
@@ -23,35 +23,28 @@
         style="width: 100%"
         row-key="uuid"
         border
+        lazy
+        stripe
         @row-click="handleDetail"
       >
-      <el-table-column
-          label="序号"
-          width="55"
-          type="index"
-          align="center"
-        ></el-table-column>
-        <el-table-column prop="name" label="名称" align="center"></el-table-column>
-        <!-- <el-table-column label="规则" align="center"></el-table-column>
-        <el-table-column label="处罚措施" align="center"></el-table-column>
-        <el-table-column label="等级" align="center"></el-table-column> -->
-        <el-table-column prop="licenseType" label="证照类型" align="center"></el-table-column>
+        <el-table-column label="序号" width="55" type="index" align="center"></el-table-column>
+        <el-table-column prop="userLicenseNum" label="证号" align="center"></el-table-column>
+        <el-table-column prop="licenseScore" label="积分" align="center"></el-table-column>
         <el-table-column label="有效期" align="center">
-            <template v-slot="scope">
-                <div>
-                    <span>{{scope.row.duration}}</span>
-                    <span>{{scope.row.durationType}}</span>
-                </div>
-            </template>
+          <template v-slot="scope">
+            <div>
+              <span>{{scope.row.beginTime}}~</span>
+              <span>{{scope.row.endTime}}</span>
+            </div>
+          </template>
         </el-table-column>
-        <el-table-column label="地区" align="center">
-
-            <template v-slot="scope">
-                <div><span>{{scope.row.country}}</span>
-                <span>{{scope.row.province}}</span>
-                <span>{{scope.row.city}}</span></div>
-            </template>
-        </el-table-column>
+        <el-table-column label="证照模板" align="center">
+          <template v-slot="scope">
+            <div>
+              <span>{{scope.row.licenseTemplate.name}}</span>
+            </div>
+          </template>
+        </el-table-column>  
         <el-table-column label="操作" align="center" width="240">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click.stop="handleEdit(scope.row)">编辑</el-button>
@@ -59,7 +52,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-container>
+    </div>
 
     <right-panel>
       <!-- <div>123123</div> -->
@@ -80,7 +73,6 @@ import FormDialog from './dialog'
 import { mapState, mapMutations, mapActions } from 'vuex'
 const NAME = 'management'
 import isEmpty from '@/utils/normal'
-import Mixin from '../mixins/index'
 
 export default {
   components: {
@@ -91,7 +83,6 @@ export default {
     FormDialog
     // mHeadedr
   },
-  mixins: [Mixin],
   data() {
     return {
       options: [
@@ -107,10 +98,9 @@ export default {
     ...mapState({
       page: state => state.orgTemplate.page,
       orgTemplateList: state => state.orgTemplate.orgTemplateList,
-      departmentTemplates: state => state.departmentTemplate.departmentTemplates,
-      loading: state => state.licenseTemplate.loading,
+      loading: state => state.licenseUser.loading,
       orgId: state => state.user?.userInfo?.org?.uuid,
-      licenseList: state => state.licenseTemplate?.licenseList
+      licenseList: state => state.licenseUser?.licenseList
       // columns: state => state.userManage.columns
     }),
     routesData() {
@@ -158,30 +148,25 @@ export default {
     },
     initDataList() {
       this.$store
-        .dispatch(
-          'licenseTemplate/getLicenseList',
-          this.orgId
-        )
-        .then(()=>{
-
-        })
+        .dispatch('licenseUser/getLicenseList', this.orgId)
+        .then(() => {})
         .catch(err => {
-            console.log(err)
-        //   this.$message({
-        //     type: 'error',
-        //     message: err
-        //   })
+          console.log(err)
+
         })
 
-      // this.$store
-      // .dispatch('orgTemplate/orgTemplateQueryList', this.currOrgTemplate.uuid)
-      // .then(() => {})
-      // .catch(err => {
-      //   console.log(err)
-      // })
+        this.$store
+        .dispatch('licenseTemplate/getLicenseList', this.orgId)
+        .then(() => {})
+        .catch(err => {
+          console.log(err)
+
+        })
+
+
     },
     handleEdit(val) {
-      this.$store.commit('licenseTemplate/SAVE_DETAIL', val)
+      this.$store.commit('licenseUser/SAVE_DETAIL', val)
       this.$refs['formDialog'].event = 'EditTemplate'
       this.$refs['formDialog'].eventType = 'edit'
       this.$refs['formDialog'].dialogVisible = true
@@ -196,7 +181,7 @@ export default {
       })
         .then(async () => {
           await this.$store
-            .dispatch('licenseTemplate/deleteLicense', payload)
+            .dispatch('licenseUser/deleteLicense', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -216,11 +201,11 @@ export default {
         })
     },
     handleDetail(val) {
-        console.log(val)
-        this.$store
-        .dispatch('licenseTemplate/getLicenseByOne', val.uuid)
+      console.log(val)
+      this.$store
+        .dispatch('licenseUser/getLicenseByOne', val.user.uuid)
         .then(() => {
-            this.$store.commit('component/TOGGLE_PANEL', true);
+          this.$store.commit('component/TOGGLE_PANEL', true)
         })
         .catch(err => {
           this.$message({
@@ -228,13 +213,6 @@ export default {
             message: err
           })
         })
-
-        this.$store.dispatch('licensePenalize/getPenalizeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
-        this.$store.dispatch('licenseGrade/getGradeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
-        this.$store.dispatch('licenseReason/getReasonList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
     }
   }
 }
@@ -253,5 +231,9 @@ export default {
 }
 header .el-header button {
   margin-right: 5px;
+}
+.table-container{
+    flex: 1;
+    overflow-y: scroll;
 }
 </style>
