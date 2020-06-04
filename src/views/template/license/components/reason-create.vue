@@ -3,24 +3,54 @@
     <el-form-item label="名称">
       <el-input v-model="form.name"></el-input>
     </el-form-item>
-
+<!-- 
     <el-form-item label="URL">
       <el-input v-model="form.url"></el-input>
+    </el-form-item> -->
+
+    <el-form-item label="关联处罚">
+      <el-select v-model="form.licenseTemplatePenalize">
+        <el-option
+          v-for="item in penalizeList"
+          :key="item.uuid"
+          :label="item.name"
+          :value="item.uuid"
+        ></el-option>
+      </el-select>
     </el-form-item>
 
-    <el-form-item label="惩罚">
-      <el-input v-model="form.penalize"></el-input>
+    <el-form-item label="严重程度">
+        <el-select v-model="form.reasonClassify">
+        <el-option
+          v-for="item in reasonClassifies"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
+    </el-form-item>
+
+    <el-form-item label="扣除分数">
+      <el-input-number
+        size="medium"
+        v-model="form.licenseReasonScore"
+        :min="0"
+      ></el-input-number>
+    </el-form-item>
+
+    <el-form-item label="是否启用">
+      <el-checkbox v-model="form.enable"></el-checkbox>
+    </el-form-item>
+
+    <el-form-item label="规则内容">
+        <el-input v-model="form.regulationContent"></el-input>
     </el-form-item>
 
     <el-form-item>
       <el-button type="primary" size="small" @click="handleConfirm">确定</el-button>
       <el-button type="danger" size="small" @click="handleCancel">取消</el-button>
     </el-form-item>
-
-    
-
   </el-form>
-
 </template>
 
 <script>
@@ -30,12 +60,16 @@ export default {
   data() {
     return {
       form: {
-        licenseTemplate: 0,
-        name: '',
-        org: 0,
-        penalize: '',
-        url: ''
+        reasonClassify: 'MILD',//['MILD','MODERATE','SEVERE']
+        regulationContent: '',
+        licenseReasonScore: 0, //扣除分数
+        licenseTemplate: 0, //关联证照
+        licenseTemplatePenalize: null, //关联处罚
+        name: '', //名称
+        org: 0, //企业
+        enable: false //是否启用
       },
+      reasonClassifies: [{value:'MILD',label:'轻度'},{value:'MODERATE',label:'中度'},{value:'SEVERE',label:'重度'}],
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -54,7 +88,8 @@ export default {
       currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
       departmentTemplates: state =>
         state.orgTemplate.currOrgTemplate.departmentTemplates,
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
+      penalizeList: state => state.licensePenalize.penalizeList
     })
   },
   mounted() {
@@ -69,7 +104,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('licensePenalize/addPenalize', payload)
+            .dispatch('licenseReason/addReason', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -98,9 +133,9 @@ export default {
     },
     refresh() {
       this.$store
-        .dispatch('licensePenalize/getPenalizeList', this.form.licenseTemplate)
+        .dispatch('licenseReason/getReasonList', this.form.licenseTemplate)
         .then(() => {
-          this.reload()
+          //   this.reload()
         })
         .catch(err => {
           this.$message({

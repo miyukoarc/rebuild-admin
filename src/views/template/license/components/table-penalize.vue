@@ -40,7 +40,9 @@ export default {
       loading: state => state.licenseReason.loading,
       penalizeList: state => state.licensePenalize.penalizeList,
       gradeList: state => state.licenseGrade.gradeList,
-      reasonList: state => state.licenseReason.reasonList
+      reasonList: state => state.licenseReason.reasonList,
+      userInfo: state => state.user.userInfo,
+      currentLicense: state => state.licenseTemplate.currentLicense
     })
   },
   methods: {
@@ -70,12 +72,13 @@ export default {
         .then(async () => {
           await this.$store
             .dispatch('licensePenalize/deletePenalize', payload)
-            .then(() => {
+            .then(async() => {
+              
+              await this.initDataList()
               this.$message({
                 type: 'success',
                 message: '操作成功'
               })
-              this.initDataList()
             })
             .catch(err => {
               this.$message({
@@ -90,8 +93,10 @@ export default {
     },
     initDataList() {
       this.$store
-        .dispatch('licensePenalize/getPenalizeList', this.orgId)
-        .then(() => {})
+        .dispatch('licensePenalize/getPenalizeList', this.currentLicense.uuid)
+        .then(() => {
+            console.log('1')
+        })
         .catch(err => {
           console.log(err)
         })

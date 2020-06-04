@@ -455,7 +455,7 @@ Content-Type: application/json
 }
 
 ### licenseReason licenseTemplateReasonId 
-@licenseTemplateReasonId = 1
+@licenseTemplateReasonId = 12
 GET http://{{hostname}}:{{examport}}/license/reason/queryList/{{licenseTemplateReasonId}} HTTP/1.1
 Authorization: Bearer 8b11a4e2-1380-48e3-bd21-e1e6893d3621
 

@@ -4,12 +4,37 @@
       <el-input v-model="form.name"></el-input>
     </el-form-item>
 
-    <el-form-item label="URL">
-      <el-input v-model="form.url"></el-input>
+    <el-form-item label="颜色分类">
+      <el-color-picker v-model="form.colour"></el-color-picker>
     </el-form-item>
 
-    <el-form-item label="惩罚">
-      <el-input v-model="form.penalize"></el-input>
+    <el-form-item label="积分区间">
+        <el-input-number size="medium" v-model="form.gradeBeginScore" :max="form.gradeEndScore" :min="0"></el-input-number>
+        <el-input-number size="medium" v-model="form.gradeEndScore" :min="form.gradeBeginScore"></el-input-number>
+    </el-form-item>
+
+    <el-form-item label="等级说明">
+        <el-input v-model="form.gradeExplanation"></el-input>
+    </el-form-item>
+
+    <el-form-item label="启用次数限制">
+      <el-checkbox v-model="form.enableCount"></el-checkbox>
+    </el-form-item>
+
+    <el-form-item label="违章限制(重)" v-if="form.enableCount">
+        <el-input-number size="medium" v-model="form.severeCount" :min="1"></el-input-number>
+    </el-form-item>
+
+    <el-form-item label="违章限制(中)" v-if="form.enableCount">
+        <el-input-number size="medium" v-model="form.moderateCount" :min="1"></el-input-number>
+    </el-form-item>
+
+    <el-form-item label="违章限制(轻)" v-if="form.enableCount">
+        <el-input-number size="medium" v-model="form.mildCount" :min="1"></el-input-number>
+    </el-form-item>
+
+    <el-form-item label="默认使用">
+      <el-checkbox v-model="form.useByDefault"></el-checkbox>
     </el-form-item>
 
     <el-form-item>
@@ -30,12 +55,20 @@ export default {
   data() {
     return {
       form: {
-        licenseTemplate: 0,
-        name: '',
+        colour: 'string',
+        enableCount: false,//次数限制
+        gradeBeginScore: 0,//区间
+        gradeEndScore: 0,//区间
+        gradeExplanation: 'string',//等级说明
+        // isEnableCount: true,//
+        licenseTemplate: 0,//关联侦照
+        mildCount: 0,//轻度违章次数限制
+        moderateCount: 0,//中度违章次数限制
+        name: 'string',
         org: 0,
-        penalize: '',
-        url: '',
-        uuid: 0
+        severeCount: 0,//严重违章次数限制
+        useByDefault: true,//默认使用
+        uuid:0,
       },
       rules: {
         name: [
@@ -49,23 +82,42 @@ export default {
       }
     }
   },
+
   computed: {
     ...mapState({
       currentLicenseTemplate: state => state.licenseTemplate.currentLicense,
       currOrgTemplate: state => state.orgTemplate.currOrgTemplate,
       departmentTemplates: state => state.orgTemplate.currOrgTemplate.departmentTemplates,
       userInfo: state => state.user.userInfo,
-      currentPenalize: state => state.licensePenalize.currentPenalize
+      currentGrade: state => state.licenseGrade.currentGrade
     })
   },
-  watch: {
-
+   watch:{
+      'form.enableCount':{
+          handler(newVal, oldVal){
+              console.log(newVal,'!!!')
+              if(newVal){
+                  console.log(newVal)
+                  this.$set(this.form,'mildCount',0)
+                  this.$set(this.form,'moderateCount',0)
+                  this.$set(this.form,'severeCount',0)
+              }
+              if(!newVal){
+                  console.log(newVal)
+                  this.$delete(this.form,'mildCount')
+                  this.$delete(this.form,'moderateCount')
+                  this.$delete(this.form,'severeCount')
+              }
+          },
+          immediate:true,
+        //   deep:true
+      },
   },
   mounted() {
     this.form.org = this.userInfo.org.uuid
     this.form.licenseTemplate = this.currentLicenseTemplate.uuid
-    this.form.uuid = this.currentPenalize.uuid
-    this.$bus.$on('transferCurrentPenalize',target=>{
+    this.form.uuid = this.currentGrade.uuid
+    this.$bus.$on('transferCurrentGrade',target=>{
         console.log(target)
         for(let key in this.form){
             for(let aim in target){
@@ -77,7 +129,7 @@ export default {
     })
   },
   beforeDestroy(){
-      this.$bus.$off('transferCurrentPenalize')
+      this.$bus.$off('transferCurrentGrade')
   },
   methods: {
     handleConfirm() {
@@ -88,7 +140,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('licensePenalize/addPenalize', payload)
+            .dispatch('licenseGrade/updateGrade', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -117,9 +169,9 @@ export default {
     },
     refresh() {
       this.$store
-        .dispatch('licensePenalize/getPenalizeList', this.form.licenseTemplate)
+        .dispatch('licenseGrade/getGradeList', this.form.licenseTemplate)
         .then(() => {
-          this.reload()
+        //   this.reload()
         })
         .catch(err => {
           this.$message({

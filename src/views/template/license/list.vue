@@ -25,32 +25,29 @@
         border
         @row-click="handleDetail"
       >
-      <el-table-column
-          label="序号"
-          width="55"
-          type="index"
-          align="center"
-        ></el-table-column>
+        <el-table-column label="序号" width="55" type="index" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
         <!-- <el-table-column label="规则" align="center"></el-table-column>
         <el-table-column label="处罚措施" align="center"></el-table-column>
-        <el-table-column label="等级" align="center"></el-table-column> -->
+        <el-table-column label="等级" align="center"></el-table-column>-->
         <el-table-column prop="licenseType" label="证照类型" align="center"></el-table-column>
+        <el-table-column prop="licenseNum" label="证号格式" align="center"></el-table-column>
         <el-table-column label="有效期" align="center">
-            <template v-slot="scope">
-                <div>
-                    <span>{{scope.row.duration}}</span>
-                    <span>{{scope.row.durationType}}</span>
-                </div>
-            </template>
+          <template v-slot="scope">
+            <div>
+              <span>{{scope.row.duration}}</span>
+              <span>{{scope.row.durationType}}</span>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column label="地区" align="center">
-
-            <template v-slot="scope">
-                <div><span>{{scope.row.country}}</span>
-                <span>{{scope.row.province}}</span>
-                <span>{{scope.row.city}}</span></div>
-            </template>
+          <template v-slot="scope">
+            <div>
+              <span>{{scope.row.country}}</span>
+              <span>{{scope.row.province}}</span>
+              <span>{{scope.row.city}}</span>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="240">
           <template slot-scope="scope">
@@ -107,7 +104,8 @@ export default {
     ...mapState({
       page: state => state.orgTemplate.page,
       orgTemplateList: state => state.orgTemplate.orgTemplateList,
-      departmentTemplates: state => state.departmentTemplate.departmentTemplates,
+      departmentTemplates: state =>
+        state.departmentTemplate.departmentTemplates,
       loading: state => state.licenseTemplate.loading,
       orgId: state => state.user?.userInfo?.org?.uuid,
       licenseList: state => state.licenseTemplate?.licenseList
@@ -158,19 +156,14 @@ export default {
     },
     initDataList() {
       this.$store
-        .dispatch(
-          'licenseTemplate/getLicenseList',
-          this.orgId
-        )
-        .then(()=>{
-
-        })
+        .dispatch('licenseTemplate/getLicenseList', this.orgId)
+        .then(() => {})
         .catch(err => {
-            console.log(err)
-        //   this.$message({
-        //     type: 'error',
-        //     message: err
-        //   })
+          console.log(err)
+          //   this.$message({
+          //     type: 'error',
+          //     message: err
+          //   })
         })
 
       // this.$store
@@ -216,11 +209,11 @@ export default {
         })
     },
     handleDetail(val) {
-        console.log(val)
-        this.$store
+      console.log(val)
+      this.$store
         .dispatch('licenseTemplate/getLicenseByOne', val.uuid)
         .then(() => {
-            this.$store.commit('component/TOGGLE_PANEL', true);
+          this.$store.commit('component/TOGGLE_PANEL', true)
         })
         .catch(err => {
           this.$message({
@@ -229,12 +222,26 @@ export default {
           })
         })
 
-        this.$store.dispatch('licensePenalize/getPenalizeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
+      this.$store
+        .dispatch('licensePenalize/getPenalizeList', val.uuid)
+        .then(() => {})
+        .catch(err => {
+          console.log(err)
+        })
 
-        this.$store.dispatch('licenseGrade/getGradeList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
+      this.$store
+        .dispatch('licenseGrade/getGradeList', val.uuid)
+        .then(() => {})
+        .catch(err => {
+          console.log(err)
+        })
 
-        this.$store.dispatch('licenseReason/getReasonList', val.uuid).then(()=>{}).catch(err=>{console.log(err)})
-
+      this.$store
+        .dispatch('licenseReason/getReasonList', val.uuid)
+        .then(() => {})
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

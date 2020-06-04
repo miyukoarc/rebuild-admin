@@ -88,7 +88,7 @@ export default {
         if (valid) {
           console.log(payload)
           this.$store
-            .dispatch('licensePenalize/addPenalize', payload)
+            .dispatch('licensePenalize/updatePenalize', payload)
             .then(() => {
               this.$message({
                 type: 'success',
@@ -119,7 +119,7 @@ export default {
       this.$store
         .dispatch('licensePenalize/getPenalizeList', this.form.licenseTemplate)
         .then(() => {
-          this.reload()
+        //   this.reload()
         })
         .catch(err => {
           this.$message({
